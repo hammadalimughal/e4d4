@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Project</title>
+    <link rel="icon" href="assets/img/tab_logo.png">
+
+    <!-- BOOTSTRAP CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- FONTAWESOME ICON CSS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- OWN CSS LINKED HERE -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR STARTS HERE -->
+    <header>
+        <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200"
+            data-aos-easing="ease-in-sine">
+            <div class="container">
+                <a class="navbar-brand" href="#"><strong class="main-logo">E4</strong>D4</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav own-navbar-nav own-navbar-nav2 ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Categories</a>
+                        </li>
+                        <li class="nav-item px-4">
+                            <a class="nav-link" href="#">Business Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+                                HOME</button>
+                        </li>
+                        <li>
+                            <a href=""><img src="assets/img/dashboard-img.png" alt="" class="dash-img"></a>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="logout-btn">
+                                LOGOUT <i class="bi bi-box-arrow-left  px-1"></i></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- NAVBAR ENDS HERE -->
+
+
+
+    <!-- DASHBOARD MAIN SECTION STARTS HERE -->
+    <section class="dashboard-main-section">
+        <div class="container d-flex flex-column justify-content-center align-items-center mb-5" data-aos="fade-up"
+            data-aos-duration="3200" data-aos-easing="ease-in-sine">
+            <div class="dashboard-main-setting">
+                <div class="profile-history">
+                    <div class="profile-person-history">
+                        <img src="assets/img/dashboard-img.png" alt="">
+                        <div class="px-3">
+                            <h6>James Edward<span> ( Edit Portfolio )</span></h6>
+                            <span>Enter Subheading</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap justify-content-center">
+
+                        <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
+                        <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+                            + Make New Search</button>
+                    </div>
+                </div>
+
+                <div class="my-4 history-btn-design">
+                    <button type="button" class="dash-btn">
+                        Home</button>
+                    <button type="button" class="dash-btn">
+                        Show History</button>
+                </div>
+
+                <form class="row">
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Location history">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Industry Search">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Position Search">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Business Search (Option)">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                </form>
+
+                <h5 class="fw-bold mt-5 mb-4">Shortlisted Companies / Businesses</h5>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="shortlisted-companies">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="company-name">Company Name</h6>
+                                    <div class="company-loc">Location : Sydney, Australia</div>
+                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="company_request_btn"> + Send Connection
+                                        Request</button>
+                                </div>
+                            </div>
+                            <div class="company-position">
+                                <span class="company-position-offer">Offered Positions:</span>
+                                <div class="position-details">
+                                    <span>Manager</span>
+                                    <span>Accountants</span>
+                                    <span>Developers</span>
+                                    <span>Show More</span>
+                                </div>
+
+                            </div>
+                            <div class="company-link">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
+                            </div>
+                            <button type="button" class="dash-btn my-3">
+                                Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button>
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="shortlisted-companies">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="company-name">Company Name</h6>
+                                    <div class="company-loc">Location : Sydney, Australia</div>
+                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="company_request_btn"> + Send Connection
+                                        Request</button>
+                                </div>
+                            </div>
+                            <div class="company-position">
+                                <span class="company-position-offer">Offered Positions:</span>
+                                <div class="position-details">
+                                    <span>Manager</span>
+                                    <span>Accountants</span>
+                                    <span>Developers</span>
+                                    <span>Show More</span>
+                                </div>
+
+                            </div>
+                            <div class="company-link">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="shortlisted-companies">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="company-name">Company Name</h6>
+                                    <div class="company-loc">Location : Sydney, Australia</div>
+                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="company_request_btn"> + Send Connection
+                                        Request</button>
+                                </div>
+                            </div>
+                            <div class="company-position">
+                                <span class="company-position-offer">Offered Positions:</span>
+                                <div class="position-details">
+                                    <span>Manager</span>
+                                    <span>Accountants</span>
+                                    <span>Developers</span>
+                                    <span>Show More</span>
+                                </div>
+
+                            </div>
+                            <div class="company-link">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="shortlisted-companies">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="company-name">Company Name</h6>
+                                    <div class="company-loc">Location : Sydney, Australia</div>
+                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="company_request_btn"> + Send Connection
+                                        Request</button>
+                                </div>
+                            </div>
+                            <div class="company-position">
+                                <span class="company-position-offer">Offered Positions:</span>
+                                <div class="position-details">
+                                    <span>Manager</span>
+                                    <span>Accountants</span>
+                                    <span>Developers</span>
+                                    <span>Show More</span>
+                                </div>
+
+                            </div>
+                            <div class="company-link">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="shortlisted-companies">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="company-name">Company Name</h6>
+                                    <div class="company-loc">Location : Sydney, Australia</div>
+                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="company_request_btn"> + Send Connection
+                                        Request</button>
+                                </div>
+                            </div>
+                            <div class="company-position">
+                                <span class="company-position-offer">Offered Positions:</span>
+                                <div class="position-details">
+                                    <span>Manager</span>
+                                    <span>Accountants</span>
+                                    <span>Developers</span>
+                                    <span>Show More</span>
+                                </div>
+
+                            </div>
+                            <div class="company-link">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="shortlisted-companies">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="company-name">Company Name</h6>
+                                    <div class="company-loc">Location : Sydney, Australia</div>
+                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="company_request_btn"> + Send Connection
+                                        Request</button>
+                                </div>
+                            </div>
+                            <div class="company-position">
+                                <span class="company-position-offer">Offered Positions:</span>
+                                <div class="position-details">
+                                    <span>Manager</span>
+                                    <span>Accountants</span>
+                                    <span>Developers</span>
+                                    <span>Show More</span>
+                                </div>
+
+                            </div>
+                            <div class="company-link">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="shortlisted-companies">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="company-name">Company Name</h6>
+                                    <div class="company-loc">Location : Sydney, Australia</div>
+                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="button" class="company_request_btn"> + Send Connection
+                                        Request</button>
+                                </div>
+                            </div>
+                            <div class="company-position">
+                                <span class="company-position-offer">Offered Positions:</span>
+                                <div class="position-details">
+                                    <span>Manager</span>
+                                    <span>Accountants</span>
+                                    <span>Developers</span>
+                                    <span>Show More</span>
+                                </div>
+
+                            </div>
+                            <div class="company-link">
+                                <i class="fa-solid fa-globe"></i>
+                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+        <!-- SEND DETAILS SECTION STARTS HERE -->
+        <div class="container d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
+            data-aos-duration="3200" data-aos-easing="ease-in-sine">
+            <div class="dashboard-main-setting">
+                <div class="profile-history">
+                    <div class="profile-person-history">
+                        <img src="assets/img/dashboard-img.png" alt="">
+                        <div class="px-3">
+                            <h6>James Edward<span> ( Edit Portfolio )</span></h6>
+                            <span>Enter Subheading</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap justify-content-center">
+
+                        <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
+                        <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+                            + Make New Search</button>
+                    </div>
+                </div>
+
+                <div class="my-4 history-btn-design">
+                    <button type="button" class="dash-btn">
+                        Home</button>
+                    <button type="button" class="dash-btn">
+                        Show History</button>
+                </div>
+
+                <form class="row">
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Location history">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Industry Search">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Position Search">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Business Search (Option)">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                </form>
+
+
+
+                <h5 class="fw-bold mt-5 mb-4">Select Customized Data Which You Want To Share</h5>
+                <div class="data-choices-dm">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Your Name
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Your Email Address
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Your Phone Number
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Your Address
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Your Education Details
+                        </label>
+                    </div>
+                </div>
+
+
+
+
+                <h5 class="fw-bold mt-5 mb-4">Previous Company History <span class="text-grey">( Customized Selection
+                        )</span></h5>
+                <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Company A Details
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Company B Details
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Company C Details
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Company D Details
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <h5 class="fw-bold mt-5 mb-4">Select Documents</h5>
+                <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
+                    <div>
+                        <div class="select-documents">
+                            <i class="fa-regular fa-file"></i>
+                        </div>
+                        <div class="d-flex justify-content-center mt-2">Resume</div>
+                    </div>
+
+                    <div>
+                        <div class="select-documents">
+                            <i class="fa-regular fa-file"></i>
+                        </div>
+                        <div class="d-flex justify-content-center mt-2">Cover Letter</div>
+                    </div>
+
+                    <div>
+                        <div class="select-documents">
+                            <i class="fa-regular fa-file"></i>
+                        </div>
+                        <div class="d-flex justify-content-center mt-2">Law Degree</div>
+                    </div>
+
+                    <div>
+                        <div class="select-documents">
+                            <i class="fa-regular fa-file"></i>
+                        </div>
+                        <div class="d-flex justify-content-center mt-2">RSA Cert</div>
+                    </div>
+
+                </div>
+
+
+
+                <h5 class="fw-bold mt-5 mb-4">Social Links</h5>
+                <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            LinkedIn
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Twitter
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Facebook
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Instagram
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="button" class="dash-btn mt-4">SEND</button>
+                </div>
+            </div>
+        </div>
+        <!-- SEND DETAILS SECTION ENDS HERE -->
+
+
+
+        <!-- CONGRATS SECTION STARTS HERE -->
+        <div class="container d-flex flex-column justify-content-center align-items-center my-5" data-aos="fade-up"
+            data-aos-duration="3200" data-aos-easing="ease-in-sine">
+            <div class="dashboard-main-setting">
+                <div class="profile-history">
+                    <div class="profile-person-history">
+                        <img src="assets/img/dashboard-img.png" alt="">
+                        <div class="px-3">
+                            <h6>James Edward<span> ( Edit Portfolio )</span></h6>
+                            <span>Enter Subheading</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-wrap justify-content-center">
+
+                        <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
+                        <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+                            + Make New Search</button>
+                    </div>
+                </div>
+
+                <div class="my-4 history-btn-design">
+                    <button type="button" class="dash-btn">
+                        Home</button>
+                    <button type="button" class="dash-btn">
+                        Show History</button>
+                </div>
+
+                <form class="row">
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Location history">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Industry Search">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Position Search">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 ">
+                        <div class="history-input-design">
+                            <input type="text" class="" placeholder="Business Search (Option)">
+                            <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="final-portion">
+                    <img src="assets/img/party.png" alt="">
+                    <h3>Congratulations</h3>
+                    <h5 class="">Your information has been sent successfully to the company.</h5>
+                    <button type="button" class="dash-btn mt-4">Go Back To Dashboard</button>
+
+                </div>
+            </div>
+        </div>
+        <!-- CONGRATS SECTION ENDS HERE -->
+
+
+
+
+    </section>
+    <!-- DASHBOARD MAIN SECTION ENDS HERE -->
+
+
+
+
+
+    <!-- QUERRY WORKS STARTS HERE -->
+    <section class="call-to-action" data-aos="zoom-in-left" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center call-to-action-row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h1 class="text-white">Have Query?<br><span>Let’s Get Connected!</span></h1>
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="input-group own-input-tag">
+                        <input type="email" class="form-control pb-4" id="form-content"
+                            placeholder="Enter Your Email Address.." aria-label="Email address"
+                            aria-describedby="email-addon">
+                        <span class="input-group-text pb-4" id="email-addon"><i class="bi bi-send-arrow-up"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- QUERRY WORKS ENDS HERE -->
+
+
+
+
+    <!-- FOOTER WORKS STARTS HERE -->
+    <section class="footer">
+        <div class="container">
+            <div class="row upper-footer" data-aos="fade-right" data-aos-duration="3100" data-aos-easing="ease-in-sine">
+                <div class="col-lg-3 footer-left">
+                    <a class="footer-logo"><strong class="main-logo">E4</strong>D4</a>
+                    <p class="text-white mb-2">Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry. Lorem Ipsum has been the industry.</p>
+                    <div class="icons d-flex gap-4 pt-3">
+                        <a href="https://www.instagram.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.twitter.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="https://www.tiktok.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.linkedin.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-9 mobile-footer">
+                    <div class="row footer-right">
+                        <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
+                            <h3 class="text-white">Quick Links</h3>
+                            <ul class="text-white">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="categories.html">Categories</a></li>
+                                <li><a href="business.html">Business</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 d-flex flex-column align-content-center flex-wrap gap-4 footer-links">
+                            <h3 class="text-white">Business</h3>
+                            <ul class="text-white">
+                                <li><a href="#advertise">Advertise With Us</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="#add-business">Add A Business</a></li>
+                                <li><a href="#handling-reviews">Handling Reviews</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
+                            <h3 class="text-white">Contact Us</h3>
+                            <ul>
+                                <li class="text-secondary email">Email: <a
+                                        href="mailto:finddabs24@yahoo.com">finddabs24@yahoo.com</a></li>
+                                <li class="text-secondary phone">Phone: <a href="tel:+19785042054">978.504.2054</a></li>
+                                <li class="text-secondary">Address: <a
+                                        href="https://www.google.com/maps/search/?api=1&query=117+Eastern+Avenue"
+                                        target="_blank">117 Eastern Avenue</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row lower-footer d-flex justify-content-between align-content-center">
+                <div class="col-lg-6 col-sm-6 d-flex justify-content-start">
+                    <p class="text-white">Copyright @ 2024. All Right Reserved.</p>
+                </div>
+                <div class="col-lg-6 col-sm-6 d-flex justify-content-end">
+                    <p class="text-white">Terms & Conditions | Privacy Policy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER WORKS ENDS HERE -->
+
+
+
+
+
+
+    <!-- BOOTSTRAP JS CDN LINKED HERE  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FONTAWESOME ICON JS CDN LINKED HERE  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+
+    <!-- AOS ANIMATION JS CDN LINKED HERE  -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <!-- OWN JS LINED HERE -->
+    <script src="assets/js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Project</title>
+    <link rel="icon" href="assets/img/tab_logo.png">
+
+    <!-- BOOTSTRAP CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- FONTAWESOME ICON CSS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+
+    <!-- OWN CSS LINKED HERE -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR STARTS HERE -->
+    <header>
+        <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200"
+            data-aos-easing="ease-in-sine">
+            <div class="container">
+                <a class="navbar-brand" href="#"><strong class="main-logo">E4</strong>D4</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav own-navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Categories</a>
+                        </li>
+                        <li class="nav-item px-4">
+                            <a class="nav-link" href="#">Business Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="top-btn">LOGIN</button>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="top-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    SIGN UP
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">TALENT</a></li>
+                                    <li><a class="dropdown-item" href="#">BUSINESS</a></li>
+
+                                </ul>
+                            </div>
+                            <!-- <button type="button" class="top-btn">SIGN UP</button> -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- NAVBAR ENDS HERE -->
+
+
+
+    <section class="portfolio-section">
+        <div class="container d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
+            data-aos-duration="3200" data-aos-easing="ease-in-sine">
+
+
+            <!-- NO 1 portfolio WORKS STARTS HERE -->
+            <div class="portfolio_width_setting portfolio-form">
+                <div class="text-center">
+                    <h1 class="fw-bold">Portfolio Registration</h1>
+                </div>
+                <form class="row">
+                    <div class="col-md-6 portfolio-form-design">
+                        <label for="fname" class="form-label">Full Name*</label>
+                        <input type="name" class="form-control" id="inputEmail4" placeholder="Enter Full Name...">
+                    </div>
+                    <div class="col-md-6 portfolio-form-design">
+                        <label for="inputEmail4" class="form-label">Email Address*</label>
+                        <input type="email" class="form-control" id="inputEmail4" placeholder="Enter Email Address...">
+                    </div>
+                    <div class="col-md-6 portfolio-form-design">
+                        <label for="inputPassword4" class="form-label">Password*</label>
+                        <input type="password" class="form-control" id="inputPassword4" placeholder="Enter Password...">
+                    </div>
+                    <div class="col-md-6 portfolio-form-design">
+                        <label for="inputPassword4" class="form-label">Re-Enter Password*</label>
+                        <input type="password" class="form-control" id="inputPassword4"
+                            placeholder="Re-Enter Password...">
+                    </div>
+                    <div class="col-md-6  portfolio-form-design">
+                        <label for="inputAddress" class="form-label">Suburb*</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Enter  Address...">
+                    </div>
+
+                    <div class="col-md-6  portfolio-form-design">
+                        <label for="ContactNumber" class="form-label">Contact Number*</label>
+                        <input type="number" class="form-control" id="ContactNumber" placeholder="Enter Number...">
+                    </div>
+
+                    <div class="col-md-6 portfolio-form-design">
+                        <label for="EducationLevel" class="form-label">Education Level*</label>
+                        <select id="EducationLevel" class="form-select">
+                            <option selected>Select Education Level</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 portfolio-form-design">
+                        <label for="Skills" class="form-label">Skills*</label>
+                        <select id="Skills" class="form-select">
+                            <option selected>Select Skills...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-12 portfolio-form-design">
+                        <label for="Interests" class="form-label">Industry Of Interests*</label>
+                        <select id="Interests" class="form-select">
+                            <option selected>Select Industry</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-check portfolio-form-design d-flex justify-content-center">
+                            <input class="form-check-input mx-3 mb-5" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                                I have read, understood and accept the Terms & Conditions </label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="submit-btn-portfolio btn-portfolio"
+                            data-next-class="weekavail_width_setting">CREATE ACCOUNT</button>
+
+                    </div>
+                </form>
+            </div>
+            <!-- portfolio WORKS ENDS HERE -->
+
+
+            <!--  NO 2 WEEK AVAILABLES WORKS STARTS HERE -->
+            <div class="weekavail_width_setting portfolio-form display-none">
+                <div class="text-center">
+                    <h1>In How Many Weeks Will You Be Available?</h1>
+                </div>
+
+                <form class="row form-design">
+
+                    <div class="weekavail-width-inner mt-5">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">1 WEEK</label>
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">2 WEEKS</label>
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">3 WEEKS</label>
+
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">4 WEEKS</label>
+
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">Others</label>
+                        </div>
+
+                    </div>
+
+                    <button type="button" class="next-btn py-3 btn-portfolio"
+                        data-next-class="preferwork-section">NEXT</button>
+
+                </form>
+
+            </div>
+            <!-- WEEK AVAILABLES WORKS ENDS HERE -->
+
+
+            <!--  NO 3 PREFERRED WORKS STARTS HERE -->
+            <div class="weekavail_width_setting preferwork-section portfolio-form display-none">
+                <div class="text-center">
+                    <h1>Preferred Work Type?</h1>
+                </div>
+
+                <form class="row form-design">
+
+                    <div class="weekavail-width-inner mt-5">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">Part Time</label>
+
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">Full Time</label>
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">Contract</label>
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">Casual</label>
+
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">Hybrid (Remote and Office)</label>
+
+                        </div>
+
+                    </div>
+                    <div class="weekavail-width-inner">
+                        <div class="col-12 weekavail-form-design">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                            <label class="btn" for="btn-check-outlined">Remote</label>
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" class="next-btn py-3 btn-portfolio"
+                        data-next-class="classification-section">NEXT</button>
+
+                </form>
+
+            </div>
+            <!-- PREFERRED WORKS ENDS HERE -->
+
+
+
+            <!--  NO 4 CLASSIFICATIONS WORKS STARTS HERE -->
+            <div class="weekavail_width_setting classification-section portfolio-form display-none">
+                <div class="text-center">
+                    <h1>Work Classification</h1>
+                </div>
+                <form class="row form-design">
+                    <div class="weekavail-width-inner mt-5">
+                        <div class="col-12 portfolio-form-design">
+
+                            <select id="Classification" class="form-select">
+                                <option selected>Any Classification </option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="next-btn py-3 btn-portfolio"
+                        data-next-class="preferloc-section">NEXT</button>
+                </form>
+                <!-- CLASSIFICATIONS WORKS ENDS HERE -->
+
+
+            </div>
+            <!-- CLASSIFICATIONS WORKS ENDS HERE -->
+
+
+
+            <!--  NO 5 PREFER LOCATION WORKS STARTS HERE -->
+            <div class="weekavail_width_setting preferloc-section portfolio-form display-none">
+                <div class="text-center">
+                    <h1>Preferred Location To Work</h1>
+                </div>
+
+                <form class="row form-design">
+                    <div class="weekavail-width-inner mt-5">
+                        <div class="col-12 portfolio-form-design">
+
+                            <select id="Classification" class="form-select">
+                                <option selected>Select Preferred Location To Work</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="next-btn py-3 btn-portfolio"
+                        data-next-class="positionint-section">NEXT</button>
+                </form>
+
+            </div>
+            <!-- PREFER LOCATION  ENDS HERE -->
+
+
+
+
+            <!--  NO 6 Position Type Interested  STARTS HERE -->
+            <div class="weekavail_width_setting positionint-section portfolio-form display-none">
+                <div class="text-center">
+                    <h1>Position Type Interested</h1>
+                </div>
+                <form class="row form-design">
+                    <div class="weekavail-width-inner mt-5">
+                        <div class="col-12 portfolio-form-design">
+
+                            <select id="Classification" class="form-select">
+                                <option selected>Select Position Type</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="next-btn py-3 btn-portfolio"
+                        data-next-class="salaryexcept-section">NEXT</button>
+                </form>
+
+
+            </div>
+            <!-- Position Type Interested  ENDS HERE -->
+
+
+
+
+            <!--  NO 7 Salary Expectation WORKS STARTS HERE -->
+            <div class="weekavail_width_setting salaryexcept-section portfolio-form display-none">
+                <div class="text-center">
+                    <h1>Salary Expectation</h1>
+                </div>
+                <form class="row form-design">
+                    <div class="weekavail-width-inner mt-5">
+                        <div class="col-12 portfolio-form-design">
+
+                            <input type="number" class="form-control" id="salary"
+                                placeholder="Enter Salary Range  ( For e.g $20,000 - $30,000 )">
+                        </div>
+                    </div>
+                    <button type="button" class="next-btn py-3 btn-portfolio"
+                        data-next-class="regcomplete-section">NEXT</button>
+                </form>
+
+
+            </div>
+            <!--Salary Expectation WORKS ENDS HERE -->
+
+
+
+
+            <!-- NO 8 REGISTRATION COMPLETED WORKS STARTS HERE -->
+            <div class="weekavail_width_setting regcomplete-section portfolio-form display-none">
+                <div class="text-center reg-icon">
+                    <i class="bi bi-patch-check"></i>
+                    <h1 class="mx-3 mb-5">Registration Completed</h1>
+                    <h6 class="fw-bold mb-3 ">Check Your Email / Phone For Verification</h6>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.
+                    </p>
+                </div>
+
+                <button type="button" class="next-btn py-3" onclick="location.href= 'dashboard.html'">CONTINUE</button>
+
+
+            </div>
+            <!--REGISTRATION COMPLETED WORKS ENDS HERE -->
+
+
+
+        </div>
+    </section>
+
+
+
+    <!-- QUERRY WORKS STARTS HERE -->
+    <section class="call-to-action" data-aos="zoom-in-left" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center call-to-action-row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h1 class="text-white">Have Query?<br><span>Let’s Get Connected!</span></h1>
+                </div>
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="input-group own-input-tag">
+                        <input type="email" class="form-control pb-4" id="form-content"
+                            placeholder="Enter Your Email Address.." aria-label="Email address"
+                            aria-describedby="email-addon">
+                        <span class="input-group-text pb-4" id="email-addon"><i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- QUERRY WORKS ENDS HERE -->
+
+
+
+
+    <!-- FOOTER WORKS STARTS HERE -->
+    <section class="footer">
+        <div class="container">
+            <div class="row upper-footer" data-aos="fade-right" data-aos-duration="3100" data-aos-easing="ease-in-sine">
+                <div class="col-lg-3 footer-left">
+                    <a class="footer-logo"><strong class="main-logo">E4</strong>D4</a>
+                    <p class="text-white mb-2">Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry. Lorem Ipsum has been the industry.</p>
+                    <div class="icons d-flex gap-4 pt-3">
+                        <a href="https://www.instagram.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.twitter.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                        <a href="https://www.tiktok.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.linkedin.com" class="icon-background d-flex">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-9 mobile-footer">
+                    <div class="row footer-right">
+                        <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
+                            <h3 class="text-white">Quick Links</h3>
+                            <ul class="text-white">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="categories.html">Categories</a></li>
+                                <li><a href="business.html">Business</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 d-flex flex-column align-content-center flex-wrap gap-4 footer-links">
+                            <h3 class="text-white">Business</h3>
+                            <ul class="text-white">
+                                <li><a href="#advertise">Advertise With Us</a></li>
+                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="#add-business">Add A Business</a></li>
+                                <li><a href="#handling-reviews">Handling Reviews</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
+                            <h3 class="text-white">Contact Us</h3>
+                            <ul>
+                                <li class="text-secondary email">Email: <a
+                                        href="mailto:finddabs24@yahoo.com">finddabs24@yahoo.com</a></li>
+                                <li class="text-secondary phone">Phone: <a href="tel:+19785042054">978.504.2054</a></li>
+                                <li class="text-secondary">Address: <a
+                                        href="https://www.google.com/maps/search/?api=1&query=117+Eastern+Avenue"
+                                        target="_blank">117 Eastern Avenue</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row lower-footer d-flex justify-content-between align-content-center">
+                <div class="col-lg-6 col-sm-6 d-flex justify-content-start">
+                    <p class="text-white">Copyright @ 2024. All Right Reserved.</p>
+                </div>
+                <div class="col-lg-6 col-sm-6 d-flex justify-content-end">
+                    <p class="text-white">Terms & Conditions | Privacy Policy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER WORKS ENDS HERE -->
+
+
+
+
+
+
+
+
+    <!-- BOOTSTRAP JS CDN LINKED HERE  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- FONTAWESOME ICON JS CDN LINKED HERE  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+
+    <!-- AOS ANIMATION JS CDN LINKED HERE  -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script>
+        const nextBtn = document.querySelectorAll(".btn-portfolio")
+        const forms = document.querySelectorAll(".portfolio-form")
+        nextBtn.forEach((btn) => {
+            btn.addEventListener("click", function (e) {
+                forms.forEach((form) => {
+                    form.classList.add("display-none")
+                })
+                document.querySelector(`.${e.target.getAttribute("data-next-class")}`).classList.remove("display-none")
+            })
+        })
+    </script>
+
+
+
+    <!-- OWN JS LINED HERE -->
+    <script src="assets/js/script.js"></script>
+
+
+
+
+</body>
+
+</html>
