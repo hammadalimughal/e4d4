@@ -6,55 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Latest Project</title>
     <%- include('./partials/csslinks') %>
-
 </head>
 
 <body>
-
-    <!-- NAVBAR STARTS HERE -->
-    <header>
-        <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200"
-            data-aos-easing="ease-in-sine">
-            <div class="container">
-                <a class="navbar-brand" href="#"><strong class="main-logo">E4</strong>D4</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                    <ul class="navbar-nav own-navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Categories</a>
-                        </li>
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="#">Business Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <button type="button" class="top-btn">LOGIN</button>
-                        </li>
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button class="top-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    SIGN UP
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="join.html">TALENT</a></li>
-                                    <li><a class="dropdown-item" href="businessregistration.html">BUSINESS</a></li>
-                                </ul>
-                            </div>
-                            <!-- <button type="button" class="top-btn">SIGN UP</button> -->
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- NAVBAR ENDS HERE -->
-
-
-
+    <%- include('./partials/header') %>
     <!-- BANNER  WORKS STARTS HERE -->
     <section class="hero-section d-flex justify-content-center align-items-center mb-4">
         <div class="container" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
@@ -279,21 +234,21 @@
                             experiences offered by small businesses within your area. Benefits include</p>
                         <div
                             class="col-lg-4 d-flex flex-column justify-content-center align-items-center gap-5 svg-col">
-                            <img src="assets/img/02.svg" alt="svg1">
+                            <img src="/assets/img/02.svg" alt="svg1">
                             <h3 class="fs-5">FIND A JOB</h3>
                             <P class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting
                                 industry. Lorem Ipsum.</P>
                         </div>
                         <div
                             class="col-lg-4 d-flex flex-column justify-content-center align-items-center gap-5 svg-col">
-                            <img src="assets/img/03.svg" alt="svg2">
+                            <img src="/assets/img/03.svg" alt="svg2">
                             <h3 class="fs-5">REAL REVIEWS</h3>
                             <P class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting
                                 industry. Lorem Ipsum.</P>
                         </div>
                         <div
                             class="col-lg-4 d-flex flex-column justify-content-center align-items-center gap-5 svg-col">
-                            <img src="assets/img/04.svg" alt="svg3">
+                            <img src="/assets/img/04.svg" alt="svg3">
                             <h3 class="fs-5">SHARE A LOVE</h3>
                             <P class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting
                                 industry. Lorem Ipsum. </P>
@@ -315,21 +270,21 @@
                         <p class="text-center py-2 main-line">Let your business flourish and shine</p>
                         <div
                             class="col-lg-4 d-flex flex-column justify-content-center align-items-center gap-5 svg-col">
-                            <img src="assets/img/02.svg" alt="svg1">
+                            <img src="/assets/img/02.svg" alt="svg1">
                             <h3 class="fs-5">FIND A JOB</h3>
                             <P class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting
                                 industry. Lorem Ipsum.</P>
                         </div>
                         <div
                             class="col-lg-4 d-flex flex-column justify-content-center align-items-center gap-5 svg-col">
-                            <img src="assets/img/03.svg" alt="svg2">
+                            <img src="/assets/img/03.svg" alt="svg2">
                             <h3 class="fs-5">REAL REVIEWS</h3>
                             <P class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting
                                 industry. Lorem Ipsum. </P>
                         </div>
                         <div
                             class="col-lg-4 d-flex flex-column justify-content-center align-items-center gap-5 svg-col">
-                            <img src="assets/img/04.svg" alt="svg3">
+                            <img src="/assets/img/04.svg" alt="svg3">
                             <h3 class="fs-5">SHARE A LOVE</h3>
                             <P class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting
                                 industry. Lorem Ipsum.</P>
@@ -622,126 +577,9 @@
     </section>
     <!-- CATEGORIES WORKS ENDS HERE -->
 
-
-
-
-
-    <!-- QUERRY WORKS STARTS HERE -->
-    <section class="call-to-action" data-aos="zoom-in-left" data-aos-duration="3200" data-aos-easing="ease-in-sine">
-        <div class="container">
-            <div class="row d-flex justify-content-center align-items-center call-to-action-row">
-                <div class="col-lg-6 col-md-8 col-sm-12">
-                    <h1 class="text-white">Have Query?<br><span>Let’s Get Connected!</span></h1>
-                </div>
-                <div class="col-lg-6 col-md-8 col-sm-12">
-                    <div class="input-group own-input-tag">
-                        <input type="email" class="form-control pb-4" id="form-content"
-                            placeholder="Enter Your Email Address.." aria-label="Email address"
-                            aria-describedby="email-addon">
-                        <span class="input-group-text pb-4" id="email-addon"><i class="bi bi-send-arrow-up"></i></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- QUERRY WORKS ENDS HERE -->
-
-
-
-
-    <!-- FOOTER WORKS STARTS HERE -->
-    <section class="footer">
-        <div class="container">
-            <div class="row upper-footer" data-aos="fade-right" data-aos-duration="3100" data-aos-easing="ease-in-sine">
-                <div class="col-lg-3 footer-left">
-                    <a class="footer-logo"><strong class="main-logo">E4</strong>D4</a>
-                    <p class="text-white mb-2">Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been the industry.</p>
-                    <div class="icons d-flex gap-4 pt-3">
-                        <a href="https://www.instagram.com" class="icon-background d-flex">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="https://www.facebook.com" class="icon-background d-flex">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.twitter.com" class="icon-background d-flex">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                        <a href="https://www.tiktok.com" class="icon-background d-flex">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
-                        <a href="https://www.linkedin.com" class="icon-background d-flex">
-                            <i class="fa-brands fa-linkedin-in"></i>
-                        </a>
-                    </div>
-
-
-                </div>
-                <div class="col-lg-9 mobile-footer">
-                    <div class="row footer-right">
-                        <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
-                            <h3 class="text-white">Quick Links</h3>
-                            <ul class="text-white">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="categories.html">Categories</a></li>
-                                <li><a href="business.html">Business</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-4 d-flex flex-column align-content-center flex-wrap gap-4 footer-links">
-                            <h3 class="text-white">Business</h3>
-                            <ul class="text-white">
-                                <li><a href="#advertise">Advertise With Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                                <li><a href="#add-business">Add A Business</a></li>
-                                <li><a href="#handling-reviews">Handling Reviews</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
-                            <h3 class="text-white">Contact Us</h3>
-                            <ul>
-                                <li class="text-secondary email">Email: <a
-                                        href="mailto:finddabs24@yahoo.com">finddabs24@yahoo.com</a></li>
-                                <li class="text-secondary phone">Phone: <a href="tel:+19785042054">978.504.2054</a></li>
-                                <li class="text-secondary">Address: <a
-                                        href="https://www.google.com/maps/search/?api=1&query=117+Eastern+Avenue"
-                                        target="_blank">117 Eastern Avenue</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row lower-footer d-flex justify-content-between align-content-center">
-                <div class="col-lg-6 col-sm-6 d-flex justify-content-start">
-                    <p class="text-white">Copyright @ 2024. All Right Reserved.</p>
-                </div>
-                <div class="col-lg-6 col-sm-6 d-flex justify-content-end">
-                    <p class="text-white">Terms & Conditions | Privacy Policy</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- FOOTER WORKS ENDS HERE -->
-
-
-
-
-
-
-    <!-- BOOTSTRAP JS CDN LINKED HERE  -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- FONTAWESOME ICON JS CDN LINKED HERE  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
-
-    <!-- AOS ANIMATION JS CDN LINKED HERE  -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-
-    <!-- OWN JS LINED HERE -->
-    <script src="assets/js/script.js"></script>
+    <%- include('./partials/query') %>
+    <%- include('./partials/footer') %>
+    <%- include('./partials/scriptlinks') %>
 
 </body>
 
