@@ -5,6 +5,7 @@ const connectionWithDb = require('./db')
 const session = require('express-session')
 const passport = require("passport")
 require('./controller/auth/google')
+require('./controller/auth/facebook')
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/views'));
@@ -20,7 +21,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
-  }))
+}))
 app.use(passport.initialize())
 
 
@@ -49,7 +50,9 @@ app.get('/join', async (req, res) => {
 })
 
 app.get('/portfolioreg', async (req, res) => {
-    res.render(`portfolioreg`)
+    const user = req.session?.passport?.user
+    console.log('user', user)
+    res.render(`portfolioreg`, { user })
 })
 
 app.get('/profilepicture', async (req, res) => {
@@ -64,7 +67,7 @@ app.get('/userregistration', async (req, res) => {
     res.render(`userregistration`)
 })
 
-app.use('/api',require('./controller/apihandler'))
+app.use('/api', require('./controller/apihandler'))
 
 app.listen(PORT, () => {
     console.log(`App is listening on PORT: http://localhost:${PORT}`)

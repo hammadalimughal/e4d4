@@ -10,7 +10,7 @@ router.get('/callback', passport.authenticate('google', {
     }), async (req, res) => {
         console.log('google auth req',req.session)
     // Successful authentication, redirect home.
-    res.redirect('/portfolioreg?authenticated successfully');
+    res.redirect('/portfolioreg?Google Authenticated Successfully');
 });
 
 module.exports = router
