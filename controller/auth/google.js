@@ -16,25 +16,27 @@ passport.use(new GoogleStrategy({
     console.log('profile', profile._json)
     const userInfo = profile._json
     const checkUser = await User.findOne({
-      'provider.id': userInfo.sub,
-      'provider.type': 'google'
+      'primaryEmail.email': userInfo.email
     });
-    if (!checkUser) {
+    if (!checkUser) {      
       const user = await User.create({
-        firstName: userInfo.given_name,
-        lastName: userInfo.family_name,
-        provider: {
-          id: userInfo.sub,
-          type: 'google'
-        },
+        fullName: userInfo.name,
         primaryEmail: {
           email: userInfo.email,
           verified: userInfo.email_verified,
+          provider: [{
+            id: userInfo.sub,
+            type: 'google'
+          }],
         }
       })
       console.log('Registered using Google')
       return cb(null, user);
     } else {
+      if (!checkUser.primaryEmail.provider.some(provider => provider.type === 'google')) {
+        checkUser.primaryEmail.provider.push({ type: 'google', id: profile.id });
+        await checkUser.save();
+      }
       console.log('already Registered from Google')
       return cb(null, checkUser);
     }

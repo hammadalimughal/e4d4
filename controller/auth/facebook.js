@@ -16,22 +16,29 @@ passport.use(new FacebookStrategy({
         const userInfo = profile._json;
 
         // Example findOrCreate method
-        let user = await User.findOne({ 'provider.id': userInfo.id, 'provider.type': 'facebook' });
+        // let user = await User.findOne({ 'provider.id': userInfo.id, 'provider.type': 'facebook' });
+        let user = await User.findOne({
+            'primaryEmail.email': userInfo.email
+        });
         if (!user) {
             user = await User.create({
                 firstName: userInfo.name.split(' ')[0],
                 lastName: userInfo.name.split(' ')[userInfo.name.split(' ').length - 1],
-                provider: {
-                    id: userInfo.id,
-                    type: 'facebook'
-                },
                 primaryEmail: {
                     email: userInfo.email,
-                    verified: true
+                    verified: true,
+                    provider: {
+                        id: userInfo.id,
+                        type: 'facebook'
+                    },
                 }
             });
             console.log('Registered using Facebook');
         } else {
+            if (!user.primaryEmail.provider.some(provider => provider.type === 'facebook')) {
+                user.primaryEmail.provider.push({ type: 'facebook', id: userInfo.id });
+                await user.save();
+            }
             console.log('Already registered from Facebook');
         }
         return cb(null, user);

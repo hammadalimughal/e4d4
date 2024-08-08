@@ -1731,6 +1731,7 @@ ul#myTab li {
 }
 
 .weekavail-form-design {
+    display: block;
     border: 1px solid lightgray;
     border-radius: 6px;
     padding: 10px 25px;
@@ -1747,7 +1748,7 @@ ul#myTab li {
 .weekavail-form-design .btn-check:checked+.btn {
     border: none !important;
 }
-
+.weekavail-width-inner input:checked + .weekavail-form-design,
 .weekavail-form-design:hover {
     border-color: #1da1b2;
     background-color: #f6f6f6;

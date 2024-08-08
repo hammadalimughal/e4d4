@@ -28,22 +28,22 @@ const emailSchema = new Schema({
     verified: {
         type: Boolean,
         default: false
-    }
+    },
+    provider: [{
+        type:providerSchema,
+        required: true
+    }]
 })
 
 const user = new Schema({
-    firstName: {
+    fullName: {
         type: String,
         required: true
-    },
-    lastName: {
-        type: String
     },
     primaryEmail: {
         type: emailSchema,
         required: true,
     },
-    provider: providerSchema,
     password: {
         type: String,
         validate: {
@@ -54,6 +54,9 @@ const user = new Schema({
         }
     },
     profilePic: {
+        type: String,
+    },
+    phone: {
         type: String,
     },
     Suburb: {
