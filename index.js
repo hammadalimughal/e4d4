@@ -6,9 +6,11 @@ const session = require('express-session')
 const passport = require("passport")
 require('./controller/auth/google')
 require('./controller/auth/facebook')
+const cookieAuth = require('./middleware/authCookie')
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/views'));
+
 
 const PORT = process.env.PORT || 8080;
 
@@ -23,48 +25,70 @@ app.use(session({
     cookie: { secure: false }
 }))
 app.use(passport.initialize())
+app.use(cookieAuth('authtoken'));
 
 
 app.get('/', async (req, res) => {
-    res.render(`index`)
+    const user = req.user
+    console.log('user', user)
+    res.render(`index`, { user })
 })
 
 app.get('/businessdetails', async (req, res) => {
-    res.render(`businessdetails`)
+    const user = req.user
+    res.render(`businessdetails`, { user })
 })
 
 app.get('/businessregistration', async (req, res) => {
-    res.render(`businessregistration`)
+    const user = req.user
+    res.render(`businessregistration`, { user })
 })
 
 app.get('/dashboard-main', async (req, res) => {
-    res.render(`dashboard-main`)
+    const user = req.user
+    if (!user) {
+        return res.redirect(`/join`)
+    }
+    res.render(`dashboard-2`, { user })
 })
 
 app.get('/dashboard', async (req, res) => {
-    res.render(`dashboard`)
+    const user = req.user
+    if (!user) {
+        return res.redirect(`/join`)
+    }
+    res.render(`dashboard`, { user })
 })
 
 app.get('/join', async (req, res) => {
-    res.render(`join`)
+    const user = req.user
+    res.render(`join`, { user })
 })
 
 app.get('/portfolioreg', async (req, res) => {
-    const user = req.session?.passport?.user
-    console.log('user', user)
+    const user = req.user || req.session?.passport?.user
     res.render(`portfolioreg`, { user })
 })
 
 app.get('/profilepicture', async (req, res) => {
-    res.render(`profilepicture`)
+    const user = req.user
+    if (!user) {
+        return res.redirect(`/join`)
+    }
+    res.render(`profilepicture`, { user })
 })
 
 app.get('/searchprofilehistory', async (req, res) => {
-    res.render(`searchprofilehistory`)
+    const user = req.user
+    if (!user) {
+        return res.redirect(`/join`)
+    }
+    res.render(`searchprofilehistory`, { user })
 })
 
 app.get('/userregistration', async (req, res) => {
-    res.render(`userregistration`)
+    const user = req.user
+    res.render(`userregistration`, { user })
 })
 
 app.use('/api', require('./controller/apihandler'))

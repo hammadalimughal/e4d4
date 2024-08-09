@@ -2,6 +2,7 @@ const passport = require('passport');
 const User = require('../../schema/User');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
+
 const GOOGLE_CLIENT_ID = `8489350076-nlkfq6hdc50o23414057879dm5giudod.apps.googleusercontent.com`
 const GOOGLE_CLIENT_SECRET = `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`
 
@@ -18,7 +19,7 @@ passport.use(new GoogleStrategy({
     const checkUser = await User.findOne({
       'primaryEmail.email': userInfo.email
     });
-    if (!checkUser) {      
+    if (!checkUser) {
       const user = await User.create({
         fullName: userInfo.name,
         primaryEmail: {
@@ -30,6 +31,7 @@ passport.use(new GoogleStrategy({
           }],
         }
       })
+      
       console.log('Registered using Google')
       return cb(null, user);
     } else {

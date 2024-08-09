@@ -1,41 +1,73 @@
-    <!-- NAVBAR STARTS HERE -->
-    <header>
-        <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200"
-            data-aos-easing="ease-in-sine">
-            <div class="container">
-                <a class="navbar-brand" href="#"><strong class="main-logo">E4</strong>D4</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                    <ul class="navbar-nav own-navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Categories</a>
-                        </li>
-                        <li class="nav-item px-4">
-                            <a class="nav-link" href="#">Business Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <button type="button" class="top-btn">LOGIN</button>
-                        </li>
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <button class="top-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    SIGN UP
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="join">TALENT</a></li>
-                                    <li><a class="dropdown-item" href="businessregistration">BUSINESS</a></li>
-                                </ul>
-                            </div>
-                            <!-- <button type="button" class="top-btn">SIGN UP</button> -->
-                        </li>
-                    </ul>
-                </div>
+<% if(user) { %>
+<!-- NAVBAR STARTS HERE -->
+<header>
+  <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+    <div class="container">
+      <a class="navbar-brand" href="/"><strong class="main-logo">E4</strong>D4</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav own-navbar-nav own-navbar-nav2 ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Categories</a>
+          </li>
+          <li class="nav-item px-4">
+            <a class="nav-link" href="#">Business Product</a>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+              HOME</button>
+          </li>
+          <li>
+            <a href="/dashboard"><img src="<%= user?.profilePic ? user?.profilePic : '/assets/img/user-icon.webp' %>" alt="" class="dash-img"></a>
+          </li>
+          <li class="nav-item">
+            <button type="button" onclick="deleteCookie('authtoken')" class="logout-btn">
+              LOGOUT <i class="bi bi-box-arrow-left  px-1"></i></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- NAVBAR ENDS HERE -->
+<% } else { %>
+<!-- NAVBAR STARTS HERE -->
+<header>
+  <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+    <div class="container">
+      <a class="navbar-brand" href="/"><strong class="main-logo">E4</strong>D4</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav own-navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Categories</a>
+          </li>
+          <li class="nav-item px-4">
+            <a class="nav-link" href="#">Business Product</a>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="top-btn">LOGIN</button>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <button class="top-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                SIGN UP
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="join">TALENT</a></li>
+                <li><a class="dropdown-item" href="businessregistration">BUSINESS</a></li>
+              </ul>
             </div>
-        </nav>
-    </header>
-    <!-- NAVBAR ENDS HERE -->
+            <!-- <button type="button" class="top-btn">SIGN UP</button> -->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- NAVBAR ENDS HERE -->
+<% } %>

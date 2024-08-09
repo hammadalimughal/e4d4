@@ -14,6 +14,17 @@ const providerSchema = new Schema({
     }
 })
 
+const sizeOfCompany = new Schema({
+    min: {
+        type: Number,
+        required: true
+    },
+    max: {
+        type: Number,
+        required: true
+    }
+})
+
 const emailSchema = new Schema({
     email: {
         type: String,
@@ -35,19 +46,18 @@ const emailSchema = new Schema({
     }]
 })
 
-const user = new Schema({
+const business = new Schema({
     fullName: {
+        type: String,
+        required: true
+    },
+    address: {
         type: String,
         required: true
     },
     primaryEmail: {
         type: emailSchema,
         required: true,
-    },
-    role: {
-        type: String,
-        enum: ['user', 'admin'],
-        default: 'user'
     },
     password: {
         type: String,
@@ -56,51 +66,49 @@ const user = new Schema({
                 return passwordRegex.test(value);
             },
             message: 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.'
-        }
-    },
-    profilePic: {
-        type: String,
+        },
+        required: true
     },
     phone: {
         type: String,
+        required: true,
     },
-    suburb: {
+    location: {
         type: String,
+        required: true,
     },
-    address: {
+    industry: {
         type: String,
+        required: true,
     },
-    educationLevel: {
+    operatingIndustry: {
         type: String,
+        required: true,
     },
-    skills: [{
-        type: String,
-    }],
-    industryInterest: {
-        type: String,
+    sizeOfCompany: {
+        type: sizeOfCompany,
+        required: true,
     },
-    weeksOfAvailablity: {
-        type: String,
+    foundedDate: {
+        type: Date,
+        required: true,
     },
-    workType: {
+    headQuarterLocation: {
         type: String,
+        required: true,
     },
-    workClassification: {
-        type: String,
+    website: {
+        type: String
     },
-    preferredJobLocation: [{
-        type: String,
-    }],
-    positionTypeInterest: {
-        type: String,
+    companyEmail: {
+        type: emailSchema,
+        required: true,
     },
-    salaryExpectation: {
-        type: Number,
-    },
-    infoRequired: {
-        type: Boolean,
-        default: true
+    subscription: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     }
 }, { timestamps: true });
-const User = mongoose.model('user', user)
-module.exports = User;
+
+const Business = mongoose.model('business', business)
+module.exports = Business;
