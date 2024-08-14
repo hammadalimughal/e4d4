@@ -30,65 +30,109 @@ app.use(cookieAuth('authtoken'));
 
 app.get('/', async (req, res) => {
     const user = req.user
+    const business = req.business
     console.log('user', user)
-    res.render(`index`, { user })
+    res.render(`index`, { user, business })
 })
 
 app.get('/businessdetails', async (req, res) => {
     const user = req.user
-    res.render(`businessdetails`, { user })
+    const business = req.business
+    res.render(`businessdetails`, { user, business })
 })
 
 app.get('/businessregistration', async (req, res) => {
     const user = req.user
-    res.render(`businessregistration`, { user })
+    const business = req.business
+    res.render(`businessregistration`, { user, business })
 })
 
 app.get('/dashboard-main', async (req, res) => {
     const user = req.user
+    const business = req.business
     if (!user) {
         return res.redirect(`/join`)
     }
-    res.render(`dashboard-2`, { user })
+    res.render(`dashboard-2`, { user, business })
 })
 
 app.get('/dashboard', async (req, res) => {
     const user = req.user
-    if (!user) {
-        return res.redirect(`/join`)
+    const business = req.business
+    if (user) {
+        return res.render(`dashboard`, { user, business })
     }
-    res.render(`dashboard`, { user })
+    return res.redirect(`/join`)
 })
 
 app.get('/join', async (req, res) => {
     const user = req.user
-    res.render(`join`, { user })
+    const business = req.business
+    res.render(`join`, { user, business })
+})
+app.get('/user-loginemail', async (req, res) => {
+    const user = req.user
+    const business = req.business
+    res.render(`user-loginemail`, { user, business })
+})
+app.get('/user-login', async (req, res) => {
+    const user = req.user
+    const business = req.business
+    res.render(`user-login`, { user, business })
+})
+app.get('/business-login', async (req, res) => {
+    const user = req.user
+    const business = req.business
+    res.render(`business-login`, { user, business })
 })
 
 app.get('/portfolioreg', async (req, res) => {
     const user = req.user || req.session?.passport?.user
-    res.render(`portfolioreg`, { user })
+    const business = req.business
+    res.render(`portfolioreg`, { user, business })
 })
 
 app.get('/profilepicture', async (req, res) => {
     const user = req.user
+    const business = req.business
     if (!user) {
         return res.redirect(`/join`)
     }
-    res.render(`profilepicture`, { user })
+    res.render(`profilepicture`, { user, business })
+})
+app.get('/business-subscription', async (req, res) => {
+    const user = req.user
+    const business = req.business
+    if (!business) {
+        return res.redirect(`/business-login`)
+    }
+    res.render(`business-subscription`, { user, business })
 })
 
 app.get('/searchprofilehistory', async (req, res) => {
     const user = req.user
+    const business = req.business
     if (!user) {
         return res.redirect(`/join`)
     }
-    res.render(`searchprofilehistory`, { user })
+    res.render(`searchprofilehistory`, { user, business })
 })
 
 app.get('/userregistration', async (req, res) => {
     const user = req.user
-    res.render(`userregistration`, { user })
+    const business = req.business
+    res.render(`userregistration`, { user, business })
+})
+
+app.get('/jobposting', async (req, res) => {
+    const user = req.user
+    const business = req.business
+    res.render(`jobposting`, { user, business })
+})
+app.get('/jobdetails', async (req, res) => {
+    const user = req.user
+    const business = req.business
+    res.render(`jobdetails`, { user, business })
 })
 
 app.use('/api', require('./controller/apihandler'))

@@ -4,16 +4,6 @@ const { Schema } = mongoose;
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const providerSchema = new Schema({
-    id: {
-        type: String,
-        unique: true
-    },
-    type: {
-        type: String
-    }
-})
-
 const sizeOfCompany = new Schema({
     min: {
         type: Number,
@@ -39,11 +29,7 @@ const emailSchema = new Schema({
     verified: {
         type: Boolean,
         default: false
-    },
-    provider: [{
-        type: providerSchema,
-        required: true
-    }]
+    }
 })
 
 const business = new Schema({

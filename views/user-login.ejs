@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Project</title>
+    <%- include('./partials/csslinks') %>
+</head>
+
+<body>
+    <%- include('./partials/header') %>
+
+
+
+    <!-- JOIN E4D4 WORKS STARTS HERE -->
+    <section class="join-section">
+        <div class="container d-flex justify-content-center" data-aos="fade-up" data-aos-duration="3200"
+            data-aos-easing="ease-in-sine">
+            <div class="join_width_setting">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="">
+                            <img src="/assets/img/join-main-img.png" alt="No Image" class="img-fluid join_main_img">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="sign-properties-main">
+
+
+                            <div class="sign-properties">
+                                <h2>Login <strong>E4D4</strong></h3>
+
+                                    <a class="col-1-btn d-flex align-items-center mt-4" href="user-loginemail">
+                                        <div class="circle">
+                                            <i class="fa-solid fa-envelope text-white"></i>
+                                        </div>
+                                        <h5 class="sign_as_email">SIGN UP USING EMAIL</h5>
+                                    </a>
+
+
+                                    <a class=" col-1-btn d-flex align-items-center mt-3" href="/api/auth/google">
+                                        <div class="circle1">
+                                            <i class="fa-brands fa-google text-white"></i>
+                                        </div>
+                                        <h5 class="sign_as_email">SIGN UP USING GMAIL</h5>
+                                    </a>
+
+                                    <a class=" col-1-btn d-flex align-items-center mt-3" href="/api/auth/facebook">
+                                        <div class="circle2">
+                                            <i class="fa-brands fa-facebook-f text-white"></i>
+                                        </div>
+                                        <h5 class="sign_as_email">SIGN UP USNG FACEBOK</h5>
+                                    </a>
+                            </div>
+
+
+                            <div class="join-note">
+                                <p>We won't display your email publicly</p>
+
+                                <p>Don't Have an Account? <button onclick="javascript:;location.href='/join'" type="button" class="join-note-sign">Register</button></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- JOIN E4D4 WORKS ENDS HERE -->
+
+
+
+    <%- include('./partials/query') %>
+    <%- include('./partials/footer') %>
+    <%- include('./partials/scriptlinks') %>
+
+</body>
+
+</html>

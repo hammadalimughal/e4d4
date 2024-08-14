@@ -580,16 +580,19 @@
           if (res.status !== 200) {
             $("#error-message").html(resJson.error)
             success = false
+          } else {
+            createCookie('authtoken', resJson.authtoken)
+            createCookie('e4d4user', 'true')
           }
           console.log('resJson', resJson)
-        }        
+        }
         if (formDataObj.password === formDataObj.confirmPassword) {
           forms.forEach((form) => {
             form.classList.add("display-none")
           })
-          if(success){
+          if (success) {
             document.querySelector(`.${nextFormClass}`).classList.remove("display-none")
-          }else{
+          } else {
             document.querySelector(`.error-sec`).classList.remove("display-none")
           }
         } else {
@@ -597,11 +600,11 @@
         }
       })
     })
-    $('.go-back').click(function(){
+    $('.go-back').click(function() {
       forms.forEach((form) => {
-            form.classList.add("display-none")
-            document.querySelector(`.portfolio-form`).classList.remove("display-none")
-          })
+        form.classList.add("display-none")
+        document.querySelector(`.portfolio-form`).classList.remove("display-none")
+      })
     })
   </script>
 
