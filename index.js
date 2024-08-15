@@ -7,9 +7,11 @@ const passport = require("passport")
 require('./controller/auth/google')
 require('./controller/auth/facebook')
 const cookieAuth = require('./middleware/authCookie')
+const Job = require("./schema/Job")
+const formatDate = require('./helper/formatDate')
 
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/views'));
+app.use('/sites/e4d4/assets',express.static(__dirname + '/views/assets'));
 
 
 const PORT = process.env.PORT || 8080;
@@ -28,115 +30,127 @@ app.use(passport.initialize())
 app.use(cookieAuth('authtoken'));
 
 
-app.get('/', async (req, res) => {
+app.get('/sites/e4d4/', async (req, res) => {
     const user = req.user
     const business = req.business
     console.log('user', user)
     res.render(`index`, { user, business })
 })
 
-app.get('/businessdetails', async (req, res) => {
+app.get('/sites/e4d4/businessdetails', async (req, res) => {
     const user = req.user
     const business = req.business
     res.render(`businessdetails`, { user, business })
 })
 
-app.get('/businessregistration', async (req, res) => {
+app.get('/sites/e4d4/businessregistration', async (req, res) => {
     const user = req.user
     const business = req.business
     res.render(`businessregistration`, { user, business })
 })
 
-app.get('/dashboard-main', async (req, res) => {
+app.get('/sites/e4d4/dashboard-main', async (req, res) => {
     const user = req.user
     const business = req.business
     if (!user) {
-        return res.redirect(`/join`)
+        return res.redirect(`/sites/e4d4/join`)
     }
     res.render(`dashboard-2`, { user, business })
 })
 
-app.get('/dashboard', async (req, res) => {
+app.get('/sites/e4d4/dashboard', async (req, res) => {
     const user = req.user
     const business = req.business
     if (user) {
         return res.render(`dashboard`, { user, business })
     }
-    return res.redirect(`/join`)
+    return res.redirect(`/sites/e4d4/join`)
 })
 
-app.get('/join', async (req, res) => {
+app.get('/sites/e4d4/join', async (req, res) => {
     const user = req.user
     const business = req.business
-    res.render(`join`, { user, business })
+    if(user){
+        return res.redirect(`/sites/e4d4/dashboard`)
+    }
+    if(business){
+        return res.redirect(`/sites/e4d4`)
+    }
+    return res.render(`join`, { user, business })
 })
-app.get('/user-loginemail', async (req, res) => {
+app.get('/sites/e4d4/user-loginemail', async (req, res) => {
     const user = req.user
     const business = req.business
     res.render(`user-loginemail`, { user, business })
 })
-app.get('/user-login', async (req, res) => {
+app.get('/sites/e4d4/user-login', async (req, res) => {
     const user = req.user
     const business = req.business
     res.render(`user-login`, { user, business })
 })
-app.get('/business-login', async (req, res) => {
+app.get('/sites/e4d4/business-login', async (req, res) => {
     const user = req.user
     const business = req.business
     res.render(`business-login`, { user, business })
 })
 
-app.get('/portfolioreg', async (req, res) => {
+app.get('/sites/e4d4/portfolioreg', async (req, res) => {
     const user = req.user || req.session?.passport?.user
     const business = req.business
     res.render(`portfolioreg`, { user, business })
 })
 
-app.get('/profilepicture', async (req, res) => {
+app.get('/sites/e4d4/profilepicture', async (req, res) => {
     const user = req.user
     const business = req.business
     if (!user) {
-        return res.redirect(`/join`)
+        return res.redirect(`/sites/e4d4/join`)
     }
     res.render(`profilepicture`, { user, business })
 })
-app.get('/business-subscription', async (req, res) => {
+app.get('/sites/e4d4/business-subscription', async (req, res) => {
     const user = req.user
     const business = req.business
     if (!business) {
-        return res.redirect(`/business-login`)
+        return res.redirect(`/sites/e4d4/business-login`)
     }
     res.render(`business-subscription`, { user, business })
 })
 
-app.get('/searchprofilehistory', async (req, res) => {
+app.get('/sites/e4d4/searchprofilehistory', async (req, res) => {
     const user = req.user
     const business = req.business
     if (!user) {
-        return res.redirect(`/join`)
+        return res.redirect(`/sites/e4d4/join`)
     }
     res.render(`searchprofilehistory`, { user, business })
 })
 
-app.get('/userregistration', async (req, res) => {
+app.get('/sites/e4d4/userregistration', async (req, res) => {
     const user = req.user
     const business = req.business
     res.render(`userregistration`, { user, business })
 })
 
-app.get('/jobposting', async (req, res) => {
+app.get('/sites/e4d4/jobposting', async (req, res) => {
     const user = req.user
     const business = req.business
+    if(!business){
+        res.redirect(`/sites/e4d4/join`)
+        return
+    }
     res.render(`jobposting`, { user, business })
 })
-app.get('/jobdetails', async (req, res) => {
+app.get('/sites/e4d4/jobdetails/:id', async (req, res) => {
+    const id = req.params.id
     const user = req.user
     const business = req.business
-    res.render(`jobdetails`, { user, business })
+    const job = await Job.findById(id).populate('company')
+    res.render(`jobdetails`, { user, business, job, formatDate })
 })
 
-app.use('/api', require('./controller/apihandler'))
+app.use('/sites/e4d4/api', require('./controller/apihandler'))
 
 app.listen(PORT, () => {
-    console.log(`App is listening on PORT: http://localhost:${PORT}`)
+    console.log(`App is listening on PORT: http://localhost:${PORT}/sites/e4d4`)
 })

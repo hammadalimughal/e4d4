@@ -673,7 +673,7 @@
         });
         debugger
         if (nextFormClass == 'subscription-section') {
-          const res = await fetch('/api/auth/business/register', {
+          const res = await fetch('/sites/e4d4/api/auth/business/register', {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -689,6 +689,8 @@
           } else {
             createCookie('authtoken', resJson.authtoken)
             createCookie('e4d4business', 'true')
+            location.reload()
+            return
           }
           console.log('resJson', resJson)
         }

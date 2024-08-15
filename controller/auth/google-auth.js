@@ -17,12 +17,10 @@ router.get('/callback', passport.authenticate('google', {
         }
         const authtoken = jwt.sign(authUser, JWT_SECRET);
 
-        res.cookie('authtoken', authtoken);
-
         if (user.infoRequired) {
-            return res.redirect('/portfolioreg?Google Authenticated Successfully');
+            return res.cookie('authtoken', authtoken).redirect('/sites/e4d4/portfolioreg?Google Authenticated Successfully');
         } else {
-            return res.redirect('/dashboard');
+            return res.cookie('authtoken', authtoken).redirect('/sites/e4d4/dashboard');
         }
 });
 
