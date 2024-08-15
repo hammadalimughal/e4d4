@@ -1,510 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Posting</title>
-    <link rel="icon" href="/assets/img/tab_logo.png" />
 
-    <!-- BOOTSTRAP CSS CDN -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest Project</title>
+  <%- include('./partials/csslinks') %>
+</head>
 
-    <!-- FONTAWESOME ICON CSS CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+<body>
+  <%- include('./partials/header') %>
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-
-    <!-- OWN CSS LINKED HERE -->
-    <link rel="stylesheet" href="/assets/css/style.css" />
-  </head>
-
-  <body>
-    <!-- NAVBAR STARTS HERE -->
-    <header>
-      <nav
-        class="main-nav navbar navbar-expand-lg"
-        data-aos="fade-down"
-        data-aos-duration="3200"
-        data-aos-easing="ease-in-sine"
-      >
-        <div class="container">
-          <a class="navbar-brand" href="#"
-            ><strong class="main-logo">E4</strong>D4</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav own-navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Categories</a>
-              </li>
-              <li class="nav-item px-4">
-                <a class="nav-link" href="#">Business Product</a>
-              </li>
-              <li class="nav-item">
-                <button type="button" class="top-btn">LOGIN</button>
-              </li>
-              <li class="nav-item">
-                <div class="dropdown">
-                  <button
-                    class="top-btn dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    SIGN UP
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">TALENT</a></li>
-                    <li><a class="dropdown-item" href="#">BUSINESS</a></li>
-                  </ul>
-                </div>
-                <!-- <button type="button" class="top-btn">SIGN UP</button> -->
-              </li>
-            </ul>
-          </div>
+  <!-- JOB POSTING WORKS STARTS HERE -->
+  <section class="portfolio-section">
+    <div class="container d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+      <!-- NO 1 portfolio WORKS STARTS HERE -->
+      <div class="portfolio_width_setting">
+        <div class="text-center d-flex align-items-center flex-column">
+          <h1 class="fw-bold">ADD NEW JOB</h1>
+          <p class="w-80 mb-3">
+            Here You can post your job to attract qualified candidates by
+            providing essential information about the role, responsibilities,
+            and requirements
+          </p>
         </div>
-      </nav>
-    </header>
-    <!-- NAVBAR ENDS HERE -->
-
-    <!-- JOB POSTING WORKS STARTS HERE -->
-    <section class="portfolio-section">
-      <div
-        class="container d-flex flex-column justify-content-center align-items-center"
-        data-aos="fade-up"
-        data-aos-duration="3200"
-        data-aos-easing="ease-in-sine"
-      >
-        <!-- NO 1 portfolio WORKS STARTS HERE -->
-        <div class="portfolio_width_setting">
-          <div class="text-center d-flex align-items-center flex-column">
-            <h1 class="fw-bold">ADD NEW JOB</h1>
-            <p class="w-80 mb-3">
-              Here You can post your job to attract qualified candidates by
-              providing essential information about the role, responsibilities,
-              and requirements
-            </p>
+        <form method="POST" action="/sites/e4d4/api/business/job/add" class="row pt-0">
+          <input type="hidden" name="company" value="<%= business.id %>">
+          <div class="col-md-12 portfolio-form-design">
+            <label for="fname" class="form-label">Job Title*</label>
+            <input type="name" name="title" class="form-control" id="jname" placeholder="Enter Job Title...." required />
           </div>
-          <form class="row pt-0">
-            <div class="col-md-12 portfolio-form-design">
-              <label for="fname" class="form-label">Job Title*</label>
-              <input
-                type="name"
-                class="form-control"
-                id="jname"
-                placeholder="Enter Job Title...."
-              />
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">Job Summary*</label>
+            <textarea class="form-control" name="summary" placeholder=" Job Summary" id="floatingTextarea2" style="height: 100px" required></textarea>
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">Responsibilities*</label>
+            <textarea class="form-control" placeholder="Responsibilities ........" id="floatingTextarea2" style="height: 100px" name="responsiblities"></textarea>
+            <!-- <div>
+              <input type="name" name="responsiblities" class="form-control" id="jname" placeholder="Responsibilities ........" required />
             </div>
-            <div class="col-md-12 portfolio-form-design">
-              <label for="summary" class="form-label">Job Summary*</label>
-              <textarea
-                class="form-control"
-                placeholder=" Job Summary"
-                id="floatingTextarea2"
-                style="height: 100px"
-              ></textarea>
-            </div>
-            <div class="col-md-12 portfolio-form-design">
-              <label for="summary" class="form-label">Responsibilities*</label>
-              <textarea
-                class="form-control"
-                placeholder="Responsibilities ........"
-                id="floatingTextarea2"
-                style="height: 100px"
-              ></textarea>
-            </div>
+            <button type="button" class="add-item add-responsiblity mt-3">Add More</button> -->
+          </div>
 
-            <h4 class="mt-5">Qualification</h4>
-            <div class="col-md-12 portfolio-form-design mt-2">
-              <label for="Skills" class="form-label">Education*</label>
-              <select id="Skills" class="form-select">
-                <option selected>Education Level...</option>
-                <option>...</option>
-              </select>
-            </div>
-            <div class="col-md-12 portfolio-form-design">
-              <label for="Skills" class="form-label">Skills*</label>
-              <textarea
-                class="form-control"
-                placeholder="Skills...."
-                id="floatingTextarea2"
-                style="height: 100px"
-              ></textarea>
-            </div>
-            <div class="col-md-6 portfolio-form-design">
-              <label for="Skills" class="form-label">Experience*</label>
-              <select id="Skills" class="form-select">
-                <option selected>Select Years...</option>
-                <option>...</option>
-              </select>
-            </div>
-            <div class="col-md-6 portfolio-form-design">
-              <label for="inputPassword4" class="form-label"
-                >Certification</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter Certification(if any)..."
-              />
-            </div>
-            <div class="col-md-6 portfolio-form-design">
-              <label for="EducationLevel" class="form-label"
-                >Poistion Type*</label
-              >
-              <select id="EducationLevel" class="form-select">
-                <option selected>Select Poistion</option>
-                <option>...</option>
-              </select>
-            </div>
-            <div class="col-md-6 portfolio-form-design">
-              <label for="EducationLevel" class="form-label">Industry*</label>
-              <select id="EducationLevel" class="form-select">
-                <option selected>Select Industry</option>
-                <option>...</option>
-              </select>
-            </div>
-            <div class="col-12 portfolio-form-design">
-              <label for="EducationLevel" class="form-label">Location*</label>
-              <select id="EducationLevel" class="form-select">
-                <option selected>Select Location</option>
-                <option>...</option>
-              </select>
-            </div>
+          <h4 class="mt-5">Qualification</h4>
+          <div class="col-md-12 portfolio-form-design mt-2">
+            <label for="Skills" class="form-label">Education*</label>
+            <select id="Skills" class="form-select" name="education" required>
+              <option selected>Education Level...</option>
+              <option value="certificate-I">Certificate I</option>
+              <option value="certificate-II">Certificate II</option>
+              <option value="certificate-III">Certificate III</option>
+              <option value="certificate-IV">Certificate IV</option>
+              <option value="diploma">Diploma</option>
+              <option value="advanced-diploma">Advanced Diploma</option>
+              <option value="associate-degree">Associate Degree</option>
+              <option value="bachelor-degree">Bachelor’s Degree</option>
+              <option value="graduate-certificate">Graduate Certificate</option>
+              <option value="graduate-diploma">Graduate Diploma</option>
+              <option value="masters-degree">Master’s Degree</option>
+              <option value="doctoral-degree">Doctoral Degree (PhD)</option>
+            </select>
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="Skills" class="form-label">Skills*</label>
+            <textarea class="form-control" placeholder="Skills...." id="floatingTextarea2" name="skills" style="height: 100px" required></textarea>
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="Skills" class="form-label">Experience*</label>
+            <select id="Skills" class="form-select" name="experience" required>
+              <option selected disabled>Select Years...</option>
+              <option value="1">1 Year</option>
+              <option value="2">2 Year</option>
+              <option value="3">3 Year</option>
+              <option value="4">4 Year</option>
+              <option value="5">5 Year</option>
+              <option value="6">6 Year</option>
+              <option value="7">7 Year</option>
+              <option value="8">8 Year</option>
+              <option value="9">9 Year</option>
+              <option value="10">10 Year</option>
+            </select>
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="inputPassword4" class="form-label">Certification</label>
+            <input type="text" name="certification" class="form-control" placeholder="Enter Certification(if any)..." />
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="EducationLevel" class="form-label">Poistion Type*</label>
+            <select name="position" id="EducationLevel" class="form-select" required>
+              <option selected disabled>Select Poistion</option>
+              <option value="manager">Manager</option>
+            <option value="administrator">Administrator</option>
+            <option value="supervisor">Supervisor</option>
+            <option value="director">Director</option>
+            <option value="executive">Executive</option>
+            <option value="coordinator">Coordinator</option>
+            <option value="consultant">Consultant</option>
+            <option value="officer">Officer</option>
+            <option value="specialist">Specialist</option>
+            <option value="assistant">Assistant</option>
+            <option value="analyst">Analyst</option>
+            <option value="engineer">Engineer</option>
+            <option value="technician">Technician</option>
+            <option value="clerk">Clerk</option>
+            <option value="worker">Worker</option>
+            <option value="intern">Intern</option>
+            <option value="trainee">Trainee</option>
+            <option value="team-leader">Team Leader</option>
+            <option value="project-manager">Project Manager</option>
+            <option value="sales-representative">Sales Representative</option>
+            <option value="customer-service-rep">Customer Service Representative</option>
+            <option value="human-resources">Human Resources</option>
+            <option value="marketing">Marketing</option>
+            <option value="accountant">Accountant</option>
+            <option value="financial-advisor">Financial Advisor</option>
+            <option value="lawyer">Lawyer</option>
+            <option value="researcher">Researcher</option>
+            <option value="teacher">Teacher</option>
+            <option value="medical-professional">Medical Professional</option>
+            </select>
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="EducationLevel" class="form-label">Industry*</label>
+            <select name="industry" id="EducationLevel" class="form-select" required>
+              <option selected disabled>Select Industry</option>
+              <option value="agriculture-forestry-fishing">Agriculture, Forestry and Fishing</option>
+              <option value="mining">Mining</option>
+              <option value="manufacturing">Manufacturing</option>
+              <option value="utilities">Electricity, Gas, Water, and Waste Services</option>
+              <option value="construction">Construction</option>
+              <option value="wholesale-trade">Wholesale Trade</option>
+              <option value="retail-trade">Retail Trade</option>
+              <option value="accommodation-food">Accommodation and Food Services</option>
+              <option value="transport-warehousing">Transport, Postal, and Warehousing</option>
+              <option value="media-telecommunications">Information Media and Telecommunications</option>
+              <option value="finance-insurance">Financial and Insurance Services</option>
+              <option value="real-estate">Rental, Hiring, and Real Estate Services</option>
+              <option value="professional-services">Professional, Scientific, and Technical Services</option>
+              <option value="administrative-support">Administrative and Support Services</option>
+              <option value="public-administration">Public Administration and Safety</option>
+              <option value="education-training">Education and Training</option>
+              <option value="health-care-social-assistance">Health Care and Social Assistance</option>
+              <option value="arts-recreation">Arts and Recreation Services</option>
+              <option value="other-services">Other Services</option>
+            </select>
+          </div>
+          <div class="col-12 portfolio-form-design">
+            <label for="EducationLevel" class="form-label">Location*</label>
+            <select name="location" id="EducationLevel" class="form-select" required>
+              <option selected disabled>Select Location</option>
+              <option value="Sydney, New South Wales">Sydney, New South Wales</option>
+                <option value="Melbourne, Victoria">Melbourne, Victoria</option>
+                <option value="Brisbane, Queensland">Brisbane, Queensland</option>
+                <option value="Perth, Western Australia">Perth, Western Australia</option>
+                <option value="Adelaide, South Australia">Adelaide, South Australia</option>
+                <option value="Canberra, Australian Capital Territory">Canberra, Australian Capital Territory</option>
+                <option value="Hobart, Tasmania">Hobart, Tasmania</option>
+                <option value="Darwin, Northern Territory">Darwin, Northern Territory</option>
+                <option value="Gold Coast, Queensland">Gold Coast, Queensland</option>
+                <option value="Newcastle, New South Wales">Newcastle, New South Wales</option>
+                <option value="Wollongong, New South Wales">Wollongong, New South Wales</option>
+                <option value="Geelong, Victoria">Geelong, Victoria</option>
+                <option value="Sunshine Coast, Queensland">Sunshine Coast, Queensland</option>
+                <option value="Cairns, Queensland">Cairns, Queensland</option>
+                <option value="Toowoomba, Queensland">Toowoomba, Queensland</option>
+                <option value="Ballarat, Victoria">Ballarat, Victoria</option>
+                <option value="Bendigo, Victoria">Bendigo, Victoria</option>
+                <option value="Mackay, Queensland">Mackay, Queensland</option>
+                <option value="Launceston, Tasmania">Launceston, Tasmania</option>
+                <option value="Townsville, Queensland">Townsville, Queensland</option>
+                <option value="Rockhampton, Queensland">Rockhampton, Queensland</option>
+                <option value="Albury-Wodonga, New South Wales/Victoria">Albury-Wodonga, New South Wales/Victoria</option>
+                <option value="Bundaberg, Queensland">Bundaberg, Queensland</option>
+                <option value="Burnie, Tasmania">Burnie, Tasmania</option>
+                <option value="Alice Springs, Northern Territory">Alice Springs, Northern Territory</option>
+                <option value="Armidale, New South Wales">Armidale, New South Wales</option>
+                <option value="Tamworth, New South Wales">Tamworth, New South Wales</option>
+                <option value="Port Macquarie, New South Wales">Port Macquarie, New South Wales</option>
+                <option value="Coffs Harbour, New South Wales">Coffs Harbour, New South Wales</option>
+                <option value="Orange, New South Wales">Orange, New South Wales</option>
+                <option value="Dubbo, New South Wales">Dubbo, New South Wales</option>
+                <option value="Shepparton, Victoria">Shepparton, Victoria</option>
+                <option value="Mildura, Victoria">Mildura, Victoria</option>
+                <option value="Wagga Wagga, New South Wales">Wagga Wagga, New South Wales</option>
+                <option value="Bathurst, New South Wales">Bathurst, New South Wales</option>
+                <option value="Broken Hill, New South Wales">Broken Hill, New South Wales</option>
+                <option value="Kalgoorlie, Western Australia">Kalgoorlie, Western Australia</option>
+                <option value="Broome, Western Australia">Broome, Western Australia</option>
+            </select>
+          </div>
 
-            <h4 class="mt-5">Employment Details</h4>
+          <h4 class="mt-5">Employment Details</h4>
 
-            <div class="col-12 portfolio-form-design mt-2">
-              <label for="Interests" class="form-label">Employment Type*</label>
-              <select id="Interests" class="form-select">
-                <option selected>Select</option>
-                <option>Full Time</option>
-                <option>Part Time</option>
-                <option>contract</option>
-                <option>temporary</option>
-                <option>internship</option>
-              </select>
-            </div>
+          <div class="col-12 portfolio-form-design mt-2">
+            <label for="Interests" class="form-label">Employment Type*</label>
+            <select name="jobType" id="Interests" class="form-select" required>
+              <option selected>Select</option>
+              <option>Full Time</option>
+              <option>Part Time</option>
+              <option>contract</option>
+              <option>temporary</option>
+              <option>internship</option>
+            </select>
+          </div>
 
-            <div class="col-md-12 portfolio-form-design">
-              <label for="summary" class="form-label">Benefits*</label>
-              <textarea
-                class="form-control"
-                placeholder="Benefits...."
-                id="floatingTextarea2"
-                style="height: 100px"
-              ></textarea>
-            </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">Benefits*</label>
+            <textarea name="benefits" class="form-control" placeholder="Benefits...." id="floatingTextarea2" style="height: 100px" required></textarea>
+          </div>
 
-            <div class="col-md-6 portfolio-form-design">
-              <label for="fname" class="form-label">Salary*</label>
-              <input
-                type="number"
-                class="form-control"
-                id="jname"
-                placeholder="Salary in $dollar"
-              />
-            </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="fname" class="form-label">Salary*</label>
+            <input type="number" name="salary" class="form-control" id="jname" placeholder="Salary in $dollar" required />
+          </div>
 
-            <div class="col-md-6 portfolio-form-design">
-              <label for="fname" class="form-label">Work Schedule*</label>
-              <input
-                type="number"
-                class="form-control"
-                id="jname"
-                placeholder="Working Hours..."
-              />
-            </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="fname" class="form-label">Work Schedule*</label>
+            <input name="workScheduled" type="number" class="form-control" id="jname" placeholder="Working Hours..." required />
+          </div>
 
-            <h4 class="mt-5">Application Process</h4>
+          <h4 class="mt-5">Application Process</h4>
 
-            <div class="col-md-6 portfolio-form-design mt-2">
-              <label for="fname" class="form-label"> Application Posted*</label>
-              <input
-                type="date"
-                class="form-control"
-                id="jname"
-                placeholder="Working Hours..."
-              />
-            </div>
-            <div class="col-md-6 portfolio-form-design mt-2">
-              <label for="fname" class="form-label">
-                Application Deadline*</label
-              >
-              <input
-                type="date"
-                class="form-control"
-                id="jname"
-                placeholder="Working Hours..."
-              />
-            </div>
-            <div class="col-md-12 portfolio-form-design">
-              <label for="summary" class="form-label">
-                Application Instructions</label
-              >
-              <textarea
-                class="form-control"
-                placeholder=" Application Instructions...."
-                id="floatingTextarea2"
-                style="height: 100px"
-              ></textarea>
-            </div>
-            <div class="col-md-12 portfolio-form-design">
-              <label for="summary" class="form-label">
-                Required Documents</label
-              >
-              <textarea
-                class="form-control"
-                placeholder="Documents List...."
-                id="floatingTextarea2"
-                style="height: 100px"
-              ></textarea>
-            </div>
+          <div class="col-md-6 portfolio-form-design mt-2">
+            <label for="fname" class="form-label"> Application Posted*</label>
+            <input name="applicationPosted" type="date" class="form-control" id="jname" placeholder="Working Hours..." required />
+          </div>
+          <div class="col-md-6 portfolio-form-design mt-2">
+            <label for="fname" class="form-label">
+              Application Deadline*</label>
+            <input name="applicationDeadline" type="date" class="form-control" id="jname" placeholder="Working Hours..." required />
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">
+              Application Instructions</label>
+            <textarea name="applicationInstruction" class="form-control" placeholder=" Application Instructions...." id="floatingTextarea2" style="height: 100px"></textarea>
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">
+              Required Documents*</label>
+            <textarea name="requiredDocuments" class="form-control" placeholder="Documents List...." id="floatingTextarea2" style="height: 100px" required></textarea>
+          </div>
 
-            <h4 class="mt-5">Whom To Contact</h4>
-            <div class="col-md-6 portfolio-form-design">
-              <label for="fname" class="form-label">Contact Person*</label>
-              <input
-                type="name"
-                class="form-control"
-                id="jname"
-                placeholder="Enter Job Title...."
-              />
-            </div>
-            <div class="col-md-6 portfolio-form-design">
-              <label for="fname" class="form-label">Contact Number*</label>
-              <input
-                type="number"
-                class="form-control"
-                id="jname"
-                placeholder="Enter Job Title...."
-              />
-            </div>
+          <h4 class="mt-5">Whom To Contact</h4>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="fname" class="form-label">Contact Person*</label>
+            <input name="contactPerson" type="name" class="form-control" id="jname" placeholder="Enter Job Title...." />
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="fname" class="form-label">Contact Number</label>
+            <input name="contactNumber" type="number" class="form-control" id="jname" placeholder="Enter Job Title...." />
+          </div>
 
-            <h4 class="mt-5">Additional Information</h4>
-            <div class="col-md-12 portfolio-form-design">
-              <label for="summary" class="form-label">
-                Additional Information
+          <h4 class="mt-5">Additional Information</h4>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">
+              Additional Information
+            </label>
+            <textarea name="additionalInfo" class="form-control" placeholder="Documents List...." id="floatingTextarea2" style="height: 100px"></textarea>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check portfolio-form-design d-flex justify-content-center">
+              <input name="agreeTerms" class="form-check-input mx-3 mb-5" type="checkbox" id="gridCheck" value="true" required />
+              <label class="form-check-label" for="gridCheck">
+                I have read, understood and accept the Terms & Conditions
               </label>
-              <textarea
-                class="form-control"
-                placeholder="Documents List...."
-                id="floatingTextarea2"
-                style="height: 100px"
-              ></textarea>
             </div>
+          </div>
 
-            <div class="col-12">
-              <div
-                class="form-check portfolio-form-design d-flex justify-content-center"
-              >
-                <input
-                  class="form-check-input mx-3 mb-5"
-                  type="checkbox"
-                  id="gridCheck"
-                />
-                <label class="form-check-label" for="gridCheck">
-                  I have read, understood and accept the Terms & Conditions
-                </label>
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-center">
-              <button type="button" class="submit-btn-portfolio btn-portfolio">
-                CLICK HERE TO POST
-              </button>
-            </div>
-          </form>
-        </div>
-        <!-- portfolio WORKS ENDS HERE -->
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="submit-btn-portfolio btn-portfolio">
+              CLICK HERE TO POST
+            </button>
+          </div>
+        </form>
       </div>
-    </section>
-    <!-- JOB POSTING WORKS ENDS HERE -->
+      <!-- portfolio WORKS ENDS HERE -->
+    </div>
+  </section>
+  <!-- JOB POSTING WORKS ENDS HERE -->
 
-    <!-- QUERRY WORKS STARTS HERE -->
-    <section
-      class="call-to-action"
-      data-aos="zoom-in-left"
-      data-aos-duration="3200"
-      data-aos-easing="ease-in-sine"
-    >
-      <div class="container">
-        <div
-          class="row d-flex justify-content-center align-items-center call-to-action-row"
-        >
-          <div class="col-lg-6 col-md-8 col-sm-12">
-            <h1 class="text-white">
-              Have Query?<br /><span>Let’s Get Connected!</span>
-            </h1>
-          </div>
-          <div class="col-lg-6 col-md-8 col-sm-12">
-            <div class="input-group own-input-tag">
-              <input
-                type="email"
-                class="form-control pb-4"
-                id="form-content"
-                placeholder="Enter Your Email Address.."
-                aria-label="Email address"
-                aria-describedby="email-addon"
-              />
-              <span class="input-group-text pb-4" id="email-addon"
-                ><i class="bi bi-arrow-right"></i
-              ></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- QUERRY WORKS ENDS HERE -->
-
-    <!-- FOOTER WORKS STARTS HERE -->
-    <section class="footer">
-      <div class="container">
-        <div
-          class="row upper-footer"
-          data-aos="fade-right"
-          data-aos-duration="3100"
-          data-aos-easing="ease-in-sine"
-        >
-          <div class="col-lg-3 footer-left">
-            <a class="footer-logo"><strong class="main-logo">E4</strong>D4</a>
-            <p class="text-white mb-2">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry.
-            </p>
-            <div class="icons d-flex gap-4 pt-3">
-              <a
-                href="https://www.instagram.com"
-                class="icon-background d-flex"
-              >
-                <i class="fa-brands fa-instagram"></i>
-              </a>
-              <a href="https://www.facebook.com" class="icon-background d-flex">
-                <i class="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="https://www.twitter.com" class="icon-background d-flex">
-                <i class="fa-brands fa-twitter"></i>
-              </a>
-              <a href="https://www.tiktok.com" class="icon-background d-flex">
-                <i class="fa-brands fa-tiktok"></i>
-              </a>
-              <a href="https://www.linkedin.com" class="icon-background d-flex">
-                <i class="fa-brands fa-linkedin-in"></i>
-              </a>
-            </div>
-          </div>
-          <div class="col-lg-9 mobile-footer">
-            <div class="row footer-right">
-              <div
-                class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links"
-              >
-                <h3 class="text-white">Quick Links</h3>
-                <ul class="text-white">
-                  <li><a href="index">Home</a></li>
-                  <li><a href="about">About</a></li>
-                  <li><a href="categories">Categories</a></li>
-                  <li><a href="business">Business</a></li>
-                </ul>
-              </div>
-              <div
-                class="col-lg-4 d-flex flex-column align-content-center flex-wrap gap-4 footer-links"
-              >
-                <h3 class="text-white">Business</h3>
-                <ul class="text-white">
-                  <li><a href="#advertise">Advertise With Us</a></li>
-                  <li><a href="contact">Contact Us</a></li>
-                  <li><a href="#add-business">Add A Business</a></li>
-                  <li><a href="#handling-reviews">Handling Reviews</a></li>
-                </ul>
-              </div>
-              <div
-                class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links"
-              >
-                <h3 class="text-white">Contact Us</h3>
-                <ul>
-                  <li class="text-secondary email">
-                    Email:
-                    <a href="mailto:finddabs24@yahoo.com"
-                      >finddabs24@yahoo.com</a
-                    >
-                  </li>
-                  <li class="text-secondary phone">
-                    Phone: <a href="tel:+19785042054">978.504.2054</a>
-                  </li>
-                  <li class="text-secondary">
-                    Address:
-                    <a
-                      href="https://www.google.com/maps/search/?api=1&query=117+Eastern+Avenue"
-                      target="_blank"
-                      >117 Eastern Avenue</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="row lower-footer d-flex justify-content-between align-content-center"
-        >
-          <div class="col-lg-6 col-sm-6 d-flex justify-content-start">
-            <p class="text-white">Copyright @ 2024. All Right Reserved.</p>
-          </div>
-          <div class="col-lg-6 col-sm-6 d-flex justify-content-end">
-            <p class="text-white">Terms & Conditions | Privacy Policy</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- FOOTER WORKS ENDS HERE -->
-
-    <!-- BOOTSTRAP JS CDN LINKED HERE  -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- FONTAWESOME ICON JS CDN LINKED HERE  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
-
-    <!-- AOS ANIMATION JS CDN LINKED HERE  -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
-    <script>
-      const nextBtn = document.querySelectorAll(".btn-portfolio");
-      const forms = document.querySelectorAll(".portfolio-form");
-      nextBtn.forEach((btn) => {
-        btn.addEventListener("click", function (e) {
-          forms.forEach((form) => {
-            form.classList.add("display-none");
-          });
-          document
-            .querySelector(`.${e.target.getAttribute("data-next-class")}`)
-            .classList.remove("display-none");
+  <%- include('./partials/query') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scriptlinks') %>
+  <script>
+    const nextBtn = document.querySelectorAll(".btn-portfolio");
+    const forms = document.querySelectorAll(".portfolio-form");
+    nextBtn.forEach((btn) => {
+      btn.addEventListener("click", function(e) {
+        forms.forEach((form) => {
+          form.classList.add("display-none");
         });
+        document
+          .querySelector(`.${e.target.getAttribute("data-next-class")}`)
+          .classList.remove("display-none");
       });
-    </script>
+    });
+  </script>
+  <script>
+    $(".add-responsiblity").click(function() {
+      $(this).prev().append(`<div class="item"><input type="name" name="responsiblities[]" class="form-control mt-3" placeholder="Responsibilities ........" required /><button onclick="removeItem(this)"><i class="fa-solid fa-trash"></i></button></div>`)
+      debugger
+    })
+    const removeItem = (btn) => {
+      $(btn).parent().remove()
+    }
+  </script>
+</body>
 
-    <!-- OWN JS LINED HERE -->
-    <script src="/assets/js/script.js"></script>
-  </body>
 </html>

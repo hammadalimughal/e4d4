@@ -3,13 +3,13 @@ const User = require('../../schema/User');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 
-const GOOGLE_CLIENT_ID = `8489350076-nlkfq6hdc50o23414057879dm5giudod.apps.googleusercontent.com`
-const GOOGLE_CLIENT_SECRET = `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`
+const GOOGLE_CLIENT_ID = `236470399794-grve2s0gr7gk2snb76tphggoeq605qb9.apps.googleusercontent.com`
+const GOOGLE_CLIENT_SECRET = `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`
 
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:8080/api/auth/google/callback"
+  callbackURL: "https://webversesolution.com/sites/e4d4/api/auth/google/callback"
 },
   async (accessToken, refreshToken, profile, cb) => {
     // console.log('accessToken',accessToken)
