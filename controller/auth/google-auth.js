@@ -10,18 +10,15 @@ router.get('/callback', passport.authenticate('google', {
     failureRedirect: '/join?error=Something Went Wrong',
     //  successRedirect: '/success'
 }), (req, res) => {
-        const user = req.session?.passport?.user
-        const authUser = {
-            id: user._id,
-            primaryEmail: user?.primaryEmail
-        }
-        const authtoken = jwt.sign(authUser, JWT_SECRET);
+    const user = req.session?.passport?.user
+    const authUser = {
+        id: user._id,
+        primaryEmail: user?.primaryEmail
+    }
+    const authtoken = jwt.sign(authUser, JWT_SECRET);
 
-        if (user.infoRequired) {
-            return res.cookie('authtoken', authtoken).redirect('/sites/e4d4/portfolioreg?Google Authenticated Successfully');
-        } else {
-            return res.cookie('authtoken', authtoken).redirect('/sites/e4d4/dashboard');
-        }
+    return res.cookie('authtoken', authtoken).redirect(`/sites/e4d4/profile/${authUser.id}`);
+
 });
 
 module.exports = router

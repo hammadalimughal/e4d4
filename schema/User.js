@@ -7,10 +7,20 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const providerSchema = new Schema({
     id: {
         type: String,
-        unique: true
+        // unique: true
     },
     type: {
         type: String
+    }
+})
+const profileVideoSchema = new Schema({
+    poster: {
+        type: String,
+        // unique: true
+    },
+    url: {
+        type: String,
+        required: true
     }
 })
 
@@ -30,8 +40,7 @@ const emailSchema = new Schema({
         default: false
     },
     provider: [{
-        type: providerSchema,
-        required: true
+        type: providerSchema
     }]
 })
 
@@ -43,6 +52,10 @@ const user = new Schema({
     primaryEmail: {
         type: emailSchema,
         required: true,
+    },
+    username: {
+        type: String,
+        unique: true,
     },
     role: {
         type: String,
@@ -61,10 +74,16 @@ const user = new Schema({
     profilePic: {
         type: String,
     },
+    profileVideo: {
+        type: profileVideoSchema,
+    },
     phone: {
         type: String,
     },
     suburb: {
+        type: String,
+    },
+    about: {
         type: String,
     },
     address: {

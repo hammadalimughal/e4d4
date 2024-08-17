@@ -12,18 +12,7 @@ router.post('/', async (req, res) => {
             email,
             password,
             confirmPassword,
-            suburb,
-            phone,
-            educationLevel,
-            skills,
-            industryInterest,
-            termsCondition,
-            weeksOfAvailablity,
-            workType,
-            workClassification,
-            preferredJobLocation,
-            positionTypeInterest,
-            salaryExpectation
+            phone
         } = req.body
         let errors = []
         if (!fullName) {
@@ -34,42 +23,6 @@ router.post('/', async (req, res) => {
         }
         if (!password) {
             errors.push(`Password is Invalid or not Filled`)
-        }
-        if (!suburb) {
-            errors.push(`Suburb is Invalid or not Filled`)
-        }
-        if (!educationLevel) {
-            errors.push(`Education Level is Invalid or not Filled`)
-        }
-        if (!phone) {
-            errors.push(`Phone is Invalid or not Filled`)
-        }
-        if (!skills) {
-            errors.push(`Skills is Invalid or not Filled`)
-        }
-        if (!industryInterest) {
-            errors.push(`Industry Interest is Invalid or not Filled`)
-        }
-        if (!termsCondition) {
-            errors.push(`Accept on Terms & Condition`)
-        }
-        if (!weeksOfAvailablity) {
-            errors.push(`Weeks Of Availablity is Invalid or not Filled`)
-        }
-        if (!workType) {
-            errors.push(`Work Type is Invalid or not Filled`)
-        }
-        if (!workClassification) {
-            errors.push(`Work Classification is Invalid or not Filled`)
-        }
-        if (!preferredJobLocation) {
-            errors.push(`Job Location is Invalid or not Filled`)
-        }
-        if (!positionTypeInterest) {
-            errors.push(`Position Type Interest is Invalid or not Filled`)
-        }
-        if (!salaryExpectation) {
-            errors.push(`Salary Expectation is Invalid or not Filled`)
         }
         if (errors.length == 0) {
             if (password !== confirmPassword) {
@@ -84,27 +37,12 @@ router.post('/', async (req, res) => {
                 if (checkUser.primaryEmail.provider.some(provider => provider.type === 'google') || checkUser.primaryEmail.provider.some(provider => provider.type === 'facebook')) {
                     checkUser.fullName = fullName
                     checkUser.password = hashPassword
-                    checkUser.suburb = suburb
                     checkUser.phone = phone
-                    checkUser.educationLevel = educationLevel
-                    checkUser.skills = skills
-                    checkUser.industryInterest = industryInterest
-                    checkUser.termsCondition = termsCondition
-                    checkUser.weeksOfAvailablity = weeksOfAvailablity
-                    checkUser.workType = workType
-                    checkUser.workClassification = workClassification
-                    checkUser.preferredJobLocation = preferredJobLocation
-                    checkUser.positionTypeInterest = positionTypeInterest
-                    checkUser.salaryExpectation = salaryExpectation
-                    checkUser.infoRequired = false
                     await checkUser.save()
                     const user = {
                         id: checkUser._id, primaryEmail: {
                             email: email,
-                            verified: false,
-                            provider: [{
-                                type: 'email'
-                            }],
+                            verified: false
                         }
                     }
                     const authtoken = jwt.sign(user, JWT_SECRET);
@@ -124,35 +62,14 @@ router.post('/', async (req, res) => {
                 password: hashPassword,
                 primaryEmail: {
                     email: email,
-                    verified: false,
-                    provider: [{
-                        type: 'email'
-                    }],
+                    verified: false
                 },
-                suburb,
-                phone,
-                educationLevel,
-                skills,
-                industryInterest,
-                termsCondition,
-                weeksOfAvailablity,
-                workType,
-                workClassification,
-                preferredJobLocation,
-                positionTypeInterest,
-                salaryExpectation,
-                infoRequired: false
+                phone
             })
             const fetchUser = await User.findOne({ 'primaryEmail.email': email })
-            const { _id } = fetchUser
+            const { _id, primaryEmail } = fetchUser
             const user = {
-                id: checkUser._id, primaryEmail: {
-                    email: email,
-                    verified: false,
-                    provider: [{
-                        type: 'email'
-                    }],
-                }
+                id: _id, primaryEmail
             }
             const authtoken = jwt.sign(user, JWT_SECRET);
             return res.status(200).cookie('authtoken', authtoken).cookie('e4d4user', true).json({

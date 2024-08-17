@@ -3,7 +3,9 @@
 <header>
   <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200" data-aos-easing="ease-in-sine">
     <div class="container">
-      <a class="navbar-brand" href="/sites/e4d4/"><strong class="main-logo">E4</strong>D4</a>
+      <a class="navbar-brand" href="/sites/e4d4/">
+        <img src="/sites/e4d4/assets/img/logo.png" alt="">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -16,11 +18,11 @@
             <a class="nav-link" href="#">Business Product</a>
           </li>
           <li class="nav-item">
-            <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
-              HOME</button>
+            <a href="/sites/e4d4" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+              HOME</a>
           </li>
           <li>
-            <a href="/sites/e4d4/dashboard"><img src="<%= user?.profilePic ? user?.profilePic : '/sites/e4d4/assets/img/user-icon.webp' %>" alt="" class="dash-img"></a>
+            <a href="/sites/e4d4/profile/<%= user.id %>"><img src="<%= user?.profilePic ? user?.profilePic : '/sites/e4d4/assets/img/user-icon.webp' %>" alt="" class="dash-img"></a>
           </li>
           <li class="nav-item">
             <button type="button" onclick="deleteCookie('authtoken')" class="logout-btn">
@@ -37,7 +39,9 @@
 <header>
   <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200" data-aos-easing="ease-in-sine">
     <div class="container">
-      <a class="navbar-brand" href="/sites/e4d4/"><strong class="main-logo">E4</strong>D4</a>
+      <a class="navbar-brand" href="/sites/e4d4/">
+        <img src="/sites/e4d4/assets/img/logo.png" alt="">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -50,8 +54,8 @@
             <a class="nav-link" href="#">Business Product</a>
           </li>
           <li class="nav-item">
-            <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
-              HOME</button>
+            <a href="/sites/e4d4" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+              HOME</a>
           </li>
           <li>
             <a href="/sites/e4d4/dashboard"><img src="<%= user?.profilePic ? user?.profilePic : '/sites/e4d4/assets/img/user-icon.webp' %>" alt="" class="dash-img"></a>
@@ -71,7 +75,9 @@
 <header>
   <nav class="main-nav  navbar navbar-expand-lg " data-aos="fade-down" data-aos-duration="3200" data-aos-easing="ease-in-sine">
     <div class="container">
-      <a class="navbar-brand" href="/sites/e4d4/"><strong class="main-logo">E4</strong>D4</a>
+      <a class="navbar-brand" href="/sites/e4d4/">
+        <img src="/sites/e4d4/assets/img/logo.png" alt="">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -111,3 +117,9 @@
 </header>
 <!-- NAVBAR ENDS HERE -->
 <% } %>
+
+
+<div id="loader">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle fill="none" stroke-opacity="1" stroke="#FF156D" stroke-width=".5" cx="100" cy="100" r="0"><animate attributeName="r" calcMode="spline" dur="2" values="1;80" keyTimes="0;1" keySplines="0 .2 .5 1" repeatCount="indefinite"></animate><animate attributeName="stroke-width" calcMode="spline" dur="2" values="0;25" keyTimes="0;1" keySplines="0 .2 .5 1" repeatCount="indefinite"></animate><animate attributeName="stroke-opacity" calcMode="spline" dur="2" values="1;0" keyTimes="0;1" keySplines="0 .2 .5 1" repeatCount="indefinite"></animate></circle></svg>
+</div>

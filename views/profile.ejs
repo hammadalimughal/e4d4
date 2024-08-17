@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest Project</title>
+  <%- include('./partials/csslinks') %>
+</head>
+
+<body>
+  <%- include('./partials/header') %>
+
+  <section class="dashboard-main-section">
+    <div class="container">
+      <div class="dashboard-main-setting profile-info mx-auto">
+        <div class="profile-history">
+          <div class="profile-person-history">
+            <img src="/sites/e4d4/assets/img/user-icon.webp" alt="">
+            <div class="px-3">
+              <h6><%= profileUser.fullName %><span> ( Edit Portfolio )</span></h6>
+              <span>Enter Subheading</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center flex-wrap justify-content-center">
+            <% if(JSON.stringify(profileUser._id) == JSON.stringify(user.id)){ %>
+            <a href="/sites/e4d4/edit/profile" class="dash-btn"> <i class="bi bi-pencil-square text-white px-1"></i> Edit</a>
+            <% } %>
+            <button type="button" class="logout-btn ms-2"><i class="bi bi-bell"></i></button>
+          </div>
+        </div>
+        <div class="row justify-content-between my-4">
+          <div class="col-lg-4 col-12">
+            <div class="history-btn-design">
+              <button type="button" class="dash-btn">
+                Home</button>
+              <button type="button" class="dash-btn">
+                Show History</button>
+            </div>
+          </div>
+          <div class="col-lg-5 col-12">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Search Talent..">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+        </div>
+        <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
+        <div class="profile-banner">
+          <div class="banner-cover">
+            <img class="img-fluid" src="/sites/e4d4/assets/img/cover.png" alt="">
+          </div>
+          <div class="banner-info">
+            <div class="profile-person-history large-img">
+              <img src="/sites/e4d4/assets/img/user-icon.webp" alt="">
+              <div class="px-3 pb-2">
+                <h5><%= profileUser.fullName %><span> ( UI/UX Designer )</span></h5>
+                <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+              </div>
+            </div>
+            <span class="profile-badge"><%= profileUser.experience %>+ Years Of Experience</span>
+          </div>
+        </div>
+        <ul class="other-info">
+          <li>@edwardjj53</li>
+          <li>Sydney, Australia</li>
+          <% 
+          const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+          const joiningDate = new Date(profileUser.createdAt)
+          const joiningMonth = monthsShort[joiningDate.getMonth()]
+          const joiningYear = joiningDate.getFullYear()
+           %>
+          <li>Member Since <%= joiningMonth %> <%= joiningYear %></li>
+          <li>(15) Recommendations</li>
+        </ul>
+        <div class="additional-info">
+          <div class="row g-0">
+            <div class="col-lg-8 col-12 panel">
+              <div class="info-item-l h-100">
+                <h6 class="fw-bold">About</h6>
+                <% if(profileUser.about){ %>
+                <p><%= user.about %></p>
+                <% } else { %>
+                <p class="text-muted">No About...</p>
+                <% } %>
+                <% if(profileUser.profileVideo?.url){ %>
+                <div class="profile-video">
+                  <!-- <a href="javascript:;">
+                    <i class="bi bi-play-fill"></i>
+                  </a> -->
+                  <!-- <img src="/sites/e4d4/assets/img/video-poster.png"> -->
+                  <video controls>
+                    <source src="/sites/e4d4<%= profileUser.profileVideo?.url %>">
+                  </video>
+                </div>
+                <% } %>
+              </div>
+            </div>
+            <div class="col-lg-4 col-12 panel">
+              <div class="info-item-r h-100">
+                <h6 class="fw-bold">Connect With Me</h6>
+                <ul class="contact-links">
+                  <% if(profileUser.primaryEmail?.email){ %>
+                  <li>
+                    <span>Email Address</span>
+                    <a href="mailto:<%= profileUser.primaryEmail?.email %>"><%= profileUser.primaryEmail?.email %></a>
+                  </li>
+                  <% } %>
+                  <% if(profileUser.phone){ %>
+                  <li>
+                    <span>Phone #</span>
+                    <a href="tel:<%= profileUser.phone %>"><%= profileUser.phone %></a>
+                  </li>
+                  <% } %>
+                  <% if(profileUser.phone){ %>
+                  <li>
+                    <span>LinkedIn</span>
+                    <a href="<%= profileUser.linkedin %>"><%= profileUser.linkedin %></a>
+                  </li>
+                  <% } %>
+                </ul>
+                <div class="position-details">
+                  <span>UI/UX</span>
+                  <span>Branding</span>
+                  <span>Logo</span>
+                </div>
+                <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-showcase">
+          <% if(profileUser.projects?.length > 0) { %>
+          <h6 class="fw-bold">Projects Showcase</h6>
+          <div class="row g-4 project-listing">
+            <div class="col-lg-4 col-12">
+              <div class="project-item">
+                <h6>UI/UX Design</h6>
+                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
+              </div>
+            </div>
+            <div class="col-lg-4 col-12">
+              <div class="project-item">
+                <h6>UI/UX Design</h6>
+                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
+              </div>
+            </div>
+            <div class="col-lg-4 col-12">
+              <div class="project-item">
+                <h6>UI/UX Design</h6>
+                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
+              </div>
+            </div>
+          </div>
+          <% } %>
+          <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
+          <hr>
+          <div class="follow-more">
+            <h6>Follow To Know More About Me!</h6>
+            <ul>
+              <li>
+                <a href="javascript:;">
+                  <img src="/sites/e4d4/assets/img/social-icons/fb.png" alt="">
+                </a>
+              </li>
+              <li>
+                <a href="javascript:;">
+                  <img src="/sites/e4d4/assets/img/social-icons/ins.png" alt="">
+                </a>
+              </li>
+              <li>
+                <a href="javascript:;">
+                  <img src="/sites/e4d4/assets/img/social-icons/x.png" alt="">
+                </a>
+              </li>
+              <li>
+                <a href="javascript:;">
+                  <img src="/sites/e4d4/assets/img/social-icons/link.png" alt="">
+                </a>
+              </li>
+              <li>
+                <a href="javascript:;">
+                  <img src="/sites/e4d4/assets/img/social-icons/be.png" alt="">
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('./partials/query') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scriptlinks') %>
+
+</body>
+
+</html>

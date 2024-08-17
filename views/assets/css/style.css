@@ -10,7 +10,24 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    display: none;
+}
+#loader svg{
+    height: 150px;
+    width: 150px;
+}
 @font-face {
     font-family: "Gilroy-Semi-Bold";
     src: url("../fonts/Gilroy-SemiBold.ttf") format("truetype");
@@ -99,6 +116,12 @@ div {
 .main-nav .container .navbar-brand {
     font-size: 33px !important;
     font-family: "Gilroy-MediumItalic";
+}
+
+.main-nav .container .navbar-brand img {
+    height: 60px;
+    width: 150px;
+    object-fit: contain;
 }
 
 .main-nav .container .navbar-brand .mainlogo {
@@ -268,6 +291,7 @@ div {
     /* Smooth transition for background color */
 
 }
+
 .add-item {
     position: relative;
     color: white;
@@ -282,6 +306,7 @@ div {
     transition: background-color 0.2s ease-in-out;
     /* Smooth transition for background color */
 }
+
 .add-item:hover {
     background-color: #1da1b2;
     border: none;
@@ -324,10 +349,12 @@ div {
     outline: none;
     box-shadow: none;
 }
-.job-overview{
+
+.job-overview {
     position: sticky;
     top: 20px;
 }
+
 @media (max-width: 1200px) {
     .hero-section h1 {
         padding-left: 5rem;
@@ -1664,10 +1691,12 @@ ul#myTab li {
     margin-top: 2rem;
     position: relative;
 }
-.portfolio-form-design .item{
+
+.portfolio-form-design .item {
     position: relative;
 }
-.portfolio-form-design .item button{
+
+.portfolio-form-design .item button {
     border: none;
     outline: none;
     color: red;
@@ -1676,7 +1705,7 @@ ul#myTab li {
     top: 18px;
     background-color: transparent;
     cursor: pointer;
-    
+
 }
 
 .portfolio-form-design .form-label {
@@ -1783,7 +1812,8 @@ ul#myTab li {
 .weekavail-form-design .btn-check:checked+.btn {
     border: none !important;
 }
-.weekavail-width-inner input:checked + .weekavail-form-design,
+
+.weekavail-width-inner input:checked+.weekavail-form-design,
 .weekavail-form-design:hover {
     border-color: #1da1b2;
     background-color: #f6f6f6;
@@ -1874,6 +1904,22 @@ ul#myTab li {
     border-radius: 7px;
     font-size: 16px;
     font-family: "Gilroy-Medium";
+    text-decoration: none;
+}
+
+.edit-btn {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.edit-it {
+    outline: none;
+}
+
+.edit-it.no-txt::after {
+    content: 'Enter Text Here...';
+    color: #8c8c8e;
 }
 
 .dash-btn i {
@@ -1901,7 +1947,7 @@ ul#myTab li {
 
 
 .own-navbar-nav2 {
-    flex-basis: 55%;
+    /* flex-basis: 55%; */
     display: flex;
     justify-content: space-between;
 }
@@ -1950,6 +1996,13 @@ ul#myTab li {
     width: 75px;
     object-fit: cover;
     border-radius: 6px;
+    background-color: whitesmoke;
+}
+
+.profile-person-history h5 {
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: 22px;
 }
 
 .profile-person-history h6 {
@@ -1963,10 +2016,233 @@ ul#myTab li {
     font-size: 12px;
 }
 
+.banner-info {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 20px 0 30px;
+    transform: translateY(-75px);
+}
+
+.profile-person-history.large-img {
+    align-items: flex-end;
+}
+
+.profile-person-history.large-img img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    object-position: center center;
+    background-color: #F5F5F5;
+    border-radius: 20px;
+}
+
+.profile-badge {
+    border: 1px solid #1DA1B2;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    font-size: 16px;
+    display: block;
+    width: 140px;
+    margin-bottom: 5px;
+    color: #000;
+    font-weight: 400;
+}
+
+.profile-info .other-info {
+    margin-top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    list-style: none;
+    gap: 30px;
+}
+
+.profile-info .other-info li {
+    font-weight: 600;
+}
+
 .history-input-design input {
     border: none;
     outline: none;
     width: 100%;
+}
+
+.profile-info .additional-info {
+    border-top: 1px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
+    /* padding: 0 20px 0 30px; */
+}
+
+.profile-info .additional-info .info-item-l {
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
+
+.profile-info .additional-info .info-item-r {
+    border-left: 1px solid #E8E8E8;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-bottom: 20px;
+}
+
+.profile-video {
+    position: relative;
+}
+
+.profile-video a {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #1DA1B2;
+    background-color: #fff;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+}
+
+.profile-video video,
+.profile-video img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.profile-info .contact-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-info .contact-links li:not(:nth-last-child(1)) {
+    margin-bottom: 5px;
+}
+
+.profile-info .contact-links span {
+    color: #8c8c8e;
+    font-size: 12px;
+}
+
+.profile-info .contact-links a {
+    text-decoration: none;
+    color: #0A0A0E;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.profile-info .contact-links a:hover {
+    text-decoration: underline;
+}
+
+.profile-info .portfolio-showcase {
+    padding: 20px 0;
+}
+
+.project-listing {
+    padding: 20px 0;
+}
+
+.project-listing .project-item {
+    background-color: #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px 0;
+    border-radius: 15px;
+}
+
+.project-listing .project-item h6 {
+    font-weight: 600;
+}
+
+.craft-experience {
+    font-size: 30px;
+    font-weight: 400;
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.craft-experience::before,
+.craft-experience::after {
+    content: '“';
+    font-size: 80px;
+    color: #2bb4b2;
+    transform: translateY(10px);
+    display: inline-block;
+}
+
+.craft-experience::before {
+    padding-right: 5px;
+}
+
+.craft-experience::after {
+    transform: translateY(60px);
+    padding-left: 5px;
+}
+
+.empty-box {
+    position: relative;
+    border: 2px solid #f0f0f0;
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.empty-box img {
+    width: 100px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.empty-box input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.follow-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px 0 0;
+}
+
+.follow-more ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.follow-more h6 {
+    font-size: 18px;
+}
+
+.follow-more ul li a img {
+    height: 35px;
+    width: 35px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 .history-input-design {
@@ -2022,13 +2298,15 @@ ul#myTab li {
     background: #f0f0f0;
     padding: 10px;
     margin: 10px 0 0 0;
+    border-radius: 10px;
 }
 
 .position-details {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-top: 0.75rem;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
 .company-link span {
@@ -2099,6 +2377,20 @@ ul#myTab li {
     align-items: center;
     justify-content: center;
     margin: 6rem 0;
+}
+
+.profile-info .fw-head {
+    border-bottom: 2px solid #1DA1B2;
+    width: fit-content;
+    margin: 15px auto;
+    padding: 5px 10px;
+}
+
+.banner-cover img {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+    border-radius: 25px;
 }
 
 
