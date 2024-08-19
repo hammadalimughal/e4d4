@@ -32,8 +32,8 @@
         <div class="row justify-content-between my-4">
           <div class="col-lg-4 col-12">
             <div class="history-btn-design">
-              <button type="button" class="dash-btn">
-                Home</button>
+              <a href="/sites/e4d4/dashboard" class="dash-btn">
+                Dashboard</a>
               <button type="button" class="dash-btn">
                 Show History</button>
             </div>
@@ -58,7 +58,7 @@
                 <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
               </div>
             </div>
-            <span class="profile-badge"><%= profileUser.experience %>+ Years Of Experience</span>
+            <span class="profile-badge"><%= profileUser.experience ? profileUser.experience : '0'  %>+ Years Of Experience</span>
           </div>
         </div>
         <ul class="other-info">
@@ -134,24 +134,14 @@
           <% if(profileUser.projects?.length > 0) { %>
           <h6 class="fw-bold">Projects Showcase</h6>
           <div class="row g-4 project-listing">
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <h6>UI/UX Design</h6>
-                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
+            <% user.projects.forEach((item) => { %>
+              <div class="col-lg-4 col-12">
+                <div class="project-item">
+                  <h6><%= item.title %></h6>
+                  <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="">
+                </div>
               </div>
-            </div>
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <h6>UI/UX Design</h6>
-                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
-              </div>
-            </div>
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <h6>UI/UX Design</h6>
-                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
-              </div>
-            </div>
+              <% }) %>
           </div>
           <% } %>
           <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
@@ -194,7 +184,9 @@
   <%- include('./partials/query') %>
   <%- include('./partials/footer') %>
   <%- include('./partials/scriptlinks') %>
+<script>
 
+</script>
 </body>
 
 </html>

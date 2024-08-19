@@ -90,10 +90,22 @@ const business = new Schema({
         type: emailSchema,
         required: true,
     },
+    connection: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
+    connectionReq: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
     subscription: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
-    }
+    },
+    jobs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'job'
+    }]
 }, { timestamps: true });
 
 const Business = mongoose.model('business', business)

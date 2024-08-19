@@ -11,253 +11,424 @@
 <body>
   <%- include('./partials/header') %>
 
-  <section class="dashboard-main-section">
-    <div class="container">
-      <div class="dashboard-main-setting profile-info mx-auto">
-        <div class="profile-history">
-          <div class="profile-person-history">
-            <img src="/sites/e4d4/assets/img/user-icon.webp" alt="">
-            <div class="px-3">
-              <h6><%= user.fullName %><span> ( Edit Portfolio )</span></h6>
-              <span>Enter Subheading</span>
-            </div>
-          </div>
-          <div class="d-flex align-items-center flex-wrap justify-content-center">
-            <button type="button" class="dash-btn"> <i class="bi bi-check2-all text-white px-1"></i> Done</button>
-            <button type="button" class="logout-btn ms-2"><i class="bi bi-bell"></i></button>
-          </div>
-        </div>
-        <div class="row justify-content-between my-4">
-          <div class="col-lg-4 col-12">
-            <div class="history-btn-design">
-              <button type="button" class="dash-btn">
-                Home</button>
-              <button type="button" class="dash-btn">
-                Show History</button>
-            </div>
-          </div>
-          <div class="col-lg-5 col-12">
-            <div class="history-input-design">
-              <input type="text" class="" placeholder="Search Talent..">
-              <i class="bi bi-search"></i>
-            </div>
-          </div>
-        </div>
-        <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
-        <div class="profile-banner">
-          <div class="banner-cover">
-            <img class="img-fluid" src="/sites/e4d4/assets/img/cover.png" alt="">
-          </div>
-          <div class="banner-info">
-            <div class="profile-person-history large-img">
+    <section class="dashboard-main-section">
+      <div class="container">
+        <div class="dashboard-main-setting profile-info mx-auto">
+          <div class="profile-history">
+            <div class="profile-person-history">
               <img src="/sites/e4d4/assets/img/user-icon.webp" alt="">
-              <div class="px-3 pb-2">
-                <h5><%= user.fullName %><span> ( UI/UX Designer )</span></h5>
-                <span><span data-name="headline" class="edit-it" contenteditable="">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </span><button class="edit-btn" data-target='[data-name="headline"]'><i class="bi bi-pencil-square"></i></button></span>
+              <div class="px-3">
+                <!-- <%= JSON.stringify(user) %> -->
+                <h6>
+                  <%= user.fullName %><span> ( Edit Portfolio )</span>
+                </h6>
+                <span>
+                  <%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %>
+                </span>
               </div>
             </div>
-            <span class="profile-badge"><%= user.experience %>+ Years Of Experience</span>
+            <div class="d-flex align-items-center flex-wrap justify-content-center">
+              <a href="/sites/e4d4/dashboard" class="dash-btn"> <i class="bi bi-check2-all text-white px-1"></i> Done</a>
+              <button type="button" class="logout-btn ms-2"><i class="bi bi-bell"></i></button>
+            </div>
           </div>
-        </div>
-        <ul class="other-info">
-          <li>@edwardjj53</li>
-          <li>Sydney, Australia</li>
-          <li>Member Since Jan 2024</li>
-          <li>(15) Recommendations</li>
-        </ul>
-        <div class="additional-info">
-          <div class="row g-0">
-            <div class="col-lg-8 col-12 panel">
-              <div class="info-item-l h-100">
-                <h6 class="fw-bold">About <button class="edit-btn"><i class="bi bi-pencil-square"></i></button></h6>
-                <% if(user.about){ %>
-                <p><%= user.about %></p>
-                <% } else { %>
-                <p class="text-muted">No About...</p>
-                <% } %>
-                <% if(user.profileVideo){ %>
-                <div class="profile-video">
-                  <a href="">
-                    <i class="bi bi-play-fill"></i>
-                  </a>
-                  <img src="/sites/e4d4/assets/img/video-poster.png">
+          <div class="row justify-content-between my-4">
+            <div class="col-lg-4 col-12">
+              <div class="history-btn-design">
+                <button type="button" class="dash-btn">
+                  Home</button>
+                <button type="button" class="dash-btn">
+                  Show History</button>
+              </div>
+            </div>
+            <div class="col-lg-5 col-12">
+              <div class="history-input-design">
+                <input type="text" class="" placeholder="Search Talent..">
+                <i class="bi bi-search"></i>
+              </div>
+            </div>
+          </div>
+          <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
+          <div class="profile-banner">
+            <div class="banner-cover">
+              <img class="img-fluid" src="/sites/e4d4/assets/img/cover.png" alt="">
+            </div>
+            <div class="banner-info">
+              <div class="profile-person-history large-img">
+                <img src="/sites/e4d4/assets/img/user-icon.webp" alt="">
+                <div class="px-3 pb-2">
+                  <h5>
+                    <%= user.fullName %><span> (<%= user.jobTitle ? user.jobTitle : 'Job Title Here' %>)</span>
+                  </h5>
+                  <span><span data-name="headline" class="edit-it" contenteditable="">
+                      <%= user.subHeading ? user.subHeading : "Enter Sub Heading" %>
+                    </span>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#edit-name-headling" class="edit-btn">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </span>
                 </div>
-                <% } else { %>
-                <label class="empty-box" for="profileVideo">
-                  <input type="file" name="profileVideo" id="profileVideo" accept="video/*">
-                  <img src="/sites/e4d4/assets/img/video-upload.png" alt="">
-                  <h5>Upload Video to show Here</h5>
-                </label>
-                <% } %>
               </div>
+              <span class="profile-badge">
+                <%= user.experience ? user.experience : '0' %>+ Years Of Experience
+              </span>
             </div>
-            <div class="col-lg-4 col-12 panel">
-              <div class="info-item-r h-100">
-                <h6 class="fw-bold">Connect With Me <button class="edit-btn"><i class="bi bi-pencil-square"></i></button></h6>
-                <ul class="contact-links">
-                  <% if(user.primaryEmail?.email){ %>
-                  <li>
-                    <span>Email Address</span>
-                    <a href="mailto:<%= user.primaryEmail?.email %>"><%= user.primaryEmail?.email %></a>
-                  </li>
-                  <% } %>
-                  <% if(user.phone){ %>
-                  <li>
-                    <span>Phone #</span>
-                    <a href="tel:<%= user.phone %>"><%= user.phone %></a>
-                  </li>
-                  <% } %>
-                  <% if(user.phone){ %>
-                  <li>
-                    <span>LinkedIn</span>
-                    <a href="<%= user.linkedin %>"><%= user.linkedin %></a>
-                  </li>
-                  <% } %>
-                </ul>
-                <div class="position-details">
-                  <span>UI/UX</span>
-                  <span>Branding</span>
-                  <span>Logo</span>
+          </div>
+          <ul class="other-info">
+            <li>@edwardjj53</li>
+            <li>Sydney, Australia</li>
+            <li>Member Since Jan 2024</li>
+            <li>(15) Recommendations</li>
+          </ul>
+          <div class="additional-info">
+            <div class="row g-0">
+              <div class="col-lg-8 col-12 panel">
+                <div class="info-item-l h-100">
+                  <h6 class="fw-bold">About
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#edit-profile-about" class="edit-btn">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <% if(user.about){ %>
+                      <p>
+                      <p class="text-muted">
+                        <%= user.about %>
+                      </p>
+                      </p>
+                      <% } else { %>
+                        <p class="text-muted">No About...</p>
+                        <% } %>
+                          <% if(user.profileVideo){ %>
+                            <div class="profile-video">
+                              <a href="">
+                                <i class="bi bi-play-fill"></i>
+                              </a>
+                              <img src="/sites/e4d4/assets/img/video-poster.png">
+                            </div>
+                            <% } else { %>
+                              <label class="empty-box" for="profileVideo">
+                                <input type="file" name="profileVideo" id="profileVideo" accept="video/*">
+                                <img src="/sites/e4d4/assets/img/video-upload.png" alt="">
+                                <h5>Upload Video to show Here</h5>
+                              </label>
+                              <% } %>
                 </div>
-                <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
+              </div>
+              <div class="col-lg-4 col-12 panel">
+                <div class="info-item-r h-100">
+                  <h6 class="fw-bold">Connect With Me
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#edit-contact-info" class="edit-btn">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </h6>
+                  <ul class="contact-links">
+                    <% if(user.primaryEmail?.email){ %>
+                      <li>
+                        <span>Email Address</span>
+                        <a href="mailto:<%= user.primaryEmail?.email %>">
+                          <%= user.primaryEmail?.email %>
+                        </a>
+                      </li>
+                      <% } %>
+                        <% if(user.phone){ %>
+                          <li>
+                            <span>Phone #</span>
+                            <a href="tel:<%= user.phone %>">
+                              <%= user.phone %>
+                            </a>
+                          </li>
+                          <% } %>
+                            <% if(user.linkedin){ %>
+                              <li>
+                                <span>LinkedIn</span>
+                                <a href="<%= user.linkedin %>">
+                                  <%= user.linkedin %>
+                                </a>
+                              </li>
+                              <% } %>
+                  </ul>
+                  <div class="position-details">
+                    <span>UI/UX</span>
+                    <span>Branding</span>
+                    <span>Logo</span>
+                  </div>
+                  <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="portfolio-showcase">
-          <h6 class="fw-bold">Projects Showcase <button class="edit-btn"><i class="bi bi-pencil-square"></i></button></h6>
-          <% if(user.projects?.length > 0) { %>
-          <div class="row g-4 project-listing">
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <h6>UI/UX Design</h6>
-                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
+          <div class="portfolio-showcase">
+            <h6 class="fw-bold">Projects Showcase <button class="edit-btn"><i class="bi bi-pencil-square"></i></button>
+            </h6>
+            <% if(user.projects?.length> 0) { %>
+              <div class="row g-4 project-listing">
+                <% user.projects.forEach((item)=> { %>
+                  <div class="col-lg-4 col-12">
+                    <div class="project-item">
+                      <h6>
+                        <%= item.title %>
+                      </h6>
+                      <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="">
+                    </div>
+                  </div>
+                  <% }) %>
+                  <div class="col-12 d-flex justify-content-center">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#add-project" class="dash-btn"
+                      title="Add Project">
+                      <i class="bi bi-file-earmark-plus"></i>
+                  </div>
               </div>
-            </div>
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <h6>UI/UX Design</h6>
-                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
-              </div>
-            </div>
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <h6>UI/UX Design</h6>
-                <img class="img-fluid" src="/sites/e4d4/assets/img/demo-projects/1.png" alt="">
-              </div>
-            </div>
-          </div>
-          <% } else { %>
-          <label class="empty-box" for="projects">
-            <input type="file" name="projects" id="projects" multiple>
-            <img src="/sites/e4d4/assets/img/empty.png" alt="">
-            <h5>Upload Some Projects to show Here</h5>
-          </label>
-          <% } %>
-          <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
-          <hr>
-          <div class="follow-more">
-            <h6>Follow To Know More About Me!</h6>
-            <ul>
-              <li>
-                <a href="javascript:;">
-                  <img src="/sites/e4d4/assets/img/social-icons/fb.png" alt="">
-                </a>
-              </li>
-              <li>
-                <a href="javascript:;">
-                  <img src="/sites/e4d4/assets/img/social-icons/ins.png" alt="">
-                </a>
-              </li>
-              <li>
-                <a href="javascript:;">
-                  <img src="/sites/e4d4/assets/img/social-icons/x.png" alt="">
-                </a>
-              </li>
-              <li>
-                <a href="javascript:;">
-                  <img src="/sites/e4d4/assets/img/social-icons/link.png" alt="">
-                </a>
-              </li>
-              <li>
-                <a href="javascript:;">
-                  <img src="/sites/e4d4/assets/img/social-icons/be.png" alt="">
-                </a>
-              </li>
-            </ul>
+              <% } else { %>
+                <button class="empty-box" type="button" data-bs-toggle="modal" data-bs-target="#add-project">
+                  <!-- <input type="file" name="projects" id="projects" multiple> -->
+                  <img src="/sites/e4d4/assets/img/empty.png" alt="">
+                  <h5>Upload Some Projects to show Here</h5>
+                </button>
+                <% } %>
+                  <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
+                  <hr>
+                  <div class="follow-more">
+                    <h6>Follow To Know More About Me!</h6>
+                    <ul>
+                      <li>
+                        <a href="javascript:;">
+                          <img src="/sites/e4d4/assets/img/social-icons/fb.png" alt="">
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:;">
+                          <img src="/sites/e4d4/assets/img/social-icons/ins.png" alt="">
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:;">
+                          <img src="/sites/e4d4/assets/img/social-icons/x.png" alt="">
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:;">
+                          <img src="/sites/e4d4/assets/img/social-icons/link.png" alt="">
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:;">
+                          <img src="/sites/e4d4/assets/img/social-icons/be.png" alt="">
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <%- include('./partials/query') %>
-  <%- include('./partials/footer') %>
-  <%- include('./partials/scriptlinks') %>
-  <script>
-    $('.edit-it').keyup(function() {
-      if ($(this).html() == '') {
-        $(this).addClass('no-txt')
-      } else {
-        $(this).removeClass('no-txt')
-      }
-    })
-    $(".edit-btn").click(function() {
-      $($(this).data('target'))[0].focus()
-    })
-    $("#profileVideo").change(async function(e) {
-      const videoFormData = new FormData();
-      const videoFile = e.target.files[0];
-      videoFormData.append('profileVideo', videoFile);
-      videoFormData.append('user', '<%= user.id %>');
-      //   const videoRes = await fetch('/sites/e4d4/api/user/modify/profileVideo', {
-      //       method: "POST",
-      //       body: videoFormData
-      //     });
-      $('#loader').css('display', 'flex')
-      $.ajax({
-        url: '/sites/e4d4/api/user/modify/profileVideo',
-        type: 'POST',
-        data: videoFormData,
-        processData: false, // Important
-        contentType: false, // Important
-        success: function(data) {
-          $('#loader').hide()
-          location.href = '/sites/e4d4/profile/<%= user.id %>'
-        },
-        error: function(err) {
-          $('#loader').hide()
-          console.error(err);
-          alert(err)
-        }
-      });
-    })
-    $("#projects").change(function(e) {
-      const projectFiles = e.target.files
-      projectFormData.append('user','<%= user.id %>')
-      const projectFormData = new FormData();
-      for (let i = 0; i < projectFiles.length; i++) {
-        projectFormData.append('projects', projectFiles[i]);
-      }
-      $('#loader').css('display','flex')
-      $.ajax({
-        url: '/sites/e4d4/api/user/modify/projects',
-        type: 'POST',
-        data: projectFormData,
-        processData: false, // Important
-        contentType: false, // Important
-        success: function(data) {
-          $('#loader').hide()
-          location.href = '/sites/e4d4/profile/<%= user.id %>'
-        },
-        error: function(err) {
-          $('#loader').hide()
-          console.error(err);
-          alert(err)
-        }
-      });
-    })
-  </script>
+    <%- include('./partials/query') %>
+      <%- include('./partials/footer') %>
+
+        <div class="modal fade edit-popup" id="edit-contact-info" tabindex="-1" aria-labelledby="edit-contact-infoLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="edit-contact-infoLabel">Edit Contact Info</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/sites/e4d4/api/user/modify/user-info" method="post">
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <div class="modal-body">
+                  <div class="row g-4">
+                    <div class="col-12">
+                      <div class="portfolio-form-design">
+                        <label for="user-phone" class="form-label">Phone*</label>
+                        <input type="text" name="phone" id="user-phone" class="form-control"
+                          placeholder="Enter Phone Number..." value="<%= user.phone %>" required>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="portfolio-form-design">
+                        <label for="job-title" class="form-label">LinkedIn*</label>
+                        <input type="text" name="linkedin" id="job-title" class="form-control"
+                          placeholder="Enter LinkedIn Username..." value="<%= user.linkedin %>" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="dash-btn">Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade edit-popup" id="edit-name-headling" tabindex="-1"
+          aria-labelledby="edit-name-headlingLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="edit-name-headlingLabel">Edit Profile Info</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/sites/e4d4/api/user/modify/user-info" method="post">
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <div class="modal-body">
+                  <div class="row g-4">
+                    <div class="col-12">
+                      <div class="portfolio-form-design">
+                        <label for="full-name-edit" class="form-label">Full Name*</label>
+                        <input type="text" name="fullName" id="full-name-edit" class="form-control"
+                          placeholder="Enter Full Name..." value="<%= user.fullName %>" required>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="portfolio-form-design">
+                        <label for="job-title" class="form-label">Job Title*</label>
+                        <input type="text" name="jobTitle" id="job-title" class="form-control"
+                          placeholder="Enter Job Title..." value="<%= user.jobTitle %>" required>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="portfolio-form-design">
+                        <label for="subHeading-edit" class="form-label">Sub Heading*</label>
+                        <input type="text" name="subHeading" id="subHeading-edit" class="form-control"
+                          placeholder="Enter SubHeading..." value="<%= user.subHeading %>" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="dash-btn">Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade edit-popup" id="add-project" tabindex="-1" aria-labelledby="add-projectLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="add-projectLabel">Add a Project</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/sites/e4d4/api/user/modify/project" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <div class="modal-body">
+                  <div class="row g-4">
+                    <div class="col-12">
+                      <div class="portfolio-form-design">
+                        <label for="project-title" class="form-label">Title*</label>
+                        <input type="text" name="title" id="project-title" class="form-control"
+                          placeholder="Enter Title..." value="" required>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="portfolio-form-design">
+                        <label for="project-image" class="form-label">Image*</label>
+                        <input type="file" name="image" id="project-image" class="form-control"
+                          placeholder="Enter Title..." value="" required>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="dash-btn">Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade edit-popup" id="edit-profile-about" tabindex="-1"
+          aria-labelledby="edit-profile-aboutLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="edit-profile-aboutLabel">Edit Profile About</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="/sites/e4d4/api/user/modify/user-info" method="post">
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <div class="modal-body">
+                  <div class="row g-4">
+                    <div class="col-12">
+                      <div class="portfolio-form-design">
+                        <label for="full-name-edit" class="form-label">About*</label>
+                        <textarea class="form-control" name="about" required minlength="30"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="dash-btn">Update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <%- include('./partials/scriptlinks') %>
+          <script>
+            $('.edit-it').keyup(function () {
+              if ($(this).html() == '') {
+                $(this).addClass('no-txt')
+              } else {
+                $(this).removeClass('no-txt')
+              }
+            })
+            $(".edit-btn").click(function () {
+              $($(this).data('target'))[0].focus()
+            })
+            $("#profileVideo").change(async function (e) {
+              const videoFormData = new FormData();
+              const videoFile = e.target.files[0];
+              videoFormData.append('profileVideo', videoFile);
+              videoFormData.append('user', '<%= user.id %>');
+              //   const videoRes = await fetch('/sites/e4d4/api/user/modify/profileVideo', {
+              //       method: "POST",
+              //       body: videoFormData
+              //     });
+              $('#loader').css('display', 'flex')
+              $.ajax({
+                url: '/sites/e4d4/api/user/modify/profileVideo',
+                type: 'POST',
+                data: videoFormData,
+                processData: false, // Important
+                contentType: false, // Important
+                success: function (data) {
+                  $('#loader').hide()
+                  location.href = '/sites/e4d4/profile/<%= user.id %>'
+                },
+                error: function (err) {
+                  $('#loader').hide()
+                  console.error(err);
+                  alert(err)
+                }
+              });
+            })
+            // $("#projects").change(function (e) {
+            //   const projectFiles = e.target.files
+            //   projectFormData.append('user', '<%= user.id %>')
+            //   const projectFormData = new FormData();
+            //   for (let i = 0; i < projectFiles.length; i++) {
+            //     projectFormData.append('projects', projectFiles[i]);
+            //   }
+            //   $('#loader').css('display', 'flex')
+            //   $.ajax({
+            //     url: '/sites/e4d4/api/user/modify/projects',
+            //     type: 'POST',
+            //     data: projectFormData,
+            //     processData: false, // Important
+            //     contentType: false, // Important
+            //     success: function (data) {
+            //       $('#loader').hide()
+            //       location.href = '/sites/e4d4/profile/<%= user.id %>'
+            //     },
+            //     error: function (err) {
+            //       $('#loader').hide()
+            //       console.error(err);
+            //       alert(err)
+            //     }
+            //   });
+            // })
+          </script>
+
 </body>
 
 </html>

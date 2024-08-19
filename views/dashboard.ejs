@@ -71,214 +71,52 @@
                 <h5 class="fw-bold mt-5 mb-4">Shortlisted Companies / Businesses</h5>
 
                 <div class="row">
-
+                    <% companies.forEach((item) => { %>
                     <div class="col-lg-6">
                         <div class="shortlisted-companies">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h6 class="company-name">Company Name</h6>
-                                    <div class="company-loc">Location : Sydney, Australia</div>
-                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
+                                    <h6 class="company-name"><%= item.fullName %></h6>
+                                    <div class="company-loc">Location: <%= item.location %></div>
+                                    <div class="company-loc">Business Operate: <%= item.headQuarterLocation %></div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <button type="button" class="company_request_btn"> + Send Connection
-                                        Request</button>
+                                    <% if(item.connectionReq.includes(user.id)){ %>
+                                        <span class="company_request_btn"> Request Sent Successfully</span>
+                                    <% } else { %>
+                                        <form action="/sites/e4d4/api/connection/request/business" method="post">
+                                            <input type="hidden" name="businessId" value="<%= item._id %>">
+                                            <input type="hidden" name="userId" value="<%= user.id %>">
+                                            <button type="submit" class="company_request_btn"> + Send Connection Request</button>
+                                        </form>
+                                    <% } %>
+                                    
                                 </div>
                             </div>
                             <div class="company-position">
+                                <% if(item.jobs.length > 0) { %>
                                 <span class="company-position-offer">Offered Positions:</span>
                                 <div class="position-details">
-                                    <span>Manager</span>
-                                    <span>Accountants</span>
-                                    <span>Developers</span>
-                                    <span>Show More</span>
+                                    <% item.jobs?.forEach((job)=>{ %>
+                                    <span><%= job.title %></span>
+                                    <% }) %>
                                 </div>
+                                <% } %>
 
                             </div>
+                            <% if(item.website) { %>
                             <div class="company-link">
                                 <i class="fa-solid fa-globe"></i>
-                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
+                                <span>Website: <a href="<%= item.website %>"><%= item.website %></a></span>
                             </div>
-                            <button type="button" class="dash-btn my-3">
+                            <% } %>
+                            <!-- <button type="button" class="dash-btn my-3">
                                 Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button>
-
+ -->
 
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="shortlisted-companies">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6 class="company-name">Company Name</h6>
-                                    <div class="company-loc">Location : Sydney, Australia</div>
-                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="button" class="company_request_btn"> + Send Connection
-                                        Request</button>
-                                </div>
-                            </div>
-                            <div class="company-position">
-                                <span class="company-position-offer">Offered Positions:</span>
-                                <div class="position-details">
-                                    <span>Manager</span>
-                                    <span>Accountants</span>
-                                    <span>Developers</span>
-                                    <span>Show More</span>
-                                </div>
-
-                            </div>
-                            <div class="company-link">
-                                <i class="fa-solid fa-globe"></i>
-                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="shortlisted-companies">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6 class="company-name">Company Name</h6>
-                                    <div class="company-loc">Location : Sydney, Australia</div>
-                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="button" class="company_request_btn"> + Send Connection
-                                        Request</button>
-                                </div>
-                            </div>
-                            <div class="company-position">
-                                <span class="company-position-offer">Offered Positions:</span>
-                                <div class="position-details">
-                                    <span>Manager</span>
-                                    <span>Accountants</span>
-                                    <span>Developers</span>
-                                    <span>Show More</span>
-                                </div>
-
-                            </div>
-                            <div class="company-link">
-                                <i class="fa-solid fa-globe"></i>
-                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="shortlisted-companies">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6 class="company-name">Company Name</h6>
-                                    <div class="company-loc">Location : Sydney, Australia</div>
-                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="button" class="company_request_btn"> + Send Connection
-                                        Request</button>
-                                </div>
-                            </div>
-                            <div class="company-position">
-                                <span class="company-position-offer">Offered Positions:</span>
-                                <div class="position-details">
-                                    <span>Manager</span>
-                                    <span>Accountants</span>
-                                    <span>Developers</span>
-                                    <span>Show More</span>
-                                </div>
-
-                            </div>
-                            <div class="company-link">
-                                <i class="fa-solid fa-globe"></i>
-                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="shortlisted-companies">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6 class="company-name">Company Name</h6>
-                                    <div class="company-loc">Location : Sydney, Australia</div>
-                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="button" class="company_request_btn"> + Send Connection
-                                        Request</button>
-                                </div>
-                            </div>
-                            <div class="company-position">
-                                <span class="company-position-offer">Offered Positions:</span>
-                                <div class="position-details">
-                                    <span>Manager</span>
-                                    <span>Accountants</span>
-                                    <span>Developers</span>
-                                    <span>Show More</span>
-                                </div>
-
-                            </div>
-                            <div class="company-link">
-                                <i class="fa-solid fa-globe"></i>
-                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="shortlisted-companies">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6 class="company-name">Company Name</h6>
-                                    <div class="company-loc">Location : Sydney, Australia</div>
-                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="button" class="company_request_btn"> + Send Connection
-                                        Request</button>
-                                </div>
-                            </div>
-                            <div class="company-position">
-                                <span class="company-position-offer">Offered Positions:</span>
-                                <div class="position-details">
-                                    <span>Manager</span>
-                                    <span>Accountants</span>
-                                    <span>Developers</span>
-                                    <span>Show More</span>
-                                </div>
-
-                            </div>
-                            <div class="company-link">
-                                <i class="fa-solid fa-globe"></i>
-                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="shortlisted-companies">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6 class="company-name">Company Name</h6>
-                                    <div class="company-loc">Location : Sydney, Australia</div>
-                                    <div class="company-loc">Business Operate : Sydney, Australia</div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="button" class="company_request_btn"> + Send Connection
-                                        Request</button>
-                                </div>
-                            </div>
-                            <div class="company-position">
-                                <span class="company-position-offer">Offered Positions:</span>
-                                <div class="position-details">
-                                    <span>Manager</span>
-                                    <span>Accountants</span>
-                                    <span>Developers</span>
-                                    <span>Show More</span>
-                                </div>
-
-                            </div>
-                            <div class="company-link">
-                                <i class="fa-solid fa-globe"></i>
-                                <span>Website: <a href="https://www.google.com/">https://www.google.com/</a></span>
-                            </div>
-                        </div>
-                    </div>
+                    <% }) %>
                 </div>
 
 

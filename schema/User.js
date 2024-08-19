@@ -49,6 +49,14 @@ const user = new Schema({
         type: String,
         required: true
     },
+    subHeading: {
+        type: String,
+        // required: true
+    },
+    jobTitle: {
+        type: String,
+        // required: true
+    },
     primaryEmail: {
         type: emailSchema,
         required: true,
@@ -89,6 +97,9 @@ const user = new Schema({
     address: {
         type: String,
     },
+    linkedin: {
+        type: String,
+    },
     educationLevel: {
         type: String,
     },
@@ -119,7 +130,19 @@ const user = new Schema({
     infoRequired: {
         type: Boolean,
         default: true
-    }
+    },
+    projects: [{
+        type: Object
+    }],
+    
+    connection: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'business'
+    },
+    connectionReq: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'business'
+    },
 }, { timestamps: true });
 const User = mongoose.model('user', user)
 module.exports = User;

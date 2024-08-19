@@ -10,6 +10,7 @@ const cookieAuth = require('./middleware/authCookie')
 const Job = require("./schema/Job")
 const formatDate = require('./helper/formatDate')
 const User = require('./schema/User')
+const Business = require('./schema/Business')
 
 app.set('view engine', 'ejs');
 app.use('/sites/e4d4/assets', express.static(__dirname + '/views/assets'));
@@ -58,6 +59,9 @@ app.get('/sites/e4d4/businessregistration', async (req, res) => {
     try {
         const user = req.user
         const business = req.business
+        if (business) {
+            return res.redirect('/sites/e4d4/business-dashboard')
+        }
         res.render(`businessregistration`, { user, business })
     } catch (error) {
         console.log(error)
@@ -84,7 +88,9 @@ app.get('/sites/e4d4/dashboard', async (req, res) => {
         const user = req.user
         const business = req.business
         if (user) {
-            return res.render(`dashboard`, { user, business })
+            // const jobs = await Job.find()
+            const companies = await Business.find().populate('jobs').exec()
+            return res.render(`dashboard`, { user, business, companies })
         }
         return res.redirect(`/sites/e4d4/join`)
     } catch (error) {
@@ -101,7 +107,7 @@ app.get('/sites/e4d4/join', async (req, res) => {
             return res.redirect(`/sites/e4d4/dashboard`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4`)
+            return res.redirect(`/sites/e4d4/business-dashboard`)
         }
         return res.render(`join`, { user, business })
     } catch (error) {
@@ -113,6 +119,9 @@ app.get('/sites/e4d4/user-loginemail', async (req, res) => {
     try {
         const user = req.user
         const business = req.business
+        if(user){
+            return  res.redirect(`/sites/e4d4/profile/${user.id}`)
+        }
         res.render(`user-loginemail`, { user, business })
     } catch (error) {
         console.log(error)
@@ -151,6 +160,9 @@ app.get('/sites/e4d4/user-login', async (req, res) => {
     try {
         const user = req.user
         const business = req.business
+        if(user){
+            return  res.redirect(`/sites/e4d4/profile/${user.id}`)
+        }
         res.render(`user-login`, { user, business })
     } catch (error) {
         console.log(error)
@@ -161,6 +173,9 @@ app.get('/sites/e4d4/business-login', async (req, res) => {
     try {
         const user = req.user
         const business = req.business
+        if (business) {
+            return res.redirect('/sites/e4d4/business-dashboard')
+        }
         res.render(`business-login`, { user, business })
     } catch (error) {
         console.log(error)
@@ -200,6 +215,19 @@ app.get('/sites/e4d4/business-subscription', async (req, res) => {
             return res.redirect(`/sites/e4d4/business-login`)
         }
         res.render(`business-subscription`, { user, business })
+    } catch (error) {
+        console.log(error)
+        res.send(error.message)
+    }
+})
+app.get('/sites/e4d4/business-dashboard', async (req, res) => {
+    try {
+        const user = req.user
+        const business = req.business
+        if (!business) {
+            return res.redirect(`/sites/e4d4/business-login`)
+        }
+        res.render(`business-dashboard`, { user, business })
     } catch (error) {
         console.log(error)
         res.send(error.message)

@@ -15,6 +15,10 @@ router.post('/', async (req, res) => {
         if (errors.length == 0) {
             const job = await Job.create({ company, title, summary, responsiblities: responsiblities.split('\n'), education, skills: skills.split('\n'), experience, certification, position, industry, location, jobType, benefits: benefits.split('\n'), salary, workScheduled, applicationPosted, applicationDeadline, applicationInstruction, requiredDocuments: requiredDocuments.split('\n'), contactPerson, contactNumber, additionalInfo, agreeTerms })
             if (job) {
+                const bJobs = business.jobs ? business.jobs : []
+                bJobs.push(job._id)
+                business.jobs = bJobs
+                await business.save()
                 return res.status(200).redirect(`/sites/e4d4/jobdetails/${job._id}?message=Job Posted Successfully`)
             } else {
                 return res.status(409).redirect('/sites/e4d4?error=Something Went Wrong')

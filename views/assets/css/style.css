@@ -2191,6 +2191,7 @@ ul#myTab li {
 
 .empty-box {
     position: relative;
+    background-color: transparent;
     border: 2px solid #f0f0f0;
     padding: 20px;
     border-radius: 20px;
@@ -2393,7 +2394,9 @@ ul#myTab li {
     border-radius: 25px;
 }
 
-
+.edit-popup .portfolio-form-design{
+    margin: 0;
+}
 @media (max-width: 787px) {
     .history-input-design {
         margin-top: 15px;
