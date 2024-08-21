@@ -10,6 +10,11 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+button[disabled] {
+    cursor: not-allowed;
+}
+
 #loader {
     position: fixed;
     top: 0;
@@ -24,10 +29,12 @@
     backdrop-filter: blur(5px);
     display: none;
 }
-#loader svg{
+
+#loader svg {
     height: 150px;
     width: 150px;
 }
+
 @font-face {
     font-family: "Gilroy-Semi-Bold";
     src: url("../fonts/Gilroy-SemiBold.ttf") format("truetype");
@@ -2189,6 +2196,38 @@ ul#myTab li {
     padding-left: 5px;
 }
 
+.hyperlink {
+    color: #1da1b2;
+}
+
+.otp-input {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.otp-input input {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    text-align: center;
+    font-size: 1.2rem;
+    border: 1px solid #1DA1B2;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #000;
+}
+
+.otp-input input::-webkit-outer-spin-button,
+.otp-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.otp-input input[type=number] {
+    -moz-appearance: textfield;
+}
+
 .empty-box {
     position: relative;
     background-color: transparent;
@@ -2394,9 +2433,10 @@ ul#myTab li {
     border-radius: 25px;
 }
 
-.edit-popup .portfolio-form-design{
+.edit-popup .portfolio-form-design {
     margin: 0;
 }
+
 @media (max-width: 787px) {
     .history-input-design {
         margin-top: 15px;

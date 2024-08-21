@@ -122,7 +122,58 @@ app.get('/sites/e4d4/user-loginemail', async (req, res) => {
         if(user){
             return  res.redirect(`/sites/e4d4/profile/${user.id}`)
         }
+        if (business) {
+            return res.redirect(`/sites/e4d4/business-dashboard`)
+        }
         res.render(`user-loginemail`, { user, business })
+    } catch (error) {
+        console.log(error)
+        res.send(error.message)
+    }
+})
+app.get('/sites/e4d4/reset-password', async (req, res) => {
+    try {
+        const user = req.user
+        const business = req.business
+        if(user){
+            return  res.redirect(`/sites/e4d4/profile/${user.id}`)
+        }
+        if (business) {
+            return res.redirect(`/sites/e4d4/business-dashboard`)
+        }
+        res.render(`reset-password`, { user, business })
+    } catch (error) {
+        console.log(error)
+        res.send(error.message)
+    }
+})
+app.get('/sites/e4d4/otp-verification', async (req, res) => {
+    try {
+        const user = req.user
+        const business = req.business
+        if(user){
+            return  res.redirect(`/sites/e4d4/profile/${user.id}`)
+        }
+        if (business) {
+            return res.redirect(`/sites/e4d4/business-dashboard`)
+        }
+        res.render(`otp-verification`, { user, business })
+    } catch (error) {
+        console.log(error)
+        res.send(error.message)
+    }
+})
+app.get('/sites/e4d4/update-password', async (req, res) => {
+    try {
+        const user = req.user
+        const business = req.business
+        if(user){
+            return  res.redirect(`/sites/e4d4/profile/${user.id}`)
+        }
+        if (business) {
+            return res.redirect(`/sites/e4d4/business-dashboard`)
+        }
+        res.render(`update-password`, { user, business })
     } catch (error) {
         console.log(error)
         res.send(error.message)
