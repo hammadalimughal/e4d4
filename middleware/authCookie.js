@@ -13,17 +13,17 @@ const cookieAuth = (cookieName) => {
             const cookieAuthtoken = req.cookies[cookieName];
             if (cookieAuthtoken) {
                 const tokenUser = jwt.verify(cookieAuthtoken, JWT_SECRET);
-                const dbUser = await User.findById(tokenUser.id);
+                const dbUser = await User.findById(tokenUser.id).populate('projects').lean();
 
                 if (dbUser) {
-                    const { _id, fullName, primaryEmail, suburb, phone, educationLevel, skills, industryInterest, termsCondition, weeksOfAvailablity, workType, workClassification, preferredJobLocation, positionTypeInterest, salaryExpectation, createdAt, updatedAt, jobTitle, subHeading, about, projects,linkedin } = dbUser;
+                    const { _id, primaryEmail } = dbUser;
                     const user = {
-                        id: _id, fullName, primaryEmail, suburb, phone, educationLevel, skills, industryInterest, termsCondition, weeksOfAvailablity, workType, workClassification, preferredJobLocation, positionTypeInterest, salaryExpectation, createdAt, updatedAt, jobTitle, subHeading, about, projects,linkedin
+                        id: _id, ...dbUser
                     };
                     const authtoken = jwt.sign({ id: _id, primaryEmail }, JWT_SECRET);
                     res.cookie('authtoken', authtoken);
                     req.user = user;
-                    console.log('user',user)
+                    console.log('user', user)
                     return next(); // Stop further execution by returning
                 }
 

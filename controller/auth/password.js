@@ -14,19 +14,17 @@ router.post('/get-otp', async (req, res) => {
         if (checkUser) {
             const userId = checkUser._id
             const otpCode = Math.floor(100000 + Math.random() * 900000).toString()
-            var otpObj = await Otp.findOne({ userId })
+            var otpObj = await Otp.findOne({ user: userId })
             if (otpObj) {
                 otpObj.code = otpCode
                 await otpObj.save()
             } else {
                 otpObj = await Otp.create({ user: userId, code: otpCode })
             }
-
+            console.log('otpObj', otpObj)
             await sendOtp(checkUser, otpCode)
-            // return res.status(200).json({
-            //     success: true,
-            //     message: `OTP sent successfully`,
-            // })
+            req.session.otpObjId = otpObj._id
+            req.session.otpUserId = userId
             return res.redirect('/sites/e4d4/otp-verification')
         } else {
             // return res.status(200).json({
@@ -37,11 +35,11 @@ router.post('/get-otp', async (req, res) => {
         }
 
     } catch (error) {
-        console.log('error from forger password app', error.message)
-        res.status(200).json({
-            success: false,
-            message: error.message
-        })
+        console.log('error from forget password route: /get-otp ', error.message)
+        // res.status(200).json({
+        //     success: false,
+        //     message: error.message
+        // })
         return res.redirect('/sites/e4d4/reset-password?error=Something Went Wrong')
     }
 })
@@ -50,10 +48,13 @@ router.post('/verify-otp', async (req, res) => {
     try {
         const { code, email } = req.body;
         const checkUser = await User.findOne({ 'primaryEmail.email': email })
-
+        const { otpObjId, otpUserId } = req.session
+        console.log('otpObjId', otpObjId)
+        console.log('otpUserId', otpUserId)
         if (checkUser) {
             const userId = checkUser._id
             const otpDocument = await Otp.findOne({ user: userId }).exec();
+            console.log('otpDocument', otpDocument)
             if (!otpDocument) {
                 return res.status(200).json({ success: false, error: 'OTP Verification Failed' });
             } else {
@@ -72,41 +73,41 @@ router.post('/verify-otp', async (req, res) => {
 })
 router.post('/update-password', async (req, res) => {
     try {
-        const { entp, enml, resetpassword, confirmresetpassword } = req.body;
-        const otpDocument = await Otp.findOne({ userId: entp }).exec();
+        const { password, confirmresetpassword } = req.body;
+        const { otpObjId, otpUserId } = req.session
+        console.log('otpObjId', otpObjId)
+        console.log('otpUserId', otpUserId)
+        const otpDocument = await Otp.findOne({ user: otpUserId }).exec();
         console.log(req.body)
         console.log('otpDocument', otpDocument)
-        if (otpDocument?.code == enml) {
-            if (resetpassword == confirmresetpassword) {
-                const checkUser = await User.findById(entp)
+        // return
+        if (otpDocument?._id == otpObjId) {
+            if (password == confirmresetpassword) {
+                const checkUser = await User.findById(otpUserId)
                 if (checkUser) {
                     const salt = await bcrypt.genSalt(10)
-                    const hashPassword = await bcrypt.hash(resetpassword, salt)
+                    const hashPassword = await bcrypt.hash(password, salt)
                     checkUser.password = hashPassword
                     await checkUser.save()
-                    const { _id, email } = checkUser
+                    const { _id, primaryEmail } = checkUser
                     const user = {
-                        id: _id, email
+                        id: _id, primaryEmail
                     }
                     const authtoken = jwt.sign(user, JWT_SECRET);
-                    return res.status(200).json({
-                        success: true,
-                        authtoken,
-                        message: 'Password Updated Successfully',
-                    })
+                    return res.cookie('authtoken', authtoken).redirect(`/sites/e4d4/profile/${_id}?message=Password Updated Successfully...`)
                 } else {
-                    res.status(200).json({ success: false, error: 'User Not Found' });
+                    return res.redirect(`/sites/e4d4/update-password/?error=Something Went Wrong...`)
                 }
 
             } else {
-                return res.status(200).json({ success: false, error: 'Password Not Match with Confirm Password' });
+                return res.redirect(`/sites/e4d4/update-password/?error=Password not matched with Confirm Password...`)
             }
         } else {
-            return res.status(200).json({ success: false, error: 'OTP Verification Failed' });
+            return res.redirect(`/sites/e4d4/update-password/?error=Session Expired`)
         }
     } catch (error) {
         console.error(error);
-        return res.status(200).json({ success: false, error: error.message });
+        return res.redirect(`/sites/e4d4/update-password/?error=Something Went Wrong`)
     }
 })
 module.exports = router

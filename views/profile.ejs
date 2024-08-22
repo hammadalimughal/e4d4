@@ -16,10 +16,10 @@
       <div class="dashboard-main-setting profile-info mx-auto">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4/assets/img/user-icon.webp" alt="">
+            <img src="/sites/e4d4<%= profileUser.profilePic ? profileUser.profilePic : '/assets/img/user-icon.webp' %>" alt="">
             <div class="px-3">
-              <h6><%= profileUser.fullName %><span> ( Edit Portfolio )</span></h6>
-              <span>Enter Subheading</span>
+              <h6><%= profileUser.fullName %></h6>
+              <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
             </div>
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
@@ -48,21 +48,21 @@
         <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
         <div class="profile-banner">
           <div class="banner-cover">
-            <img class="img-fluid" src="/sites/e4d4/assets/img/cover.png" alt="">
+            <img class="img-fluid" src="/sites/e4d4<%= profileUser.coverPhoto ? profileUser.coverPhoto : '/assets/img/cover.png' %>" alt="">
           </div>
           <div class="banner-info">
             <div class="profile-person-history large-img">
-              <img src="/sites/e4d4/assets/img/user-icon.webp" alt="">
+              <img src="/sites/e4d4<%= profileUser.profilePic ? profileUser.profilePic : '/assets/img/user-icon.webp' %>" alt="">
               <div class="px-3 pb-2">
-                <h5><%= profileUser.fullName %><span> ( UI/UX Designer )</span></h5>
-                <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+                <h5><%= profileUser.fullName %><span> (<%= user.jobTitle ? user.jobTitle : 'Job Title Here' %>)</span></h5>
+                <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
               </div>
             </div>
             <span class="profile-badge"><%= profileUser.experience ? profileUser.experience : '0'  %>+ Years Of Experience</span>
           </div>
         </div>
         <ul class="other-info">
-          <li>@edwardjj53</li>
+          <!-- <li>@edwardjj53</li> -->
           <li>Sydney, Australia</li>
           <% 
           const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -71,7 +71,7 @@
           const joiningMonth = monthsShort[joiningDate.getMonth()]
           const joiningYear = joiningDate.getFullYear()
            %>
-          <li>Member Since <%= joiningMonth %> <%= joiningYear %></li>
+          <li>Member Since, <%= joiningMonth %> <%= joiningYear %></li>
           <li>(15) Recommendations</li>
         </ul>
         <div class="additional-info">
@@ -135,15 +135,42 @@
           <h6 class="fw-bold">Projects Showcase</h6>
           <div class="row g-4 project-listing">
             <% user.projects.forEach((item) => { %>
-              <div class="col-lg-4 col-12">
-                <div class="project-item">
-                  <h6><%= item.title %></h6>
-                  <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="">
-                </div>
+            <div class="col-lg-4 col-12">
+              <div class="project-item">
+                <h6><%= item.title %></h6>
+                <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
+                  <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
+                </a>
               </div>
-              <% }) %>
+            </div>
+            <% }) %>
           </div>
           <% } %>
+          <% if (profileUser.resume || profileUser.coverLetter) { %>
+          <h6 class="fw-bold">Personal Documents</h6>
+          <div class="row g-4 project-listing">
+            <% if(profileUser.resume) { %>
+            <div class="col-lg-4 col-12">
+              <div class="doc-wrapper">
+                <a class="empty-box filled" href="/sites/e4d4<%= profileUser.resume %>">
+                  <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
+                  <h5>Click to View Resume</h5>
+                </a>
+              </div>
+            </div>
+            <% } %>
+            <% if(profileUser.coverLetter) { %>
+            <div class="col-lg-4 col-12">
+              <div class="doc-wrapper">
+                <a class="empty-box filled" href="/sites/e4d4<%= profileUser.coverLetter %>">
+                  <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
+                  <h5>Click to View Cover Letter</h5>
+                </a>
+              </div>
+            </div>
+            <% } %>
+            <% } %>
+          </div>          
           <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
           <hr>
           <div class="follow-more">
@@ -184,9 +211,9 @@
   <%- include('./partials/query') %>
   <%- include('./partials/footer') %>
   <%- include('./partials/scriptlinks') %>
-<script>
+  <script>
 
-</script>
+  </script>
 </body>
 
 </html>

@@ -13,403 +13,421 @@
 
 
 
-    <!-- DASHBOARD MAIN SECTION STARTS HERE -->
-    <section class="dashboard-main-section">
-        <div class="container d-flex flex-column justify-content-center align-items-center mb-5" data-aos="fade-up"
-            data-aos-duration="3200" data-aos-easing="ease-in-sine">
-            <div class="dashboard-main-setting">
-                <div class="profile-history">
-                    <div class="profile-person-history">
-                        <img src="<%= user?.profilePic ? user?.profilePic : '/sites/e4d4/assets/img/user-icon.webp' %>" alt="">
-                        <div class="px-3">
-                            <h6><%= user?.fullName %><span> ( Edit Portfolio )</span></h6>
-                            <span>Enter Subheading</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center flex-wrap justify-content-center">
+  <!-- DASHBOARD MAIN SECTION STARTS HERE -->
+  <section class="dashboard-main-section">
+    <div class="container d-flex flex-column justify-content-center align-items-center mb-5" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+      <div class="dashboard-main-setting first-screen">
+        <div class="profile-history">
+          <div class="profile-person-history">
+            <img src="<%= user?.profilePic ? user?.profilePic : '/sites/e4d4/assets/img/user-icon.webp' %>" alt="">
+            <div class="px-3">
+              <h6><%= user?.fullName %><span> ( Edit Portfolio )</span></h6>
+              <span>Enter Subheading</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center flex-wrap justify-content-center">
 
-                        <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
-                        <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
-                            + Make New Search</button>
-                    </div>
+            <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
+            <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+              + Make New Search</button>
+          </div>
+        </div>
+
+        <div class="my-4 history-btn-design">
+          <button type="button" class="dash-btn">
+            Home</button>
+          <button type="button" class="dash-btn">
+            Show History</button>
+        </div>
+
+        <form class="row">
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Location history">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Industry Search">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Position Search">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Business Search (Option)">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+        </form>
+
+        <h5 class="fw-bold mt-5 mb-4">Shortlisted Companies / Businesses</h5>
+
+        <div class="row">
+          <% companies.forEach((item) => { %>
+          <div class="col-lg-6">
+            <div class="shortlisted-companies">
+              <div class="row">
+                <div class="col-lg-6">
+                  <h6 class="company-name"><%= item.fullName %></h6>
+                  <div class="company-loc">Location: <%= item.location %></div>
+                  <div class="company-loc">Business Operate: <%= item.headQuarterLocation %></div>
                 </div>
+                <div class="col-lg-6">
+                  <% if(item.connectionReq.includes(user.id)){ %>
+                  <span class="company_request_btn"> Request Sent Successfully</span>
+                  <% } else { %>
+                  <!-- <form action="/sites/e4d4/api/connection/request/business" method="post"> -->
+                  <!-- <input type="hidden" name="businessId" value="<%= item._id %>"> -->
+                  <!-- <input type="hidden" name="userId" value="<%= user.id %>"> -->
+                  <button class="company_request_btn" data-company="<%= item._id %>"> + Send Connection Request</button>
+                  <!-- </form> -->
+                  <% } %>
 
-                <div class="my-4 history-btn-design">
-                    <button type="button" class="dash-btn">
-                        Home</button>
-                    <button type="button" class="dash-btn">
-                        Show History</button>
                 </div>
+              </div>
+              <div class="company-position">
+                <% if(item.jobs.length > 0) { %>
+                <span class="company-position-offer">Offered Positions:</span>
+                <div class="position-details">
+                  <% item.jobs?.forEach((job)=>{ %>
+                  <span><%= job.title %></span>
+                  <% }) %>
+                </div>
+                <% } %>
 
-                <form class="row">
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Location history">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Industry Search">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Position Search">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Business Search (Option)">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                </form>
-
-                <h5 class="fw-bold mt-5 mb-4">Shortlisted Companies / Businesses</h5>
-
-                <div class="row">
-                    <% companies.forEach((item) => { %>
-                    <div class="col-lg-6">
-                        <div class="shortlisted-companies">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6 class="company-name"><%= item.fullName %></h6>
-                                    <div class="company-loc">Location: <%= item.location %></div>
-                                    <div class="company-loc">Business Operate: <%= item.headQuarterLocation %></div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <% if(item.connectionReq.includes(user.id)){ %>
-                                        <span class="company_request_btn"> Request Sent Successfully</span>
-                                    <% } else { %>
-                                        <form action="/sites/e4d4/api/connection/request/business" method="post">
-                                            <input type="hidden" name="businessId" value="<%= item._id %>">
-                                            <input type="hidden" name="userId" value="<%= user.id %>">
-                                            <button type="submit" class="company_request_btn"> + Send Connection Request</button>
-                                        </form>
-                                    <% } %>
-                                    
-                                </div>
-                            </div>
-                            <div class="company-position">
-                                <% if(item.jobs.length > 0) { %>
-                                <span class="company-position-offer">Offered Positions:</span>
-                                <div class="position-details">
-                                    <% item.jobs?.forEach((job)=>{ %>
-                                    <span><%= job.title %></span>
-                                    <% }) %>
-                                </div>
-                                <% } %>
-
-                            </div>
-                            <% if(item.website) { %>
-                            <div class="company-link">
-                                <i class="fa-solid fa-globe"></i>
-                                <span>Website: <a href="<%= item.website %>"><%= item.website %></a></span>
-                            </div>
-                            <% } %>
-                            <!-- <button type="button" class="dash-btn my-3">
+              </div>
+              <% if(item.website) { %>
+              <div class="company-link">
+                <i class="fa-solid fa-globe"></i>
+                <span>Website: <a href="<%= item.website %>"><%= item.website %></a></span>
+              </div>
+              <% } %>
+              <!-- <button type="button" class="dash-btn my-3">
                                 Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button>
  -->
 
-                        </div>
-                    </div>
-                    <% }) %>
-                </div>
-
-
-
-
             </div>
+          </div>
+          <% }) %>
+        </div>
 
 
+
+
+      </div>
+
+
+
+    </div>
+
+    <!-- SEND DETAILS SECTION STARTS HERE -->
+    <div class="container flex-column justify-content-center align-items-center select-info display-none" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+      <div class="dashboard-main-setting">
+        <div class="profile-history">
+          <div class="profile-person-history">
+            <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+            <div class="px-3">
+              <h6><%= user.fullName %></h6>
+              <span><%= user.subHeading %></span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center flex-wrap justify-content-center">
+
+            <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
+            <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+              + Make New Search</button>
+          </div>
+        </div>
+
+        <div class="my-4 history-btn-design">
+          <button type="button" class="dash-btn">
+            Home</button>
+          <button type="button" class="dash-btn">
+            Show History</button>
+        </div>
+
+        <form class="row">
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Location history">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Industry Search">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Position Search">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Business Search (Option)">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+        </form>
+
+
+
+        <h5 class="fw-bold mt-5 mb-4">Select Customized Data Which You Want To Share</h5>
+        <div class="data-choices-dm">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="name" id="name-check" checked>
+            <label class="form-check-label" for="name-check">
+              Your Name
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="email" id="emailcheck" checked>
+            <label class="form-check-label" for="emailcheck">
+              Your Email Address
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="phone" id="phonecheck" checked>
+            <label class="form-check-label" for="phonecheck">
+              Your Phone Number
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="address" checked>
+            <label class="form-check-label" for="address">
+              Your Address
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="education" id="education-detail" checked>
+            <label class="form-check-label" for="education-detail">
+              Your Education Details
+            </label>
+          </div>
+        </div>
+
+
+
+
+        <!-- <h5 class="fw-bold mt-5 mb-4">Previous Company History <span class="text-grey">( Customized Selection
+            )</span></h5>
+        <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+              Company A Details
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+              Company B Details
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+              Company C Details
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+            <label class="form-check-label" for="flexCheckChecked">
+              Company D Details
+            </label>
+          </div>
+        </div> -->
+
+
+
+        <h5 class="fw-bold mt-5 mb-4">Select Documents</h5>
+        <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
+            <div class="doc-selection">
+            <input class="display-none" type="checkbox" name="documents" value="Resume" id="ResumeDocument">
+          <label for="ResumeDocument" >
+            <div class="select-documents">
+              <i class="fa-regular fa-file"></i>
+            </div>
+            <div class="d-flex justify-content-center mt-2">Resume</div>
+          </label>
+          </div>
+
+          <div class="doc-selection">
+          <input class="display-none" type="checkbox" name="documents" value="Cover Letter" id="CoverDocument">
+          <label for="CoverDocument" >
+            <div class="select-documents">
+              <i class="fa-regular fa-file"></i>
+            </div>
+            <div class="d-flex justify-content-center mt-2">Cover Letter</div>
+          </label>
+          </div>
+
+          <div class="doc-selection">
+          <input class="display-none" type="checkbox" name="documents" value="Law Degree" id="LawDocument">
+          <label for="LawDocument" >
+            <div class="select-documents">
+              <i class="fa-regular fa-file"></i>
+            </div>
+            <div class="d-flex justify-content-center mt-2">Law Degree</div>
+          </label>
+          </div>
+
+          <div class="doc-selection">
+          <input class="display-none" type="checkbox" name="documents" value="RSA Cert" id="RSADocument">
+          <label for="RSADocument" >
+            <div class="select-documents">
+              <i class="fa-regular fa-file"></i>
+            </div>
+            <div class="d-flex justify-content-center mt-2">RSA Cert</div>
+          </label>
+          </div>
 
         </div>
 
-        <!-- SEND DETAILS SECTION STARTS HERE -->
-        <div class="container flex-column justify-content-center align-items-center display-none" data-aos="fade-up"
-            data-aos-duration="3200" data-aos-easing="ease-in-sine">
-            <div class="dashboard-main-setting">
-                <div class="profile-history">
-                    <div class="profile-person-history">
-                        <img href="/sites/e4d4/assets/img/dashboard-img.png" alt="">
-                        <div class="px-3">
-                            <h6>James Edward<span> ( Edit Portfolio )</span></h6>
-                            <span>Enter Subheading</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center flex-wrap justify-content-center">
-
-                        <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
-                        <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
-                            + Make New Search</button>
-                    </div>
-                </div>
-
-                <div class="my-4 history-btn-design">
-                    <button type="button" class="dash-btn">
-                        Home</button>
-                    <button type="button" class="dash-btn">
-                        Show History</button>
-                </div>
-
-                <form class="row">
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Location history">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Industry Search">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Position Search">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Business Search (Option)">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                </form>
 
 
+        <h5 class="fw-bold mt-5 mb-4">Social Links</h5>
+        <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="linkedin" id="SocialLinkedIn" checked>
+            <label class="form-check-label" for="SocialLinkedIn">
+              LinkedIn
+            </label>
+          </div>
 
-                <h5 class="fw-bold mt-5 mb-4">Select Customized Data Which You Want To Share</h5>
-                <div class="data-choices-dm">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Your Name
-                        </label>
-                    </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="twitter" id="SocialTwitter" checked>
+            <label class="form-check-label" for="SocialTwitter">
+              Twitter
+            </label>
+          </div>
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Your Email Address
-                        </label>
-                    </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="facebook" id="SocialFacebook" checked>
+            <label class="form-check-label" for="SocialFacebook">
+              Facebook
+            </label>
+          </div>
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Your Phone Number
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Your Address
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Your Education Details
-                        </label>
-                    </div>
-                </div>
-
-
-
-
-                <h5 class="fw-bold mt-5 mb-4">Previous Company History <span class="text-grey">( Customized Selection
-                        )</span></h5>
-                <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Company A Details
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Company B Details
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Company C Details
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Company D Details
-                        </label>
-                    </div>
-                </div>
-
-
-
-                <h5 class="fw-bold mt-5 mb-4">Select Documents</h5>
-                <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
-                    <div>
-                        <div class="select-documents">
-                            <i class="fa-regular fa-file"></i>
-                        </div>
-                        <div class="d-flex justify-content-center mt-2">Resume</div>
-                    </div>
-
-                    <div>
-                        <div class="select-documents">
-                            <i class="fa-regular fa-file"></i>
-                        </div>
-                        <div class="d-flex justify-content-center mt-2">Cover Letter</div>
-                    </div>
-
-                    <div>
-                        <div class="select-documents">
-                            <i class="fa-regular fa-file"></i>
-                        </div>
-                        <div class="d-flex justify-content-center mt-2">Law Degree</div>
-                    </div>
-
-                    <div>
-                        <div class="select-documents">
-                            <i class="fa-regular fa-file"></i>
-                        </div>
-                        <div class="d-flex justify-content-center mt-2">RSA Cert</div>
-                    </div>
-
-                </div>
-
-
-
-                <h5 class="fw-bold mt-5 mb-4">Social Links</h5>
-                <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            LinkedIn
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Twitter
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Facebook
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                            Instagram
-                        </label>
-                    </div>
-                </div>
-
-                <div>
-                    <button type="button" class="dash-btn mt-4">SEND</button>
-                </div>
-            </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="instagram" id="SocialInstagram" checked>
+            <label class="form-check-label" for="SocialInstagram">
+              Instagram
+            </label>
+          </div>
         </div>
-        <!-- SEND DETAILS SECTION ENDS HERE -->
 
-
-
-        <!-- CONGRATS SECTION STARTS HERE -->
-        <div class="container flex-column justify-content-center align-items-center display-none my-5" data-aos="fade-up"
-            data-aos-duration="3200" data-aos-easing="ease-in-sine">
-            <div class="dashboard-main-setting">
-                <div class="profile-history">
-                    <div class="profile-person-history">
-                        <img href="/sites/e4d4/assets/img/dashboard-img.png" alt="">
-                        <div class="px-3">
-                            <h6>James Edward<span> ( Edit Portfolio )</span></h6>
-                            <span>Enter Subheading</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center flex-wrap justify-content-center">
-
-                        <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
-                        <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
-                            + Make New Search</button>
-                    </div>
-                </div>
-
-                <div class="my-4 history-btn-design">
-                    <button type="button" class="dash-btn">
-                        Home</button>
-                    <button type="button" class="dash-btn">
-                        Show History</button>
-                </div>
-
-                <form class="row">
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Location history">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Industry Search">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Position Search">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 ">
-                        <div class="history-input-design">
-                            <input type="text" class="" placeholder="Business Search (Option)">
-                            <i class="bi bi-search"></i>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="final-portion">
-                    <img href="/sites/e4d4/assets/img/party.png" alt="">
-                    <h3>Congratulations</h3>
-                    <h5 class="">Your information has been sent successfully to the company.</h5>
-                    <button type="button" class="dash-btn mt-4">Go Back To Dashboard</button>
-
-                </div>
-            </div>
+        <div>
+          <button type="button" class="dash-btn mt-4">SEND</button>
         </div>
-        <!-- CONGRATS SECTION ENDS HERE -->
+      </div>
+    </div>
+    <!-- SEND DETAILS SECTION ENDS HERE -->
+
+
+
+    <!-- CONGRATS SECTION STARTS HERE -->
+    <div class="container flex-column justify-content-center align-items-center display-none my-5" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+      <div class="dashboard-main-setting">
+        <div class="profile-history">
+          <div class="profile-person-history">
+            <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+            <div class="px-3">
+              <h6>James Edward<span> ( Edit Portfolio )</span></h6>
+              <span>Enter Subheading</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center flex-wrap justify-content-center">
+
+            <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
+            <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
+              + Make New Search</button>
+          </div>
+        </div>
+
+        <div class="my-4 history-btn-design">
+          <button type="button" class="dash-btn">
+            Home</button>
+          <button type="button" class="dash-btn">
+            Show History</button>
+        </div>
+
+        <form class="row">
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Location history">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Industry Search">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Position Search">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 ">
+            <div class="history-input-design">
+              <input type="text" class="" placeholder="Business Search (Option)">
+              <i class="bi bi-search"></i>
+            </div>
+          </div>
+        </form>
+
+        <div class="final-portion">
+          <img href="/sites/e4d4/assets/img/party.png" alt="">
+          <h3>Congratulations</h3>
+          <h5 class="">Your information has been sent successfully to the company.</h5>
+          <button type="button" class="dash-btn mt-4">Go Back To Dashboard</button>
+
+        </div>
+      </div>
+    </div>
+    <!-- CONGRATS SECTION ENDS HERE -->
 
 
 
 
-    </section>
-    <!-- DASHBOARD MAIN SECTION ENDS HERE -->
+  </section>
+  <!-- DASHBOARD MAIN SECTION ENDS HERE -->
 
 
-    <%- include('./partials/query') %>
-    <%- include('./partials/footer') %>
-    <%- include('./partials/scriptlinks') %>
-  
-  
-  </body>
-  
-  </html>
+  <%- include('./partials/query') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scriptlinks') %>
+
+  <script>
+    $('button.company_request_btn').click(function() {
+      debugger
+      sessionStorage.setItem('company-connection', $(this).data('company'))
+      $(".first-screen").hide()
+      $(".select-info").removeClass('display-none')
+      $(".select-info").addClass('d-flex')
+
+    })
+  </script>
+</body>
+
+</html>

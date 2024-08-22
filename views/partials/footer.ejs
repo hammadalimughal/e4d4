@@ -69,4 +69,25 @@
     </section>
     <!-- FOOTER WORKS ENDS HERE -->
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999"></div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+      <% if (message) { %>
+        <div class="toast success align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"><%= message %></div>
+                <button type="button" class="close-btn me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+        </div>
+    <% } %>
+    <% if (error) { %>
+        <div class="toast error align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body"><%= error %></div>
+                <button type="button" class="close-btn me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+        </div>
+    <% } %>
+    </div>

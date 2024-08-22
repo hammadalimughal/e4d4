@@ -2,13 +2,18 @@ const nodemailer = require('nodemailer');
 
 const sendMail = async (to, subject, html, cc) => {
     return new Promise(async (resolve, reject) => {
-        // Create a nodemailer transporter using your email service provider's SMTP settings
+        // Create a nodemailer transporter with the necessary SMTP settings
         const transporter = nodemailer.createTransport({
             host: 'webversesolution.com',
             port: 465,
+            secure: true, // Use true if you're using port 465 (SSL)
             auth: {
                 user: 'creerlio@webversesolution.com',
                 pass: 'MjP0I+Ob5NGP'
+            },
+            tls: {
+                // Do not fail on invalid certs
+                rejectUnauthorized: false
             }
         });
 
@@ -33,9 +38,8 @@ const sendMail = async (to, subject, html, cc) => {
             } else {
                 resolve(info);
             }
-            // Add this inside the sendMail function, before the transporter.sendMail call
+            // Log the email being sent
             console.log('Sending email to:', to);
-
         });
     });
 };

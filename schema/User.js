@@ -82,6 +82,15 @@ const user = new Schema({
     profilePic: {
         type: String,
     },
+    resume: {
+        type: String,
+    },
+    coverLetter: {
+        type: String,
+    },
+    coverPhoto: {
+        type: String,
+    },
     profileVideo: {
         type: profileVideoSchema,
     },
@@ -124,6 +133,9 @@ const user = new Schema({
     positionTypeInterest: {
         type: String,
     },
+    experience: {
+        type: Number,
+    },
     salaryExpectation: {
         type: Number,
     },
@@ -132,7 +144,8 @@ const user = new Schema({
         default: true
     },
     projects: [{
-        type: Object
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'project'
     }],
     
     connection: {

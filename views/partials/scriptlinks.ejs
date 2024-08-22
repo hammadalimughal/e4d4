@@ -19,6 +19,7 @@ crossorigin="anonymous"></script>
 <!-- OWN JS LINED HERE -->
 <!-- <script href="/sites/e4d4/assets/js/select.js"></script> -->
 <script href="/sites/e4d4/assets/js/suggestTags.js"></script>
+<script href="/sites/e4d4/assets/js/fancybox.min.js"></script>
 <!-- <script href="/sites/e4d4/assets/js/script.js"></script> -->
 <script>
     function createToast(message, type = 'success') {
@@ -109,3 +110,8 @@ $('.suggestTags').each((ind,elem)=>{
         location.reload()
     })
 </script> 
+<script>
+    setTimeout(() => {
+    $(".toast").remove()
+}, 5000);
+</script>

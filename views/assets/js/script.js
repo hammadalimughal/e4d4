@@ -1,3 +1,4 @@
+
 function createToast(message, type = 'success') {
     // Create the toast container if it doesn't exist
     let toastContainer = document.querySelector(".toast-container");
@@ -16,7 +17,9 @@ function createToast(message, type = 'success') {
     toast.innerHTML = `
         <div class="d-flex">
             <div class="toast-body">${message}</div>
-            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+                <i class="bi bi-x"></i>
+            </button>
         </div>
     `;
     // Append the toast to the toast container
@@ -64,7 +67,7 @@ function createCookie(name, value, days) {
 function readCookie(name) {
     const nameEQ = name + "=";
     const cookies = document.cookie.split(';');
-    for(let i = 0; i < cookies.length; i++) {
+    for (let i = 0; i < cookies.length; i++) {
         let cookie = cookies[i];
         while (cookie.charAt(0) === ' ') cookie = cookie.substring(1, cookie.length);
         if (cookie.indexOf(nameEQ) === 0) return cookie.substring(nameEQ.length, cookie.length);
@@ -72,7 +75,7 @@ function readCookie(name) {
     return null;
 }
 
-$('.suggestTags').each((ind,elem)=>{
+$('.suggestTags').each((ind, elem) => {
     $(elem).amsifySuggestags({
         // suggestions: JSON.parse($(elem).data('suggestion')),
         suggestions: $(elem).data('suggestion'),
