@@ -33,21 +33,21 @@ router.post('/', async (req, res) => {
         if (!industry) {
             errors.push(`Industry is Invalid or not Filled`)
         }
-        if (!operatingIndustry) {
-            errors.push(`Operating Industry is Invalid or not Filled`)
-        }
-        if (!sizeOfCompany) {
-            errors.push(`Size of Company is Invalid or not Filled`)
-        }
-        if (!foundedDate) {
-            errors.push(`Company Founded Date is Invalid or not Filled`)
-        }
-        if (!headQuarterLocation) {
-            errors.push(`Headquarter Location is Invalid or not Filled`)
-        }
-        if (!companyEmail) {
-            errors.push(`Company Email is Invalid or not Filled`)
-        }
+        // if (!operatingIndustry) {
+        //     errors.push(`Operating Industry is Invalid or not Filled`)
+        // }
+        // if (!sizeOfCompany) {
+        //     errors.push(`Size of Company is Invalid or not Filled`)
+        // }
+        // if (!foundedDate) {
+        //     errors.push(`Company Founded Date is Invalid or not Filled`)
+        // }
+        // if (!headQuarterLocation) {
+        //     errors.push(`Headquarter Location is Invalid or not Filled`)
+        // }
+        // if (!companyEmail) {
+        //     errors.push(`Company Email is Invalid or not Filled`)
+        // }
         if (errors.length == 0) {
             // if (password !== confirmPassword) {
             //     return res.status(409).json({
@@ -63,17 +63,19 @@ router.post('/', async (req, res) => {
             }
             const salt = await bcrypt.genSalt(10)
             const hashPassword = await bcrypt.hash(password, salt)
-            const minCompSize = sizeOfCompany.split('-')[0]
-            const maxCompSize = sizeOfCompany.split('-')[1]
+            let sizeOfCompanyObj = undefined; 
+            if(sizeOfCompany){
+                sizeOfCompanyObj = {
+                    min: sizeOfCompany.split('-')[0],
+                    max: sizeOfCompany.split('-')[1]
+                }
+            }
             newBusiness = await Business.create({
                 fullName, address,
                 primaryEmail: {
                     email
                 },
-                phone, password: hashPassword, confirmPassword, location, industry, operatingIndustry, sizeOfCompany: {
-                    min: minCompSize,
-                    max: maxCompSize
-                }, foundedDate, headQuarterLocation, website, companyEmail: {
+                phone, password: hashPassword, confirmPassword, location, industry, operatingIndustry, sizeOfCompany: sizeOfCompanyObj, foundedDate, headQuarterLocation, website, companyEmail: {
                     email: companyEmail
                 }
             })
@@ -103,7 +105,7 @@ router.post('/', async (req, res) => {
     catch (err) {
         console.log(err.message);
         return res.status(500).json({
-            message: err.message
+            error: err.message
         })
     }
 })

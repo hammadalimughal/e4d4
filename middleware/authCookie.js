@@ -29,10 +29,8 @@ const cookieAuth = (cookieName) => {
 
                 const dbBusiness = await Business.findById(tokenUser.id);
                 if (dbBusiness) {
-                    const { _id, fullName, address, primaryEmail, phone, password: hashPassword, confirmPassword, location, industry, operatingIndustry, sizeOfCompany, foundedDate, headQuarterLocation, website, companyEmail } = dbBusiness;
-                    const business = {
-                        id: _id, fullName, address, primaryEmail, phone, password: hashPassword, confirmPassword, location, industry, operatingIndustry, sizeOfCompany, foundedDate, headQuarterLocation, website, companyEmail
-                    };
+                    const { _id, primaryEmail } = dbBusiness;
+                    const business = { id: _id, ...dbBusiness };
                     req.business = business;
                     return next(); // Stop further execution by returning
                 }

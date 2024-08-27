@@ -15,5 +15,6 @@ router.use('/auth/facebook', require('./auth/facebook-auth'));
 router.use('/auth/email', require('./auth/email'));
 router.use('/auth/login', require('./auth/login'));
 router.use('/auth/password', require('./auth/password'));
+router.use('/auth/business/password', require('./auth/business-password'));
 
 module.exports = router

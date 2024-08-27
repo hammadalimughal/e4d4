@@ -11,6 +11,9 @@ const Job = require("./schema/Job")
 const formatDate = require('./helper/formatDate')
 const User = require('./schema/User')
 const Business = require('./schema/Business')
+const JWT_SECRET = "E4d4U$er";
+const jwt = require('jsonwebtoken')
+const extractDomain = require('./helper/extractDomainFromUrl')
 
 app.set('view engine', 'ejs');
 app.use('/sites/e4d4/assets', express.static(__dirname + '/views/assets'));
@@ -26,7 +29,7 @@ app.use(session({
     secret: 'E4D4-Secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false, maxAge: 5 * 60000 }
 }))
 app.use(passport.initialize())
 app.use(cookieAuth('authtoken'));
@@ -160,12 +163,81 @@ app.get('/sites/e4d4/reset-password', async (req, res) => {
         res.send(error.message)
     }
 })
+app.get('/sites/e4d4/business-reset-password', async (req, res) => {
+    try {
+        const { error, message } = req.query
+        const user = req.user
+        const business = req.business
+        if (user) {
+            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+        }
+        if (business) {
+            return res.redirect(`/sites/e4d4/business-dashboard`)
+        }
+        res.render(`business-reset-password`, { message, error, user, business })
+    } catch (error) {
+        console.log(error)
+        res.send(error.message)
+    }
+})
+app.get('/sites/e4d4/business-otp-verification', async (req, res) => {
+    try {
+        const { error, message } = req.query
+        const user = req.user
+        const business = req.business
+        const token = jwt.verify(req.cookies['businesscodepass'], JWT_SECRET)
+        const otpBusinessId = token.business
+        const otpObjId = token.otp
+        if (user) {
+            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+        }
+        if (business) {
+            return res.redirect(`/sites/e4d4/business-dashboard`)
+        }
+        if (otpObjId && otpBusinessId) {
+            return res.render(`business-otp-verification`, { message, error, user, business })
+        }
+        return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
+    } catch (error) {
+        console.log(error)
+        return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
+        // res.send(error.message)
+    }
+})
+app.get('/sites/e4d4/business-update-password', async (req, res) => {
+    try {
+        const { error, message } = req.query
+        const user = req.user
+        const business = req.business
+        const token = jwt.verify(req.cookies['businesscodepass'], JWT_SECRET)
+        const otpBusinessId = token.business
+        const otpObjId = token.otp
+        console.log('otpObjId', otpObjId)
+        console.log('otpUserId', otpBusinessId)
+        if (user) {
+            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+        }
+        if (business) {
+            return res.redirect(`/sites/e4d4/business-dashboard`)
+        }
+        if (otpObjId && otpBusinessId) {
+            return res.render(`business-update-password`, { message, error, user, business })
+        }
+        return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
+    } catch (error) {
+        console.log(error)
+        // res.send(error.message)
+        return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
+    }
+})
 app.get('/sites/e4d4/otp-verification', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
-        const { otpObjId, otpUserId } = req.session
+        const token = jwt.verify(req.cookies['codepass'], JWT_SECRET)
+        const otpUserId = token.user
+        const otpObjId = token.otp
         if (user) {
             return res.redirect(`/sites/e4d4/profile/${user.id}`)
         }
@@ -178,7 +250,7 @@ app.get('/sites/e4d4/otp-verification', async (req, res) => {
         return res.redirect(`/sites/e4d4/reset-password?error=Session Expired`)
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/reset-password?error=Session Expired`)
     }
 })
 app.get('/sites/e4d4/update-password', async (req, res) => {
@@ -186,7 +258,9 @@ app.get('/sites/e4d4/update-password', async (req, res) => {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
-        const { otpObjId, otpUserId } = req.session
+        const token = jwt.verify(req.cookies['codepass'], JWT_SECRET)
+        const otpUserId = token.user
+        const otpObjId = token.user
         console.log('otpObjId', otpObjId)
         console.log('otpUserId', otpUserId)
         if (user) {
@@ -214,7 +288,7 @@ app.get('/sites/e4d4/profile/:id', async (req, res) => {
         if (!user) {
             return res.redirect(`/sites/e4d4/join`)
         }
-        res.render(`profile`, { message, error, user, business, profileUser })
+        res.render(`profile`, { message, error, user, business, profileUser, extractDomain })
     } catch (error) {
         console.log(error)
         res.send(error.message)
@@ -228,7 +302,7 @@ app.get('/sites/e4d4/edit/profile', async (req, res) => {
         if (!user) {
             return res.redirect(`/sites/e4d4/join`)
         }
-        res.render(`edit-profile`, { message, error, user, business })
+        res.render(`edit-profile`, { message, error, user, business, extractDomain })
     } catch (error) {
         console.log(error)
         res.send(error.message)
@@ -307,11 +381,21 @@ app.get('/sites/e4d4/business-dashboard', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
-        const business = req.business
+        const business = req.business?._doc
+        console.log('business', business)
         if (!business) {
             return res.redirect(`/sites/e4d4/business-login`)
         }
-        res.render(`business-dashboard`, { message, error, user, business })
+        const currentPage = req.query.page ? parseInt(req.query.page) : 1;
+        const itemsPerPage = 9;
+        const skipItems = (currentPage - 1) * itemsPerPage;
+        console.log('currentPage',currentPage)
+        console.log('skipItems',skipItems)
+        const allUsers = await User.find().skip(skipItems).limit(itemsPerPage);
+        const totalUsers = await User.countDocuments();
+        const totalPages = Math.ceil(totalUsers / itemsPerPage);
+        console.log('totalPages', totalPages)
+        res.render(`business-dashboard`, { message, error, user, business, allUsers, currentPage, totalPages })
     } catch (error) {
         console.log(error)
         res.send(error.message)

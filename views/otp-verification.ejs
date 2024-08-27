@@ -28,7 +28,6 @@
                                         <h6>Please enter the 6-digit verification code we sent to your email. If you don't see it, be sure to check your spam folder.</h6>
                                     </div>
                                 </div>
-                                <input type="hidden" name="email" value="codemark.codes@gmail.com">
                                 <input type="hidden" id="otp-inp" name="code">
                                 <div class="col-12 portfolio-form-design">
                                     <div class="otp-input">
@@ -95,6 +94,25 @@ const inputs = document.querySelectorAll('.otp-input input');
     });
 });
 </script>
+<script>
+    $(document).ready(function() {
+      $('.otp-input input').on('paste', function(event) {
+        // Prevent the default paste behavior
+        event.preventDefault();
+
+        // Get the pasted data from the clipboard
+        var pasteData = (event.originalEvent || event).clipboardData.getData('text');
+
+        // Format the string (e.g., remove whitespace, make it uppercase, etc.)
+        var formattedData = pasteData.replace(/\s+/g, ''); // Example: removing whitespace
+        formattedData.split('').forEach((str, ind) => {
+          $('.otp-input input')[ind].value = str
+        })
+        $("#otp-inp").val(formattedData)
+        $(".verify-otp").removeAttr('disabled')
+      });
+    })
+  </script>
 </body>
 
 </html>

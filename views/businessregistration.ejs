@@ -15,6 +15,8 @@
     <div class="container d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
       <!-- NO 1 BUSINESS REGISTRATION WORKS STARTS HERE -->
       <div class="portfolio_width_setting businessregister-section business-reg-form ">
+
+
         <div class="text-center">
           <h2 class="fw-bold">Sign Up Using Email ( Business )</h2>
         </div>
@@ -159,6 +161,9 @@
 
       <!--  NO 2 Company Operating Industry WORKS STARTS HERE -->
       <div class="weekavail_width_setting companyoperate-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
+
+
         <div class="text-center">
           <h2 class="fw-bold">Select Your Company Operating Industry</h2>
         </div>
@@ -216,7 +221,7 @@
           </div>
 
 
-          <button type="submit" class="next-btn py-3 btn-business-reg" data-next-class="companysize-section">SHOW MORE</button>
+          <button type="submit" class="next-btn py-3 btn-business-reg" data-next-class="companysize-section">Continue</button>
 
         </form>
       </div>
@@ -226,6 +231,9 @@
 
       <!--  NO 3 Size Of Your Company WORKS STARTS HERE -->
       <div class="weekavail_width_setting companysize-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
+
+
         <div class="text-center">
           <h2 class="fw-bold">Select The Size Of Your Company</h2>
         </div>
@@ -248,13 +256,23 @@
 
       <!--  NO 4 Company Founded WORKS STARTS HERE -->
       <div class="weekavail_width_setting companyfound-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
+
+
         <div class="text-center">
           <h2 class="fw-bold">When Was Your Company Founded</h2>
         </div>
         <form class="business-form row form-design">
           <div class="weekavail-width-inner mt-5">
             <div class="col-12 portfolio-form-design">
-              <input name="foundedDate" type="date" class="form-control" id="date" placeholder="Select Date" required>
+              <% 
+                const date = new Date(Date.now());
+                const year = date.getFullYear();
+                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so add 1
+                const day = date.getDate().toString().padStart(2, '0');
+                const today = `${year}-${month}-${day}`; 
+              %>
+              <input name="foundedDate" type="date" class="form-control" id="date" placeholder="Select Date" max="<%= today %>" required>
             </div>
           </div>
           <button type="submit" class="next-btn py-3 w-15 btn-business-reg" data-next-class="companyhead-section">NEXT</button>
@@ -265,6 +283,9 @@
 
       <!--  NO 5 Company Headquartered WORKS STARTS HERE -->
       <div class="weekavail_width_setting companyhead-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
+
+
         <div class="text-center">
           <h2 class="fw-bold">Where Is Your Company Headquartered?</h2>
         </div>
@@ -318,7 +339,10 @@
               </select>
             </div>
           </div>
-
+          <!-- 
+          /codemark.codes
+          \Coding....Codes
+  -->
           <button type="submit" class="next-btn py-3 w-15  btn-business-reg" data-next-class="companyweb-section">NEXT</button>
         </form>
 
@@ -328,6 +352,9 @@
 
       <!--  NO 6 Company Have A Website WORKS STARTS HERE -->
       <div class="weekavail_width_setting companyweb-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
+
+
         <div class="text-center">
           <h2 class="fw-bold">Does Your Company Have A Website?</h2>
         </div>
@@ -349,6 +376,7 @@
 
       <!--  NO 7 Company Email WORKS STARTS HERE -->
       <div class="weekavail_width_setting companyemail-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
         <div class="text-center">
           <h2 class="fw-bold">What Is Your Company Email?</h2>
         </div>
@@ -359,22 +387,20 @@
               <i class="bi bi-envelope"></i>
             </div>
           </div>
-
           <button type="submit" class="create-account next-btn py-3 w-15 btn-business-reg" data-next-class="subscription-section">NEXT</button>
         </form>
-
       </div>
       <!-- NO 7 Company Email WORKS ENDS HERE -->
 
 
       <!--  NO 8 Subscription  WORKS STARTS HERE -->
       <div class="weekavail_width_setting subscription-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
+
+
         <div class="text-center">
           <h2 class="fw-bold">Select <strong>Subscription</strong></h2>
-          <p class="note-companyemail mb-5"> <span class="fw-bold">Note:</span> You’ll get FREE SUBSCRIPTION
-            for
-            first 30 Days on
-            any PLAN.!</p>
+          <p class="note-companyemail mb-5"> <span class="fw-bold">Note:</span> You’ll get FREE SUBSCRIPTION for first 30 Days on any PLAN.!</p>
         </div>
 
         <div class="row w-80">
@@ -562,6 +588,9 @@
 
       <!-- NO 9  CARD DETAILS WORKS STARTS HERE -->
       <div class="portfolio_width_setting carddetails-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
+
+
         <div class="text-center">
           <h2 class="fw-bold">Enter Details</h2>
         </div>
@@ -615,6 +644,9 @@
 
       <!-- NO 10 REGISTRATION COMPLETED WORKS STARTS HERE -->
       <div class="weekavail_width_setting regcompletebusiness-section business-reg-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
+
+
         <div class="text-center reg-icon">
           <i class="bi bi-patch-check"></i>
           <h1 class="mx-3 mb-5">Registration Completed</h1>
@@ -631,6 +663,7 @@
       <!--REGISTRATION COMPLETED WORKS ENDS HERE -->
       <!-- NO 8 REGISTRATION COMPLETED WORKS STARTS HERE -->
       <div class="weekavail_width_setting error-sec portfolio-form display-none">
+        <button class="g-back"><i class="bi bi-arrow-left-short"></i> Go Back</button>
         <div class="text-center reg-icon">
           <i style="color: red" class="bi bi-patch-exclamation"></i>
           <h1 class="mx-3 mb-5">Registration Failed</h1>
@@ -657,6 +690,7 @@
 
   <script>
     const formsWrapper = document.querySelectorAll(".business-reg-form")
+
     const forms = document.querySelectorAll(".business-form")
     const formDataObj = {};
     Array.from(forms).forEach((form) => {
@@ -671,8 +705,21 @@
         formData.forEach((value, key) => {
           formDataObj[key] = value;
         });
+        if (formDataObj.password !== formDataObj.confirmPassword) {
+          // formsWrapper.forEach((form) => {
+          //   form.classList.add("display-none")
+          // })
+          // if (success) {
+          //   document.querySelector(`.${nextFormClass}`).classList.remove("display-none")
+          // } else {
+          //   document.querySelector(`.error-sec`).classList.remove("display-none")
+          // }
+        // } else {
+          createToast(`Password & Confirm Password Should be same!`, 'text-bg-danger')
+          return
+        }
         debugger
-        if (nextFormClass == 'subscription-section') {
+        // if (nextFormClass == 'subscription-section') {
           const res = await fetch('/sites/e4d4/api/auth/business/register', {
             method: "POST",
             headers: {
@@ -682,10 +729,10 @@
             credentials: 'include'
           })
           const resJson = await res.json()
-          debugger
           if (res.status !== 200) {
-            $("#error-message").html(resJson.error)
+            // $("#error-message").html(resJson.error)
             success = false
+            createToast(resJson.error,'error')
           } else {
             createCookie('authtoken', resJson.authtoken)
             createCookie('e4d4business', 'true')
@@ -693,19 +740,7 @@
             return
           }
           console.log('resJson', resJson)
-        }
-        if (formDataObj.password === formDataObj.confirmPassword) {
-          formsWrapper.forEach((form) => {
-            form.classList.add("display-none")
-          })
-          if (success) {
-            document.querySelector(`.${nextFormClass}`).classList.remove("display-none")
-          } else {
-            document.querySelector(`.error-sec`).classList.remove("display-none")
-          }
-        } else {
-          createToast(`Password & Confirm Password Should be same!`, 'text-bg-danger')
-        }
+        // }        
       })
     })
     $('.go-back').click(function() {
@@ -715,7 +750,27 @@
       })
     })
   </script>
-
+  <script>
+    $(".business-reg-form .g-back").click(function() {
+      $(this).parents('.business-reg-form').addClass('display-none')
+      $(this).parents('.business-reg-form').prev().removeClass('display-none')
+    })
+  </script>
+  <script>
+    // var formChanged = false;
+    // // Detect changes in form input
+    // $('input').keyup(() => {
+    //   formChanged = true;
+    // });
+    // // Warn user before leaving the page if there are unsaved changes
+    // window.addEventListener('beforeunload', (event) => {
+    //   if (formChanged) {
+    //     event.preventDefault();
+    //     // The following line is necessary for some browsers
+    //     event.returnValue = '';
+    //   }
+    // });
+  </script>
 </body>
 
 </html>

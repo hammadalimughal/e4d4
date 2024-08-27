@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #1da1b2;
+    --primary-color: #fa5f02;
     /* Example color */
-    --primary-gradient: #1da1b2;
+    --primary-gradient: #fa5f02;
 
 }
 
@@ -137,10 +137,13 @@ button[disabled] {
 body {
     background-color: white;
     margin: 0;
-
 }
 
 /* Navbar */
+.header-main {
+    position: relative;
+    z-index: 99;
+}
 
 section h1,
 section h2,
@@ -181,7 +184,7 @@ div {
 }
 
 .top-btn:hover {
-    background-color: #1da1b2;
+    background-color: var(--primary-gradient);
     border: none;
 }
 
@@ -198,7 +201,7 @@ div {
 
 .own-navbar-nav li .dropdown .dropdown-menu li a {
     color: white;
-    background: #1da1b2;
+    background: var(--primary-gradient);
     border: none;
 }
 
@@ -209,7 +212,7 @@ div {
 
 
 .own-navbar-nav li .dropdown .dropdown-menu {
-    background: #1da1b2;
+    background: var(--primary-gradient);
 }
 
 .own-navbar-nav li .dropdown .dropdown-menu[data-bs-popper] {
@@ -222,7 +225,7 @@ div {
 
 .own-navbar-nav li a:hover {
     color: black !important;
-    border-bottom: 2px solid #1da1b2;
+    border-bottom: 2px solid var(--primary-gradient);
 }
 
 @media (max-width: 991px) {
@@ -243,7 +246,7 @@ div {
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
-    z-index: -2;
+    /* z-index: -2; */
 }
 
 .hero-section h1 {
@@ -341,22 +344,23 @@ div {
     cursor: pointer;
     font-family: "Gilroy-Medium";
     background-color: #0a0a0a;
-    border-radius: 8px;
+    border-radius: 50%;
     border: none;
-    font-size: 14px;
+    font-size: 18px;
     outline: none;
-    padding: 10px;
+    height: 40px;
+    width: 40px;
     transition: background-color 0.2s ease-in-out;
     /* Smooth transition for background color */
 }
 
 .add-item:hover {
-    background-color: #1da1b2;
+    background-color: var(--primary-gradient);
     border: none;
 }
 
 .hero-section .center-btn-row .submit-btn:hover {
-    background-color: #1da1b2;
+    background-color: var(--primary-gradient);
     border: none;
 }
 
@@ -380,8 +384,7 @@ div {
 
 .hero-section .under-sentence p {
     font-weight: 500;
-    margin: 60px 0 189px 0;
-
+    margin: 60px 0 50px 0;
 }
 
 .hero-section .center-btn-row .col-1-btn .form-control::placeholder {
@@ -488,7 +491,7 @@ div {
 }
 
 .section1-2 h1 span {
-    background: #1da1b2;
+    background: var(--primary-gradient);
     color: white;
     padding: 0px 0.7rem;
     font-family: "Gilroy-Semi-Bold";
@@ -576,7 +579,7 @@ div {
 }
 
 .explore-now-btn button:hover {
-    background-color: #1da1b2;
+    background-color: var(--primary-gradient);
     border: none;
 }
 
@@ -648,7 +651,7 @@ ul#myTab li {
 }
 
 .nav-link:hover {
-    color: #1da1b2 !important;
+    color: var(--primary-gradient) !important;
 }
 
 @media (max-width: 1200px) {
@@ -850,7 +853,7 @@ ul#myTab li {
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-    border-bottom: 4px solid #1da1b2
+    border-bottom: 4px solid var(--primary-gradient)
 }
 
 .section2 .nav-link {
@@ -1275,7 +1278,7 @@ ul#myTab li {
 
 .call-to-action .row {
     height: fit-content;
-    background-image: url("../img/call-to-action.png");
+    background-image: url("../img/call-to-action.jpg");
     background-repeat: no-repeat;
     background-position: 100%;
     padding: 4rem 5rem;
@@ -1565,7 +1568,7 @@ ul#myTab li {
 
 .join_width_setting {
     width: 80%;
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 15px;
     background: white;
 }
@@ -1579,6 +1582,12 @@ ul#myTab li {
 
 .sign-properties {
     padding: 60px 0;
+}
+
+.sign-properties .logo {
+    height: 60px;
+    width: 130px;
+    object-fit: contain;
 }
 
 .sign-properties .col-1-btn {
@@ -1716,7 +1725,7 @@ ul#myTab li {
 
 .portfolio_width_setting {
     width: 80%;
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 15px;
     background: white;
     padding: 3rem 0;
@@ -1771,13 +1780,13 @@ ul#myTab li {
 .portfolio-form-design .form-control:focus,
 .portfolio-form-design .form-select:focus {
 
-    border-color: #1da1b2;
+    border-color: var(--primary-gradient);
 
 }
 
 .portfolio-form-design .form-check-input:checked {
-    background-color: #1da1b2;
-    border-color: #1da1b2;
+    background-color: var(--primary-gradient);
+    border-color: var(--primary-gradient);
     box-shadow: none;
 }
 
@@ -1795,7 +1804,7 @@ ul#myTab li {
 }
 
 .submit-btn-portfolio:hover {
-    background-color: #1da1b2;
+    background-color: var(--primary-gradient);
     border: none;
 }
 
@@ -1821,7 +1830,7 @@ ul#myTab li {
 
 .weekavail_width_setting {
     width: 80%;
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 15px;
     background: white;
     padding: 5rem 0 10rem 0;
@@ -1858,7 +1867,7 @@ ul#myTab li {
 
 .weekavail-width-inner input:checked+.weekavail-form-design,
 .weekavail-form-design:hover {
-    border-color: #1da1b2;
+    border-color: var(--primary-gradient);
     background-color: #f6f6f6;
 }
 
@@ -1873,7 +1882,7 @@ ul#myTab li {
 }
 
 .next-btn:hover {
-    background-color: #1da1b2;
+    background-color: var(--primary-gradient);
     border: none;
 }
 
@@ -1927,7 +1936,7 @@ ul#myTab li {
 
 .reg-icon i {
     font-size: 80px;
-    color: #1da1b2;
+    color: var(--primary-gradient);
 }
 
 .reg-icon p {
@@ -1981,7 +1990,7 @@ ul#myTab li {
 }
 
 .dash-btn:hover {
-    background: #1da1b2;
+    background: var(--primary-gradient);
     border: none;
 }
 
@@ -1989,6 +1998,7 @@ ul#myTab li {
     height: 44px;
     width: 44px;
     border-radius: 6px;
+    margin: 0 10px;
 }
 
 .logout-btn {
@@ -2021,7 +2031,7 @@ ul#myTab li {
 
 .dashboard-main-setting {
     width: 80%;
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 15px;
     background: white;
     padding: 3rem;
@@ -2130,7 +2140,7 @@ ul#myTab li {
 
 .profile-badge {
     position: relative;
-    border: 1px solid #1DA1B2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 5px;
     padding: 5px;
     text-align: center;
@@ -2190,6 +2200,12 @@ ul#myTab li {
     padding-bottom: 20px;
 }
 
+.profile-info .additional-info .info-item-l *,
+.profile-info .additional-info .info-item-r *{
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
 .profile-info .additional-info .info-item-r {
     border-left: 1px solid #E8E8E8;
     padding-top: 30px;
@@ -2227,7 +2243,7 @@ ul#myTab li {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    color: #1DA1B2;
+    color: var(--primary-gradient);
     background-color: #fff;
     height: 60px;
     width: 60px;
@@ -2297,11 +2313,11 @@ ul#myTab li {
 }
 
 input:checked+label .select-documents {
-    border: 2px solid #1DA1B2;
+    border: 2px solid var(--primary-gradient);
 }
 
-input:checked+label .select-documents .fa-file{
-    color: #1DA1B2;
+input:checked+label .select-documents .fa-file {
+    color: var(--primary-gradient);
 }
 
 .project-listing .project-item {
@@ -2363,7 +2379,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .hyperlink {
-    color: #1da1b2;
+    color: var(--primary-gradient);
 }
 
 .otp-input {
@@ -2378,7 +2394,7 @@ input:checked+label .select-documents .fa-file{
     margin: 0 5px;
     text-align: center;
     font-size: 1.2rem;
-    border: 1px solid #1DA1B2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 4px;
     background-color: transparent;
     color: #000;
@@ -2450,6 +2466,25 @@ input:checked+label .select-documents .fa-file{
     margin: 0;
     padding: 0;
 }
+.follow-more ul li{
+    position: relative;
+}
+.follow-more ul li button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    background-color: #842029;
+    color: #fff;
+    transform: translate(50%, -50%);
+    height: 15px;
+    width: 15px;
+    border-radius: 5px;
+    font-size: 10px;
+    padding: 0;
+}
 
 .follow-more h6 {
     font-size: 18px;
@@ -2496,7 +2531,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .company_request_btn:hover {
-    background-color: #1da1b2;
+    background-color: var(--primary-gradient);
     border: none;
 }
 
@@ -2544,8 +2579,8 @@ input:checked+label .select-documents .fa-file{
 }
 
 .data-choices-dm .form-check .form-check-input:checked {
-    background-color: #1da1b2;
-    border-color: #1da1b2;
+    background-color: var(--primary-gradient);
+    border-color: var(--primary-gradient);
     box-shadow: none;
 }
 
@@ -2583,7 +2618,7 @@ input:checked+label .select-documents .fa-file{
 
 .select-documents:hover {
 
-    border: 1px dotted #1da1b2;
+    border: 1px dotted var(--primary-gradient);
 
 
 }
@@ -2597,7 +2632,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .profile-info .fw-head {
-    border-bottom: 2px solid #1DA1B2;
+    border-bottom: 2px solid var(--primary-gradient);
     width: fit-content;
     margin: 15px auto;
     padding: 5px 10px;
@@ -2625,6 +2660,12 @@ input:checked+label .select-documents .fa-file{
 
 .edit-popup .portfolio-form-design {
     margin: 0;
+}
+
+@media (min-width: 1200px) {
+    .social-edit-popup .modal-dialog {
+        max-width: 1000px;
+    }
 }
 
 @media (max-width: 787px) {
@@ -2703,7 +2744,7 @@ input:checked+label .select-documents .fa-file{
 
 .profilepicure-main-setting {
     width: 90%;
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 15px;
     background: white;
     padding: 3rem;
@@ -2765,7 +2806,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .bg-color {
-    background-color: #1da1b2;
+    background-color: var(--primary-gradient);
     padding: 10px;
     border-top-right-radius: 10px;
     display: flex;
@@ -2776,7 +2817,7 @@ input:checked+label .select-documents .fa-file{
 .sub-categories-name {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #1da1b2;
+    border-bottom: 1px solid var(--primary-gradient);
 }
 
 .sub-categories-name h5 span {
@@ -2792,7 +2833,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .sub-categories {
-    border: 1px dashed #1da1b2;
+    border: 1px dashed var(--primary-gradient);
     border-radius: 10px;
     cursor: pointer;
     margin-bottom: 30px;
@@ -2803,7 +2844,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .sub-categories-details div i {
-    color: #1da1b2;
+    color: var(--primary-gradient);
 }
 
 .sub-categories-details div span {
@@ -2812,13 +2853,13 @@ input:checked+label .select-documents .fa-file{
 
 
 .sub-categories:hover {
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 10px;
 }
 
 .subscription-section {
     width: 100%;
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 15px;
     background: white;
     padding: 5rem 0 10rem 0;
@@ -2868,7 +2909,7 @@ input:checked+label .select-documents .fa-file{
 
 .businessdashboard-section {
     width: 90%;
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 15px;
     padding: 3rem;
     display: flex;
@@ -2890,7 +2931,7 @@ input:checked+label .select-documents .fa-file{
 
 .dashboard-business-tabs .nav .nav-item .nav-link:hover {
     color: white !important;
-    background: #1da1b2 !important;
+    background: var(--primary-gradient) !important;
 
 }
 
@@ -2916,7 +2957,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .review-btn:hover {
-    background: #1da1b2;
+    background: var(--primary-gradient);
 }
 
 .manage-ads-colorful {
@@ -2956,7 +2997,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .home-border {
-    border-bottom: 1px solid #1da1b2;
+    border-bottom: 1px solid var(--primary-gradient);
     font-size: 21px;
     font-weight: bold;
     padding: 6px 17px;
@@ -2990,7 +3031,7 @@ input:checked+label .select-documents .fa-file{
 }
 
 .border-design-exp {
-    border: 1px solid #1da1b2;
+    border: 1px solid var(--primary-gradient);
     border-radius: 10px;
     padding: 7px 17px;
     max-width: fit-content;
@@ -3048,7 +3089,7 @@ input:checked+label .select-documents .fa-file{
     top: -28px;
     left: -40px;
     font-size: 80px;
-    color: #1da1b2;
+    color: var(--primary-gradient);
 }
 
 .crafting::before {
@@ -3057,7 +3098,7 @@ input:checked+label .select-documents .fa-file{
     right: -41px;
     top: 10px;
     font-size: 80px;
-    color: #1da1b2;
+    color: var(--primary-gradient);
 }
 
 .display-none {
@@ -3066,6 +3107,82 @@ input:checked+label .select-documents .fa-file{
 
 .display-block {
     display: block;
+}
+
+.wrap-all {}
+
+.wrap-all .inp-wrap {
+    position: relative;
+}
+
+.wrap-all .inp-wrap .remove-btn {
+    position: absolute;
+    padding: 5px 10px;
+    border-radius: 10px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(116, 1, 18, 0.8);
+}
+
+.wrap-all .inp-wrap .save-btn {
+    position: absolute;
+    padding: 5px 10px;
+    border-radius: 10px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(20, 164, 77, 0.8);
+    color: #fff;
+    border: none;
+    outline: none;
+}
+
+.wrap-all .inp-wrap button i {
+    position: static;
+    font-size: 16px;
+}
+
+.business-reg-form {
+    position: relative;
+}
+
+.business-reg-form .g-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #0A0A0E;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.custom-pagination{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+}
+.custom-pagination li span.active,
+.custom-pagination li a{
+    text-decoration: none;
+    border: 1px solid #000;
+    color: #000;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+}
+.custom-pagination li span.active,
+.custom-pagination li a:hover{
+background-color: #000;
+color: #fff;
 }
 
 @media (max-width: 1024px) {
@@ -3176,8 +3293,6 @@ input:checked+label .select-documents .fa-file{
     .history-input-design {
         margin-top: 6px;
         padding: 16px 2px;
-
-
     }
 
 }

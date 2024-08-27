@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Latest Project</title>
+  <title>Edit Profile - <%= user.fullName %></title>
   <%- include('./partials/csslinks') %>
 </head>
 
@@ -37,12 +37,6 @@
                 Home</button>
               <button type="button" class="dash-btn">
                 Show History</button>
-            </div>
-          </div>
-          <div class="col-lg-5 col-12">
-            <div class="history-input-design">
-              <input type="text" class="" placeholder="Search Talent..">
-              <i class="bi bi-search"></i>
             </div>
           </div>
         </div>
@@ -96,7 +90,7 @@
             const joiningYear = joiningDate.getFullYear()
              %>
           <li>Member Since, <%= joiningMonth %> <%= joiningYear %></li>
-          <li>(15) Recommendations</li>
+          <!-- <li>(15) Recommendations</li> -->
         </ul>
         <div class="additional-info">
           <div class="row g-0">
@@ -107,11 +101,13 @@
                     <i class="bi bi-pencil-square"></i>
                   </button>
                   <% if(user.about){ %>
+                  <% user.about.split('\n').forEach((para)=>{ %>
                   <p>
                   <p class="text-muted">
-                    <%= user.about %>
+                    <%= para %>
                   </p>
                   </p>
+                  <% }) %>
                   <% } else { %>
                   <p class="text-muted">No About...</p>
                   <% } %>
@@ -171,19 +167,23 @@
                     </a>
                   </li>
                   <% } %>
-                  <% if(user.linkedin){ %>
+                  <% if(user.portfolio){ %>
                   <li>
-                    <span>LinkedIn</span>
-                    <a href="<%= user.linkedin %>">
-                      <%= user.linkedin %>
+                    <span>portfolio</span>
+                    <a href="<%= user.portfolio %>" target="_blank">
+                      <%= extractDomain(user.portfolio) %>
                     </a>
                   </li>
                   <% } %>
                 </ul>
                 <div class="position-details">
-                  <span>UI/UX</span>
-                  <span>Branding</span>
-                  <span>Logo</span>
+                  <%= user.skills.length == 0 ? 'Add Skills' : '' %>
+                  <% user.skills.forEach((item)=>{ %>
+                  <span><%= item %></span>
+                  <% }) %>
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#edit-skills-info" class="edit-btn">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
                 </div>
                 <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
               </div>
@@ -239,10 +239,10 @@
                 <button class="remove-btn remove-resume-item" title="Delete Resume">
                   <i class="bi bi-trash"></i>
                 </button>
-              <a class="empty-box filled" href="/sites/e4d4<%= user.resume %>">
-                <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
-                <h5>Click to View Resume</h5>
-              </a>
+                <a class="empty-box filled" href="/sites/e4d4<%= user.resume %>">
+                  <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
+                  <h5>Click to View Resume</h5>
+                </a>
               </div>
             </div>
             <% } %>
@@ -260,10 +260,10 @@
                 <button class="remove-btn remove-cover-letter-item" title="Delete Cover Letter">
                   <i class="bi bi-trash"></i>
                 </button>
-              <a class="empty-box filled" href="/sites/e4d4<%= user.coverLetter %>">
-                <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
-                <h5>Click to View Cover Letter</h5>
-              </a>
+                <a class="empty-box filled" href="/sites/e4d4<%= user.coverLetter %>">
+                  <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
+                  <h5>Click to View Cover Letter</h5>
+                </a>
               </div>
             </div>
             <% } %>
@@ -272,34 +272,31 @@
         <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
         <hr>
         <div class="follow-more">
-          <h6>Follow To Know More About Me!</h6>
+          <% if(user.socialLinks?.length > 0) { %>
+          <h6>Follow To Know More About Me! <button type="button" data-bs-toggle="modal" data-bs-target="#edit-social-info" class="edit-btn">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+          </h6>
           <ul>
+            <% user.socialLinks?.forEach((item) => { %>
             <li>
-              <a href="javascript:;">
-                <img src="/sites/e4d4/assets/img/social-icons/fb.png" alt="">
+              <form class="social-form">
+                <input type="hidden" name="<%= item.platform %>" value="">
+                <button title="delete <%= item.platform %>"><i class="bi bi-x"></i></button>
+              </form>
+
+              <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
+                <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
               </a>
             </li>
-            <li>
-              <a href="javascript:;">
-                <img src="/sites/e4d4/assets/img/social-icons/ins.png" alt="">
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <img src="/sites/e4d4/assets/img/social-icons/x.png" alt="">
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <img src="/sites/e4d4/assets/img/social-icons/link.png" alt="">
-              </a>
-            </li>
-            <li>
-              <a href="javascript:;">
-                <img src="/sites/e4d4/assets/img/social-icons/be.png" alt="">
-              </a>
-            </li>
+            <% }) %>
           </ul>
+          <% } else { %>
+          <h6>Add Social Media Links! <button type="button" data-bs-toggle="modal" data-bs-target="#edit-social-info" class="edit-btn">
+              <i class="bi bi-plus-lg"></i>
+            </button>
+          </h6>
+          <% } %>
         </div>
       </div>
     </div>
@@ -328,8 +325,8 @@
               </div>
               <div class="col-12">
                 <div class="portfolio-form-design">
-                  <label for="job-title" class="form-label">LinkedIn*</label>
-                  <input type="text" name="linkedin" id="job-title" class="form-control" placeholder="Enter LinkedIn Username..." value="<%= user.linkedin %>" required>
+                  <label for="job-title" class="form-label">Portfolio Url*</label>
+                  <input type="url" name="portfolio" id="job-title" class="form-control" placeholder="Enter portfolio Url..." value="<%= user.portfolio %>" title="Please Type a valid Portfolio URL">
                 </div>
               </div>
             </div>
@@ -405,6 +402,189 @@
       </div>
     </div>
   </div>
+  <div class="modal fade edit-popup" id="edit-skills-info" tabindex="-1" aria-labelledby="edit-skills-infoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-skills-infoLabel">Edit Skills</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/user-info" method="post">
+          <input type="hidden" name="id" value="<%= user.id %>">
+          <input type="hidden" id="skill-input-hidden" name="skills" value="[]">
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Enter skills*</label>
+                  <div class="wrap-all">
+                    <% if(user.skills.length > 0) { %>
+                    <% user.skills.forEach((item,index) => { %>
+                    <div class="inp-wrap <%= index !== 0 ? 'mt-2' : '' %>">
+                      <input type="text" class="form-control skill-input" onchange="skillInputHandler()" placeholder="Enter Your Skill..." value="<%= item %>">
+                      <% if (index !== 0) { %>
+                      <button class="remove-btn" type="button" onclick="removeSkillInput(this)"><i class="bi bi-trash"></i></button>
+                      <% } %>
+                    </div>
+                    <% }) %>
+                    <% } else { %>
+                    <div class="inp-wrap">
+                      <input type="text" class="form-control skill-input" onchange="skillInputHandler()" placeholder="Enter Your Skill...">
+                    </div>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 d-flex justify-content-center">
+                <button style="display: <%= user.skills.length == 5 ? 'none': 'block' %>;" type="button" onclick="addSkillInput(this)" class="add-item add-skill-item"><i class="bi bi-plus-lg"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="dash-btn">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade edit-popup social-edit-popup" id="edit-social-info" tabindex="-1" aria-labelledby="edit-social-infoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-social-infoLabel">Edit Social Info</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <input type="hidden" name="id" value="<%= user.id %>">
+        <div class="modal-body">
+          <%
+          const socialLinks = user.socialLinks || [];
+
+          // Initialize variables
+          let facebook,instagram,twitter,linkedin,behance,pinterest,dribbble,linktree;
+          socialLinks.forEach(link => {
+            switch (link.platform.toLowerCase()) {
+                case 'facebook':
+                    facebook = link.username;
+                    break;
+                case 'instagram':
+                    instagram = link.username;
+                    break;
+                case 'twitter':
+                    twitter = link.username;
+                    break;
+                case 'linkedin':
+                    linkedin = link.username;
+                    break;
+                case 'behance':
+                    behance = link.username;
+                    break;
+                case 'pinterest':
+                    pinterest = link.username;
+                    break;
+                case 'dribbble':
+                    dribbble = link.username;
+                    break;
+                case 'linktree':
+                    linktree = link.username;
+                    break;
+            }
+        });
+    
+          %>
+          <div class="row g-4">
+            <div class="col-lg-6 col-12">
+              <div class="portfolio-form-design skill-fields">
+                <label for="skill-input" class="form-label">Facebook Username</label>
+                <div class="wrap-all">
+                  <form class="inp-wrap social-form">
+                    <input type="text" name="facebook" class="form-control skill-input" placeholder="Enter Facebook Username..." value="<%= facebook %>">
+                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <div class="portfolio-form-design skill-fields">
+                <label for="skill-input" class="form-label">Instagram Username</label>
+                <div class="wrap-all">
+                  <form class="inp-wrap social-form">
+                    <input type="text" name="instagram" class="form-control skill-input" placeholder="Enter Instagram Username..." value="<%= instagram %>">
+                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <div class="portfolio-form-design skill-fields">
+                <label for="skill-input" class="form-label">Twitter Username</label>
+                <div class="wrap-all">
+                  <form class="inp-wrap social-form">
+                    <input type="text" name="twitter" class="form-control skill-input" placeholder="Enter Twitter Username..." value="<%= twitter %>">
+                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <div class="portfolio-form-design skill-fields">
+                <label for="skill-input" class="form-label">LinkedIn Username</label>
+                <div class="wrap-all">
+                  <form class="inp-wrap social-form">
+                    <input type="text" name="linkedin" class="form-control skill-input" placeholder="Enter LinkedIn Username..." value="<%= linkedin %>">
+                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <div class="portfolio-form-design skill-fields">
+                <label for="skill-input" class="form-label">Behance Username</label>
+                <div class="wrap-all">
+                  <form class="inp-wrap social-form">
+                    <input type="text" name="behance" class="form-control skill-input" placeholder="Enter Behance Username..." value="<%= behance %>">
+                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <div class="portfolio-form-design skill-fields">
+                <label for="skill-input" class="form-label">Pinterest Username</label>
+                <div class="wrap-all">
+                  <form class="inp-wrap social-form">
+                    <input type="text" name="pinterest" class="form-control skill-input" placeholder="Enter Pinterest Username..." value="<%= pinterest %>">
+                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <div class="portfolio-form-design skill-fields">
+                <label for="skill-input" class="form-label">Dribbble Username</label>
+                <div class="wrap-all">
+                  <form class="inp-wrap social-form">
+                    <input type="text" name="dribbble" class="form-control skill-input" placeholder="Enter Dribbble Username..." value="<%= dribbble %>">
+                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <div class="portfolio-form-design skill-fields">
+                <label for="skill-input" class="form-label">Linktree Username</label>
+                <div class="wrap-all">
+                  <form class="inp-wrap social-form">
+                    <input type="text" name="linktree" class="form-control skill-input" placeholder="Enter Linktree Username..." value="<%= linktree %>">
+                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="modal fade edit-popup" id="add-project" tabindex="-1" aria-labelledby="add-projectLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -451,7 +631,7 @@
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label for="full-name-edit" class="form-label">About*</label>
-                  <textarea class="form-control" name="about" required minlength="30"></textarea>
+                  <textarea class="form-control" name="about" required minlength="30"><%= user.about %></textarea>
                 </div>
               </div>
             </div>
@@ -473,9 +653,9 @@
         $(this).removeClass('no-txt')
       }
     })
-    $(".edit-btn").click(function() {
-      $($(this).data('target'))[0].focus()
-    })
+    // $(".edit-btn").click(function() {
+    //   $($(this).data('target'))[0].focus()
+    // })
     $("#profileVideo").change(async function(e) {
       const videoFormData = new FormData();
       const videoFile = e.target.files[0];
@@ -675,6 +855,60 @@
           location.href = '/sites/e4d4/edit/profile?message=Cover Letter Deleted Successfully'
         } else {
           createToast('Error Deleting Video', 'error')
+        }
+      }
+    })
+  </script>
+  <script>
+    const addSkillInput = (btn) => {
+      if ($(".wrap-all .inp-wrap").length == 4) {
+        $(btn).hide()
+      }
+      $(".wrap-all").append(`<div class="inp-wrap mt-2"><input type="text" onchange="skillInputHandler()" class="form-control skill-input" placeholder="Enter Your Skill..." required><button class="remove-btn" type="button" onclick="removeSkillInput(this)"><i class="bi bi-trash"></i></button></div>`)
+    }
+    const removeSkillInput = (btn) => {
+      $(".add-skill-item").show()
+      $(btn).parents('.inp-wrap').remove()
+      skillInputHandler()
+    }
+    const skillInputHandler = () => {
+      let skills = []
+      $(".skill-input").each((ind, elem) => {
+        if ($(elem).val()) {
+          skills.push($(elem).val())
+        }
+      })
+      $('#skill-input-hidden').val(JSON.stringify(skills))
+    }
+  </script>
+  <script>
+    $(".social-form").submit(async (e) => {
+      e.preventDefault()
+      const curForm = e.target
+      const formData = new FormData(curForm);
+      const formDataObj = {};
+      $(curForm).find('.save-btn').attr('disabled', true)
+      $(curForm).find('.save-btn').html()
+      formData.forEach((value, key) => {
+        formDataObj[key] = value;
+      });
+      formDataObj['id'] = '<%= user.id %>'
+      const res = await fetch('/sites/e4d4/api/user/modify/social-info', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formDataObj)
+      })
+      const resJson = await res.json()
+      console.log(resJson)
+      $(curForm).find('.save-btn').removeAttr('disabled')
+      if (resJson.success) {
+        document.querySelector('#edit-social-info').addEventListener('hidden.bs.modal', function(event) {
+          location.reload()
+        });
+        if (!$('.social-edit-popup').hasClass('show')) {
+          location.reload()
         }
       }
     })

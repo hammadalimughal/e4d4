@@ -1,11 +1,11 @@
     <!-- FOOTER WORKS STARTS HERE -->
     <section class="footer">
       <div class="container">
-        <div class="row upper-footer" data-aos="fade-right" data-aos-duration="3100" data-aos-easing="ease-in-sine">
+        <div class="row justify-content-between upper-footer" data-aos="fade-right" data-aos-duration="3100" data-aos-easing="ease-in-sine">
           <div class="col-lg-3 footer-left">
-            <a class="footer-logo"><strong class="main-logo">E4</strong>D4</a>
-            <p class="text-white mb-2">Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry.</p>
+            <!-- <a class="footer-logo"><strong class="main-logo">E4</strong>D4</a> -->
+            <a class="footer-logo" href="/sites/e4d4"><img class="img-fluid" src="/sites/e4d4/assets/img/logo-white.png" alt="Creerlio"></a>
+            <p class="text-white mb-2">Find top talent or land your dream job with our streamlined hiring and application platform. Connect with leading employers, showcase your skills, and secure your future career today!</p>
             <div class="icons d-flex gap-4 pt-3">
               <a href="https://www.instagram.com" class="icon-background d-flex">
                 <i class="fa-brands fa-instagram"></i>
@@ -26,9 +26,9 @@
 
 
           </div>
-          <div class="col-lg-9 mobile-footer">
-            <div class="row footer-right">
-              <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
+          <div class="col-lg-4 mobile-footer">
+            <div class="row footer-right justify-content-between">
+              <!-- <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
                 <h3 class="text-white">Quick Links</h3>
                 <ul class="text-white">
                   <li><a href="index">Home</a></li>
@@ -45,8 +45,8 @@
                   <li><a href="#add-business">Add A Business</a></li>
                   <li><a href="#handling-reviews">Handling Reviews</a></li>
                 </ul>
-              </div>
-              <div class="col-lg-4 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
+              </div> -->
+              <div class="col-12 d-flex flex-column align-content-end flex-wrap gap-4 footer-links">
                 <h3 class="text-white">Contact Us</h3>
                 <ul>
                   <li class="text-secondary email">Email: <a href="mailto:finddabs24@yahoo.com">finddabs24@yahoo.com</a></li>
@@ -71,23 +71,23 @@
 
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
       <% if (message) { %>
-        <div class="toast success align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body"><%= message %></div>
-                <button type="button" class="close-btn me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-                    <i class="bi bi-x"></i>
-                </button>
-            </div>
+      <div class="toast success align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body"><%= message %></div>
+          <button type="button" class="close-btn me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+            <i class="bi bi-x"></i>
+          </button>
         </div>
-    <% } %>
-    <% if (error) { %>
-        <div class="toast error align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body"><%= error %></div>
-                <button type="button" class="close-btn me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
-                    <i class="bi bi-x"></i>
-                </button>
-            </div>
+      </div>
+      <% } %>
+      <% if (error) { %>
+      <div class="toast error align-items-center show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body"><%= error %></div>
+          <button type="button" class="close-btn me-2 m-auto" data-bs-dismiss="toast" aria-label="Close">
+            <i class="bi bi-x"></i>
+          </button>
         </div>
-    <% } %>
+      </div>
+      <% } %>
     </div>

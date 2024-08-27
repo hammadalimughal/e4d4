@@ -102,7 +102,7 @@ const sendOtp = async (user, otpCode) => {
                                                                 align="left" width="500">
                                                                 <p style="font-size:16px">This <span
                                                                         class="il">OTP</span> is valid for
-                                                                    <strong>15</strong> minutes
+                                                                    <strong>5</strong> minutes
                                                                 </p>
                                                                 <br>
                                                             </td>

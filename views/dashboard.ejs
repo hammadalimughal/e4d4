@@ -19,7 +19,7 @@
       <div class="dashboard-main-setting first-screen">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="<%= user?.profilePic ? user?.profilePic : '/sites/e4d4/assets/img/user-icon.webp' %>" alt="">
+            <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
             <div class="px-3">
               <h6><%= user?.fullName %><span> ( Edit Portfolio )</span></h6>
               <span>Enter Subheading</span>
@@ -109,22 +109,12 @@
                 <span>Website: <a href="<%= item.website %>"><%= item.website %></a></span>
               </div>
               <% } %>
-              <!-- <button type="button" class="dash-btn my-3">
-                                Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button>
- -->
-
+              <!-- <button type="button" class="dash-btn my-3"> Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button> -->
             </div>
           </div>
           <% }) %>
         </div>
-
-
-
-
       </div>
-
-
-
     </div>
 
     <!-- SEND DETAILS SECTION STARTS HERE -->
@@ -147,10 +137,8 @@
         </div>
 
         <div class="my-4 history-btn-design">
-          <button type="button" class="dash-btn">
-            Home</button>
-          <button type="button" class="dash-btn">
-            Show History</button>
+          <button type="button" class="dash-btn">Home</button>
+          <button type="button" class="dash-btn">Show History</button>
         </div>
 
         <form class="row">
@@ -181,49 +169,49 @@
         </form>
 
 
+        <form action="">
+          <h5 class="fw-bold mt-5 mb-4">Select Customized Data Which You Want To Share</h5>
+          <div class="data-choices-dm">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="name" value="true" id="name-check" checked>
+              <label class="form-check-label" for="name-check">
+                Your Name
+              </label>
+            </div>
 
-        <h5 class="fw-bold mt-5 mb-4">Select Customized Data Which You Want To Share</h5>
-        <div class="data-choices-dm">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="name" id="name-check" checked>
-            <label class="form-check-label" for="name-check">
-              Your Name
-            </label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="email" value="true" id="emailcheck" checked>
+              <label class="form-check-label" for="emailcheck">
+                Your Email Address
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="phone" value="true" id="phonecheck" checked>
+              <label class="form-check-label" for="phonecheck">
+                Your Phone Number
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="address" value="true" id="address" checked>
+              <label class="form-check-label" for="address">
+                Your Address
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="education" value="true" id="education-detail" checked>
+              <label class="form-check-label" for="education-detail">
+                Your Education Details
+              </label>
+            </div>
           </div>
 
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="email" id="emailcheck" checked>
-            <label class="form-check-label" for="emailcheck">
-              Your Email Address
-            </label>
-          </div>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="phone" id="phonecheck" checked>
-            <label class="form-check-label" for="phonecheck">
-              Your Phone Number
-            </label>
-          </div>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="address" checked>
-            <label class="form-check-label" for="address">
-              Your Address
-            </label>
-          </div>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="education" id="education-detail" checked>
-            <label class="form-check-label" for="education-detail">
-              Your Education Details
-            </label>
-          </div>
-        </div>
 
 
 
-
-        <!-- <h5 class="fw-bold mt-5 mb-4">Previous Company History <span class="text-grey">( Customized Selection
+          <!-- <h5 class="fw-bold mt-5 mb-4">Previous Company History <span class="text-grey">( Customized Selection
             )</span></h5>
         <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
           <div class="form-check">
@@ -257,86 +245,87 @@
 
 
 
-        <h5 class="fw-bold mt-5 mb-4">Select Documents</h5>
-        <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
+          <h5 class="fw-bold mt-5 mb-4">Select Documents</h5>
+          <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
             <div class="doc-selection">
-            <input class="display-none" type="checkbox" name="documents" value="Resume" id="ResumeDocument">
-          <label for="ResumeDocument" >
-            <div class="select-documents">
-              <i class="fa-regular fa-file"></i>
+              <input class="display-none" type="checkbox" name="resume" value="true" id="ResumeDocument">
+              <label for="ResumeDocument">
+                <div class="select-documents">
+                  <i class="fa-regular fa-file"></i>
+                </div>
+                <div class="d-flex justify-content-center mt-2">Resume</div>
+              </label>
             </div>
-            <div class="d-flex justify-content-center mt-2">Resume</div>
-          </label>
-          </div>
 
-          <div class="doc-selection">
-          <input class="display-none" type="checkbox" name="documents" value="Cover Letter" id="CoverDocument">
-          <label for="CoverDocument" >
-            <div class="select-documents">
-              <i class="fa-regular fa-file"></i>
+            <div class="doc-selection">
+              <input class="display-none" type="checkbox" name="coverLetter" value="true" id="CoverDocument">
+              <label for="CoverDocument">
+                <div class="select-documents">
+                  <i class="fa-regular fa-file"></i>
+                </div>
+                <div class="d-flex justify-content-center mt-2">Cover Letter</div>
+              </label>
             </div>
-            <div class="d-flex justify-content-center mt-2">Cover Letter</div>
-          </label>
-          </div>
 
-          <div class="doc-selection">
-          <input class="display-none" type="checkbox" name="documents" value="Law Degree" id="LawDocument">
-          <label for="LawDocument" >
-            <div class="select-documents">
-              <i class="fa-regular fa-file"></i>
+            <div class="doc-selection">
+              <input class="display-none" type="checkbox" name="documents" value="Law Degree" id="LawDocument">
+              <label for="LawDocument">
+                <div class="select-documents">
+                  <i class="fa-regular fa-file"></i>
+                </div>
+                <div class="d-flex justify-content-center mt-2">Law Degree</div>
+              </label>
             </div>
-            <div class="d-flex justify-content-center mt-2">Law Degree</div>
-          </label>
-          </div>
 
-          <div class="doc-selection">
-          <input class="display-none" type="checkbox" name="documents" value="RSA Cert" id="RSADocument">
-          <label for="RSADocument" >
-            <div class="select-documents">
-              <i class="fa-regular fa-file"></i>
+            <div class="doc-selection">
+              <input class="display-none" type="checkbox" name="documents" value="RSA Cert" id="RSADocument">
+              <label for="RSADocument">
+                <div class="select-documents">
+                  <i class="fa-regular fa-file"></i>
+                </div>
+                <div class="d-flex justify-content-center mt-2">RSA Cert</div>
+              </label>
             </div>
-            <div class="d-flex justify-content-center mt-2">RSA Cert</div>
-          </label>
+
           </div>
 
-        </div>
 
 
+          <h5 class="fw-bold mt-5 mb-4">Social Links</h5>
+          <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="linkedIn" value="true" id="SocialLinkedIn" checked>
+              <label class="form-check-label" for="SocialLinkedIn">
+                LinkedIn
+              </label>
+            </div>
 
-        <h5 class="fw-bold mt-5 mb-4">Social Links</h5>
-        <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="linkedin" id="SocialLinkedIn" checked>
-            <label class="form-check-label" for="SocialLinkedIn">
-              LinkedIn
-            </label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="twitter" value="true" id="SocialTwitter" checked>
+              <label class="form-check-label" for="SocialTwitter">
+                Twitter
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="facebook" value="true" id="SocialFacebook" checked>
+              <label class="form-check-label" for="SocialFacebook">
+                Facebook
+              </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="instagram" value="true" id="SocialInstagram" checked>
+              <label class="form-check-label" for="SocialInstagram">
+                Instagram
+              </label>
+            </div>
           </div>
 
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="twitter" id="SocialTwitter" checked>
-            <label class="form-check-label" for="SocialTwitter">
-              Twitter
-            </label>
+          <div>
+            <button type="button" class="dash-btn mt-4">SEND</button>
           </div>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="facebook" id="SocialFacebook" checked>
-            <label class="form-check-label" for="SocialFacebook">
-              Facebook
-            </label>
-          </div>
-
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="instagram" id="SocialInstagram" checked>
-            <label class="form-check-label" for="SocialInstagram">
-              Instagram
-            </label>
-          </div>
-        </div>
-
-        <div>
-          <button type="button" class="dash-btn mt-4">SEND</button>
-        </div>
+        </form>
       </div>
     </div>
     <!-- SEND DETAILS SECTION ENDS HERE -->
@@ -397,7 +386,7 @@
         </form>
 
         <div class="final-portion">
-          <img href="/sites/e4d4/assets/img/party.png" alt="">
+          <img src="/sites/e4d4/assets/img/party.png" alt="">
           <h3>Congratulations</h3>
           <h5 class="">Your information has been sent successfully to the company.</h5>
           <button type="button" class="dash-btn mt-4">Go Back To Dashboard</button>

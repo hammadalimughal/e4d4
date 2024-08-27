@@ -4,8 +4,11 @@ const { Schema } = mongoose;
 const otp = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-        required: true
+        ref: 'user'
+    },
+    business: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'business'
     },
     code: {
         type: String,

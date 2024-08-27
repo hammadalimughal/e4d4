@@ -69,26 +69,26 @@ const business = new Schema({
     },
     operatingIndustry: {
         type: String,
-        required: true,
+        // required: true,
     },
     sizeOfCompany: {
         type: sizeOfCompany,
-        required: true,
+        // required: true,
     },
     foundedDate: {
         type: Date,
-        required: true,
+        // required: true,
     },
     headQuarterLocation: {
         type: String,
-        required: true,
+        // required: true,
     },
     website: {
         type: String
     },
     companyEmail: {
         type: emailSchema,
-        required: true,
+        // required: true,
     },
     connection: [{
         type: mongoose.Schema.Types.ObjectId,

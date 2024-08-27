@@ -174,7 +174,7 @@ router.post('/profileVideo', uploadProfileVideo.single("profileVideo"), async (r
 // Video upload route
 router.post('/remove-profile-video', async (req, res) => {
     try {
-        const {id} = req.body
+        const { id } = req.body
         const user = await User.findById(id)
         if (!user) {
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
@@ -191,7 +191,7 @@ router.post('/remove-profile-video', async (req, res) => {
 // Edit User Data
 router.post('/user-info', async (req, res) => {
     try {
-        const { id, fullName, subHeading, jobTitle, about, phone, linkedin, experience } = req.body
+        const { id, fullName, subHeading, jobTitle, about, phone, portfolio, experience, skills } = req.body
         console.log('body', req.body)
         const user = await User.findById(id)
         // const formData = {}
@@ -213,11 +213,14 @@ router.post('/user-info', async (req, res) => {
         if (phone) {
             user.phone = phone
         }
-        if (linkedin) {
-            user.linkedin = linkedin
+        if (portfolio) {
+            user.portfolio = portfolio
         }
         if (experience) {
             user.experience = experience
+        }
+        if (skills) {
+            user.skills = JSON.parse(skills)
         }
         console.log('user', user)
         await user.save()
@@ -227,6 +230,62 @@ router.post('/user-info', async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 });
+router.post('/social-info', async (req, res) => {
+    try {
+        const { id, facebook, instagram, twitter, linkedin, behance, pinterest, dribbble, linktree } = req.body
+        console.log('id: ', id, 'facebook: ', facebook, 'instagram: ', instagram, 'twitter: ', twitter, 'linkedin: ', linkedin, 'behance: ', behance, 'pinterest: ', pinterest, 'dribbble: ', dribbble, 'linktree: ',linktree)
+        console.log('body', req.body)
+        const user = await User.findById(id)
+        // const formData = {}
+        if (!user) {
+            return res.json({
+                success: false,
+                error: 'User Not Found'
+            })
+        }
+        const socialLinks = user.socialLinks?.length > 0 ? user.socialLinks : []
+        // Helper function to add or update a social link
+        const addOrUpdateLink = (platform, username) => {
+            let existingLink = socialLinks.find(link => link.platform === platform);
+            const index = socialLinks.indexOf(existingLink)
+            if (existingLink) {
+                if(username){
+                    existingLink.username = username; // Update the username if the platform already exists
+                }else{
+                    socialLinks.splice(index, 1);
+                }
+            } else {
+                socialLinks.push({ platform, username }); // Add new link if platform doesn't exist
+            }
+        };
+        // Add or update social links based on the provided data
+        if (facebook !== undefined) { addOrUpdateLink('facebook', facebook) };
+        if (instagram !== undefined) { addOrUpdateLink('instagram', instagram) };
+        if (twitter !== undefined) { addOrUpdateLink('twitter', twitter) };
+        if (linkedin !== undefined) { addOrUpdateLink('linkedin', linkedin) };
+        if (behance !== undefined) { addOrUpdateLink('behance', behance) };
+        if (pinterest !== undefined) { addOrUpdateLink('pinterest', pinterest) };
+        if (dribbble !== undefined) { addOrUpdateLink('dribbble', dribbble) };
+        if (linktree !== undefined) { addOrUpdateLink('linktree', linktree) };
+
+        // Update user's socialLinks and save
+        user.socialLinks = socialLinks;
+        console.log('user', user)
+        await user.save()
+        // return res.redirect('/sites/e4d4/edit/profile?message=User Info Updated')
+        return res.json({
+            success: true,
+            message: `Contact Info Updated`
+        })
+    } catch (error) {
+        console.log(error.message);
+        // return res.status(500).json({ message: error.message });
+        return res.json({
+            success: false,
+            error: error.message
+        })
+    }
+});
 
 // project upload route
 router.post('/project', uploadImage.single("image"), async (req, res, next) => {
@@ -234,22 +293,22 @@ router.post('/project', uploadImage.single("image"), async (req, res, next) => {
         const image = req.file;
         const { title, id } = req.body
         const user = await User.findById(id)
-        
+
         if (!image) {
             // return res.json({ error: 'Project Image Not Found' });
             return res.redirect('/sites/e4d4/edit/profile?error=Error Updating Project Image')
         }
-        if(!user){
+        if (!user) {
             // return res.json({ error: 'User Not Found' });
             return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
         let newProject = await Project.create({
             user: id,
             title,
-            image:`/assets/uploads/projects/` + image.filename
+            image: `/assets/uploads/projects/` + image.filename
         })
         let projects = user.projects ? user.projects : []
-        projects.push(newProject._id) 
+        projects.push(newProject._id)
         user.projects = projects
         await user.save()
         return res.redirect('/sites/e4d4/edit/profile?message=Project Added Successfully')
@@ -262,14 +321,14 @@ router.post('/remove-project-item', async (req, res) => {
     try {
         const { user, project } = req.body
         const userObj = await User.findById(user)
-        
-        if(!userObj){
+
+        if (!userObj) {
             // return res.json({ error: 'User Not Found' });
             return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
         await Project.findByIdAndDelete(project)
         const projectIndex = userObj.projects.indexOf(project)
-        userObj.projects.splice(projectIndex,1)
+        userObj.projects.splice(projectIndex, 1)
         await userObj.save()
         return res.redirect('/sites/e4d4/edit/profile?message=Project Removed Successfully')
     } catch (error) {
@@ -281,8 +340,8 @@ router.post('/remove-resume-item', async (req, res) => {
     try {
         const { user } = req.body
         const userObj = await User.findById(user)
-        
-        if(!userObj){
+
+        if (!userObj) {
             // return res.json({ error: 'User Not Found' });
             return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
@@ -298,8 +357,8 @@ router.post('/remove-cover-letter-item', async (req, res) => {
     try {
         const { user } = req.body
         const userObj = await User.findById(user)
-        
-        if(!userObj){
+
+        if (!userObj) {
             // return res.json({ error: 'User Not Found' });
             return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
@@ -321,11 +380,11 @@ router.post('/profile-pic', uploadProfileImage.single("profilePic"), async (req,
             // return res.json({ error: 'Project Image Not Found' });
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Profile Image')
         }
-        if(!user){
+        if (!user) {
             // return res.json({ error: 'User Not Found' });
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
-        console.log('image',image)
+        console.log('image', image)
         user.profilePic = `/assets/uploads/profilePic/` + image.filename
         await user.save()
         return res.redirect('/sites/e4d4/edit/profile?message=Profile Pic Updated Successfully')
@@ -344,11 +403,11 @@ router.post('/cover-photo', uploadCoverPhoto.single("coverPhoto"), async (req, r
             // return res.json({ error: 'Project Image Not Found' });
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Cover Photo')
         }
-        if(!user){
+        if (!user) {
             // return res.json({ error: 'User Not Found' });
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
-        console.log('image',image)
+        console.log('image', image)
         user.coverPhoto = `/assets/uploads/CoverPhoto/` + image.filename
         await user.save()
         return res.redirect('/sites/e4d4/edit/profile?message=Cover Photo Updated Successfully')
@@ -367,11 +426,11 @@ router.post('/upload/resume', uploadResume.single("resume"), async (req, res, ne
             // return res.json({ error: 'Project Image Not Found' });
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Cover Photo')
         }
-        if(!user){
+        if (!user) {
             // return res.json({ error: 'User Not Found' });
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
-        console.log('resume',resume)
+        console.log('resume', resume)
         user.resume = `/assets/uploads/resume/` + resume.filename
         await user.save()
         return res.redirect('/sites/e4d4/edit/profile?message=Resume Updated Successfully')
@@ -389,11 +448,11 @@ router.post('/upload/cover-letter', uploadCoverLetter.single("coverLetter"), asy
             // return res.json({ error: 'Project Image Not Found' });
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Cover Photo')
         }
-        if(!user){
+        if (!user) {
             // return res.json({ error: 'User Not Found' });
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
-        console.log('coverLetter',coverLetter)
+        console.log('coverLetter', coverLetter)
         user.coverLetter = `/assets/uploads/cover-letter/` + coverLetter.filename
         await user.save()
         return res.redirect('/sites/e4d4/edit/profile?message=Resume Updated Successfully')

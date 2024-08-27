@@ -13,10 +13,8 @@ router.post('/', async (req, res) => {
         if (checkBusiness) {
             const passwordCompare = await bcrypt.compare(password, checkBusiness.password);
             if (passwordCompare) {
-                const { _id, fullName, primaryEmail, suburb, phone, educationLevel, skills, industryInterest, termsCondition, weeksOfAvailablity, workType, workClassification, preferredJobLocation, positionTypeInterest, salaryExpectation } = checkBusiness
-                    const user = {
-                        id: _id, fullName, primaryEmail, suburb, phone, educationLevel, skills, industryInterest, termsCondition, weeksOfAvailablity, workType, workClassification, preferredJobLocation, positionTypeInterest, salaryExpectation
-                    }
+                const { _id, primaryEmail } = checkBusiness
+                    const user = { id: _id, primaryEmail }
                 const authtoken = jwt.sign(user, JWT_SECRET);
                 return res.status(200).cookie('authtoken', authtoken).redirect('/sites/e4d4/business-dashboard?message=Business Logged In Successfully...')
             }

@@ -10,6 +10,7 @@ router.get('/callback',
         // Successful authentication, redirect home.
         console.log('google auth req',req.session)
         res.redirect('/sites/e4d4/portfolioreg?Facebook Authenticated Successfully');
-    });
+    }
+);
 
 module.exports = router

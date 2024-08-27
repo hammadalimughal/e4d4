@@ -23,15 +23,20 @@ router.post('/get-otp', async (req, res) => {
             }
             console.log('otpObj', otpObj)
             await sendOtp(checkUser, otpCode)
-            req.session.otpObjId = otpObj._id
-            req.session.otpUserId = userId
-            return res.redirect('/sites/e4d4/otp-verification')
+            console.log('userId', userId)
+            // req.session.otpObjId = otpObj._id
+            // req.session.otpUserId = userId
+            const token = jwt.sign({
+                user: userId,
+                otp: otpObj._id
+            }, JWT_SECRET);
+            return res.cookie('codepass', token, { maxAge: 5 * 60 * 1000 }).redirect('/sites/e4d4/otp-verification')
         } else {
             // return res.status(200).json({
             //     success: false,
             //     error: `Email Address Not Registered!`
             // })
-            return res.redirect('/sites/e4d4/reset-password?error=Email Address Not Registered!')
+            return res.redirect('/sites/e4d4/business-reset-password?error=Email Address Not Registered!')
         }
 
     } catch (error) {
@@ -40,7 +45,7 @@ router.post('/get-otp', async (req, res) => {
         //     success: false,
         //     message: error.message
         // })
-        return res.redirect('/sites/e4d4/reset-password?error=Something Went Wrong')
+        return res.redirect('/sites/e4d4/business-reset-password?error=Something Went Wrong')
     }
 })
 
@@ -48,15 +53,20 @@ router.post('/verify-otp', async (req, res) => {
     try {
         const { code, email } = req.body;
         const checkUser = await User.findOne({ 'primaryEmail.email': email })
-        const { otpObjId, otpUserId } = req.session
-        console.log('otpObjId', otpObjId)
-        console.log('otpUserId', otpUserId)
+        // const { otpObjId, otpUserId } = req.session
+        // console.log('otpObjId', otpObjId)
+        // console.log('otpUserId', otpUserId)
+        // const token = req.cookies['codepass']
+        const token = jwt.verify(req.cookies['codepass'], JWT_SECRET)
+        const otpUserId = token.user
+        const otpObjId = token.otp
         if (checkUser) {
             const userId = checkUser._id
-            const otpDocument = await Otp.findOne({ user: userId }).exec();
+            const otpDocument = await Otp.findOne({ _id: otpObjId, user: otpUserId }).exec();
             console.log('otpDocument', otpDocument)
             if (!otpDocument) {
-                return res.status(200).json({ success: false, error: 'OTP Verification Failed' });
+                // return res.status(200).json({ success: false, error: 'OTP Verification Failed' });
+                return res.redirect('/sites/e4d4/otp-verification?error=OTP Verification Failed')
             } else {
                 if (otpDocument.code == code) {
                     return res.redirect('/sites/e4d4/update-password')
@@ -64,20 +74,27 @@ router.post('/verify-otp', async (req, res) => {
                 return res.redirect('/sites/e4d4/otp-verification?error=Invalid or Expired OTP')
             }
         } else {
-            res.status(200).json({ success: false, error: 'User Not Found' });
+            // res.status(200).json({ success: false, error: 'User Not Found' });
+            return res.redirect('/sites/e4d4/otp-verification?error=OTP Verification Failed')
         }
     } catch (error) {
-        console.error(error);
-        return res.status(200).json({ success: false, error: 'OTP Verification Failed' });
+        console.error('otp verification failed: ', error);
+        return res.redirect('/sites/e4d4/otp-verification?error=OTP Verification Failed')
+        // return res.status(200).json({ success: false, error: 'OTP Verification Failed' });
     }
 })
 router.post('/update-password', async (req, res) => {
     try {
         const { password, confirmresetpassword } = req.body;
-        const { otpObjId, otpUserId } = req.session
-        console.log('otpObjId', otpObjId)
-        console.log('otpUserId', otpUserId)
-        const otpDocument = await Otp.findOne({ user: otpUserId }).exec();
+        // const { otpObjId, otpUserId } = req.session
+        // console.log('otpObjId', otpObjId)
+        // console.log('otpUserId', otpUserId)
+        const token = jwt.verify(req.cookies['codepass'], JWT_SECRET)
+        const otpUserId = token.user
+        const otpObjId = token.otp
+        const otpDocument = await Otp.findOne({
+            user: otpUserId
+        }).exec();
         console.log(req.body)
         console.log('otpDocument', otpDocument)
         // return

@@ -7,22 +7,33 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const providerSchema = new Schema({
     id: {
         type: String,
-        // unique: true
     },
     type: {
         type: String
     }
-})
+});
+
+const SocialSchema = new Schema({
+    platform: {
+        type: String,
+    },
+    username: {
+        type: String
+    },
+    baseUrl: {
+        type: String
+    }
+});
+
 const profileVideoSchema = new Schema({
     poster: {
         type: String,
-        // unique: true
     },
     url: {
         type: String,
         required: true
     }
-})
+});
 
 const emailSchema = new Schema({
     email: {
@@ -42,28 +53,22 @@ const emailSchema = new Schema({
     provider: [{
         type: providerSchema
     }]
-})
+});
 
-const user = new Schema({
+const userSchema = new Schema({
     fullName: {
         type: String,
         required: true
     },
     subHeading: {
         type: String,
-        // required: true
     },
     jobTitle: {
         type: String,
-        // required: true
     },
     primaryEmail: {
         type: emailSchema,
         required: true,
-    },
-    username: {
-        type: String,
-        unique: true,
     },
     role: {
         type: String,
@@ -106,9 +111,12 @@ const user = new Schema({
     address: {
         type: String,
     },
-    linkedin: {
+    portfolio: {
         type: String,
     },
+    socialLinks: [{
+        type: SocialSchema
+    }],
     educationLevel: {
         type: String,
     },
@@ -147,15 +155,38 @@ const user = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'project'
     }],
-    
     connection: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'business'
+        ref: 'connection'
     },
     connectionReq: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'business'
     },
 }, { timestamps: true });
-const User = mongoose.model('user', user)
+
+// Pre-save middleware to add baseUrl to socialLinks in the User schema
+userSchema.pre('save', function (next) {
+    const platformBaseUrls = {
+        facebook: 'https://www.facebook.com/',
+        instagram: 'https://www.instagram.com/',
+        twitter: 'https://www.twitter.com/',
+        linkedin: 'https://www.linkedin.com/in/',
+        behance: 'https://www.behance.net/',
+        pinterest: 'https://www.pinterest.com/',
+        dribbble: 'https://dribbble.com/',
+        linktree: 'https://linktr.ee/',
+    };
+
+    // Iterate over socialLinks and set the baseUrl
+    if (this.socialLinks && this.socialLinks.length > 0) {
+        this.socialLinks.forEach(link => {
+            link.baseUrl = platformBaseUrls[link.platform.toLowerCase()] || null;
+        });
+    }
+
+    next();
+});
+
+const User = mongoose.model('user', userSchema);
 module.exports = User;
