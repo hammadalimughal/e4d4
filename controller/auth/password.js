@@ -52,16 +52,17 @@ router.post('/get-otp', async (req, res) => {
 router.post('/verify-otp', async (req, res) => {
     try {
         const { code, email } = req.body;
-        const checkUser = await User.findOne({ 'primaryEmail.email': email })
         // const { otpObjId, otpUserId } = req.session
         // console.log('otpObjId', otpObjId)
         // console.log('otpUserId', otpUserId)
         // const token = req.cookies['codepass']
         const token = jwt.verify(req.cookies['codepass'], JWT_SECRET)
+        console.log('token',token)
         const otpUserId = token.user
         const otpObjId = token.otp
+        const checkUser = await User.findById(otpUserId)
         if (checkUser) {
-            const userId = checkUser._id
+            // const userId = checkUser._id
             const otpDocument = await Otp.findOne({ _id: otpObjId, user: otpUserId }).exec();
             console.log('otpDocument', otpDocument)
             if (!otpDocument) {

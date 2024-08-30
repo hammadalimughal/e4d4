@@ -198,6 +198,9 @@ div {
     font-weight: bolder;
     color: black;
 }
+.own-navbar-nav li a{
+    display: block;
+}
 
 .own-navbar-nav li .dropdown .dropdown-menu li a {
     color: white;
@@ -2462,9 +2465,11 @@ input:checked+label .select-documents .fa-file {
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 100%;
     gap: 15px;
     margin: 0;
     padding: 0;
+    flex-wrap: wrap;
 }
 .follow-more ul li{
     position: relative;
@@ -2491,8 +2496,8 @@ input:checked+label .select-documents .fa-file {
 }
 
 .follow-more ul li a img {
-    height: 35px;
-    width: 35px;
+    height: 30px;
+    width: 30px;
     object-fit: cover;
     border-radius: 5px;
 }

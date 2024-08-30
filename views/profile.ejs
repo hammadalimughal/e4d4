@@ -66,7 +66,6 @@
           const joiningYear = joiningDate.getFullYear()
            %>
           <li>Member Since, <%= joiningMonth %> <%= joiningYear %></li>
-          <li>(15) Recommendations</li>
         </ul>
         <div class="additional-info">
           <div class="row g-0">
@@ -109,7 +108,7 @@
                   <% } %>
                   <% if(profileUser.portfolio){ %>
                   <li>
-                    <span>LinkedIn</span>
+                    <span>Portfolio</span>
                     <a href="<%= profileUser.portfolio %>" target="_blank"><%= profileUser.portfolio %></a>
                   </li>
                   <% } %>
@@ -122,7 +121,23 @@
                     <span><%= item %></span>
                     <% }) %>
                 </div>
-                <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
+                <!-- <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt=""> -->
+                <!-- <h6 class="craft-experience">Crafting Excellence in Every Task</h6> -->
+                <% if(profileUser.socialLinks.length > 0) { %>
+                <!-- <hr> -->
+                <div class="follow-more">
+                  <h6>Follow To Know More About Me!</h6>
+                  <ul>
+                    <% profileUser.socialLinks.forEach((item) => { %>
+                    <li>
+                      <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
+                        <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
+                      </a>
+                    </li>
+                    <% }) %>
+                  </ul>
+                </div>
+                <% } %>
               </div>
             </div>
           </div>
@@ -168,22 +183,6 @@
             <% } %>
             <% } %>
           </div>          
-          <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
-          <% if(profileUser.socialLinks.length > 0) { %>
-          <hr>
-          <div class="follow-more">
-            <h6>Follow To Know More About Me!</h6>
-            <ul>
-              <% profileUser.socialLinks.forEach((item) => { %>
-              <li>
-                <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
-                  <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
-                </a>
-              </li>
-              <% }) %>
-            </ul>
-          </div>
-          <% } %>
         </div>
       </div>
     </div>

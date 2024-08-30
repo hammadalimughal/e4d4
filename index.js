@@ -14,7 +14,6 @@ const Business = require('./schema/Business')
 const JWT_SECRET = "E4d4U$er";
 const jwt = require('jsonwebtoken')
 const extractDomain = require('./helper/extractDomainFromUrl')
-
 app.set('view engine', 'ejs');
 app.use('/sites/e4d4/assets', express.static(__dirname + '/views/assets'));
 
@@ -395,7 +394,7 @@ app.get('/sites/e4d4/business-dashboard', async (req, res) => {
         const totalUsers = await User.countDocuments();
         const totalPages = Math.ceil(totalUsers / itemsPerPage);
         console.log('totalPages', totalPages)
-        res.render(`business-dashboard`, { message, error, user, business, allUsers, currentPage, totalPages })
+        res.render(`business-dashboard`, { message, error, user, business, allUsers, currentPage, totalPages, totalUsers })
     } catch (error) {
         console.log(error)
         res.send(error.message)

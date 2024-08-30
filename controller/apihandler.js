@@ -3,6 +3,8 @@ const router = express.Router()
 
 router.use('/connection',require('./connection/connection'))
 
+router.use('/location',require('./location/places'))
+
 router.use('/user/modify',require('./user/modify'))
 
 router.use('/business/job/add',require('./job/add'))
