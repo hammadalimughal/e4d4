@@ -118,11 +118,10 @@
                   <span>Branding</span>
                   <span>Logo</span> -->
                   <% user.skills.forEach((item)=>{ %>
-                    <span><%= item %></span>
-                    <% }) %>
+                  <span><%= item %></span>
+                  <% }) %>
                 </div>
-                <!-- <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt=""> -->
-                <!-- <h6 class="craft-experience">Crafting Excellence in Every Task</h6> -->
+                <!-- <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt=""> -->                
                 <% if(profileUser.socialLinks.length > 0) { %>
                 <!-- <hr> -->
                 <div class="follow-more">
@@ -143,6 +142,62 @@
           </div>
         </div>
         <div class="portfolio-showcase">
+          <ul class="user-academic">
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Experience</h6>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add-experience-about"><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+              <% if(profileUser.experiences?.length > 0) { %>
+              <ul class="listing">
+                <% profileUser.experiences.forEach((experience) => { %>
+                <li>
+                  <div class="thumb">
+                    <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
+                    <span class="txt">Years</span>
+                  </div>
+                  <div class="data">
+                  <% 
+                  const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                  %>
+                    <h5 class="title"><%= experience.title %></h5>
+                    <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
+                    <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
+                    <h6 class="info"><%= experience.location %></h6>
+                    <% experience.description.split('\n').forEach((p) => { %>
+                      <p><%= p %></p>
+                  <% }) %>
+                </div>
+                </li>
+                <% }) %>
+              </ul>
+              <% } %>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Education</h6>
+                <button><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Volunteer Experience</h6>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add-experience-about"><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Projects Showcase</h6>
+                <button><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Licenses & Certifications</h6>
+                <button><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+            </li>
+          </ul>
           <% if(profileUser.projects?.length > 0) { %>
           <h6 class="fw-bold">Projects Showcase</h6>
           <div class="row g-4 project-listing">
@@ -182,7 +237,8 @@
             </div>
             <% } %>
             <% } %>
-          </div>          
+            <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
+          </div>
         </div>
       </div>
     </div>

@@ -10,7 +10,9 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+select{
+    cursor: pointer;
+}
 button[disabled] {
     cursor: not-allowed;
 }
@@ -230,7 +232,47 @@ div {
     color: black !important;
     border-bottom: 2px solid var(--primary-gradient);
 }
+.add-exp .modal-dialog{
+    max-width: 50%;
+}
+.edit-popup .modal-content{
+    border-radius: 0;
+}
+.edit-popup .modal-header{
+    border: none;
+}
+.edit-popup .portfolio-form-design .form-label{
+    color: rgba(8, 8, 9, 0.45);
+}
+.edit-popup .portfolio-form-design .form-control{
+    border-radius: 0;
+    border-color: #D0D0D0;
+    padding: 10px;
+}
 
+.edit-popup .field-help{
+    color: #E86225;
+    font-size: 14px;
+    margin: 0;
+    margin-top: 10px;
+    font-weight: 500;
+}
+.edit-popup .checkbox-field{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+.edit-popup .checkbox-field label{
+    font-weight: 500;
+}
+.edit-popup .checkbox-field label,
+.edit-popup .checkbox-field input{
+    cursor: pointer;
+}
+.edit-popup .checkbox-field input{
+    accent-color: #E86225;
+}
 @media (max-width: 991px) {
     .top-btn {
         margin-top: 10px;
@@ -2292,9 +2334,61 @@ ul#myTab li {
 }
 
 .profile-info .portfolio-showcase {
+    padding: 0 0 20px;
+}
+.profile-info .portfolio-showcase ul{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 20px;
+    list-style: none;
+}
+.profile-info .portfolio-showcase > ul > li{
     padding: 20px 0;
+    border-bottom: 1px solid #E8E8E8;
+}
+.profile-info .portfolio-showcase > ul > li .item-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.profile-info .portfolio-showcase > ul > li .item-head button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: #E86225;
+    font-size: 20px;
+}
+.profile-info .portfolio-showcase > ul > li .item-head h6{
+    margin: 0;   
+}
+.profile-info .portfolio-showcase > ul > li .listing{
+    margin-top: 15px;
+}
+.profile-info .portfolio-showcase > ul > li .listing > li{
+    display: flex;
+    align-items: flex-start;
+}
+.profile-info .portfolio-showcase > ul > li .listing > li:not(:nth-last-child(1)){
+    margin-bottom: 15px;
+}
+.profile-info .portfolio-showcase > ul > li .listing > li .thumb{
+    background-color: #EEEEEE;
+    color: #000;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.profile-info .portfolio-showcase > ul > li .listing > li .thumb .year{
+    font-size: 16px;
+    font-weight: 600;
 }
 
+.profile-info .portfolio-showcase > ul > li .listing > li p{
+    margin: 0;
+}
 .project-listing {
     padding: 20px 0;
 }
@@ -2367,7 +2461,7 @@ input:checked+label .select-documents .fa-file {
 .craft-experience::after {
     content: '“';
     font-size: 80px;
-    color: #2bb4b2;
+    color: #ef6502;
     transform: translateY(10px);
     display: inline-block;
 }

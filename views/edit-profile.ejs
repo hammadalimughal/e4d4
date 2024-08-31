@@ -191,8 +191,63 @@
           </div>
         </div>
         <div class="portfolio-showcase">
-          <h6 class="fw-bold">Projects Showcase
-          </h6>
+          <ul class="user-academic">
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Experience</h6>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add-experience-about"><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+              <% if(user.experiences?.length > 0) { %>
+              <ul class="listing">
+                <% user.experiences.forEach((experience) => { %>
+                <li>
+                  <div class="thumb">
+                    <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
+                    <span class="txt">Years</span>
+                  </div>
+                  <div class="data">
+                  <% 
+                  const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                  %>
+                    <h5 class="title"><%= experience.title %></h5>
+                    <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
+                    <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
+                    <h6 class="info"><%= experience.location %></h6>
+                    <% experience.description.split('\n').forEach((p) => { %>
+                      <p><%= p %></p>
+                  <% }) %>
+                </div>
+                </li>
+                <% }) %>
+              </ul>
+              <% } %>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Education</h6>
+                <button><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Volunteer Experience</h6>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add-experience-about"><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Projects Showcase</h6>
+                <button><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Licenses & Certifications</h6>
+                <button><i class="bi bi-plus-circle-fill"></i></button>
+              </div>
+            </li>
+          </ul>
+          <h6 class="fw-bold">Projects Showcase</h6>
           <% if(user.projects?.length> 0) { %>
           <div class="row g-4 project-listing">
             <% user.projects.forEach((item)=> { %>
@@ -222,7 +277,7 @@
             <h5>Upload Some Projects to show Here</h5>
           </button>
           <% } %>
-          <h6 class="fw-bold">Personal Documents
+          <h6 class="fw-bold mt-3">Personal Documents
           </h6>
           <div class="row g-4 project-listing">
             <% if(!user.resume) { %>
@@ -643,6 +698,144 @@
       </div>
     </div>
   </div>
+  <div class="modal fade edit-popup add-exp" id="add-experience-about" tabindex="-1" aria-labelledby="add-experience-aboutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="add-experience-aboutLabel">Add Experience</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/experience/add" method="post">
+          <input type="hidden" name="id" value="<%= user.id %>">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Title*</label>
+                  <input type="text" name="title" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Employment type*</label>
+                  <input type="text" name="employementType" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Company name*</label>
+                  <input type="text" name="companyName" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Location*</label>
+                  <input type="text" name="location" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Location type*</label>
+                  <select class="form-control" name="locationType" required>
+                    <option value="On Site">On Site</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Hybrid">Hybrid</option>
+                  </select>
+                  <p class="field-help">Pick a location type (ex: remote)</p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="checkbox-field">
+                  <input type="checkbox" name="currentlyWorking" value="true" id="working-now-exp">
+                  <label for="working-now-exp">I am currently working in this role</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">start date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_year">
+                        <%
+                          const currentYear = new Date().getFullYear();
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">end date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="checkbox-field">
+                  <input type="checkbox" name="endCurrentPosition" id="end-position-exp">
+                  <label for="end-position-exp">End current position as of now - Manager at ba</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Description</label>
+                  <textarea name="description" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <%- include('./partials/scriptlinks') %>
   <script>
@@ -659,6 +852,10 @@
     $("#profileVideo").change(async function(e) {
       const videoFormData = new FormData();
       const videoFile = e.target.files[0];
+      if (videoFile.size > (10 * 1024 * 1024)) {
+        createToast(`File Size should not Exceed 10mb.`, 'error')
+        return
+      }
       videoFormData.append('profileVideo', videoFile);
       videoFormData.append('user', '<%= user.id %>');
       //   const videoRes = await fetch('/sites/e4d4/api/user/modify/profileVideo', {
@@ -666,22 +863,40 @@
       //       body: videoFormData
       //     });
       $('#loader').css('display', 'flex')
-      $.ajax({
-        url: '/sites/e4d4/api/user/modify/profileVideo',
-        type: 'POST',
-        data: videoFormData,
-        processData: false, // Important
-        contentType: false, // Important
-        success: function(data) {
-          $('#loader').hide()
-          location.href = '/sites/e4d4/edit/profile?message=Profile Video Updated'
-        },
-        error: function(err) {
-          $('#loader').hide()
-          console.error(err);
-          alert(err)
+      const xhr = new XMLHttpRequest();
+      xhr.upload.addEventListener('progress', function(event) {
+        if (event.lengthComputable) {
+          const percentComplete = Math.round((event.loaded / event.total) * 100);
+          console.log('percentComplete', percentComplete)
         }
       });
+      xhr.addEventListener('load', function() {
+        if (xhr.status === 200) {
+          location.reload()
+        } else {
+          $('#loader').hide()
+          createToast(`Video Upload Failed.`, 'error')
+        }
+      });
+
+      xhr.open('POST', '/sites/e4d4/api/user/modify/profileVideo', true);
+      xhr.send(videoFormData);
+      // $.ajax({
+      //   url: '/sites/e4d4/api/user/modify/profileVideo',
+      //   type: 'POST',
+      //   data: videoFormData,
+      //   processData: false, // Important
+      //   contentType: false, // Important
+      //   success: function(data) {
+      //     $('#loader').hide()
+      //     location.href = '/sites/e4d4/edit/profile?message=Profile Video Updated'
+      //   },
+      //   error: function(err) {
+      //     $('#loader').hide()
+      //     console.error(err);
+      //     alert(err)
+      //   }
+      // });
     })
     $("#profile-pic-input").change(function(e) {
       const profilePic = e.target.files[0]

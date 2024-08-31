@@ -12,6 +12,42 @@ const providerSchema = new Schema({
         type: String
     }
 });
+const experienceSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    employementType: {
+        type: String,
+        required: true
+    },
+    companyName: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
+    locationType: {
+        type: String,
+        required: true
+    },
+    currentlyWorking: {
+        type: Boolean,
+        default: false
+    },
+    startingDate: {
+        type: Date,
+        required: true
+    },
+    endingDate: {
+        type: Date
+    },
+    description: {
+        type: String
+    }
+});
 
 const SocialSchema = new Schema({
     platform: {
@@ -163,6 +199,9 @@ const userSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'business'
     },
+    experiences: [{
+        type: experienceSchema,        
+    }],
 }, { timestamps: true });
 
 // Pre-save middleware to add baseUrl to socialLinks in the User schema

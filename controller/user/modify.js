@@ -233,7 +233,7 @@ router.post('/user-info', async (req, res) => {
 router.post('/social-info', async (req, res) => {
     try {
         const { id, facebook, instagram, twitter, linkedin, behance, pinterest, dribbble, linktree } = req.body
-        console.log('id: ', id, 'facebook: ', facebook, 'instagram: ', instagram, 'twitter: ', twitter, 'linkedin: ', linkedin, 'behance: ', behance, 'pinterest: ', pinterest, 'dribbble: ', dribbble, 'linktree: ',linktree)
+        console.log('id: ', id, 'facebook: ', facebook, 'instagram: ', instagram, 'twitter: ', twitter, 'linkedin: ', linkedin, 'behance: ', behance, 'pinterest: ', pinterest, 'dribbble: ', dribbble, 'linktree: ', linktree)
         console.log('body', req.body)
         const user = await User.findById(id)
         // const formData = {}
@@ -249,9 +249,9 @@ router.post('/social-info', async (req, res) => {
             let existingLink = socialLinks.find(link => link.platform === platform);
             const index = socialLinks.indexOf(existingLink)
             if (existingLink) {
-                if(username){
+                if (username) {
                     existingLink.username = username; // Update the username if the platform already exists
-                }else{
+                } else {
                     socialLinks.splice(index, 1);
                 }
             } else {
@@ -312,6 +312,36 @@ router.post('/project', uploadImage.single("image"), async (req, res, next) => {
         user.projects = projects
         await user.save()
         return res.redirect('/sites/e4d4/edit/profile?message=Project Added Successfully')
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+router.post('/experience/add', async (req, res) => {
+    try {
+        const { id, title, employementType, companyName, location, locationType, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year, description } = req.body
+
+        let startingDate = new Date()
+        startingDate.setMonth(startingDate_month)
+        startingDate.setYear(startingDate_year)
+
+        let endingDate = new Date()
+        endingDate.setMonth(endingDate_month)
+        endingDate.setYear(endingDate_year)
+        
+        const user = await User.findById(id)
+        if (!user) {
+            // return res.json({ error: 'User Not Found' });
+            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+        let experience = {
+            title, employementType, companyName, location, locationType, currentlyWorking, startingDate, endingDate, description
+        }
+        let experiences = user.experiences ? user.experiences : []
+        experiences.push(experience)
+        user.experiences = experiences
+        await user.save()
+        return res.redirect('/sites/e4d4/edit/profile?message=New Experience Added Successfully')
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });

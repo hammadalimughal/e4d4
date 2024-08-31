@@ -14,6 +14,7 @@ const Business = require('./schema/Business')
 const JWT_SECRET = "E4d4U$er";
 const jwt = require('jsonwebtoken')
 const extractDomain = require('./helper/extractDomainFromUrl')
+const calculateYearsDifference = require('./helper/calculateYearsDifference')
 app.set('view engine', 'ejs');
 app.use('/sites/e4d4/assets', express.static(__dirname + '/views/assets'));
 
@@ -287,7 +288,7 @@ app.get('/sites/e4d4/profile/:id', async (req, res) => {
         if (!user) {
             return res.redirect(`/sites/e4d4/join`)
         }
-        res.render(`profile`, { message, error, user, business, profileUser, extractDomain })
+        res.render(`profile`, { message, error, user, business, profileUser, extractDomain, calculateYearsDifference })
     } catch (error) {
         console.log(error)
         res.send(error.message)
@@ -301,7 +302,7 @@ app.get('/sites/e4d4/edit/profile', async (req, res) => {
         if (!user) {
             return res.redirect(`/sites/e4d4/join`)
         }
-        res.render(`edit-profile`, { message, error, user, business, extractDomain })
+        res.render(`edit-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
     } catch (error) {
         console.log(error)
         res.send(error.message)
