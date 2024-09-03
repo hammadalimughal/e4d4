@@ -10,11 +10,25 @@
     margin: 0;
     box-sizing: border-box;
 }
-select{
+
+select {
     cursor: pointer;
 }
+
 button[disabled] {
     cursor: not-allowed;
+}
+
+.tox-tinymce .tox-statusbar__branding {
+    display: none !important;
+}
+.tox-tinymce .tox-statusbar__right-container p{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.tox-tinymce .tox-statusbar__right-container .exceeded{
+    color: #842029;
 }
 
 #loader {
@@ -200,7 +214,8 @@ div {
     font-weight: bolder;
     color: black;
 }
-.own-navbar-nav li a{
+
+.own-navbar-nav li a {
     display: block;
 }
 
@@ -232,47 +247,57 @@ div {
     color: black !important;
     border-bottom: 2px solid var(--primary-gradient);
 }
-.add-exp .modal-dialog{
+
+.add-exp .modal-dialog {
     max-width: 50%;
 }
-.edit-popup .modal-content{
+
+.edit-popup .modal-content {
     border-radius: 0;
 }
-.edit-popup .modal-header{
+
+.edit-popup .modal-header {
     border: none;
 }
-.edit-popup .portfolio-form-design .form-label{
+
+.edit-popup .portfolio-form-design .form-label {
     color: rgba(8, 8, 9, 0.45);
 }
-.edit-popup .portfolio-form-design .form-control{
+
+.edit-popup .portfolio-form-design .form-control {
     border-radius: 0;
     border-color: #D0D0D0;
     padding: 10px;
 }
 
-.edit-popup .field-help{
+.edit-popup .field-help {
     color: #E86225;
     font-size: 14px;
     margin: 0;
     margin-top: 10px;
     font-weight: 500;
 }
-.edit-popup .checkbox-field{
+
+.edit-popup .checkbox-field {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 10px;
 }
-.edit-popup .checkbox-field label{
+
+.edit-popup .checkbox-field label {
     font-weight: 500;
 }
+
 .edit-popup .checkbox-field label,
-.edit-popup .checkbox-field input{
+.edit-popup .checkbox-field input {
     cursor: pointer;
 }
-.edit-popup .checkbox-field input{
+
+.edit-popup .checkbox-field input {
     accent-color: #E86225;
 }
+
 @media (max-width: 991px) {
     .top-btn {
         margin-top: 10px;
@@ -2246,11 +2271,12 @@ ul#myTab li {
 }
 
 .profile-info .additional-info .info-item-l *,
-.profile-info .additional-info .info-item-r *{
+.profile-info .additional-info .info-item-r * {
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+
 .profile-info .additional-info .info-item-r {
     border-left: 1px solid #E8E8E8;
     padding-top: 30px;
@@ -2336,42 +2362,147 @@ ul#myTab li {
 .profile-info .portfolio-showcase {
     padding: 0 0 20px;
 }
-.profile-info .portfolio-showcase ul{
+
+.profile-info .portfolio-showcase ul {
     margin: 0;
     padding: 0;
     margin-bottom: 20px;
     list-style: none;
 }
-.profile-info .portfolio-showcase > ul > li{
+
+.profile-info .portfolio-showcase>ul>li {
     padding: 20px 0;
     border-bottom: 1px solid #E8E8E8;
 }
-.profile-info .portfolio-showcase > ul > li .item-head{
+
+.profile-info .portfolio-showcase>ul>li .item-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.profile-info .portfolio-showcase > ul > li .item-head button{
+
+.profile-info .portfolio-showcase>ul>li .photos-upload-container{
+    position: relative;
+    border: 1px solid #E86225;
+    color: #E86225;
+    width: 100%;
+    padding: 100px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-info .portfolio-showcase>ul>li .photos-upload-container input{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.profile-info .portfolio-showcase>ul>li .photos-upload-container i{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E86225;
+    color: #fff;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    font-size: 20px;
+}
+.profile-info .portfolio-showcase>ul>li .item-head button {
     border: none;
     outline: none;
     background-color: transparent;
     color: #E86225;
     font-size: 20px;
 }
-.profile-info .portfolio-showcase > ul > li .item-head h6{
-    margin: 0;   
+
+.profile-info .portfolio-showcase>ul>li .item-head h6 {
+    margin: 0;
 }
-.profile-info .portfolio-showcase > ul > li .listing{
+
+.profile-info .portfolio-showcase>ul>li .listing {
     margin-top: 15px;
 }
-.profile-info .portfolio-showcase > ul > li .listing > li{
+
+.profile-info .portfolio-showcase>ul>li .listing>li {
     display: flex;
     align-items: flex-start;
 }
-.profile-info .portfolio-showcase > ul > li .listing > li:not(:nth-last-child(1)){
+
+.profile-info .portfolio-showcase>ul>li .listing>li:not(:nth-last-child(1)) {
     margin-bottom: 15px;
 }
-.profile-info .portfolio-showcase > ul > li .listing > li .thumb{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .desc {
+    font-size: 14px;
+    color: rgba(8, 8, 9, 0.7);
+    padding-left: 15px;
+}
+
+.profile-info .portfolio-showcase>ul>li .listing>li .data{
+    flex: 1;
+}
+.profile-info .show-all-btn {
+    width: 100%;
+    color: #E86225;
+    border: 1px solid #E86225;
+    background-color: transparent;
+    padding: 10px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+.profile-info .show-all-btn:hover{
+    background-color: #E86225;
+    color: #fff;
+}
+.profile-info .portfolio-showcase .user-academic .hidden{
+    display: none;
+}
+.profile-info .portfolio-showcase>ul>li .listing>li .title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.profile-info .portfolio-showcase>ul>li .listing>li .title ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.profile-info .portfolio-showcase>ul>li .listing>li .title ul .remove-btn{
+    padding: 0;
+    background-color: transparent;
+    color: rgba(116, 1, 18, 0.8);
+    cursor: pointer;
+}
+.profile-info .portfolio-showcase>ul>li .listing>li .title ul .edit-btn{
+    padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+.profile-info .portfolio-showcase>ul>li .listing>li .info {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.profile-info .portfolio-showcase>ul>li .listing>li .desc ul {
+    padding-left: 25px;
+    list-style: disc;
+    margin-bottom: 0;
+}
+
+.profile-info .portfolio-showcase>ul>li .listing>li .desc ol {
+    padding-left: 25px;
+    list-style: decimal;
+    margin-bottom: 0;
+}
+
+.profile-info .portfolio-showcase>ul>li .listing>li .thumb {
     background-color: #EEEEEE;
     color: #000;
     text-align: center;
@@ -2381,14 +2512,16 @@ ul#myTab li {
     padding: 10px;
     border-radius: 10px;
 }
-.profile-info .portfolio-showcase > ul > li .listing > li .thumb .year{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .thumb .year {
     font-size: 16px;
     font-weight: 600;
 }
 
-.profile-info .portfolio-showcase > ul > li .listing > li p{
+.profile-info .portfolio-showcase>ul>li .listing>li p {
     margin: 0;
 }
+
 .project-listing {
     padding: 20px 0;
 }
@@ -2565,9 +2698,11 @@ input:checked+label .select-documents .fa-file {
     padding: 0;
     flex-wrap: wrap;
 }
-.follow-more ul li{
+
+.follow-more ul li {
     position: relative;
 }
+
 .follow-more ul li button {
     position: absolute;
     right: 0;
@@ -3257,14 +3392,16 @@ input:checked+label .select-documents .fa-file {
     padding: 5px 10px;
     border-radius: 10px;
 }
-.custom-pagination{
+
+.custom-pagination {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 15px;
 }
+
 .custom-pagination li span.active,
-.custom-pagination li a{
+.custom-pagination li a {
     text-decoration: none;
     border: 1px solid #000;
     color: #000;
@@ -3278,10 +3415,11 @@ input:checked+label .select-documents .fa-file {
     border-radius: 5px;
     transition: 0.3s ease-in-out;
 }
+
 .custom-pagination li span.active,
-.custom-pagination li a:hover{
-background-color: #000;
-color: #fff;
+.custom-pagination li a:hover {
+    background-color: #000;
+    color: #fff;
 }
 
 @media (max-width: 1024px) {

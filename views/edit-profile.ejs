@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
-            <a href="/sites/e4d4/dashboard" class="dash-btn"> <i class="bi bi-check2-all text-white px-1"></i> Done</a>
+            <a href="/sites/e4d4/profile" class="dash-btn"> <i class="bi bi-check2-all text-white px-1"></i> Done</a>
             <button type="button" class="logout-btn ms-2"><i class="bi bi-bell"></i></button>
           </div>
         </div>
@@ -185,7 +185,34 @@
                     <i class="bi bi-pencil-square"></i>
                   </button>
                 </div>
-                <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
+                <div class="follow-more">
+                  <% if(user.socialLinks?.length > 0) { %>
+                  <h6>Follow To Know More About Me! <button type="button" data-bs-toggle="modal" data-bs-target="#edit-social-info" class="edit-btn">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </h6>
+                  <ul>
+                    <% user.socialLinks?.forEach((item) => { %>
+                    <li>
+                      <form class="social-form">
+                        <input type="hidden" name="<%= item.platform %>" value="">
+                        <button title="delete <%= item.platform %>"><i class="bi bi-x"></i></button>
+                      </form>
+
+                      <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
+                        <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
+                      </a>
+                    </li>
+                    <% }) %>
+                  </ul>
+                  <% } else { %>
+                  <h6>Add Social Media Links! <button type="button" data-bs-toggle="modal" data-bs-target="#edit-social-info" class="edit-btn">
+                      <i class="bi bi-plus-lg"></i>
+                    </button>
+                  </h6>
+                  <% } %>
+                </div>
+                <!-- <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt=""> -->
               </div>
             </div>
           </div>
@@ -206,17 +233,38 @@
                     <span class="txt">Years</span>
                   </div>
                   <div class="data">
-                  <% 
+                    <% 
                   const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                   %>
-                    <h5 class="title"><%= experience.title %></h5>
+                    <h5 class="title"><%= experience.title %>
+                      <ul>
+                        <li>
+                          <form class="edit-exp">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="experienceId" value="<%= experience._id %>">
+                            <button type="submit" class="edit-btn">
+                              <i class="bi bi-pencil-square"></i>
+                            </button>
+                          </form>
+                        </li>
+                        <li>
+                          <form class="delete-exp">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="experienceId" value="<%= experience._id %>">
+                            <button type="submit" class="remove-btn">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
+                    </h5>
                     <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
                     <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
                     <h6 class="info"><%= experience.location %></h6>
-                    <% experience.description.split('\n').forEach((p) => { %>
-                      <p><%= p %></p>
-                  <% }) %>
-                </div>
+                    <div class="desc">
+                      <%- experience.description.replaceAll('&nbsp;','') %>
+                    </div>
+                  </div>
                 </li>
                 <% }) %>
               </ul>
@@ -325,34 +373,6 @@
           </div>
         </div>
         <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
-        <hr>
-        <div class="follow-more">
-          <% if(user.socialLinks?.length > 0) { %>
-          <h6>Follow To Know More About Me! <button type="button" data-bs-toggle="modal" data-bs-target="#edit-social-info" class="edit-btn">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-          </h6>
-          <ul>
-            <% user.socialLinks?.forEach((item) => { %>
-            <li>
-              <form class="social-form">
-                <input type="hidden" name="<%= item.platform %>" value="">
-                <button title="delete <%= item.platform %>"><i class="bi bi-x"></i></button>
-              </form>
-
-              <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
-                <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
-              </a>
-            </li>
-            <% }) %>
-          </ul>
-          <% } else { %>
-          <h6>Add Social Media Links! <button type="button" data-bs-toggle="modal" data-bs-target="#edit-social-info" class="edit-btn">
-              <i class="bi bi-plus-lg"></i>
-            </button>
-          </h6>
-          <% } %>
-        </div>
       </div>
     </div>
     </div>
@@ -466,7 +486,7 @@
         </div>
         <form action="/sites/e4d4/api/user/modify/user-info" method="post">
           <input type="hidden" name="id" value="<%= user.id %>">
-          <input type="hidden" id="skill-input-hidden" name="skills" value="[]">
+          <input type="hidden" id="skill-input-hidden" name="skills" value="<%= user.skills ? JSON.stringify(user.skills) : JSON.stringify([]) %>">
           <div class="modal-body">
             <div class="row g-4">
               <div class="col-12">
@@ -477,15 +497,9 @@
                     <% user.skills.forEach((item,index) => { %>
                     <div class="inp-wrap <%= index !== 0 ? 'mt-2' : '' %>">
                       <input type="text" class="form-control skill-input" onchange="skillInputHandler()" placeholder="Enter Your Skill..." value="<%= item %>">
-                      <% if (index !== 0) { %>
                       <button class="remove-btn" type="button" onclick="removeSkillInput(this)"><i class="bi bi-trash"></i></button>
-                      <% } %>
                     </div>
                     <% }) %>
-                    <% } else { %>
-                    <div class="inp-wrap">
-                      <input type="text" class="form-control skill-input" onchange="skillInputHandler()" placeholder="Enter Your Skill...">
-                    </div>
                     <% } %>
                   </div>
                 </div>
@@ -824,7 +838,9 @@
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Description</label>
-                  <textarea name="description" class="form-control"></textarea>
+                  <!-- <textarea name="description" class="form-control"></textarea> -->
+                  <textarea class="d-none" name="description" id="experience-desc"></textarea>
+                  <textarea class="text-editor"></textarea>
                 </div>
               </div>
               <div class="col-12">
@@ -836,8 +852,240 @@
       </div>
     </div>
   </div>
+  <div class="modal fade edit-popup add-exp" id="edit-experience-item" tabindex="-1" aria-labelledby="edit-experience-itemLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-experience-itemLabel">Edit Experience</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/experience/edit" method="post">
+          <input type="hidden" name="userId" value="<%= user.id %>">
+          <input type="hidden" name="expId">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Title*</label>
+                  <input type="text" name="title" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Employment type*</label>
+                  <input type="text" name="employementType" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Company name*</label>
+                  <input type="text" name="companyName" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Location*</label>
+                  <input type="text" name="location" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Location type*</label>
+                  <select class="form-control" name="locationType" required>
+                    <option value="On Site">On Site</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Hybrid">Hybrid</option>
+                  </select>
+                  <p class="field-help">Pick a location type (ex: remote)</p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="checkbox-field">
+                  <input type="checkbox" name="currentlyWorking" value="true" id="working-now-exp">
+                  <label for="working-now-exp">I am currently working in this role</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">start date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_year">
+                        <%
+                          const currentYearEdit = new Date().getFullYear();
+                          for (let year = 1970; year <= currentYearEdit; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYearEdit == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">end date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="checkbox-field">
+                  <input type="checkbox" name="endCurrentPosition" id="end-position-exp">
+                  <label for="end-position-exp">End current position as of now - Manager at ba</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Description</label>
+                  <!-- <textarea name="description" class="form-control"></textarea> -->
+                  <textarea class="d-none" name="description" id="experience-desc"></textarea>
+                  <textarea class="text-editor"></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Update</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <%- include('./partials/scriptlinks') %>
+  <script src="https://cdn.tiny.cloud/1/xarj83czi2hp6n2rm3b1ruv6msf9w7abxf4nfx0bwvo20pbs/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    $(document).ready(function() {
+      let characterCount = 0
+      $("#add-experience-about form").submit(function(e) {
+        debugger
+        if (characterCount > 1000) {
+          e.preventDefault()
+          createToast(`Description Field should not exceed 1000 characters!`, 'error')
+          return false
+        }
+      })
+
+      function charCount(editor) {
+        const maxLength = 1000; // Character limit
+        const content = editor.getContent({
+          format: 'text'
+        });
+        const wordCount = content.split(/\s+/).length
+        characterCount = content.length
+        let className = ''
+        if (characterCount > 1000) {
+          className = 'exceeded'
+        }
+        debugger
+        $(".tox-statusbar__text-container .tox-statusbar__right-container").html(`<p class="${className}"><span class="word-count">${wordCount} Words</span class="char-count"><span>${characterCount}/1000 Characters</span></p>`)
+
+        return content.length
+      }
+
+      function limitContentLength(editor) {
+        const maxLength = 1000; // Character limit
+        const content = editor.getContent({
+          format: 'text'
+        });
+
+        if (content.length > maxLength) {
+          createToast(`Max 1000 characters allowed!`, 'error')
+          return true
+        }
+        false
+      }
+      tinymce.init({
+        selector: '#add-experience-about .text-editor',
+        plugins: 'autolink charmap lists visualblocks',
+        toolbar: 'undo redo | bold italic underline | align | numlist bullist indent outdent | emoticons | removeformat | codesample',
+        setup: function(editor) {
+          editor.on('change', function(e) {
+            limitContentLength(editor);
+            charCount(editor)
+            $("#add-experience-about #experience-desc").val(editor.getContent())
+          });
+          editor.on('init', function(e) {
+            limitContentLength(editor);
+            charCount(editor)
+            $("#add-experience-about #experience-desc").val(editor.getContent())
+          });
+          editor.on('keyup', function(e) {
+            limitContentLength(editor);
+            charCount(editor)
+            $("#add-experience-about #experience-desc").val(editor.getContent())
+          });
+        }
+      });
+      tinymce.init({
+        selector: '#edit-experience-item .text-editor',
+        plugins: 'autolink charmap lists visualblocks',
+        toolbar: 'undo redo | bold italic underline | align | numlist bullist indent outdent | emoticons | removeformat | codesample',
+        setup: function(editor) {
+          editor.on('change', function(e) {
+            limitContentLength(editor);
+            charCount(editor)
+            $("#edit-experience-item #experience-desc").val(editor.getContent())
+          });
+          editor.on('init', function(e) {
+            limitContentLength(editor);
+            charCount(editor)
+            $("#edit-experience-item #experience-desc").val(editor.getContent())
+          });
+          editor.on('keyup', function(e) {
+            limitContentLength(editor);
+            charCount(editor)
+            $("#edit-experience-item #experience-desc").val(editor.getContent())
+          });
+        }
+      });
+    })
+    //   tinymce.init({
+    //   selector: '.text-editor'
+    // });
+  </script>
   <script>
     $('.edit-it').keyup(function() {
       if ($(this).html() == '') {
@@ -1014,7 +1262,6 @@
       }
     })
     $(".remove-project-item").click(async function(e) {
-      debugger
       if (confirm('Project Item will be removed, do you want to proceed?')) {
         const project = $(this).data('project')
         $('#loader').css('display', 'flex')
@@ -1076,10 +1323,12 @@
   </script>
   <script>
     const addSkillInput = (btn) => {
-      if ($(".wrap-all .inp-wrap").length == 4) {
+      if ($("#edit-skills-info .wrap-all .inp-wrap").length >= 4) {
         $(btn).hide()
       }
-      $(".wrap-all").append(`<div class="inp-wrap mt-2"><input type="text" onchange="skillInputHandler()" class="form-control skill-input" placeholder="Enter Your Skill..." required><button class="remove-btn" type="button" onclick="removeSkillInput(this)"><i class="bi bi-trash"></i></button></div>`)
+      if ($("#edit-skills-info .wrap-all .inp-wrap").length <= 5) {
+        $("#edit-skills-info .wrap-all").append(`<div class="inp-wrap mt-2"><input type="text" onchange="skillInputHandler()" class="form-control skill-input" placeholder="Enter Your Skill..." required><button class="remove-btn" type="button" onclick="removeSkillInput(this)"><i class="bi bi-trash"></i></button></div>`)
+      }
     }
     const removeSkillInput = (btn) => {
       $(".add-skill-item").show()
@@ -1088,7 +1337,7 @@
     }
     const skillInputHandler = () => {
       let skills = []
-      $(".skill-input").each((ind, elem) => {
+      $("#edit-skills-info .skill-input").each((ind, elem) => {
         if ($(elem).val()) {
           skills.push($(elem).val())
         }
@@ -1125,6 +1374,63 @@
         if (!$('.social-edit-popup').hasClass('show')) {
           location.reload()
         }
+      }
+    })
+  </script>
+  <script>
+    $(".delete-exp").submit(async (e) => {
+      e.preventDefault()
+      if (confirm('Your Experience will be deleted Permanently! Do you want to proceed?')) {
+        const curForm = e.target
+        const formData = new FormData(curForm);
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+          formDataObj[key] = value;
+        });
+        const res = await fetch('/sites/e4d4/api/user/modify/experience/delete', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formDataObj)
+        })
+        const resJson = await res.json()
+        if (resJson.success) {
+          location.href = '/sites/e4d4/edit/profile?message=Experience Deleted'
+        } else {
+          createToast(resJson.error, 'error')
+        }
+      }
+    })
+  </script>
+  <script>
+    $(".edit-exp").submit(async (e) => {
+      e.preventDefault()
+      const curForm = e.target
+      const formData = new FormData(curForm);
+      const formDataObj = {};
+      formData.forEach((value, key) => {
+        formDataObj[key] = value;
+      });
+      const res = await fetch('/sites/e4d4/api/user/modify/experience/get', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formDataObj)
+      })
+      const resJson = await res.json()
+      if (resJson.success) {
+        const experience = resJson.experience
+        $("#edit-experience-item [name='experienceId']").val(experience._id)
+        $("#edit-experience-item [name]").each((ind,item)=>{
+          debugger
+          const fieldName = $(item).attr('name')
+          $(item).val(experience[fieldName])
+        })
+        $("#edit-experience-item").modal('show')
+      } else {
+        createToast(resJson.error, 'error')
       }
     })
   </script>

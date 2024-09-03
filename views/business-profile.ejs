@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= user.fullName %></title>
+  <title><%= business.fullName %></title>
   <%- include('./partials/csslinks') %>
 </head>
 
@@ -16,23 +16,21 @@
       <div class="dashboard-main-setting profile-info mx-auto">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+            <img src="/sites/e4d4<%= business.profilePic ? business.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
             <div class="px-3">
-              <h6><%= user.fullName %></h6>
-              <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
+              <h6><%= business.fullName ? business.fullName : 'Company Name Here' %></h6>
+              <span><%= business.subHeading ? business.subHeading : 'Enter Sub Heading' %></span>
             </div>
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
-            <% if(JSON.stringify(user._id) == JSON.stringify(user.id)){ %>
             <a href="/sites/e4d4/edit/profile" class="dash-btn"> <i class="bi bi-pencil-square text-white px-1"></i> Edit</a>
-            <% } %>
             <button type="button" class="logout-btn ms-2"><i class="bi bi-bell"></i></button>
           </div>
         </div>
         <div class="row justify-content-between my-4">
           <div class="col-lg-4 col-12">
             <div class="history-btn-design">
-              <a href="/sites/e4d4/dashboard" class="dash-btn">
+              <a href="/sites/e4d4/business-dashboard" class="dash-btn">
                 Dashboard</a>
               <button type="button" class="dash-btn">
                 Show History</button>
@@ -42,49 +40,43 @@
         <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
         <div class="profile-banner">
           <div class="banner-cover">
-            <img class="img-fluid" src="/sites/e4d4<%= user.coverPhoto ? user.coverPhoto : '/assets/img/cover.png' %>" alt="">
+            <img class="img-fluid" src="/sites/e4d4<%= business.coverPhoto ? business.coverPhoto : '/assets/img/cover.png' %>" alt="">
           </div>
           <div class="banner-info">
             <div class="profile-person-history large-img">
-              <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+              <img src="/sites/e4d4<%= business.profilePic ? business.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
               <div class="px-3 pb-2">
-                <h5><%= user.fullName %><span> (<%= user.jobTitle ? user.jobTitle : 'Job Title Here' %>)</span></h5>
-                <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
+                <h5><%= business.fullName ? business.fullName : 'Company Name Here' %><span> (<%= business.industry ? business.industry : 'Industry Here' %>)</span></h5>
+                <span><%= business['subHeading'] ? business['subHeading'] : 'Enter Sub Heading' %></span>
               </div>
             </div>
-            <span class="profile-badge"><%= user.experience ? user.experience : '0'  %>+ Years Of Experience</span>
+            <span class="profile-badge"><%= business.experience ? business.experience : '0'  %>+ Years in Business</span>
           </div>
         </div>
         <ul class="other-info">
           <!-- <li>@edwardjj53</li> -->
-          <li>Sydney, Australia</li>
-          <% 
-          const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-          const joiningDate = new Date(user.createdAt)
-          const joiningMonth = monthsShort[joiningDate.getMonth()]
-          const joiningYear = joiningDate.getFullYear()
-           %>
-          <li>Member Since, <%= joiningMonth %> <%= joiningYear %></li>
+          <li>Industry</li>
+          <li>Company size</li>          
+          <li>Founded</li>
         </ul>
         <div class="additional-info">
           <div class="row g-0">
             <div class="col-lg-8 col-12 panel">
               <div class="info-item-l h-100">
                 <h6 class="fw-bold">About</h6>
-                <% if(user.about){ %>
+                <% if(business.about){ %>
                 <p><%= user.about %></p>
                 <% } else { %>
                 <p class="text-muted">No About...</p>
                 <% } %>
-                <% if(user.profileVideo?.url){ %>
+                <% if(business.profileVideo?.url){ %>
                 <div class="profile-video">
                   <!-- <a href="javascript:;">
                     <i class="bi bi-play-fill"></i>
                   </a> -->
                   <!-- <img src="/sites/e4d4/assets/img/video-poster.png"> -->
                   <video controls>
-                    <source src="/sites/e4d4<%= user.profileVideo?.url %>">
+                    <source src="/sites/e4d4<%= business.profileVideo?.url %>">
                   </video>
                 </div>
                 <% } %>
@@ -92,24 +84,24 @@
             </div>
             <div class="col-lg-4 col-12 panel">
               <div class="info-item-r h-100">
-                <h6 class="fw-bold">Connect With Me</h6>
+                <h6 class="fw-bold">Contact Info</h6>
                 <ul class="contact-links">
-                  <% if(user.primaryEmail?.email){ %>
+                  <% if(business.primaryEmail?.email){ %>
                   <li>
                     <span>Email Address</span>
-                    <a href="mailto:<%= user.primaryEmail?.email %>"><%= user.primaryEmail?.email %></a>
+                    <a href="mailto:<%= business.primaryEmail?.email %>"><%= business.primaryEmail?.email %></a>
                   </li>
                   <% } %>
-                  <% if(user.phone){ %>
+                  <% if(business.phone){ %>
                   <li>
                     <span>Phone #</span>
-                    <a href="tel:<%= user.phone %>"><%= user.phone %></a>
+                    <a href="tel:<%= business.phone %>"><%= business.phone %></a>
                   </li>
                   <% } %>
-                  <% if(user.portfolio){ %>
+                  <% if(business.portfolio){ %>
                   <li>
                     <span>Portfolio</span>
-                    <a href="<%= user.portfolio %>" target="_blank"><%= user.portfolio %></a>
+                    <a href="<%= business.portfolio %>" target="_blank"><%= business.portfolio %></a>
                   </li>
                   <% } %>
                 </ul>
@@ -117,17 +109,15 @@
                   <!-- <span>UI/UX</span>
                   <span>Branding</span>
                   <span>Logo</span> -->
-                  <% user.skills.forEach((item)=>{ %>
-                  <span><%= item %></span>
-                  <% }) %>
+                  <!-- <span>skills</span> -->
                 </div>
-                <!-- <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt=""> -->
-                <% if(user.socialLinks.length > 0) { %>
+                <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
+                <% if(business.socialLinks?.length > 0) { %>
                 <!-- <hr> -->
-                <div class="follow-more">
+                <!-- <div class="follow-more">
                   <h6>Follow To Know More About Me!</h6>
                   <ul>
-                    <% user.socialLinks.forEach((item) => { %>
+                    <% business.socialLinks?.forEach((item) => { %>
                     <li>
                       <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
                         <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
@@ -135,7 +125,7 @@
                     </li>
                     <% }) %>
                   </ul>
-                </div>
+                </div> -->
                 <% } %>
               </div>
             </div>
@@ -145,56 +135,20 @@
           <ul class="user-academic">
             <li>
               <div class="item-head">
-                <h6 class="fw-bold">Experience</h6>
-              </div>
-              <% if(user.experiences?.length > 0) { %>
-              <ul class="listing">
-                <% user.experiences.forEach((experience,ind) => { %>
-                <li class="<%= ind > 2 ? 'hidden' : '' %>">
-                  <div class="thumb">
-                    <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
-                    <span class="txt">Years</span>
-                  </div>
-                  <div class="data">
-                    <% 
-                  const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                  %>
-                    <h5 class="title"><%= experience.title %></h5>
-                    <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
-                    <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
-                    <h6 class="info"><%= experience.location %></h6>
-                    <div class="desc">
-                      <%- experience.description.replaceAll('&nbsp;','') %>
-                    </div>
-                  </div>
-                </li>
-                <% }) %>
-              </ul>
-              <%- user.experiences?.length > 3 ? `<button class="show-all-btn">Show all ${user.experiences?.length} Experiences</button>` : '' %>
-              <% } %>
-            </li>
-            <li>
-              <div class="item-head">
-                <h6 class="fw-bold">Education</h6>
+                <h6 class="fw-bold">Why work with us?</h6>
               </div>
             </li>
             <li>
               <div class="item-head">
-                <h6 class="fw-bold">Volunteer Experience</h6>
+                <h6 class="fw-bold">Photos</h6>
               </div>
-            </li>
-            <li>
-              <div class="item-head">
-                <h6 class="fw-bold">Projects Showcase</h6>
-              </div>
-            </li>
-            <li>
-              <div class="item-head">
-                <h6 class="fw-bold">Licenses & Certifications</h6>
-              </div>
+              <label class="photos-upload-container" for="upload-photos">
+                <input type="file" id="upload-photos">
+                <i class="bi bi-upload"></i>
+              </label>
             </li>
           </ul>
-          <% if(user.projects?.length > 0) { %>
+          <% if(business.projects?.length > 0) { %>
           <h6 class="fw-bold">Projects Showcase</h6>
           <div class="row g-4 project-listing">
             <% user.projects.forEach((item) => { %>
@@ -209,23 +163,23 @@
             <% }) %>
           </div>
           <% } %>
-          <% if (user.resume || user.coverLetter) { %>
+          <% if (business.resume || business.coverLetter) { %>
           <h6 class="fw-bold">Personal Documents</h6>
           <div class="row g-4 project-listing">
-            <% if(user.resume) { %>
+            <% if(business.resume) { %>
             <div class="col-lg-4 col-12">
               <div class="doc-wrapper">
-                <a class="empty-box filled" href="/sites/e4d4<%= user.resume %>">
+                <a class="empty-box filled" href="/sites/e4d4<%= business.resume %>">
                   <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
                   <h5>Click to View Resume</h5>
                 </a>
               </div>
             </div>
             <% } %>
-            <% if(user.coverLetter) { %>
+            <% if(business.coverLetter) { %>
             <div class="col-lg-4 col-12">
               <div class="doc-wrapper">
-                <a class="empty-box filled" href="/sites/e4d4<%= user.coverLetter %>">
+                <a class="empty-box filled" href="/sites/e4d4<%= business.coverLetter %>">
                   <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
                   <h5>Click to View Cover Letter</h5>
                 </a>

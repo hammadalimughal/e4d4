@@ -37,6 +37,12 @@ const business = new Schema({
         type: String,
         required: true
     },
+    subHeading: {
+        type: String,
+    },
+    profilePic: {
+        type: String,
+    },
     address: {
         type: String,
         required: true

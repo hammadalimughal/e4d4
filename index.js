@@ -135,7 +135,7 @@ app.get('/sites/e4d4/user-loginemail', async (req, res) => {
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+            return res.redirect(`/sites/e4d4/profile`)
         }
         if (business) {
             return res.redirect(`/sites/e4d4/business-dashboard`)
@@ -152,7 +152,7 @@ app.get('/sites/e4d4/reset-password', async (req, res) => {
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+            return res.redirect(`/sites/e4d4/profile`)
         }
         if (business) {
             return res.redirect(`/sites/e4d4/business-dashboard`)
@@ -169,7 +169,7 @@ app.get('/sites/e4d4/business-reset-password', async (req, res) => {
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+            return res.redirect(`/sites/e4d4/profile`)
         }
         if (business) {
             return res.redirect(`/sites/e4d4/business-dashboard`)
@@ -189,7 +189,7 @@ app.get('/sites/e4d4/business-otp-verification', async (req, res) => {
         const otpBusinessId = token.business
         const otpObjId = token.otp
         if (user) {
-            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+            return res.redirect(`/sites/e4d4/profile`)
         }
         if (business) {
             return res.redirect(`/sites/e4d4/business-dashboard`)
@@ -215,7 +215,7 @@ app.get('/sites/e4d4/business-update-password', async (req, res) => {
         console.log('otpObjId', otpObjId)
         console.log('otpUserId', otpBusinessId)
         if (user) {
-            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+            return res.redirect(`/sites/e4d4/profile`)
         }
         if (business) {
             return res.redirect(`/sites/e4d4/business-dashboard`)
@@ -239,7 +239,7 @@ app.get('/sites/e4d4/otp-verification', async (req, res) => {
         const otpUserId = token.user
         const otpObjId = token.otp
         if (user) {
-            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+            return res.redirect(`/sites/e4d4/profile`)
         }
         if (business) {
             return res.redirect(`/sites/e4d4/business-dashboard`)
@@ -264,7 +264,7 @@ app.get('/sites/e4d4/update-password', async (req, res) => {
         console.log('otpObjId', otpObjId)
         console.log('otpUserId', otpUserId)
         if (user) {
-            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+            return res.redirect(`/sites/e4d4/profile`)
         }
         if (business) {
             return res.redirect(`/sites/e4d4/business-dashboard`)
@@ -278,17 +278,18 @@ app.get('/sites/e4d4/update-password', async (req, res) => {
         res.send(error.message)
     }
 })
-app.get('/sites/e4d4/profile/:id', async (req, res) => {
+app.get('/sites/e4d4/profile', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
-        const id = req.params.id
-        const profileUser = await User.findById(id)
-        if (!user) {
-            return res.redirect(`/sites/e4d4/join`)
+        if (user) {
+            return res.render(`profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
         }
-        res.render(`profile`, { message, error, user, business, profileUser, extractDomain, calculateYearsDifference })
+        if (business) {
+            return res.render(`business-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
+        }
+        res.redirect('/sites/e4d4/join')
     } catch (error) {
         console.log(error)
         res.send(error.message)
@@ -314,7 +315,7 @@ app.get('/sites/e4d4/user-login', async (req, res) => {
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/profile/${user.id}`)
+            return res.redirect(`/sites/e4d4/profile`)
         }
         res.render(`user-login`, { message, error, user, business })
     } catch (error) {
@@ -389,8 +390,8 @@ app.get('/sites/e4d4/business-dashboard', async (req, res) => {
         const currentPage = req.query.page ? parseInt(req.query.page) : 1;
         const itemsPerPage = 9;
         const skipItems = (currentPage - 1) * itemsPerPage;
-        console.log('currentPage',currentPage)
-        console.log('skipItems',skipItems)
+        console.log('currentPage', currentPage)
+        console.log('skipItems', skipItems)
         const allUsers = await User.find().skip(skipItems).limit(itemsPerPage);
         const totalUsers = await User.countDocuments();
         const totalPages = Math.ceil(totalUsers / itemsPerPage);

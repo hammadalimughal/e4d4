@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
                         id: _id, fullName, primaryEmail, suburb, phone, educationLevel, skills, industryInterest, termsCondition, weeksOfAvailablity, workType, workClassification, preferredJobLocation, positionTypeInterest, salaryExpectation
                     }
                 const authtoken = jwt.sign(user, JWT_SECRET);
-                return res.status(200).cookie('authtoken', authtoken).redirect(`/sites/e4d4/profile/${user.id}?message=User Logged In Successfully...`)
+                return res.status(200).cookie('authtoken', authtoken).redirect(`/sites/e4d4/profile?message=User Logged In Successfully...`)
             }
             else {
                 return res.status(409).redirect('/sites/e4d4/user-loginemail?error=Invalid Credentials')

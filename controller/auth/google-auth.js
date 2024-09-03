@@ -17,7 +17,7 @@ router.get('/callback', passport.authenticate('google', {
     }
     const authtoken = jwt.sign(authUser, JWT_SECRET);
 
-    return res.cookie('authtoken', authtoken).redirect(`/sites/e4d4/profile/${authUser.id}`);
+    return res.cookie('authtoken', authtoken).redirect(`/sites/e4d4/profile`);
 
 });
 

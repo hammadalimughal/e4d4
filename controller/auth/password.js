@@ -112,7 +112,7 @@ router.post('/update-password', async (req, res) => {
                         id: _id, primaryEmail
                     }
                     const authtoken = jwt.sign(user, JWT_SECRET);
-                    return res.cookie('authtoken', authtoken).redirect(`/sites/e4d4/profile/${_id}?message=Password Updated Successfully...`)
+                    return res.cookie('authtoken', authtoken).redirect(`/sites/e4d4/profile?message=Password Updated Successfully...`)
                 } else {
                     return res.redirect(`/sites/e4d4/update-password/?error=Something Went Wrong...`)
                 }

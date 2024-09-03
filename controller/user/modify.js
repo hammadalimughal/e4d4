@@ -328,7 +328,12 @@ router.post('/experience/add', async (req, res) => {
         let endingDate = new Date()
         endingDate.setMonth(endingDate_month)
         endingDate.setYear(endingDate_year)
-        
+        const textDescription = description.replaceAll('<p>','').replaceAll('</p>','').replaceAll('<ul>','').replaceAll('</ul>','').replaceAll('<ol>','').replaceAll('</ol>','').replaceAll('<li>','').replaceAll('</li>','').replaceAll('<strong>','').replaceAll('</strong>','')
+        console.log('textDescription',textDescription.length)
+        if (textDescription.length > 1150) {
+            console.log('textDescription',textDescription)
+            return res.redirect('/sites/e4d4/edit/profile?error=Experience Description Should Not Exceed 1000 characters')
+        }
         const user = await User.findById(id)
         if (!user) {
             // return res.json({ error: 'User Not Found' });
@@ -345,6 +350,62 @@ router.post('/experience/add', async (req, res) => {
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
+    }
+});
+router.post('/experience/delete', async (req, res) => {
+    try {
+        const { userId, experienceId } = req.body
+
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId },
+            { $pull: { experiences: { _id: experienceId } } },
+            { new: true } // Return the updated document
+        );
+        if (!updatedUser) {
+            return res.json({
+                success: false,
+                error: 'Something Went Wrong'
+            })
+          }
+          return res.json({
+            success: true,
+            message: 'Experience Deleted!'
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ 
+            success: false,
+            error: error.message 
+        });
+    }
+});
+router.post('/experience/get', async (req, res) => {
+    try {
+        const { userId, experienceId } = req.body
+
+        const updatedUser = await User.findById(userId);
+        let experience;
+        updatedUser?.experiences.forEach((item)=>{
+            if(item._id == experienceId){
+                experience = item
+            }
+        })
+        if (!experience) {
+            return res.json({
+                success: false,
+                error: 'Something Went Wrong'
+            })
+          }
+          return res.json({
+            success: true,
+            experience
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ 
+            success: false,
+            error: error.message 
+        });
     }
 });
 router.post('/remove-project-item', async (req, res) => {
