@@ -720,15 +720,6 @@
         }
         debugger
         // if (nextFormClass == 'subscription-section') {
-          const res = await fetch('/sites/e4d4/api/auth/business/register', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formDataObj),
-            credentials: 'include'
-          })
-          const resJson = await res.json()
           if (res.status !== 200) {
             // $("#error-message").html(resJson.error)
             success = false

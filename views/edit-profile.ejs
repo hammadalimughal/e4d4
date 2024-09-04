@@ -273,7 +273,8 @@
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Education</h6>
-                <button><i class="bi bi-plus-circle-fill"></i></button>
+                <!-- add-education -->
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add-experience-about" ><i class="bi bi-plus-circle-fill"></i></button>
               </div>
             </li>
             <li>
@@ -285,8 +286,26 @@
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Projects Showcase</h6>
-                <button><i class="bi bi-plus-circle-fill"></i></button>
+                <button data-bs-toggle="modal" data-bs-target="#add-project" title="Add Project"><i class="bi bi-plus-circle-fill"></i></button>
               </div>
+              <% if(user.projects?.length> 0) { %>
+                <div class="row g-4 project-listing">
+                  <% user.projects.forEach((item)=> { %>
+                  <div class="col-lg-4 col-12">
+                    <div class="project-item">
+                      <button class="remove-btn remove-project-item" data-project="<%= item._id %>">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                      <h6>
+                        <%= item.title %>
+                      </h6>
+                      <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
+                        <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
+                      </a>
+                    </div>
+                  </div>
+                  <% }) %>
+                <% } %>
             </li>
             <li>
               <div class="item-head">
@@ -295,36 +314,6 @@
               </div>
             </li>
           </ul>
-          <h6 class="fw-bold">Projects Showcase</h6>
-          <% if(user.projects?.length> 0) { %>
-          <div class="row g-4 project-listing">
-            <% user.projects.forEach((item)=> { %>
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <button class="remove-btn remove-project-item" data-project="<%= item._id %>">
-                  <i class="bi bi-trash"></i>
-                </button>
-                <h6>
-                  <%= item.title %>
-                </h6>
-                <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
-                  <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
-                </a>
-              </div>
-            </div>
-            <% }) %>
-            <div class="col-12 d-flex justify-content-center">
-              <button type="button" data-bs-toggle="modal" data-bs-target="#add-project" class="dash-btn" title="Add Project">
-                <i class="bi bi-file-earmark-plus"></i>
-            </div>
-          </div>
-          <% } else { %>
-          <button class="empty-box" type="button" data-bs-toggle="modal" data-bs-target="#add-project">
-            <!-- <input type="file" name="projects" id="projects" multiple> -->
-            <img src="/sites/e4d4/assets/img/empty.png" alt="">
-            <h5>Upload Some Projects to show Here</h5>
-          </button>
-          <% } %>
           <h6 class="fw-bold mt-3">Personal Documents
           </h6>
           <div class="row g-4 project-listing">
@@ -852,6 +841,102 @@
       </div>
     </div>
   </div>
+  <div class="modal fade edit-popup add-exp" id="add-education" tabindex="-1" aria-labelledby="add-educationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="add-educationLabel">Add Education</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/education/add" method="post">
+          <input type="hidden" name="id" value="<%= user.id %>">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Institue / School *</label>
+                  <input type="text" name="institute" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Degree*</label>
+                  <input type="text" name="employementType" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">start date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">end date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <div class="modal fade edit-popup add-exp" id="edit-experience-item" tabindex="-1" aria-labelledby="edit-experience-itemLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -901,8 +986,8 @@
               </div>
               <div class="col-12">
                 <div class="checkbox-field">
-                  <input type="checkbox" name="currentlyWorking" value="true" id="working-now-exp">
-                  <label for="working-now-exp">I am currently working in this role</label>
+                  <input type="checkbox" name="currentlyWorking" value="true" id="working-now-exp-edit">
+                  <label for="working-now-exp-edit">I am currently working in this role</label>
                 </div>
               </div>
               <div class="col-12">
@@ -971,12 +1056,6 @@
                 </div>
               </div>
               <div class="col-12">
-                <div class="checkbox-field">
-                  <input type="checkbox" name="endCurrentPosition" id="end-position-exp">
-                  <label for="end-position-exp">End current position as of now - Manager at ba</label>
-                </div>
-              </div>
-              <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Description</label>
                   <!-- <textarea name="description" class="form-control"></textarea> -->
@@ -997,10 +1076,10 @@
   <%- include('./partials/scriptlinks') %>
   <script src="https://cdn.tiny.cloud/1/xarj83czi2hp6n2rm3b1ruv6msf9w7abxf4nfx0bwvo20pbs/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
+    let editExp
     $(document).ready(function() {
       let characterCount = 0
       $("#add-experience-about form").submit(function(e) {
-        debugger
         if (characterCount > 1000) {
           e.preventDefault()
           createToast(`Description Field should not exceed 1000 characters!`, 'error')
@@ -1019,7 +1098,6 @@
         if (characterCount > 1000) {
           className = 'exceeded'
         }
-        debugger
         $(".tox-statusbar__text-container .tox-statusbar__right-container").html(`<p class="${className}"><span class="word-count">${wordCount} Words</span class="char-count"><span>${characterCount}/1000 Characters</span></p>`)
 
         return content.length
@@ -1422,12 +1500,25 @@
       const resJson = await res.json()
       if (resJson.success) {
         const experience = resJson.experience
-        $("#edit-experience-item [name='experienceId']").val(experience._id)
+        $("#edit-experience-item [name='expId']").val(experience._id)
         $("#edit-experience-item [name]").each((ind,item)=>{
-          debugger
+          
           const fieldName = $(item).attr('name')
-          $(item).val(experience[fieldName])
+          if(experience[fieldName]){
+            $(item).val(experience[fieldName])
+          }
+          if(fieldName == 'startingDate_month'){
+            const startingDate = new Date(experience['startingDate'])
+            $("#edit-experience-item [name='startingDate_month']").val(startingDate.getMonth())
+            $("#edit-experience-item [name='startingDate_year']").val(startingDate.getFullYear())
+          }
+          if(fieldName == 'endingDate_month'){
+            const endingDate = new Date(experience['endingDate'])
+            $("#edit-experience-item [name='endingDate_month']").val(endingDate.getMonth())
+            $("#edit-experience-item [name='endingDate_year']").val(endingDate.getFullYear())
+          }          
         })
+        tinymce.activeEditor.setContent(experience['description']);
         $("#edit-experience-item").modal('show')
       } else {
         createToast(resJson.error, 'error')

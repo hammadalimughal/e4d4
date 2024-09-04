@@ -328,10 +328,10 @@ router.post('/experience/add', async (req, res) => {
         let endingDate = new Date()
         endingDate.setMonth(endingDate_month)
         endingDate.setYear(endingDate_year)
-        const textDescription = description.replaceAll('<p>','').replaceAll('</p>','').replaceAll('<ul>','').replaceAll('</ul>','').replaceAll('<ol>','').replaceAll('</ol>','').replaceAll('<li>','').replaceAll('</li>','').replaceAll('<strong>','').replaceAll('</strong>','')
-        console.log('textDescription',textDescription.length)
+        const textDescription = description.replaceAll('<p>', '').replaceAll('</p>', '').replaceAll('<ul>', '').replaceAll('</ul>', '').replaceAll('<ol>', '').replaceAll('</ol>', '').replaceAll('<li>', '').replaceAll('</li>', '').replaceAll('<strong>', '').replaceAll('</strong>', '')
+        console.log('textDescription', textDescription.length)
         if (textDescription.length > 1150) {
-            console.log('textDescription',textDescription)
+            console.log('textDescription', textDescription)
             return res.redirect('/sites/e4d4/edit/profile?error=Experience Description Should Not Exceed 1000 characters')
         }
         const user = await User.findById(id)
@@ -349,7 +349,58 @@ router.post('/experience/add', async (req, res) => {
         return res.redirect('/sites/e4d4/edit/profile?message=New Experience Added Successfully')
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ message: error.message });
+        return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
+    }
+});
+router.post('/experience/edit', async (req, res) => {
+    try {
+        const { userId, expId, title, employementType, companyName, location, locationType, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year, description } = req.body
+
+        let startingDate = new Date()
+        startingDate.setMonth(startingDate_month)
+        startingDate.setYear(startingDate_year)
+        
+        let endingDate = new Date()
+        endingDate.setMonth(endingDate_month)
+        endingDate.setYear(endingDate_year)
+        const textDescription = description.replaceAll('<p>', '').replaceAll('</p>', '').replaceAll('<ul>', '').replaceAll('</ul>', '').replaceAll('<ol>', '').replaceAll('</ol>', '').replaceAll('<li>', '').replaceAll('</li>', '').replaceAll('<strong>', '').replaceAll('</strong>', '')
+        console.log('textDescription', textDescription.length)
+        if (textDescription.length > 1150) {
+            console.log('textDescription', textDescription)
+            return res.redirect('/sites/e4d4/edit/profile?error=Experience Description Should Not Exceed 1000 characters')
+        }
+        // const updatedUser = await User.findOneAndUpdate(
+        //     { _id: userId },
+        //     { $pull: { experiences: { _id: expId } } }
+        // );
+        const updatedExperienceData = {
+            title, employementType, companyName, location, locationType, currentlyWorking, startingDate, endingDate, description
+        }
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId, "experiences._id": expId }, // Find the user with the specific experience
+            {
+                $set: {
+                    "experiences.$": updatedExperienceData // Update the specific experience in the array
+                }
+            },
+            { new: true } // Return the updated document
+        );
+        // const user = await User.findById(id)
+        if (!updatedUser) {
+            // return res.json({ error: 'User Not Found' });
+            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+        // let experience = {
+        //     title, employementType, companyName, location, locationType, currentlyWorking, startingDate, endingDate, description
+        // }
+        // let experiences = user.experiences ? user.experiences : []
+        // experiences.push(experience)
+        // user.experiences = experiences
+        // await user.save()
+        return res.redirect('/sites/e4d4/edit/profile?message=Experience Updated Successfully')
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
     }
 });
 router.post('/experience/delete', async (req, res) => {
@@ -366,16 +417,16 @@ router.post('/experience/delete', async (req, res) => {
                 success: false,
                 error: 'Something Went Wrong'
             })
-          }
-          return res.json({
+        }
+        return res.json({
             success: true,
             message: 'Experience Deleted!'
         })
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ 
+        res.status(500).json({
             success: false,
-            error: error.message 
+            error: error.message
         });
     }
 });
@@ -385,8 +436,8 @@ router.post('/experience/get', async (req, res) => {
 
         const updatedUser = await User.findById(userId);
         let experience;
-        updatedUser?.experiences.forEach((item)=>{
-            if(item._id == experienceId){
+        updatedUser?.experiences.forEach((item) => {
+            if (item._id == experienceId) {
                 experience = item
             }
         })
@@ -395,16 +446,16 @@ router.post('/experience/get', async (req, res) => {
                 success: false,
                 error: 'Something Went Wrong'
             })
-          }
-          return res.json({
+        }
+        return res.json({
             success: true,
             experience
         })
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ 
+        res.status(500).json({
             success: false,
-            error: error.message 
+            error: error.message
         });
     }
 });
