@@ -80,13 +80,20 @@
                   <div class="company-loc">Business Operate: <%= item.headQuarterLocation %></div>
                 </div>
                 <div class="col-lg-6">
-                  <% if(item.connectionReq.includes(user.id)){ %>
-                  <span class="company_request_btn"> Request Sent Successfully</span>
+                  <% 
+                  let connectionSent = false
+                  user.connection?.forEach((connection)=>{
+                    if(connection.business.toString() == item._id.toString()){
+                      connectionSent = true
+                    }
+                  })
+                  if(connectionSent){ %>
+                      <button class="company_request_btn already-sent" type="submit"> Delete Connection Request</button>
                   <% } else { %>
                   <!-- <form action="/sites/e4d4/api/connection/request/business" method="post"> -->
                   <!-- <input type="hidden" name="businessId" value="<%= item._id %>"> -->
                   <!-- <input type="hidden" name="userId" value="<%= user.id %>"> -->
-                  <button class="company_request_btn" data-company="<%= item._id %>"> + Send Connection Request</button>
+                  <a class="company_request_btn" href="connection-request?company=<%= item._id %>" data-company="<%= item._id %>"> + Send Connection Request</a>
                   <!-- </form> -->
                   <% } %>
 
@@ -138,7 +145,7 @@
 
         <div class="my-4 history-btn-design">
           <button type="button" class="dash-btn">Home</button>
-          <button type="button" class="dash-btn">Show History</button>
+          <!-- <button type="button" class="dash-btn">Show History</button> -->
         </div>
 
         <form class="row">
@@ -408,14 +415,14 @@
   <%- include('./partials/scriptlinks') %>
 
   <script>
-    $('button.company_request_btn').click(function() {
-      debugger
-      sessionStorage.setItem('company-connection', $(this).data('company'))
-      $(".first-screen").hide()
-      $(".select-info").removeClass('display-none')
-      $(".select-info").addClass('d-flex')
+    // $('button.company_request_btn').click(function() {
+    //   debugger
+    //   sessionStorage.setItem('company-connection', $(this).data('company'))
+    //   $(".first-screen").hide()
+    //   $(".select-info").removeClass('display-none')
+    //   $(".select-info").addClass('d-flex')
 
-    })
+    // })
   </script>
 </body>
 

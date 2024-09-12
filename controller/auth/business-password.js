@@ -54,11 +54,11 @@ router.post('/verify-otp', async (req, res) => {
     try {
         const { code } = req.body;
         const token = jwt.verify(req.cookies['businesscodepass'], JWT_SECRET)
-        console.log('token',token)
+        console.log('token', token)
         const otpBusinessId = token.business
         const otpObjId = token.otp
         const checkBusiness = await Business.findById(otpBusinessId)
-        console.log('checkBusiness',checkBusiness)
+        console.log('checkBusiness', checkBusiness)
         if (checkBusiness) {
             const businessId = checkBusiness._id
             const otpDocument = await Otp.findOne({ _id: otpObjId, business: businessId }).exec();

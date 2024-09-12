@@ -317,6 +317,127 @@ router.post('/project', uploadImage.single("image"), async (req, res, next) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+router.post('/education/add', async (req, res) => {
+    try {
+        const { userId, institute, degree, startingDate_month, startingDate_year, endingDate_month, endingDate_year } = req.body
+        const user = await User.findById(userId)
+        if (!user) {
+            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+        let startingDate = new Date()
+        startingDate.setMonth(startingDate_month)
+        startingDate.setYear(startingDate_year)
+
+        let endingDate = new Date()
+        endingDate.setMonth(endingDate_month)
+        endingDate.setYear(endingDate_year)
+
+        console.log('startingDate',startingDate)
+        console.log('endingDate',endingDate)
+
+        if (endingDate < startingDate) {
+            return res.redirect('/sites/e4d4/edit/profile?error=Starting Date should be before Ending Date')
+        }
+        const education = { institute, degree, startingDate, endingDate }
+        let educations = user.educations ? user.educations : []
+        educations.push(education)
+        user.educations = educations
+        await user.save()
+        return res.redirect('/sites/e4d4/edit/profile?message=New Education Added Successfully')
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
+    }
+})
+router.post('/education/edit', async (req, res) => {
+    try {
+        const { userId, eduId, institute, degree, startingDate_month, startingDate_year, endingDate_month, endingDate_year } = req.body
+
+        let startingDate = new Date()
+        startingDate.setMonth(startingDate_month)
+        startingDate.setYear(startingDate_year)
+
+        let endingDate = new Date()
+        endingDate.setMonth(endingDate_month)
+        endingDate.setYear(endingDate_year)
+        const updatedEducationData = {
+            institute, degree, startingDate, endingDate
+        }
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId, "educations._id": eduId },
+            {
+                $set: {
+                    "educations.$": updatedEducationData 
+                }
+            },
+            { new: true }
+        );
+        if (!updatedUser) {
+            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+        return res.redirect('/sites/e4d4/edit/profile?message=Education Updated Successfully')
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
+    }
+});
+router.post('/education/delete', async (req, res) => {
+    try {
+        const { userId, educationId } = req.body
+
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId },
+            { $pull: { educations: { _id: educationId } } },
+            { new: true } // Return the updated document
+        );
+        if (!updatedUser) {
+            return res.json({
+                success: false,
+                error: 'Something Went Wrong'
+            })
+        }
+        return res.json({
+            success: true,
+            message: 'Education Deleted!'
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+router.post('/education/get', async (req, res) => {
+    try {
+        const { userId, educationId } = req.body
+
+        const updatedUser = await User.findById(userId);
+        let education;
+        updatedUser?.educations.forEach((item) => {
+            if (item._id == educationId) {
+                education = item
+            }
+        })
+        if (!education) {
+            return res.json({
+                success: false,
+                error: 'Something Went Wrong'
+            })
+        }
+        return res.json({
+            success: true,
+            education
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
 router.post('/experience/add', async (req, res) => {
     try {
         const { id, title, employementType, companyName, location, locationType, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year, description } = req.body
@@ -328,6 +449,9 @@ router.post('/experience/add', async (req, res) => {
         let endingDate = new Date()
         endingDate.setMonth(endingDate_month)
         endingDate.setYear(endingDate_year)
+        if (endingDate < startingDate) {
+            return res.redirect('/sites/e4d4/edit/profile?error=Starting Date should be before Ending Date')
+        }
         const textDescription = description.replaceAll('<p>', '').replaceAll('</p>', '').replaceAll('<ul>', '').replaceAll('</ul>', '').replaceAll('<ol>', '').replaceAll('</ol>', '').replaceAll('<li>', '').replaceAll('</li>', '').replaceAll('<strong>', '').replaceAll('</strong>', '')
         console.log('textDescription', textDescription.length)
         if (textDescription.length > 1150) {
@@ -359,7 +483,7 @@ router.post('/experience/edit', async (req, res) => {
         let startingDate = new Date()
         startingDate.setMonth(startingDate_month)
         startingDate.setYear(startingDate_year)
-        
+
         let endingDate = new Date()
         endingDate.setMonth(endingDate_month)
         endingDate.setYear(endingDate_year)

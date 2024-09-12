@@ -5,6 +5,29 @@
 
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -22,12 +45,14 @@ button[disabled] {
 .tox-tinymce .tox-statusbar__branding {
     display: none !important;
 }
-.tox-tinymce .tox-statusbar__right-container p{
+
+.tox-tinymce .tox-statusbar__right-container p {
     display: flex;
     align-items: center;
     gap: 15px;
 }
-.tox-tinymce .tox-statusbar__right-container .exceeded{
+
+.tox-tinymce .tox-statusbar__right-container .exceeded {
     color: #842029;
 }
 
@@ -296,6 +321,23 @@ div {
 
 .edit-popup .checkbox-field input {
     accent-color: #E86225;
+}
+
+.custom-checkbox input {
+    display: none;
+}
+
+label .custom-checkbox {
+    cursor: pointer;
+}
+
+.custom-checkbox label {
+    color: #000;
+    cursor: pointer;
+}
+
+.custom-checkbox input:checked+label {
+    color: #fa5f02;
 }
 
 @media (max-width: 991px) {
@@ -2133,10 +2175,19 @@ ul#myTab li {
     background-color: whitesmoke;
 }
 
+
 .profile-person-history h5 {
     margin-bottom: 0;
     font-weight: bold;
     font-size: 22px;
+}
+
+.profile-person-history h5 .custom-checkbox label {
+    font-size: 20px;
+}
+
+.profile-person-history span .custom-checkbox label {
+    font-size: 14px;
 }
 
 .profile-person-history h6 {
@@ -2162,6 +2213,13 @@ ul#myTab li {
     align-items: flex-end;
 }
 
+.profile-person-history .position-relative .custom-checkbox {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    font-size: 20px;
+}
+
 .profile-person-history.large-img img {
     height: 150px;
     width: 150px;
@@ -2169,6 +2227,24 @@ ul#myTab li {
     object-position: center center;
     background-color: #F5F5F5;
     border-radius: 20px;
+}
+.profile-person-history .lock-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    width: 75px;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    color: #000;
+    font-size: 30px;
+    border: 2px solid #f7ceb5;
+}
+.profile-person-history.large-img .lock-img{
+    height: 150px;
+    width: 150px;
+    border-radius: 15px;
+    font-size: 80px;
 }
 
 .profile-person-history .img-wrap {
@@ -2257,6 +2333,11 @@ ul#myTab li {
     outline: none;
     width: 100%;
 }
+.history-input-design button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
 
 .profile-info .additional-info {
     border-top: 1px solid #E8E8E8;
@@ -2286,6 +2367,18 @@ ul#myTab li {
 
 .profile-video {
     position: relative;
+}
+
+.profile-info .additional-info .profile-video.custom-checkbox label {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: #fff;
+    font-size: 30px;
+}
+
+.profile-info .additional-info .profile-video.custom-checkbox input:checked+label {
+    color: #fa5f02;
 }
 
 .profile-video input {
@@ -2331,6 +2424,23 @@ ul#myTab li {
     height: 250px;
     object-fit: cover;
     border-radius: 20px;
+}
+.profile-video .lock-img{
+    width: 100%;
+    height: 250px;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.profile-video .lock-img img{
+    max-width: 70%;
+    width: unset;
+    height: unset;
+    border-radius: 0;
 }
 
 .profile-info .contact-links {
@@ -2381,7 +2491,7 @@ ul#myTab li {
     justify-content: space-between;
 }
 
-.profile-info .portfolio-showcase>ul>li .photos-upload-container{
+.profile-info .portfolio-showcase>ul>li .photos-upload-container {
     position: relative;
     border: 1px solid #E86225;
     color: #E86225;
@@ -2392,7 +2502,8 @@ ul#myTab li {
     align-items: center;
     justify-content: center;
 }
-.profile-info .portfolio-showcase>ul>li .photos-upload-container input{
+
+.profile-info .portfolio-showcase>ul>li .photos-upload-container input {
     position: absolute;
     left: 0;
     right: 0;
@@ -2401,7 +2512,8 @@ ul#myTab li {
     opacity: 0;
     cursor: pointer;
 }
-.profile-info .portfolio-showcase>ul>li .photos-upload-container i{
+
+.profile-info .portfolio-showcase>ul>li .photos-upload-container i {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2412,6 +2524,7 @@ ul#myTab li {
     border-radius: 50%;
     font-size: 20px;
 }
+
 .profile-info .portfolio-showcase>ul>li .item-head button {
     border: none;
     outline: none;
@@ -2443,9 +2556,10 @@ ul#myTab li {
     padding-left: 15px;
 }
 
-.profile-info .portfolio-showcase>ul>li .listing>li .data{
+.profile-info .portfolio-showcase>ul>li .listing>li .data {
     flex: 1;
 }
+
 .profile-info .show-all-btn {
     width: 100%;
     color: #E86225;
@@ -2456,38 +2570,50 @@ ul#myTab li {
     letter-spacing: 1px;
     transition: 0.3s;
 }
-.profile-info .show-all-btn:hover{
+
+.profile-info .show-all-btn:hover {
     background-color: #E86225;
     color: #fff;
 }
-.profile-info .portfolio-showcase .user-academic .hidden{
+
+.profile-info .portfolio-showcase .user-academic .hidden {
     display: none;
 }
-.profile-info .portfolio-showcase>ul>li .listing>li .title{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .title {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 18px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    line-height: 20px;
 }
-.profile-info .portfolio-showcase>ul>li .listing>li .title ul{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .title ul {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
-.profile-info .portfolio-showcase>ul>li .listing>li .title ul .remove-btn{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .title ul .remove-btn {
     padding: 0;
     background-color: transparent;
     color: rgba(116, 1, 18, 0.8);
     cursor: pointer;
 }
-.profile-info .portfolio-showcase>ul>li .listing>li .title ul .edit-btn{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .title ul .edit-btn {
     padding: 0;
     background-color: transparent;
     cursor: pointer;
 }
+
 .profile-info .portfolio-showcase>ul>li .listing>li .info {
     font-size: 14px;
     line-height: 16px;
+    margin-bottom: 3px;
 }
 
 .profile-info .portfolio-showcase>ul>li .listing>li .desc ul {
@@ -2511,6 +2637,10 @@ ul#myTab li {
     margin-right: 15px;
     padding: 10px;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .profile-info .portfolio-showcase>ul>li .listing>li .thumb .year {
@@ -2757,11 +2887,17 @@ input:checked+label .select-documents .fa-file {
 }
 
 .company_request_btn {
-    padding: 5px;
+    padding: 6px 7px;
     background-color: black;
     color: white;
     border: none;
     font-size: 14px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.company_request_btn.already-sent {
+    background-color: #8c8c8e !important;
 }
 
 .company_request_btn:hover {
@@ -2876,6 +3012,14 @@ input:checked+label .select-documents .fa-file {
     position: relative;
 }
 
+.banner-cover .custom-checkbox label {
+    position: absolute;
+    left: 25px;
+    top: 20px;
+    font-size: 50px;
+    color: #fff;
+}
+
 .banner-cover .edit-btn {
     position: absolute;
     top: 15px;
@@ -2891,9 +3035,105 @@ input:checked+label .select-documents .fa-file {
     object-fit: cover;
     border-radius: 25px;
 }
+.banner-cover .lock-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 15vw;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    color: #000;
+    font-size: 120px;
+}
 
 .edit-popup .portfolio-form-design {
     margin: 0;
+}
+
+.dropdown-wrapper {
+    position: relative;
+}
+
+.dropdown-wrapper .dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    width: 300px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 15px 10px 15px 20px;
+    z-index: 999;
+    transition: 0.2s ease-in-out;
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dropdown-wrapper.opened .dropdown {
+    opacity: 1;
+    pointer-events: unset;
+    transform: translateY(0);
+}
+
+.dropdown-wrapper .dropdown-toggler {
+    position: relative;
+}
+
+.dropdown-wrapper .dropdown-toggler .count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #000000;
+    color: #fff;
+    padding: 2px 6px;
+    font-size: 12px;
+    transform: translate(5px, -5px);
+    border-radius: 6px;
+}
+
+.dropdown-wrapper .dropdown p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.dropdown-wrapper .dropdown ul {
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow: auto;
+    list-style: none;
+    padding-right: 10px;
+}
+
+.dropdown-wrapper .dropdown ul li:not(:nth-child(1)) {
+    padding: 10px 0 0;
+}
+
+.dropdown-wrapper .dropdown ul li:not(:nth-last-child(1)) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 10px;
+}
+
+.dropdown-wrapper .dropdown ul li a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    transition: 0.3s ease-in-out;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.dropdown-wrapper .dropdown ul li a:hover {
+    background-color: rgba(250, 95, 2, 0.1);
+}
+
+.dropdown-wrapper .dropdown ul li a .icon {
+    font-size: 16px;
+    color: #fa5f02;
 }
 
 @media (min-width: 1200px) {

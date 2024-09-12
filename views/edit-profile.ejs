@@ -35,8 +35,8 @@
             <div class="history-btn-design">
               <button type="button" class="dash-btn">
                 Home</button>
-              <button type="button" class="dash-btn">
-                Show History</button>
+              <!-- <button type="button" class="dash-btn">
+                Show History</button> -->
             </div>
           </div>
         </div>
@@ -274,13 +274,65 @@
               <div class="item-head">
                 <h6 class="fw-bold">Education</h6>
                 <!-- add-education -->
-                <button type="button" data-bs-toggle="modal" data-bs-target="#add-experience-about" ><i class="bi bi-plus-circle-fill"></i></button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add-education" ><i class="bi bi-plus-circle-fill"></i></button>
               </div>
+              <% if(user.educations?.length > 0) { %>
+                <ul class="listing">
+                  <% user.educations.forEach((education,ind) => { %>
+                  <% 
+                      function getFirstLetters(input) {
+                        // Split the input string by spaces to get the words
+                        const words = input.trim().split(/\s+/); 
+                    
+                        // Extract the first letter of the first two words
+                        const firstLetters = words.slice(0, 2).map(word => word.charAt(0).toUpperCase());
+                    
+                        // Combine and return the letters
+                        return firstLetters.join('');
+                    }
+                    const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    %>
+                  <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                    <div class="thumb">
+                      <span class="year"><%= getFirstLetters(education.institute)  %></span>
+  
+                    </div>
+                    <div class="data">
+                      <h5 class="title"><%= education.institute %>
+                        <ul>
+                          <li>
+                            <form class="edit-edu">
+                              <input type="hidden" name="userId" value="<%= user._id %>">
+                              <input type="hidden" name="educationId" value="<%= education._id %>">
+                              <button type="submit" class="edit-btn">
+                                <i class="bi bi-pencil-square"></i>
+                              </button>
+                            </form>
+                          </li>
+                          <li>
+                            <form class="delete-edu">
+                              <input type="hidden" name="userId" value="<%= user._id %>">
+                              <input type="hidden" name="educationId" value="<%= education._id %>">
+                              <button type="submit" class="remove-btn">
+                                <i class="bi bi-trash"></i>
+                              </button>
+                            </form>
+                          </li>
+                        </ul>
+                      </h5>
+                      <h6 class="info"><%= education.degree %></h6>
+                      <h6 class="info"><%= education.startingDate ? monthsShort[education.startingDate?.getMonth()] : '' %> <%= education.startingDate ? education.startingDate?.getFullYear() : '' %> - <%= education.endingDate ? monthsShort[education.endingDate?.getMonth()] : '' %> <%= education.endingDate ? education.endingDate?.getFullYear() : '' %></h6>
+                      <h6 class="info"><%= education.location %></h6>
+                    </div>
+                  </li>
+                  <% }) %>
+                </ul>
+                <% } %>
             </li>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Volunteer Experience</h6>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#add-experience-about"><i class="bi bi-plus-circle-fill"></i></button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add-volunteer-exp"><i class="bi bi-plus-circle-fill"></i></button>
               </div>
             </li>
             <li>
@@ -370,7 +422,7 @@
   <%- include('./partials/query') %>
   <%- include('./partials/footer') %>
 
-  <div class="modal fade edit-popup" id="edit-contact-info" tabindex="-1" aria-labelledby="edit-contact-infoLabel" aria-hidden="true">
+  <div class="modal fade edit-popup" id="edit-contact-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-contact-infoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -402,7 +454,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup" id="edit-name-headling" tabindex="-1" aria-labelledby="edit-name-headlingLabel" aria-hidden="true">
+  <div class="modal fade edit-popup" id="edit-name-headling" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-name-headlingLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -440,7 +492,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup" id="edit-experience" tabindex="-1" aria-labelledby="edit-experienceLabel" aria-hidden="true">
+  <div class="modal fade edit-popup" id="edit-experience" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-experienceLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -466,7 +518,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup" id="edit-skills-info" tabindex="-1" aria-labelledby="edit-skills-infoLabel" aria-hidden="true">
+  <div class="modal fade edit-popup" id="edit-skills-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-skills-infoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -505,7 +557,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup social-edit-popup" id="edit-social-info" tabindex="-1" aria-labelledby="edit-social-infoLabel" aria-hidden="true">
+  <div class="modal fade edit-popup social-edit-popup" id="edit-social-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-social-infoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -643,7 +695,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup" id="add-project" tabindex="-1" aria-labelledby="add-projectLabel" aria-hidden="true">
+  <div class="modal fade edit-popup" id="add-project" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add-projectLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -675,7 +727,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup" id="edit-profile-about" tabindex="-1" aria-labelledby="edit-profile-aboutLabel" aria-hidden="true">
+  <div class="modal fade edit-popup" id="edit-profile-about" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-profile-aboutLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -701,7 +753,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup add-exp" id="add-experience-about" tabindex="-1" aria-labelledby="add-experience-aboutLabel" aria-hidden="true">
+  <div class="modal fade edit-popup add-exp" id="add-experience-about" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add-experience-aboutLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -841,7 +893,7 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup add-exp" id="add-education" tabindex="-1" aria-labelledby="add-educationLabel" aria-hidden="true">
+  <div class="modal fade edit-popup add-exp" id="add-education" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add-educationLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -849,7 +901,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="/sites/e4d4/api/user/modify/education/add" method="post">
-          <input type="hidden" name="id" value="<%= user.id %>">
+          <input type="hidden" name="userId" value="<%= user.id %>">
           <div class="modal-body">
             <div class="row g-3">
               <div class="col-12">
@@ -861,7 +913,7 @@
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Degree*</label>
-                  <input type="text" name="employementType" class="form-control" value="" required>
+                  <input type="text" name="degree" class="form-control" value="" required>
                 </div>
               </div>
               <div class="col-12">
@@ -937,7 +989,104 @@
       </div>
     </div>
   </div>
-  <div class="modal fade edit-popup add-exp" id="edit-experience-item" tabindex="-1" aria-labelledby="edit-experience-itemLabel" aria-hidden="true">
+  <div class="modal fade edit-popup add-exp" id="edit-education" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-educationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-educationLabel">Edit Education</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/education/edit" method="post">
+          <input type="hidden" name="userId" value="<%= user.id %>">
+          <input type="hidden" name="eduId">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Institue / School *</label>
+                  <input type="text" name="institute" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Degree*</label>
+                  <input type="text" name="degree" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">start date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">end date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Update</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade edit-popup add-exp" id="edit-experience-item" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-experience-itemLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -1073,6 +1222,114 @@
     </div>
   </div>
 
+  <div class="modal fade edit-popup add-exp" id="add-volunteer-exp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add-volunteer-expLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="add-volunteer-expLabel">Add Volunteer Experience</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/volunteer-experience/add" method="post">
+          <input type="hidden" name="userId" value="<%= user.id %>">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Title *</label>
+                  <input type="text" name="title" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Company Name*</label>
+                  <input type="text" name="companyName" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Cause*</label>
+                  <input type="text" name="cause" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="checkbox-field">
+                  <input type="checkbox" name="currentlyWorking" value="true" id="working-now-volunteer-exp">
+                  <label for="working-now-volunteer-exp">I am currently working in this role</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Starting Date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">end date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <%- include('./partials/scriptlinks') %>
   <script src="https://cdn.tiny.cloud/1/xarj83czi2hp6n2rm3b1ruv6msf9w7abxf4nfx0bwvo20pbs/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
@@ -1480,6 +1737,30 @@
         }
       }
     })
+    $(".delete-edu").submit(async (e) => {
+      e.preventDefault()
+      if (confirm('Your Education will be deleted Permanently! Do you want to proceed?')) {
+        const curForm = e.target
+        const formData = new FormData(curForm);
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+          formDataObj[key] = value;
+        });
+        const res = await fetch('/sites/e4d4/api/user/modify/education/delete', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formDataObj)
+        })
+        const resJson = await res.json()
+        if (resJson.success) {
+          location.href = '/sites/e4d4/edit/profile?message=Education Deleted'
+        } else {
+          createToast(resJson.error, 'error')
+        }
+      }
+    })
   </script>
   <script>
     $(".edit-exp").submit(async (e) => {
@@ -1525,6 +1806,49 @@
       }
     })
   </script>
+<script>
+  $(".edit-edu").submit(async (e) => {
+    e.preventDefault()
+    const curForm = e.target
+    const formData = new FormData(curForm);
+    const formDataObj = {};
+    formData.forEach((value, key) => {
+      formDataObj[key] = value;
+    });
+    const res = await fetch('/sites/e4d4/api/user/modify/education/get', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formDataObj)
+    })
+    const resJson = await res.json()
+    if (resJson.success) {
+      const education = resJson.education
+      $("#edit-education [name='eduId']").val(education._id)
+      $("#edit-education [name]").each((ind,item)=>{
+        
+        const fieldName = $(item).attr('name')
+        if(education[fieldName]){
+          $(item).val(education[fieldName])
+        }
+        if(fieldName == 'startingDate_month'){
+          const startingDate = new Date(education['startingDate'])
+          $("#edit-education [name='startingDate_month']").val(startingDate.getMonth())
+          $("#edit-education [name='startingDate_year']").val(startingDate.getFullYear())
+        }
+        if(fieldName == 'endingDate_month'){
+          const endingDate = new Date(education['endingDate'])
+          $("#edit-education [name='endingDate_month']").val(endingDate.getMonth())
+          $("#edit-education [name='endingDate_year']").val(endingDate.getFullYear())
+        }          
+      })
+      $("#edit-education").modal('show')
+    } else {
+      createToast(resJson.error, 'error')
+    }
+  })
+</script>
 
 </body>
 

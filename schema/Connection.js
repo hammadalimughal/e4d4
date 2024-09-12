@@ -4,17 +4,55 @@ const { Schema } = mongoose;
 const connection = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        required: true
     },
     business: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'business'
+        ref: 'business',
+        required: true
     },
-    name: {
+    coverPhoto: {
         type: Boolean,
         default: false
     },
-    email: {
+    profile: {
+        type: Boolean,
+        default: false
+    },
+    fullName: {
+        type: Boolean,
+        default: false
+    },
+    jobTitle: {
+        type: Boolean,
+        default: false
+    },
+    subHeading: {
+        type: Boolean,
+        default: false
+    },
+    experience: {
+        type: Boolean,
+        default: false
+    },
+    location: {
+        type: Boolean,
+        default: false
+    },
+    memberSince: {
+        type: Boolean,
+        default: false
+    },
+    about: {
+        type: Boolean,
+        default: false
+    },
+    profileVideo: {
+        type: Boolean,
+        default: false
+    },
+    primaryEmail: {
         type: Boolean,
         default: false
     },
@@ -22,38 +60,33 @@ const connection = new Schema({
         type: Boolean,
         default: false
     },
-    address: {
+    portfolio: {
         type: Boolean,
         default: false
     },
-    education: {
+    projects: [{
+        type: String
+    }],
+    experiences: {
         type: Boolean,
         default: false
     },
-    resume: {
+    educations: {
         type: Boolean,
         default: false
     },
-    coverLetter: {
+    volunteerExperiences: {
         type: Boolean,
         default: false
     },
-    linkedIn: {
+    licenseCertification: {
         type: Boolean,
         default: false
     },
-    twitter: {
+    approved: {
         type: Boolean,
         default: false
-    },
-    facebook: {
-        type: Boolean,
-        default: false
-    },
-    instagram: {
-        type: Boolean,
-        default: false
-    },
+    }
 }, { timestamps: true });
 
 const Connection = mongoose.model('connection', connection)

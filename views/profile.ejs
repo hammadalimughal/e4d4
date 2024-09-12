@@ -34,8 +34,8 @@
             <div class="history-btn-design">
               <a href="/sites/e4d4/dashboard" class="dash-btn">
                 Dashboard</a>
-              <button type="button" class="dash-btn">
-                Show History</button>
+              <!-- <button type="button" class="dash-btn">
+                Show History</button> -->
             </div>
           </div>
         </div>
@@ -177,6 +177,38 @@
               <div class="item-head">
                 <h6 class="fw-bold">Education</h6>
               </div>
+              <% if(user.educations?.length > 0) { %>
+              <ul class="listing">
+                <% user.educations.forEach((education,ind) => { %>
+                <% 
+                    function getFirstLetters(input) {
+                      // Split the input string by spaces to get the words
+                      const words = input.trim().split(/\s+/); 
+                  
+                      // Extract the first letter of the first two words
+                      const firstLetters = words.slice(0, 2).map(word => word.charAt(0).toUpperCase());
+                  
+                      // Combine and return the letters
+                      return firstLetters.join('');
+                  }
+                  const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                  %>
+                <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                  <div class="thumb">
+                    <span class="year"><%= getFirstLetters(education.institute)  %></span>
+
+                  </div>
+                  <div class="data">
+                    <h5 class="title"><%= education.institute %></h5>
+                    <h6 class="info"><%= education.degree %></h6>
+                    <h6 class="info"><%= education.startingDate ? monthsShort[education.startingDate?.getMonth()] : '' %> <%= education.startingDate ? education.startingDate?.getFullYear() : '' %> - <%= education.endingDate ? monthsShort[education.endingDate?.getMonth()] : '' %> <%= education.endingDate ? education.endingDate?.getFullYear() : '' %></h6>
+                    <h6 class="info"><%= education.location %></h6>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+              <%- user.educations?.length > 3 ? `<button class="show-all-btn">Show all ${user.educations?.length} Experiences</button>` : '' %>
+              <% } %>
             </li>
             <li>
               <div class="item-head">
@@ -187,6 +219,20 @@
               <div class="item-head">
                 <h6 class="fw-bold">Projects Showcase</h6>
               </div>
+              <% if(user.projects?.length > 0) { %>
+              <div class="row g-4 project-listing">
+                <% user.projects.forEach((item) => { %>
+                <div class="col-lg-4 col-12">
+                  <div class="project-item">
+                    <h6><%= item.title %></h6>
+                    <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
+                      <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
+                    </a>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+              <% } %>
             </li>
             <li>
               <div class="item-head">
@@ -194,21 +240,6 @@
               </div>
             </li>
           </ul>
-          <% if(user.projects?.length > 0) { %>
-          <h6 class="fw-bold">Projects Showcase</h6>
-          <div class="row g-4 project-listing">
-            <% user.projects.forEach((item) => { %>
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <h6><%= item.title %></h6>
-                <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
-                  <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
-                </a>
-              </div>
-            </div>
-            <% }) %>
-          </div>
-          <% } %>
           <% if (user.resume || user.coverLetter) { %>
           <h6 class="fw-bold">Personal Documents</h6>
           <div class="row g-4 project-listing">
@@ -244,11 +275,11 @@
   <%- include('./partials/footer') %>
   <%- include('./partials/scriptlinks') %>
   <script>
-$(".show-all-btn").click(function(){
-  $(this).parent().find('.listing .hidden').removeClass('hidden')
-  $(this).remove()
-  debugger
-})
+    $(".show-all-btn").click(function() {
+      $(this).parent().find('.listing .hidden').removeClass('hidden')
+      $(this).remove()
+      debugger
+    })
   </script>
 </body>
 

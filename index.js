@@ -15,6 +15,7 @@ const JWT_SECRET = "E4d4U$er";
 const jwt = require('jsonwebtoken')
 const extractDomain = require('./helper/extractDomainFromUrl')
 const calculateYearsDifference = require('./helper/calculateYearsDifference')
+const Connection = require("./schema/Connection")
 app.set('view engine', 'ejs');
 app.use('/sites/e4d4/assets', express.static(__dirname + '/views/assets'));
 
@@ -45,7 +46,7 @@ app.get('/sites/e4d4/', async (req, res) => {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
-        console.log('user', user)
+        // console.log('user', user)
         res.render(`index`, { message, error, user, business })
     } catch (error) {
         console.log(error)
@@ -104,6 +105,32 @@ app.get('/sites/e4d4/dashboard', async (req, res) => {
             // const jobs = await Job.find()
             const companies = await Business.find().populate('jobs').exec()
             return res.render(`dashboard`, { message, error, user, business, companies })
+        }
+        if (business) {
+            // const jobs = await Job.find()
+            const companies = await Business.find().populate('jobs').exec()
+            return res.render(`dashboard`, { message, error, user, business, companies })
+        }
+        return res.redirect(`/sites/e4d4/join`)
+    } catch (error) {
+        console.log(error)
+        res.send(error.message)
+    }
+})
+app.get('/sites/e4d4/connection-request', async (req, res) => {
+    try {
+        const { error, message, company } = req.query
+        const user = req.user
+        const business = req.business
+        const companyObj = await Business.findById(company)
+        if (!companyObj) {
+            res.redirect(`/sites/e4d4/dashboard?error=Company Not Found`)
+        }
+        if (user) {
+            // const jobs = await Job.find()
+            console.log('companyObj', companyObj)
+            const companies = await Business.find().populate('jobs').exec()
+            return res.render(`connection-request`, { message, error, user, business, companies, companyObj, calculateYearsDifference })
         }
         return res.redirect(`/sites/e4d4/join`)
     } catch (error) {
@@ -287,6 +314,7 @@ app.get('/sites/e4d4/profile', async (req, res) => {
             return res.render(`profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
         }
         if (business) {
+            console.log('business', business.notifications)
             return res.render(`business-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
         }
         res.redirect('/sites/e4d4/join')
@@ -378,11 +406,89 @@ app.get('/sites/e4d4/business-subscription', async (req, res) => {
         res.send(error.message)
     }
 })
+
+app.get('/sites/e4d4/connection/request/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { error, message } = req.query
+        const user = req.user
+        const business = req.business
+
+        const businessObj = await Business.findById(business._id)
+
+        businessObj.notifications?.forEach((notification) => {
+            if (notification.relatedId == id) {
+                notification.isRead = true
+            }
+        })
+
+        await businessObj.save()
+
+        const connection = await Connection.findById(id).populate('user').populate('business')
+        if (connection) {
+            console.log('connection', connection)
+            console.log('business._id', business._id)
+            console.log('connection.business._id', connection.business._id)
+            if (connection.business._id.toString() == business._id.toString()) {
+                if (connection.approved) {
+                    return res.redirect(`/sites/e4d4/connected-profile/${connection._id}`)
+                }
+                return res.render(`requested-profile`, { message, error, user, business, connection, calculateYearsDifference })
+            }
+
+            return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+
+        }
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+    } catch (error) {
+        console.log('error on requested profile Page', error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+    }
+})
+app.get('/sites/e4d4/connected-profile/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { error, message } = req.query
+        const user = req.user
+        const business = req.business
+
+        const businessObj = await Business.findById(business._id)
+
+        businessObj.notifications?.forEach((notification) => {
+            if (notification.relatedId == id) {
+                notification.isRead = true
+            }
+        })
+
+        await businessObj.save()
+
+        const connection = await Connection.findById(id).populate('user').populate('business')
+        if (connection) {
+            console.log('connection', connection)
+            console.log('business._id', business._id)
+            console.log('connection.business._id', connection.business._id)
+            if (connection.business._id.toString() == business._id.toString()) {
+                if (connection.approved) {
+                    return res.render(`requested-profile`, { message, error, user, business, connection, calculateYearsDifference })
+                }
+                return res.redirect(`/sites/e4d4/connection/request/${connection._id}`)
+            }
+
+            return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+
+        }
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+    } catch (error) {
+        console.log('error on requested profile Page', error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+    }
+})
+
 app.get('/sites/e4d4/business-dashboard', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
-        const business = req.business?._doc
+        const business = req.business
         console.log('business', business)
         if (!business) {
             return res.redirect(`/sites/e4d4/business-login`)

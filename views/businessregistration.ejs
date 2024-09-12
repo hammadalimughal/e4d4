@@ -705,32 +705,42 @@
         formData.forEach((value, key) => {
           formDataObj[key] = value;
         });
-        if (formDataObj.password !== formDataObj.confirmPassword) {
-          // formsWrapper.forEach((form) => {
-          //   form.classList.add("display-none")
-          // })
-          // if (success) {
-          //   document.querySelector(`.${nextFormClass}`).classList.remove("display-none")
-          // } else {
-          //   document.querySelector(`.error-sec`).classList.remove("display-none")
-          // }
+
+        // formsWrapper.forEach((form) => {
+        //   form.classList.add("display-none")
+        // })
+        // if (success) {
+        //   document.querySelector(`.${nextFormClass}`).classList.remove("display-none")
         // } else {
+        //   document.querySelector(`.error-sec`).classList.remove("display-none")
+        // }
+        // } else {
+        if (formDataObj.password !== formDataObj.confirmPassword) {
           createToast(`Password & Confirm Password Should be same!`, 'text-bg-danger')
           return
         }
         debugger
         // if (nextFormClass == 'subscription-section') {
-          if (res.status !== 200) {
-            // $("#error-message").html(resJson.error)
-            success = false
-            createToast(resJson.error,'error')
-          } else {
-            createCookie('authtoken', resJson.authtoken)
-            createCookie('e4d4business', 'true')
-            location.reload()
-            return
-          }
-          console.log('resJson', resJson)
+        const res = await fetch('/sites/e4d4/api/auth/business/register', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formDataObj),
+          credentials: 'include'
+        })
+        const resJson = await res.json()
+        if (res.status !== 200) {
+          // $("#error-message").html(resJson.error)
+          success = false
+          createToast(resJson.error, 'error')
+        } else {
+          createCookie('authtoken', resJson.authtoken)
+          createCookie('e4d4business', 'true')
+          location.reload()
+          return
+        }
+        console.log('resJson', resJson)
         // }        
       })
     })

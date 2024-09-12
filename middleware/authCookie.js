@@ -13,7 +13,7 @@ const cookieAuth = (cookieName) => {
             const cookieAuthtoken = req.cookies[cookieName];
             if (cookieAuthtoken) {
                 const tokenUser = jwt.verify(cookieAuthtoken, JWT_SECRET);
-                const dbUser = await User.findById(tokenUser.id).populate('projects').lean();
+                const dbUser = await User.findById(tokenUser.id).populate('projects').populate('connection').lean();
 
                 if (dbUser) {
                     const { _id, primaryEmail } = dbUser;
@@ -27,9 +27,9 @@ const cookieAuth = (cookieName) => {
                     return next(); // Stop further execution by returning
                 }
 
-                const dbBusiness = await Business.findById(tokenUser.id);
+                const dbBusiness = await Business.findById(tokenUser.id).lean();
                 if (dbBusiness) {
-                    const { _id, primaryEmail } = dbBusiness;
+                    const { _id } = dbBusiness;
                     const business = { id: _id, ...dbBusiness };
                     req.business = business;
                     return next(); // Stop further execution by returning

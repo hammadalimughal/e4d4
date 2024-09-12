@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const notificationSchema = require('./notificationSchema')
 
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -12,6 +13,7 @@ const providerSchema = new Schema({
         type: String
     }
 });
+
 const experienceSchema = new Schema({
     title: {
         type: String,
@@ -48,6 +50,69 @@ const experienceSchema = new Schema({
         type: String
     }
 });
+const volunteerExperiencesSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    companyName: {
+        type: String,
+        required: true
+    },
+    cause: {
+        type: String,
+        required: true
+    },
+    currentlyWorking: {
+        type: Boolean,
+        default: false
+    },
+    startingDate: {
+        type: Date,
+        required: true
+    },
+    endingDate: {
+        type: Date
+    }
+});
+
+const educationSchema = new Schema({
+    institute: {
+        type: String,
+        required: true
+    },
+    degree: {
+        type: String,
+        required: true
+    },
+    startingDate: {
+        type: Date,
+        required: true
+    },
+    endingDate: {
+        type: Date
+    }
+})
+const licenseCertificationsSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    organization: {
+        type: String,
+        required: true
+    },
+    issueDate: {
+        type: Date,
+        required: true
+    },
+    credentialId: {
+        type: String
+    },
+    credentialUrl: {
+        type: String
+    }
+})
 
 const SocialSchema = new Schema({
     platform: {
@@ -191,17 +256,23 @@ const userSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'project'
     }],
-    connection: {
+    connection: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'connection'
-    },
-    connectionReq: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'business'
-    },
-    experiences: [{
-        type: experienceSchema,        
     }],
+    experiences: [{
+        type: experienceSchema,
+    }],
+    volunteerExperiences: [{
+        type: volunteerExperiencesSchema,
+    }],
+    licenseCertification: [{
+        type: licenseCertificationsSchema,
+    }],
+    educations: [{
+        type: educationSchema,
+    }],
+    notifications: [notificationSchema]
 }, { timestamps: true });
 
 // Pre-save middleware to add baseUrl to socialLinks in the User schema

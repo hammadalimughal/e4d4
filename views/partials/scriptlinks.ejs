@@ -1,7 +1,5 @@
 <!-- <script href="/sites/e4d4/assets/js/jquery-3.6.0.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"
-integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 
 <!-- BOOTSTRAP JS CDN LINKED HERE  -->
@@ -13,7 +11,7 @@ crossorigin="anonymous"></script>
 <!-- AOS ANIMATION JS CDN LINKED HERE  -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init();
+  AOS.init();
 </script>
 
 <!-- OWN JS LINED HERE -->
@@ -22,13 +20,13 @@ crossorigin="anonymous"></script>
 <script href="/sites/e4d4/assets/js/fancybox.min.js"></script>
 <!-- <script href="/sites/e4d4/assets/js/script.js"></script> -->
 <script>
-    function createToast(message, type = 'success') {
+  function createToast(message, type = 'success') {
     // Create the toast container if it doesn't exist
     let toastContainer = document.querySelector(".toast-container");
     if (!toastContainer) {
-        toastContainer = document.createElement("div");
-        toastContainer.classList.add("toast-container");
-        document.body.appendChild(toastContainer);
+      toastContainer = document.createElement("div");
+      toastContainer.classList.add("toast-container");
+      document.body.appendChild(toastContainer);
     }
     // Create the toast element
     let toast = document.createElement("div");
@@ -47,73 +45,88 @@ crossorigin="anonymous"></script>
     toastContainer.appendChild(toast);
 
     // Add event listener to remove toast on close button click
-    toast.querySelector(".btn-close").addEventListener("click", function () {
-        toast.remove();
+    toast.querySelector(".btn-close").addEventListener("click", function() {
+      toast.remove();
     });
     // Remove the toast after 5 seconds
     setTimeout(() => {
-        toast.remove();
+      toast.remove();
     }, 5000);
-}
-// (function ($) {
-//     let classes = ['outline-primary', 'outline-dark', 'outline-danger', 'info', 'secondary'];
-//     let selects = $('select[multiple]');
-//     selects.each(function (i, e) {
-//         let randomClass = classes[Math.floor(Math.random() * classes.length)];
-//         $(this).bsSelectDrop({
-//             // btnClass: 'btn btn-'+classes[i],
-//             btnClass: 'select-multiple',
-//             btnWidth: 'auto',
-//             darkMenu: false,
-//             showSelectionAsList: false,
-//             showActionMenu: true,
-//             // showSelectedText: (count, total) => {return `${count} von ${total} Städte ausgewählt`}
-//         });
-//     })
-// }(jQuery));
-function deleteCookie(name) {
+  }
+  // (function ($) {
+  //     let classes = ['outline-primary', 'outline-dark', 'outline-danger', 'info', 'secondary'];
+  //     let selects = $('select[multiple]');
+  //     selects.each(function (i, e) {
+  //         let randomClass = classes[Math.floor(Math.random() * classes.length)];
+  //         $(this).bsSelectDrop({
+  //             // btnClass: 'btn btn-'+classes[i],
+  //             btnClass: 'select-multiple',
+  //             btnWidth: 'auto',
+  //             darkMenu: false,
+  //             showSelectionAsList: false,
+  //             showActionMenu: true,
+  //             // showSelectedText: (count, total) => {return `${count} von ${total} Städte ausgewählt`}
+  //         });
+  //     })
+  // }(jQuery));
+  function deleteCookie(name) {
     debugger
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     location.reload()
-}
-function createCookie(name, value, days) {
+  }
+
+  function createCookie(name, value, days) {
     let expires = "";
     if (days) {
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
     }
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-function readCookie(name) {
+  }
+
+  function readCookie(name) {
     const nameEQ = name + "=";
     const cookies = document.cookie.split(';');
-    for(let i = 0; i < cookies.length; i++) {
-        let cookie = cookies[i];
-        while (cookie.charAt(0) === ' ') cookie = cookie.substring(1, cookie.length);
-        if (cookie.indexOf(nameEQ) === 0) return cookie.substring(nameEQ.length, cookie.length);
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i];
+      while (cookie.charAt(0) === ' ') cookie = cookie.substring(1, cookie.length);
+      if (cookie.indexOf(nameEQ) === 0) return cookie.substring(nameEQ.length, cookie.length);
     }
     return null;
-}
+  }
 
-$('.suggestTags').each((ind,elem)=>{
+  $('.suggestTags').each((ind, elem) => {
     $(elem).amsifySuggestags({
-        // suggestions: JSON.parse($(elem).data('suggestion')),
-        suggestions: $(elem).data('suggestion'),
-        whiteList: true
+      // suggestions: JSON.parse($(elem).data('suggestion')),
+      suggestions: $(elem).data('suggestion'),
+      whiteList: true
     });
-})
+  })
 </script>
 <script>
-    document.querySelector(".logout-btn")?.addEventListener('click', () => {
-        document.cookie = 'authtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        location.reload()
-    })
-</script> 
+  document.querySelector(".logout-btn")?.addEventListener('click', () => {
+    document.cookie = 'authtoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    location.reload()
+  })
+</script>
 <script>
-    setTimeout(() => {
+  setTimeout(() => {
     $(".toast").remove()
-}, 5000);
+  }, 5000);
+</script>
+
+<script>
+  $(".dropdown-wrapper .dropdown-toggler").click(function() {
+    $(this).parent().toggleClass('opened')
+  })
+  $("body").click(function(e) {
+    const element = e.target
+    const isNotificationElement = ($(element).hasClass('dropdown-wrapper') || $(element).parents('.dropdown-wrapper').length > 0)
+    if (!isNotificationElement) {
+      $(".dropdown-wrapper").removeClass('opened')
+    }
+  })
 </script>
 
 <!-- <script>

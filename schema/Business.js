@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const notificationSchema = require('./notificationSchema')
 
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -111,7 +112,8 @@ const business = new Schema({
     jobs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'job'
-    }]
+    }],
+    notifications: [notificationSchema]
 }, { timestamps: true });
 
 const Business = mongoose.model('business', business)

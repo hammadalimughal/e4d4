@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connection Request - <%= companyObj.fullName %></title>
+  <%- include('./partials/csslinks') %>
+</head>
+
+<body>
+  <%- include('./partials/header') %>
+
+  <section class="dashboard-main-section">
+    <div class="container">
+      <form method="POST" action="/sites/e4d4/api/connection/request/business">
+        <input type="hidden" name="company" value="<%= companyObj._id %>">
+        <input type="hidden" name="user" value="<%= user._id %>">
+        <div class="dashboard-main-setting profile-info mx-auto">
+          <div class="profile-history">
+            <div class="profile-person-history">
+              <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+              <div class="px-3">
+                <h6><%= user.fullName %></h6>
+                <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
+              </div>
+            </div>
+            <div class="d-flex align-items-center flex-wrap justify-content-center">
+              <% if(JSON.stringify(user._id) == JSON.stringify(user.id)){ %>
+              <button type="button" class="dash-btn select-all-checkbox"> Select All</button>
+              <% } %>
+              <button type="submit" class="logout-btn ms-2">Proceed</button>
+            </div>
+          </div>
+          <h5 class="fw-bold text-center fw-head">Select Fields to Share with Company (<%= companyObj.fullName %>)</h5>
+          <div class="profile-banner">
+            <div class="banner-cover">
+              <label for="coverPhoto" class="custom-checkbox w-block w-100">
+                <input type="checkbox" name="coverPhoto" value="true" id="coverPhoto">
+                <label for="coverPhoto"><i class="bi bi-check2-circle"></i></label>
+                <img class="img-fluid" src="/sites/e4d4<%= user.coverPhoto ? user.coverPhoto : '/assets/img/cover.png' %>" alt="">
+              </label>
+            </div>
+            <div class="banner-info">
+              <div class="profile-person-history large-img">
+                <label class="position-relative" for="profile-checkbox">
+                  <span class="custom-checkbox">
+                    <input type="checkbox" name="profile" value="true" id="profile-checkbox">
+                    <label for="profile-checkbox"><i class="bi bi-check2-circle"></i></label>
+                  </span>
+
+                  <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+                </label>
+                <div class="px-3 pb-2">
+                  <h5>
+                    <label for="fullName">
+                      <span class="custom-checkbox">
+                        <input type="checkbox" name="fullName" value="true" id="fullName">
+                        <label for="fullName"><i class="bi bi-check2-circle"></i>
+                        </label>
+                      </span><%= user.fullName %></label>
+                    <span>
+                      <label for="jobTitle-checkbox">
+                        <span class="custom-checkbox">
+                          <input type="checkbox" name="jobTitle" value="true" id="jobTitle-checkbox">
+                          <label for="jobTitle-checkbox"><i class="bi bi-check2-circle"></i></label>
+                        </span> (<%= user.jobTitle ? user.jobTitle : 'Job Title Here' %>)
+                      </label>
+                    </span>
+                  </h5>
+                  <span>
+                    <label for="subHeading-checkbox">
+                      <span class="custom-checkbox">
+                        <input type="checkbox" name="subHeading" value="true" id="subHeading-checkbox">
+                        <label for="subHeading-checkbox"><i class="bi bi-check2-circle"></i></label>
+                      </span>
+                      <%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %>
+                    </label>
+                  </span>
+                </div>
+              </div>
+              <label for="experience-checkbox" class="profile-badge">
+                <span class="custom-checkbox">
+                  <input type="checkbox" name="experience" value="true" id="experience-checkbox">
+                  <label for="experience-checkbox"><i class="bi bi-check2-circle"></i></label>
+                </span>
+                <%= user.experience ? user.experience : '0'  %>+ Years Of Experience
+              </label>
+            </div>
+          </div>
+          <ul class="other-info">
+            <!-- <li>@edwardjj53</li> -->
+            <li>
+              <label for="location-checkbox">
+                <span class="custom-checkbox">
+                  <input type="checkbox" name="location" value="true" id="location-checkbox">
+                  <label for="location-checkbox"><i class="bi bi-check2-circle"></i></label>
+                </span> Sydney, Australia </label>
+            </li>
+            <% 
+          const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+          const joiningDate = new Date(user.createdAt)
+          const joiningMonth = monthsShort[joiningDate.getMonth()]
+          const joiningYear = joiningDate.getFullYear()
+           %>
+            <li><label for="memberSince-checkbox">
+                <span class="custom-checkbox">
+                  <input type="checkbox" name="memberSince" value="true" id="memberSince-checkbox">
+                  <label for="memberSince-checkbox"><i class="bi bi-check2-circle"></i></label>
+                </span> Member Since, <%= joiningMonth %> <%= joiningYear %></label></li>
+          </ul>
+          <div class="additional-info">
+            <div class="row g-0">
+              <div class="col-lg-8 col-12 panel">
+                <div class="info-item-l h-100">
+                  <h6 class="fw-bold">
+                    <label for="about-checkbox" class="custom-checkbox">
+                      <input type="checkbox" name="about" value="true" id="about-checkbox">
+                      <label for="about-checkbox"><i class="bi bi-check2-circle"></i></label>
+                      About
+                    </label>
+                  </h6>
+                  <% if(user.about){ %>
+                  <p><%= user.about %></p>
+                  <% } else { %>
+                  <p class="text-muted">No About...</p>
+                  <% } %>
+                  <% if(user.profileVideo?.url){ %>
+                  <label class="profile-video custom-checkbox d-block w-100" for="checkbox-profileVideo">
+                    <input type="checkbox" name="profileVideo" value="true" id="checkbox-profileVideo">
+                    <label for="checkbox-profileVideo"><i class="bi bi-check2-circle"></i></label>
+                    <video>
+                      <source src="/sites/e4d4<%= user.profileVideo?.url %>">
+                    </video>
+                  </label>
+                  <% } %>
+                </div>
+              </div>
+              <div class="col-lg-4 col-12 panel">
+                <div class="info-item-r h-100">
+                  <h6 class="fw-bold">Connect With Me</h6>
+                  <ul class="contact-links">
+                    <% if(user.primaryEmail?.email){ %>
+                    <li>
+                      <label for="primaryEmail-checkbox">
+                        <span class="custom-checkbox">
+                          <input type="checkbox" name="primaryEmail" value="true" id="primaryEmail-checkbox">
+                          <label for="primaryEmail-checkbox">
+                            <i class="bi bi-check2-circle"></i>
+                          </label>
+                          Email Address
+                        </span>
+                      </label>
+                      <a href="mailto:<%= user.primaryEmail?.email %>"><%= user.primaryEmail?.email %></a>
+                    </li>
+                    <% } %>
+                    <% if(user.phone){ %>
+                    <li>
+                      <label for="phone-checkbox">
+                        <span class="custom-checkbox">
+                          <input type="checkbox" name="phone" value="true" id="phone-checkbox">
+                          <label for="phone-checkbox">
+                            <i class="bi bi-check2-circle"></i>
+                          </label>
+                          Phone #
+                        </span>
+                      </label>
+                      <a href="tel:<%= user.phone %>"><%= user.phone %></a>
+                    </li>
+                    <% } %>
+                    <% if(user.portfolio){ %>
+                    <li>
+                      <label for="portfolio-checkbox">
+                        <span class="custom-checkbox">
+                          <input type="checkbox" name="portfolio" value="true" id="portfolio-checkbox">
+                          <label for="portfolio-checkbox">
+                            <i class="bi bi-check2-circle"></i>
+                          </label>
+                          Portfolio
+                        </span>
+                      </label>
+                      <a href="<%= user.portfolio %>" target="_blank"><%= user.portfolio %></a>
+                    </li>
+                    <% } %>
+                  </ul>
+                  <div class="position-details">
+                    <!-- <span>UI/UX</span>
+                  <span>Branding</span>
+                  <span>Logo</span> -->
+                    <% user.skills.forEach((item)=>{ %>
+                    <span><%= item %></span>
+                    <% }) %>
+                  </div>
+                  <!-- <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt=""> -->
+                  <% if(user.socialLinks.length > 0) { %>
+                  <!-- <hr> -->
+                  <div class="follow-more">
+                    <h6>Follow To Know More About Me!</h6>
+                    <ul>
+                      <% user.socialLinks.forEach((item) => { %>
+                      <li>
+                        <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
+                          <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
+                        </a>
+                      </li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-showcase">
+            <ul class="user-academic">
+              <li>
+                <div class="item-head">
+                  <h6 class="fw-bold">
+                    <label for="experiences-checkbox" class="custom-checkbox">
+                      <input type="checkbox" name="experiences" value="true" id="experiences-checkbox">
+                      <label for="experiences-checkbox"><i class="bi bi-check2-circle"></i></label>
+                      Experience
+                    </label>
+                  </h6>
+                </div>
+                <% if(user.experiences?.length > 0) { %>
+                <ul class="listing">
+                  <% user.experiences.forEach((experience,ind) => { %>
+                  <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                    <div class="thumb">
+                      <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
+                      <span class="txt">Years</span>
+                    </div>
+                    <div class="data">
+                      <% 
+                  const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                  %>
+                      <h5 class="title"><%= experience.title %></h5>
+                      <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
+                      <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
+                      <h6 class="info"><%= experience.location %></h6>
+                      <div class="desc">
+                        <%- experience.description.replaceAll('&nbsp;','') %>
+                      </div>
+                    </div>
+                  </li>
+                  <% }) %>
+                </ul>
+                <%- user.experiences?.length > 3 ? `<button class="show-all-btn">Show all ${user.experiences?.length} Experiences</button>` : '' %>
+                <% } %>
+              </li>
+              <li>
+                <div class="item-head">
+                  <h6 class="fw-bold">
+                    <label for="educations-checkbox" class="custom-checkbox">
+                      <input type="checkbox" name="educations" value="true" id="educations-checkbox">
+                      <label for="educations-checkbox"><i class="bi bi-check2-circle"></i></label>
+                      Education
+                    </label>
+                  </h6>
+                </div>
+                <% if(user.educations?.length > 0) { %>
+                <ul class="listing">
+                  <% user.educations.forEach((education,ind) => { %>
+                  <% 
+                    function getFirstLetters(input) {
+                      // Split the input string by spaces to get the words
+                      const words = input.trim().split(/\s+/); 
+                  
+                      // Extract the first letter of the first two words
+                      const firstLetters = words.slice(0, 2).map(word => word.charAt(0).toUpperCase());
+                  
+                      // Combine and return the letters
+                      return firstLetters.join('');
+                  }
+                  const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                  %>
+                  <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                    <div class="thumb">
+                      <span class="year"><%= getFirstLetters(education.institute)  %></span>
+
+                    </div>
+                    <div class="data">
+                      <h5 class="title"><%= education.institute %></h5>
+                      <h6 class="info"><%= education.degree %></h6>
+                      <h6 class="info"><%= education.startingDate ? monthsShort[education.startingDate?.getMonth()] : '' %> <%= education.startingDate ? education.startingDate?.getFullYear() : '' %> - <%= education.endingDate ? monthsShort[education.endingDate?.getMonth()] : '' %> <%= education.endingDate ? education.endingDate?.getFullYear() : '' %></h6>
+                      <h6 class="info"><%= education.location %></h6>
+                    </div>
+                  </li>
+                  <% }) %>
+                </ul>
+                <%- user.educations?.length > 3 ? `<button class="show-all-btn">Show all ${user.educations?.length} Experiences</button>` : '' %>
+                <% } %>
+              </li>
+              <li>
+                <div class="item-head">
+                  <!-- <h6 class="fw-bold">Volunteer Experience</h6> -->
+                  <h6 class="fw-bold">
+                    <label for="volunteerExperiences-checkbox" class="custom-checkbox">
+                      <input type="checkbox" name="volunteerExperiences" value="true" id="volunteerExperiences-checkbox">
+                      <label for="volunteerExperiences-checkbox"><i class="bi bi-check2-circle"></i></label>
+                      Volunteer Experience
+                    </label>
+                  </h6>
+                </div>
+              </li>
+              <li>
+                <div class="item-head">
+                  <h6 class="fw-bold">Projects Showcase</h6>
+                </div>
+                <input type="hidden" name="projects" value="[]">
+                <% if(user.projects?.length > 0) { %>
+                <div class="row g-4 project-listing">
+                  <% user.projects.forEach((item) => { %>
+                  <div class="col-lg-4 col-12">
+                    <div class="project-item">
+                      <!-- <h6><%= item.title %></h6> -->
+                      <h6 class="fw-bold">
+                        <label for="projects-checkbox-<%= item._id %>" class="custom-checkbox">
+                          <!-- <input type="checkbox" name="projects" value="<%= item._id %>" id="projects-checkbox-<%= item._id %>"> -->
+                          <input class="project-checkbox" type="checkbox" value="<%= item._id %>" id="projects-checkbox-<%= item._id %>">
+                          <label for="projects-checkbox-<%= item._id %>"><i class="bi bi-check2-circle"></i></label>
+                          <%= item.title %>
+                        </label>
+                      </h6>
+                      <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
+                        <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
+                      </a>
+                    </div>
+                  </div>
+                  <% }) %>
+                </div>
+                <% } %>
+              </li>
+              <li>
+                <div class="item-head">
+                  <!-- <h6 class="fw-bold">Licenses & Certifications</h6> -->
+                  <h6 class="fw-bold">
+                    <label for="licenseCertification-checkbox" class="custom-checkbox">
+                      <input type="checkbox" name="licenseCertification" value="true" id="licenseCertification-checkbox">
+                      <label for="licenseCertification-checkbox"><i class="bi bi-check2-circle"></i></label>
+                      Licenses & Certifications
+                    </label>
+                  </h6>
+                </div>
+              </li>
+            </ul>
+            <% if (user.resume || user.coverLetter) { %>
+            <h6 class="fw-bold">Personal Documents</h6>
+            <div class="row g-4 project-listing">
+              <% if(user.resume) { %>
+              <div class="col-lg-4 col-12">
+                <div class="doc-wrapper">
+                  <a class="empty-box filled" href="/sites/e4d4<%= user.resume %>">
+                    <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
+                    <h5>Click to View Resume</h5>
+                  </a>
+                </div>
+              </div>
+              <% } %>
+              <% if(user.coverLetter) { %>
+              <div class="col-lg-4 col-12">
+                <div class="doc-wrapper">
+                  <a class="empty-box filled" href="/sites/e4d4<%= user.coverLetter %>">
+                    <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
+                    <h5>Click to View Cover Letter</h5>
+                  </a>
+                </div>
+              </div>
+              <% } %>
+              <% } %>
+              <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <%- include('./partials/query') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scriptlinks') %>
+  <script>
+    $(".show-all-btn").click(function() {
+      $(this).parent().find('.listing .hidden').removeClass('hidden')
+      $(this).remove()
+      debugger
+    })
+  </script>
+  <script>
+    const projectsValueUpdate = () => {
+      let projects = []
+      $(".project-checkbox").each(function(ind, elem) {
+        if ($(elem).prop('checked')) {
+          projects.push($(elem).val())
+        }
+      })
+      $('[name="projects"]').val(JSON.stringify(projects))
+    }
+  </script>
+  <script>
+    $(".select-all-checkbox").click(function() {
+      if ($(this).hasClass('selected')) {
+        $('input[type="checkbox"]').prop('checked', false)
+        $(this).removeClass('selected')
+        $(this).html('Select All')
+      } else {
+        $('input[type="checkbox"]').prop('checked', true)
+        $(this).addClass('selected')
+        $(this).html('Deselect All')
+      }
+      projectsValueUpdate()
+    })
+    $('input[type="checkbox"]').change(function() {
+      $(".select-all-checkbox").removeClass('selected')
+      $(".select-all-checkbox").html('Select All')
+    })
+  </script>
+  <script>
+    $(".project-checkbox").change(projectsValueUpdate)
+  </script>
+</body>
+
+</html>
