@@ -564,6 +564,17 @@ app.get('/sites/e4d4/jobdetails/:id', async (req, res) => {
         res.send(error.message)
     }
 })
+app.get('/sites/e4d4/chat', async (req, res) => {
+    try {
+        const { error, message } = req.query
+        const user = req.user
+        const business = req.business
+        res.render(`chat`, { message, error, user, business })
+    } catch (error) {
+        console.log(error)
+        res.send(error.message)
+    }
+})
 
 app.use('/sites/e4d4/api', require('./controller/apihandler'))
 

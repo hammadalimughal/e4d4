@@ -2899,6 +2899,9 @@ input:checked+label .select-documents .fa-file {
 .company_request_btn.already-sent {
     background-color: #8c8c8e !important;
 }
+.company_request_btn.delete-connection {
+    background-color: #b21d1d;
+}
 
 .company_request_btn:hover {
     background-color: var(--primary-gradient);
@@ -3660,6 +3663,56 @@ input:checked+label .select-documents .fa-file {
 .custom-pagination li a:hover {
     background-color: #000;
     color: #fff;
+}
+.chat-sec{
+    padding: 150px 0;
+}
+.chat-sec .avatar-xs {
+    height: 2.2rem;
+    width: 2.2rem;
+}
+.chat-sec .chat-user-img .user-status {
+    width: 10px;
+    height: 10px;
+    background-color: #adb5bd;
+    border-radius: 50%;
+    border: 2px solid var(--bs-white);
+    position: absolute;
+    right: 0;
+    left: auto;
+    bottom: 0;
+}
+.chat-sec .chat-user-img.online .user-status {
+    background-color: #06d6a0
+}
+
+.chat-sec .chat-user-img.away .user-status {
+    background-color: #ffd166
+}
+.chat-sec .chat-list{
+    background-color: #f5f7fb;
+}
+.chat-sec .chat-list li .chat-user-message {
+    font-size: 14px;
+    color: rgb(122, 127, 154);
+}
+.chat-sec .chat-list li a {
+    position: relative;
+    display: block;
+    padding: 15px 20px;
+    color: #343a40;
+    -webkit-transition: all .4s;
+    transition: all .4s;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.chat-sec .chat-list li a h5{
+    font-size: 15px;
+    font-weight: 500;
+}
+.font-size-11 {
+    font-size: 11px;
 }
 
 @media (max-width: 1024px) {

@@ -88,4 +88,26 @@ router.post('/approval', async (req, res) => {
     }
 })
 
+router.post('/delete', async (req, res) => {
+    try {
+        const { id, user, business } = req.body
+        console.log({ id, user, business })
+        const connection = await Connection.findById(id)
+        if (connection.user.toString() == user.toString() && connection.business.toString() == business.toString()) {
+            connection.approved = true
+            await connection.deleteOne();
+            const updatedBusiness = await Business.findOneAndUpdate(
+                { _id: business },
+                { $pull: { notifications: { relatedId: id } } },
+                { new: true } // Return the updated document
+            );
+            return res.redirect(`/sites/e4d4/profile?message=Connection Deleted Successfully`)
+        }
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+    } catch (error) {
+        console.log('Error accepting connection request:', error.message);
+        res.redirect('/sites/e4d4/dashboard?error=', error.message);
+    }
+})
+
 module.exports = router

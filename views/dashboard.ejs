@@ -82,19 +82,24 @@
                 <div class="col-lg-6">
                   <% 
                   let connectionSent = false
+                  let connectionId;
+                  let connectionApproved;
                   user.connection?.forEach((connection)=>{
                     if(connection.business.toString() == item._id.toString()){
                       connectionSent = true
+                      connectionId = connection._id
+                      connectionApproved = connection.approved
                     }
                   })
                   if(connectionSent){ %>
-                      <button class="company_request_btn already-sent" type="submit"> Delete Connection Request</button>
+                    <form action="/sites/e4d4/api/connection/delete" method="POST">
+                      <input type="hidden" name="id" value="<%= connectionId._id %>">
+                      <input type="hidden" name="business" value="<%= item._id %>">
+                      <input type="hidden" name="user" value="<%= user.id %>">
+                      <button class="company_request_btn delete-connection" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
+                    </form>
                   <% } else { %>
-                  <!-- <form action="/sites/e4d4/api/connection/request/business" method="post"> -->
-                  <!-- <input type="hidden" name="businessId" value="<%= item._id %>"> -->
-                  <!-- <input type="hidden" name="userId" value="<%= user.id %>"> -->
                   <a class="company_request_btn" href="connection-request?company=<%= item._id %>" data-company="<%= item._id %>"> + Send Connection Request</a>
-                  <!-- </form> -->
                   <% } %>
 
                 </div>
