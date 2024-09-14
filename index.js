@@ -1,5 +1,9 @@
 const express = require("express")
 const app = express()
+const http = require('http');
+const server = http.createServer(app);
+const socketIO = require('socket.io');
+const io = socketIO(server);
 const cookieParser = require('cookie-parser')
 const connectionWithDb = require('./db')
 const session = require('express-session')
@@ -7,15 +11,16 @@ const passport = require("passport")
 require('./controller/auth/google')
 require('./controller/auth/facebook')
 const cookieAuth = require('./middleware/authCookie')
-const Job = require("./schema/Job")
 const formatDate = require('./helper/formatDate')
-const User = require('./schema/User')
-const Business = require('./schema/Business')
 const JWT_SECRET = "E4d4U$er";
 const jwt = require('jsonwebtoken')
 const extractDomain = require('./helper/extractDomainFromUrl')
 const calculateYearsDifference = require('./helper/calculateYearsDifference')
+const Job = require("./schema/Job")
+const User = require('./schema/User')
+const Business = require('./schema/Business')
 const Connection = require("./schema/Connection")
+const Chat = require('./schema/Chat')
 app.set('view engine', 'ejs');
 app.use('/sites/e4d4/assets', express.static(__dirname + '/views/assets'));
 
@@ -50,7 +55,7 @@ app.get('/sites/e4d4/', async (req, res) => {
         res.render(`index`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -62,7 +67,7 @@ app.get('/sites/e4d4/businessdetails', async (req, res) => {
         res.render(`businessdetails`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -77,7 +82,7 @@ app.get('/sites/e4d4/businessregistration', async (req, res) => {
         res.render(`businessregistration`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -92,7 +97,7 @@ app.get('/sites/e4d4/dashboard-main', async (req, res) => {
         res.render(`dashboard-2`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -114,7 +119,7 @@ app.get('/sites/e4d4/dashboard', async (req, res) => {
         return res.redirect(`/sites/e4d4/join`)
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/connection-request', async (req, res) => {
@@ -135,7 +140,7 @@ app.get('/sites/e4d4/connection-request', async (req, res) => {
         return res.redirect(`/sites/e4d4/join`)
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -153,7 +158,7 @@ app.get('/sites/e4d4/join', async (req, res) => {
         return res.render(`join`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/user-loginemail', async (req, res) => {
@@ -170,7 +175,7 @@ app.get('/sites/e4d4/user-loginemail', async (req, res) => {
         res.render(`user-loginemail`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/reset-password', async (req, res) => {
@@ -187,7 +192,7 @@ app.get('/sites/e4d4/reset-password', async (req, res) => {
         res.render(`reset-password`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/business-reset-password', async (req, res) => {
@@ -204,7 +209,7 @@ app.get('/sites/e4d4/business-reset-password', async (req, res) => {
         res.render(`business-reset-password`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/business-otp-verification', async (req, res) => {
@@ -228,7 +233,7 @@ app.get('/sites/e4d4/business-otp-verification', async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
-        // res.send(error.message)
+        // return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/business-update-password', async (req, res) => {
@@ -253,7 +258,7 @@ app.get('/sites/e4d4/business-update-password', async (req, res) => {
         return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
     } catch (error) {
         console.log(error)
-        // res.send(error.message)
+        // return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
         return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
     }
 })
@@ -302,7 +307,7 @@ app.get('/sites/e4d4/update-password', async (req, res) => {
         return res.redirect(`/sites/e4d4/reset-password?error=Session Expired`)
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/profile', async (req, res) => {
@@ -320,7 +325,7 @@ app.get('/sites/e4d4/profile', async (req, res) => {
         res.redirect('/sites/e4d4/join')
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/edit/profile', async (req, res) => {
@@ -334,7 +339,7 @@ app.get('/sites/e4d4/edit/profile', async (req, res) => {
         res.render(`edit-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/user-login', async (req, res) => {
@@ -348,7 +353,7 @@ app.get('/sites/e4d4/user-login', async (req, res) => {
         res.render(`user-login`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/business-login', async (req, res) => {
@@ -362,7 +367,7 @@ app.get('/sites/e4d4/business-login', async (req, res) => {
         res.render(`business-login`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -374,7 +379,7 @@ app.get('/sites/e4d4/portfolioreg', async (req, res) => {
         res.render(`portfolioreg`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -389,7 +394,7 @@ app.get('/sites/e4d4/profilepicture', async (req, res) => {
         res.render(`profilepicture`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/business-subscription', async (req, res) => {
@@ -403,7 +408,7 @@ app.get('/sites/e4d4/business-subscription', async (req, res) => {
         res.render(`business-subscription`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -505,7 +510,7 @@ app.get('/sites/e4d4/business-dashboard', async (req, res) => {
         res.render(`business-dashboard`, { message, error, user, business, allUsers, currentPage, totalPages, totalUsers })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -520,7 +525,7 @@ app.get('/sites/e4d4/searchprofilehistory', async (req, res) => {
         res.render(`searchprofilehistory`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -532,7 +537,7 @@ app.get('/sites/e4d4/userregistration', async (req, res) => {
         res.render(`userregistration`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
@@ -548,7 +553,7 @@ app.get('/sites/e4d4/jobposting', async (req, res) => {
         res.render(`jobposting`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/jobdetails/:id', async (req, res) => {
@@ -561,7 +566,7 @@ app.get('/sites/e4d4/jobdetails/:id', async (req, res) => {
         res.render(`jobdetails`, { message, error, user, business, job, formatDate })
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 app.get('/sites/e4d4/chat', async (req, res) => {
@@ -569,15 +574,67 @@ app.get('/sites/e4d4/chat', async (req, res) => {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
-        res.render(`chat`, { message, error, user, business })
+        const recipentUser = req.query.user
+        const recipentBusiness = req.query.user
+
+        let availableList
+        let recipent
+        if(!user || business){
+            return res.redirect(`/sites/e4d4/join?error=Login to Chat`)    
+        }
+        if (user) {
+            availableList = await Business.find({})
+        } else if (business) {
+            availableList = await User.find({})
+        }
+        console.log('availableList', availableList)
+        const conversation = await Chat.find({
+            $or: [
+                { sender: recipentUser, senderModel: 'user', recipient: recipentBusiness, recipientModel: 'business' },
+                { sender: recipentBusiness, senderModel: 'business', recipient: recipentUser, recipientModel: 'user' }
+            ]
+        }).populate('recipient').populate('sender').sort('timestamp'); // Sort by timestamp to get the conversation in order
+
+        res.render(`chat`, { message, error, user, business, conversation, recipent, availableList })
+
     } catch (error) {
         console.log(error)
-        res.send(error.message)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     }
 })
 
 app.use('/sites/e4d4/api', require('./controller/apihandler'))
 
-app.listen(PORT, () => {
-    console.log(`App is listening on PORT: http://localhost:${PORT}/sites/e4d4`)
-})
+io.on('connection', socket => {
+    try {
+        console.log("Client Connected")
+    } catch (error) {
+        console.log(error.message)
+    }
+    socket.on('sendMessage', async (data) => {
+        const { senderId, senderModel, recipientId, recipientModel, message } = data;
+
+        const newMessage = new Chat({
+            sender: senderId,
+            senderModel,
+            recipient: recipientId,
+            recipientModel,
+            message
+        });
+
+        await newMessage.save();
+
+        // Emit the message to the recipient
+        io.emit('newMessage', newMessage);
+    });
+    socket.on('disconnect', async () => {
+        try {
+            console.log("client Disconnected")
+        } catch (error) {
+            console.log(error.message)
+        }
+    });
+});
+server.listen(PORT, () => {
+    console.log('Server is running on port 3000');
+});
