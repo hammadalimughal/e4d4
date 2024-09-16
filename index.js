@@ -133,7 +133,7 @@ app.get('/sites/e4d4/connection-request', async (req, res) => {
         }
         if (user) {
             // const jobs = await Job.find()
-            console.log('companyObj', companyObj)
+            // console.log('companyObj', companyObj)
             const companies = await Business.find().populate('jobs').exec()
             return res.render(`connection-request`, { message, error, user, business, companies, companyObj, calculateYearsDifference })
         }
@@ -244,8 +244,8 @@ app.get('/sites/e4d4/business-update-password', async (req, res) => {
         const token = jwt.verify(req.cookies['businesscodepass'], JWT_SECRET)
         const otpBusinessId = token.business
         const otpObjId = token.otp
-        console.log('otpObjId', otpObjId)
-        console.log('otpUserId', otpBusinessId)
+        // console.log('otpObjId', otpObjId)
+        // console.log('otpUserId', otpBusinessId)
         if (user) {
             return res.redirect(`/sites/e4d4/profile`)
         }
@@ -293,8 +293,8 @@ app.get('/sites/e4d4/update-password', async (req, res) => {
         const token = jwt.verify(req.cookies['codepass'], JWT_SECRET)
         const otpUserId = token.user
         const otpObjId = token.user
-        console.log('otpObjId', otpObjId)
-        console.log('otpUserId', otpUserId)
+        // console.log('otpObjId', otpObjId)
+        // console.log('otpUserId', otpUserId)
         if (user) {
             return res.redirect(`/sites/e4d4/profile`)
         }
@@ -319,7 +319,7 @@ app.get('/sites/e4d4/profile', async (req, res) => {
             return res.render(`profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
         }
         if (business) {
-            console.log('business', business.notifications)
+            // console.log('business', business.notifications)
             return res.render(`business-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
         }
         res.redirect('/sites/e4d4/join')
@@ -431,9 +431,9 @@ app.get('/sites/e4d4/connection/request/:id', async (req, res) => {
 
         const connection = await Connection.findById(id).populate('user').populate('business')
         if (connection) {
-            console.log('connection', connection)
-            console.log('business._id', business._id)
-            console.log('connection.business._id', connection.business._id)
+            // console.log('connection', connection)
+            // console.log('business._id', business._id)
+            // console.log('connection.business._id', connection.business._id)
             if (connection.business._id.toString() == business._id.toString()) {
                 if (connection.approved) {
                     return res.redirect(`/sites/e4d4/connected-profile/${connection._id}`)
@@ -469,9 +469,9 @@ app.get('/sites/e4d4/connected-profile/:id', async (req, res) => {
 
         const connection = await Connection.findById(id).populate('user').populate('business')
         if (connection) {
-            console.log('connection', connection)
-            console.log('business._id', business._id)
-            console.log('connection.business._id', connection.business._id)
+            // console.log('connection', connection)
+            // console.log('business._id', business._id)
+            // console.log('connection.business._id', connection.business._id)
             if (connection.business._id.toString() == business._id.toString()) {
                 if (connection.approved) {
                     return res.render(`requested-profile`, { message, error, user, business, connection, calculateYearsDifference })
@@ -494,19 +494,19 @@ app.get('/sites/e4d4/business-dashboard', async (req, res) => {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
-        console.log('business', business)
+        // console.log('business', business)
         if (!business) {
             return res.redirect(`/sites/e4d4/business-login`)
         }
         const currentPage = req.query.page ? parseInt(req.query.page) : 1;
         const itemsPerPage = 9;
         const skipItems = (currentPage - 1) * itemsPerPage;
-        console.log('currentPage', currentPage)
-        console.log('skipItems', skipItems)
+        // console.log('currentPage', currentPage)
+        // console.log('skipItems', skipItems)
         const allUsers = await User.find().skip(skipItems).limit(itemsPerPage);
         const totalUsers = await User.countDocuments();
         const totalPages = Math.ceil(totalUsers / itemsPerPage);
-        console.log('totalPages', totalPages)
+        // console.log('totalPages', totalPages)
         res.render(`business-dashboard`, { message, error, user, business, allUsers, currentPage, totalPages, totalUsers })
     } catch (error) {
         console.log(error)
@@ -575,23 +575,38 @@ app.get('/sites/e4d4/chat', async (req, res) => {
         const user = req.user
         const business = req.business
         const recipentUser = req.query.user
-        const recipentBusiness = req.query.user
+        const recipentBusiness = req.query.business
 
         let availableList
         let recipent
-        if(!user || business){
-            return res.redirect(`/sites/e4d4/join?error=Login to Chat`)    
+        if (!user && !business) {
+            return res.redirect(`/sites/e4d4/join?error=Login to Chat`)
         }
         if (user) {
-            availableList = await Business.find({})
+            const connections = await Connection.find({ user: user._id }).populate('business')
+            availableList = connections.map((item) => item.business)
+            recipent = await Business.findById(recipentBusiness)
         } else if (business) {
-            availableList = await User.find({})
+            const connections = await Connection.find({ business: business._id }).populate('user')
+            availableList = connections.map((item) => item.user)
+            recipent = await User.findById(recipentUser)
         }
-        console.log('availableList', availableList)
+        // console.log('availableList', availableList)
+        // console.log('recipent', recipent)
         const conversation = await Chat.find({
             $or: [
-                { sender: recipentUser, senderModel: 'user', recipient: recipentBusiness, recipientModel: 'business' },
-                { sender: recipentBusiness, senderModel: 'business', recipient: recipentUser, recipientModel: 'user' }
+                {
+                    sender: recipentUser ? recipentUser : user._id,
+                    senderModel: 'user',
+                    recipient: business?._id ? business?._id : recipentBusiness,
+                    recipientModel: 'business'
+                },
+                {
+                    sender: recipentBusiness ? recipentBusiness : business._id,
+                    senderModel: 'business',
+                    recipient: user?._id ? user?._id : recipentUser,
+                    recipientModel: 'user'
+                }
             ]
         }).populate('recipient').populate('sender').sort('timestamp'); // Sort by timestamp to get the conversation in order
 
@@ -608,33 +623,45 @@ app.use('/sites/e4d4/api', require('./controller/apihandler'))
 io.on('connection', socket => {
     try {
         console.log("Client Connected")
+        socket.on('joinRoom', (data) => {
+            const { id, model } = data; // `id` could be userId or businessId
+            const room = `${model}_${id}`; // E.g., 'user_123', 'business_456'
+            socket.join(room);
+            console.log(`${model} with ID: ${id} joined room: ${room}`);
+        });
+        socket.on('sendMessage', async (data) => {
+            try {
+                const { sender, senderModel, recipient, recipientModel, message } = data;
+
+                const newMessage = new Chat({
+                    sender,
+                    senderModel,
+                    recipient,
+                    recipientModel,
+                    message
+                });
+
+                await newMessage.save();
+
+                const recipientRoom = `${recipientModel}_${recipient}`; // E.g., 'user_123' or 'business_456'
+                io.to(recipientRoom).emit('newMessage', newMessage);
+                // io.emit('newMessage', newMessage);
+            } catch (error) {
+                console.log('error sending Message', error.message)
+            }
+        });
+        socket.on('disconnect', async () => {
+            try {
+                console.log("client Disconnected")
+            } catch (error) {
+                console.log(error.message)
+            }
+        });
+
     } catch (error) {
         console.log(error.message)
     }
-    socket.on('sendMessage', async (data) => {
-        const { senderId, senderModel, recipientId, recipientModel, message } = data;
-
-        const newMessage = new Chat({
-            sender: senderId,
-            senderModel,
-            recipient: recipientId,
-            recipientModel,
-            message
-        });
-
-        await newMessage.save();
-
-        // Emit the message to the recipient
-        io.emit('newMessage', newMessage);
-    });
-    socket.on('disconnect', async () => {
-        try {
-            console.log("client Disconnected")
-        } catch (error) {
-            console.log(error.message)
-        }
-    });
 });
 server.listen(PORT, () => {
-    console.log('Server is running on port 3000');
+    console.log(`Server is running on http://localhost:${PORT}/sites/e4d4`);
 });

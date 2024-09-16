@@ -23,7 +23,7 @@ const cookieAuth = (cookieName) => {
                     const authtoken = jwt.sign({ id: _id, primaryEmail }, JWT_SECRET);
                     res.cookie('authtoken', authtoken);
                     req.user = user;
-                    console.log('user', user)
+                    // console.log('user', user)
                     return next(); // Stop further execution by returning
                 }
 

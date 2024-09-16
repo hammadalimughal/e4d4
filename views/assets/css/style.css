@@ -3686,7 +3686,10 @@ input:checked+label .select-documents .fa-file {
     overflow: auto;
     padding-right: 5px;
 }
-
+.conversation{
+    max-height: 70vh;
+    overflow: auto;
+}
 .chat-list li {
     width: 100%;
 }

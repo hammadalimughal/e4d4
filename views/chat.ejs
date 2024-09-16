@@ -41,7 +41,7 @@
                 <ul class="chat-list">
                   <% availableList.forEach(( item) => { %>
                   <li>
-                    <a class="profile-person-history" href="javascript:;">
+                    <a class="profile-person-history" href="/sites/e4d4/chat?<%= business ? 'user': 'business' %>=<%= item._id %>">
                       <img src="/sites/e4d4<%= item.profilePic ? item.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                       <div class="px-3">
                         <h6><%= item.fullName %></h6>
@@ -58,43 +58,31 @@
               <div class="info-item-r h-100">
                 <div class="chat-head">
                   <a class="profile-person-history" href="javascript:;">
-                    <img src="/sites/e4d4<%= 
-                    user ? (user.profilePic ? user.profilePic : '/assets/img/user-icon.webp') : 
-                    (business.profilePic ? business.profilePic : '/assets/img/business-icon.jpg')
-                     %>" alt="">
+                    <img src="/sites/e4d4<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                     <div class="px-3">
-                      <h6><%= user ? user.fullName : business.fullName %></h6>
-                      <span>Manager</span>
+                      <h6><%= recipent ? recipent?.fullName : '' %></h6>
+                      <span><%= recipent?.industry %></span>
                     </div>
                   </a>
                   <hr>
                 </div>
                 <div class="chat-box">
-                  <ul>
-                    <li class="user">
-                      <img src="/sites/e4d4/assets/uploads/profilePic/profilePic_1724354423962.jpg" alt="">
+                  <!-- Conversation: <%- JSON.stringify(conversation) %> -->
+                  <% if(conversation.length>0) { %>
+                  <ul class="conversation">
+                    <% conversation.forEach((item) => { %>
+                    <li class="<%= item.sender?._id.toString() == recipent._id.toString() ? 'recipent' : 'user' %>">
+                      <img src="/sites/e4d4<%= item.sender?.profilePic ? item.sender?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                       <div class="message">
-                        <div class="info">Code Mark <small>11:12 pm</small></div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex inventore libero culpa quae. Ut, sed! Fugiat at consectetur eius eaque.</p>
+                        <div class="info"><%= item.sender?.fullName %> <small>11:12 pm</small></div>
+                        <p><%= item.message %></p>
                       </div>
                     </li>
-                    <li class="recipent">
-                      <img src="/sites/e4d4/assets/uploads/profilePic/profilePic_1724354423962.jpg" alt="">
-                      <div class="message">
-                        <div class="info">Code Mark <small>11:12 pm</small></div>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ex inventore libero culpa quae. Ut, sed! Fugiat at consectetur eius eaque.</p>
-                      </div>
-                    </li>
-                    <li class="recipent">
-                      <img src="/sites/e4d4/assets/uploads/profilePic/profilePic_1724354423962.jpg" alt="">
-                      <div class="message">
-                        <div class="info">Code Mark <small>11:12 pm</small></div>
-                        <p>Okayy</p>
-                      </div>
-                    </li>
+                    <% }) %>
                   </ul>
+                  <% } %>
                 </div>
-                <form action="">
+                <form id="chat-form">
                   <input type="hidden" name="sender" value="<%= user ? user._id : business ? business._id : '' %>">
                   <input type="hidden" name="senderModel" value="<%= user ? 'user' : business ? 'business' : '' %>">
                   <input type="hidden" name="recipient" value="<%= recipent?._id %>">
@@ -118,21 +106,42 @@
   <%- include('./partials/scriptlinks') %>
   <script>
     // Listen for new messages
-    socket.on('newMessage', (message) => {
-      console.log('New message received:', message);
+    socket.on('newMessage', (msg) => {
+      console.log('New msg received:', msg);
+      $(".chat-box .conversation").append(`
+      <li class="recipent">
+        <img src="/sites/e4d4<%= recipent?.profilePic ? recipent.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+        <div class="message">
+          <div class="info"><%= recipent.fullName %> <small>11:12 pm</small></div>
+          <p>${msg.message}</p>
+        </div>
+      </li>
+      `)
     });
 
     // Send a message
     const sendMessage = (e) => {
       e.preventDefault()
       const curForm = e.target
+      const message = $(curForm).find('textarea').val()
       const formData = new FormData(curForm);
       const formDataObj = {};
       formData.forEach((value, key) => {
         formDataObj[key] = value;
       });
       socket.emit('sendMessage', formDataObj);
+      $(curForm).find('textarea').val('')
+      $(".chat-box .conversation").append(`
+      <li class="user">
+        <img src="/sites/e4d4<%= user ? (user.profilePic ? user.profilePic : '/assets/img/user-icon.webp') : (business.profilePic ? business.profilePic : '/assets/img/user-icon.webp') %>" alt="">
+        <div class="message">
+          <div class="info"><%= user ? user.fullName : business.fullName %> <small>11:12 pm</small></div>
+          <p>${message}</p>
+        </div>
+      </li>
+      `)
     };
+    $("#chat-form").submit(sendMessage)
   </script>
 </body>
 
