@@ -274,12 +274,12 @@
               <div class="item-head">
                 <h6 class="fw-bold">Education</h6>
                 <!-- add-education -->
-                <button type="button" data-bs-toggle="modal" data-bs-target="#add-education" ><i class="bi bi-plus-circle-fill"></i></button>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add-education"><i class="bi bi-plus-circle-fill"></i></button>
               </div>
               <% if(user.educations?.length > 0) { %>
-                <ul class="listing">
-                  <% user.educations.forEach((education,ind) => { %>
-                  <% 
+              <ul class="listing">
+                <% user.educations.forEach((education,ind) => { %>
+                <% 
                       function getFirstLetters(input) {
                         // Split the input string by spaces to get the words
                         const words = input.trim().split(/\s+/); 
@@ -292,48 +292,90 @@
                     }
                     const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     %>
-                  <li class="<%= ind > 2 ? 'hidden' : '' %>">
-                    <div class="thumb">
-                      <span class="year"><%= getFirstLetters(education.institute)  %></span>
-  
-                    </div>
-                    <div class="data">
-                      <h5 class="title"><%= education.institute %>
-                        <ul>
-                          <li>
-                            <form class="edit-edu">
-                              <input type="hidden" name="userId" value="<%= user._id %>">
-                              <input type="hidden" name="educationId" value="<%= education._id %>">
-                              <button type="submit" class="edit-btn">
-                                <i class="bi bi-pencil-square"></i>
-                              </button>
-                            </form>
-                          </li>
-                          <li>
-                            <form class="delete-edu">
-                              <input type="hidden" name="userId" value="<%= user._id %>">
-                              <input type="hidden" name="educationId" value="<%= education._id %>">
-                              <button type="submit" class="remove-btn">
-                                <i class="bi bi-trash"></i>
-                              </button>
-                            </form>
-                          </li>
-                        </ul>
-                      </h5>
-                      <h6 class="info"><%= education.degree %></h6>
-                      <h6 class="info"><%= education.startingDate ? monthsShort[education.startingDate?.getMonth()] : '' %> <%= education.startingDate ? education.startingDate?.getFullYear() : '' %> - <%= education.endingDate ? monthsShort[education.endingDate?.getMonth()] : '' %> <%= education.endingDate ? education.endingDate?.getFullYear() : '' %></h6>
-                      <h6 class="info"><%= education.location %></h6>
-                    </div>
-                  </li>
-                  <% }) %>
-                </ul>
-                <% } %>
+                <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                  <div class="thumb">
+                    <span class="year"><%= getFirstLetters(education.institute)  %></span>
+
+                  </div>
+                  <div class="data">
+                    <h5 class="title"><%= education.institute %>
+                      <ul>
+                        <li>
+                          <form class="edit-edu">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="educationId" value="<%= education._id %>">
+                            <button type="submit" class="edit-btn">
+                              <i class="bi bi-pencil-square"></i>
+                            </button>
+                          </form>
+                        </li>
+                        <li>
+                          <form class="delete-edu">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="educationId" value="<%= education._id %>">
+                            <button type="submit" class="remove-btn">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
+                    </h5>
+                    <h6 class="info"><%= education.degree %></h6>
+                    <h6 class="info"><%= education.startingDate ? monthsShort[education.startingDate?.getMonth()] : '' %> <%= education.startingDate ? education.startingDate?.getFullYear() : '' %> - <%= education.endingDate ? monthsShort[education.endingDate?.getMonth()] : '' %> <%= education.endingDate ? education.endingDate?.getFullYear() : '' %></h6>
+                    <h6 class="info"><%= education.location %></h6>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+              <% } %>
             </li>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Volunteer Experience</h6>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#add-volunteer-exp"><i class="bi bi-plus-circle-fill"></i></button>
               </div>
+              <% if(user.volunteerExperiences?.length > 0) { %>
+              <ul class="listing">
+                <% user.volunteerExperiences.forEach((experience) => { %>
+                <li>
+                  <div class="thumb">
+                    <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
+                    <span class="txt">Years</span>
+                  </div>
+                  <div class="data">
+                    <% 
+                    const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    %>
+                    <h5 class="title"><%= experience.title %>
+                      <ul>
+                        <li>
+                          <form class="edit-volunteer-exp">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="experienceId" value="<%= experience._id %>">
+                            <button type="submit" class="edit-btn">
+                              <i class="bi bi-pencil-square"></i>
+                            </button>
+                          </form>
+                        </li>
+                        <li>
+                          <form class="delete-vol-exp">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="experienceId" value="<%= experience._id %>">
+                            <button type="submit" class="remove-btn">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
+                    </h5>
+                    <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
+                    <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
+                    <h6 class="info"><%= experience.location %></h6>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+              <% } %>
             </li>
             <li>
               <div class="item-head">
@@ -341,32 +383,72 @@
                 <button data-bs-toggle="modal" data-bs-target="#add-project" title="Add Project"><i class="bi bi-plus-circle-fill"></i></button>
               </div>
               <% if(user.projects?.length> 0) { %>
-                <div class="row g-4 project-listing">
-                  <% user.projects.forEach((item)=> { %>
-                  <div class="col-lg-4 col-12">
-                    <div class="project-item">
-                      <button class="remove-btn remove-project-item" data-project="<%= item._id %>">
-                        <i class="bi bi-trash"></i>
-                      </button>
-                      <h6>
-                        <%= item.title %>
-                      </h6>
-                      <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
-                        <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
-                      </a>
-                    </div>
+              <div class="row g-4 project-listing">
+                <% user.projects.forEach((item)=> { %>
+                <div class="col-lg-4 col-12">
+                  <div class="project-item">
+                    <button class="remove-btn remove-project-item" data-project="<%= item._id %>">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                    <h6>
+                      <%= item.title %>
+                    </h6>
+                    <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
+                      <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
+                    </a>
                   </div>
-                  <% }) %>
+                </div>
+                <% }) %>
                 <% } %>
             </li>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Licenses & Certifications</h6>
-                <button><i class="bi bi-plus-circle-fill"></i></button>
+                <button data-bs-toggle="modal" data-bs-target="#add-license-certificate" title="Add License & Certification"><i class="bi bi-plus-circle-fill"></i></button>
               </div>
+              <% if(user.licenseCertification?.length > 0) { %>
+                <ul class="listing">
+                  <% user.licenseCertification.forEach((cert) => { %>
+                  <li>
+                    <div class="file-icon">
+                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                    </div>
+                    <div class="data">
+                      <% 
+                      const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                      %>
+                      <h5 class="title"><%= cert?.title %>
+                        <ul>                          
+                          <% if(cert.fileUrl){ %><li><a href="/sites/e4d4<%= cert.fileUrl %>">View</a></li><% } %>
+                          <li>
+                            <form class="edit-cert">
+                              <input type="hidden" name="userId" value="<%= user._id %>">
+                              <input type="hidden" name="certId" value="<%= cert?._id %>">
+                              <button type="submit" class="edit-btn">
+                                <i class="bi bi-pencil-square"></i>
+                              </button>
+                            </form>
+                          </li>
+                          <li>
+                            <form class="delete-cert">
+                              <input type="hidden" name="userId" value="<%= user._id %>">
+                              <input type="hidden" name="certId" value="<%= cert?._id %>">
+                              <button type="submit" class="remove-btn">
+                                <i class="bi bi-trash"></i>
+                              </button>
+                            </form>
+                          </li>
+                        </ul>
+                      </h5>
+                      <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
+                    </div>
+                  </li>
+                  <% }) %>
+                </ul>
+                <% } %>
             </li>
           </ul>
-          <h6 class="fw-bold mt-3">Personal Documents
+          <!-- <h6 class="fw-bold mt-3">Personal Documents
           </h6>
           <div class="row g-4 project-listing">
             <% if(!user.resume) { %>
@@ -411,7 +493,7 @@
               </div>
             </div>
             <% } %>
-          </div>
+          </div> -->
         </div>
         <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
       </div>
@@ -1222,6 +1304,148 @@
     </div>
   </div>
 
+  <div class="modal fade edit-popup add-exp" id="add-license-certificate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add-license-certificateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="add-license-certificateLabel">Add License & Certification</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/license-certificate/add" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="id" value="<%= user.id %>">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Title *</label>
+                  <input type="text" name="title" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Organization*</label>
+                  <input type="text" name="organization" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Issue Date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Upload File*</label>
+                </div>
+                <input name="file" class="form-control" type="file" accept="application/pdf">
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade edit-popup add-exp" id="edit-license-certificate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-license-certificateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-license-certificateLabel">Edit License & Certification</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/license-certificate/edit" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="userId" value="<%= user.id %>">
+          <input type="hidden" name="certId" value="">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Title *</label>
+                  <input type="text" name="title" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Organization*</label>
+                  <input type="text" name="organization" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Issue Date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Upload File*</label>
+                </div>
+                <input name="file" class="form-control" type="file" accept="application/pdf">
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <div class="modal fade edit-popup add-exp" id="add-volunteer-exp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add-volunteer-expLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -1230,7 +1454,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="/sites/e4d4/api/user/modify/volunteer-experience/add" method="post">
-          <input type="hidden" name="userId" value="<%= user.id %>">
+          <input type="hidden" name="id" value="<%= user.id %>">
           <div class="modal-body">
             <div class="row g-3">
               <div class="col-12">
@@ -1330,6 +1554,117 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade edit-popup add-exp" id="edit-volunteer-exp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-volunteer-expLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-volunteer-expLabel">Edit Volunteer Experience</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/user/modify/volunteer-experience/edit" method="post">
+          <input type="hidden" name="userId" value="<%= user.id %>">
+          <input type="hidden" name="expId">
+          <div class="modal-body">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Title *</label>
+                  <input type="text" name="title" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Company Name*</label>
+                  <input type="text" name="companyName" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Cause*</label>
+                  <input type="text" name="cause" class="form-control" value="" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="checkbox-field">
+                  <input type="checkbox" name="currentlyWorking" value="true" id="working-now-volunteer-exp">
+                  <label for="working-now-volunteer-exp">I am currently working in this role</label>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Starting Date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="startingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">end date*</label>
+                  <div class="row g-3">
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_month">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-12">
+                      <select class="form-control" name="endingDate_year">
+                        <%
+                          for (let year = 1970; year <= currentYear; year++) { 
+                        %>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <%- include('./partials/scriptlinks') %>
   <script src="https://cdn.tiny.cloud/1/xarj83czi2hp6n2rm3b1ruv6msf9w7abxf4nfx0bwvo20pbs/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
@@ -1737,6 +2072,30 @@
         }
       }
     })
+    $(".delete-vol-exp").submit(async (e) => {
+      e.preventDefault()
+      if (confirm('Your Volunteer Experience will be deleted Permanently! Do you want to proceed?')) {
+        const curForm = e.target
+        const formData = new FormData(curForm);
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+          formDataObj[key] = value;
+        });
+        const res = await fetch('/sites/e4d4/api/user/modify/volunteer-experience/delete', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formDataObj)
+        })
+        const resJson = await res.json()
+        if (resJson.success) {
+          location.href = '/sites/e4d4/edit/profile?message=Volunteer Experience Deleted'
+        } else {
+          createToast(resJson.error, 'error')
+        }
+      }
+    })
     $(".delete-edu").submit(async (e) => {
       e.preventDefault()
       if (confirm('Your Education will be deleted Permanently! Do you want to proceed?')) {
@@ -1760,6 +2119,70 @@
           createToast(resJson.error, 'error')
         }
       }
+    })    
+  </script>
+  <script>
+    $(".delete-cert").submit(async (e) => {
+      e.preventDefault()
+      if (confirm('Your License or Certificate will be deleted Permanently! Do you want to proceed?')) {
+        const curForm = e.target
+        const formData = new FormData(curForm);
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+          formDataObj[key] = value;
+        });
+        const res = await fetch('/sites/e4d4/api/user/modify/license-certificate/delete', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formDataObj)
+        })
+        const resJson = await res.json()
+        if (resJson.success) {
+          location.href = '/sites/e4d4/edit/profile?message=License or Certificate Deleted'
+        } else {
+          createToast(resJson.error, 'error')
+        }
+      }
+    })
+  </script>
+  <script>
+    $(".edit-cert").submit(async (e) => {
+      e.preventDefault()
+      const curForm = e.target
+      const formData = new FormData(curForm);
+      const formDataObj = {};
+      formData.forEach((value, key) => {
+        formDataObj[key] = value;
+      });
+      const res = await fetch('/sites/e4d4/api/user/modify/license-certificate/get', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formDataObj)
+      })
+      const resJson = await res.json()
+      if (resJson.success) {
+        const cert = resJson.cert
+        $("#edit-license-certificate [name='certId']").val(cert._id)
+        $("#edit-license-certificate [name]").each((ind, item) => {
+
+          const fieldName = $(item).attr('name')
+          if (cert[fieldName]) {
+            $(item).val(cert[fieldName])
+          }
+          if (fieldName == 'startingDate_month') {
+            const startingDate = new Date(cert['issueDate'])
+            $("#edit-license-certificate [name='startingDate_month']").val(startingDate.getMonth())
+            $("#edit-license-certificate [name='startingDate_year']").val(startingDate.getFullYear())
+          }
+        })
+        $("#edit-license-certificate").modal('show')
+      } else {
+        createToast(resJson.error, 'error')
+      }
     })
   </script>
   <script>
@@ -1782,22 +2205,22 @@
       if (resJson.success) {
         const experience = resJson.experience
         $("#edit-experience-item [name='expId']").val(experience._id)
-        $("#edit-experience-item [name]").each((ind,item)=>{
-          
+        $("#edit-experience-item [name]").each((ind, item) => {
+
           const fieldName = $(item).attr('name')
-          if(experience[fieldName]){
+          if (experience[fieldName]) {
             $(item).val(experience[fieldName])
           }
-          if(fieldName == 'startingDate_month'){
+          if (fieldName == 'startingDate_month') {
             const startingDate = new Date(experience['startingDate'])
             $("#edit-experience-item [name='startingDate_month']").val(startingDate.getMonth())
             $("#edit-experience-item [name='startingDate_year']").val(startingDate.getFullYear())
           }
-          if(fieldName == 'endingDate_month'){
+          if (fieldName == 'endingDate_month') {
             const endingDate = new Date(experience['endingDate'])
             $("#edit-experience-item [name='endingDate_month']").val(endingDate.getMonth())
             $("#edit-experience-item [name='endingDate_year']").val(endingDate.getFullYear())
-          }          
+          }
         })
         tinymce.activeEditor.setContent(experience['description']);
         $("#edit-experience-item").modal('show')
@@ -1806,49 +2229,93 @@
       }
     })
   </script>
-<script>
-  $(".edit-edu").submit(async (e) => {
-    e.preventDefault()
-    const curForm = e.target
-    const formData = new FormData(curForm);
-    const formDataObj = {};
-    formData.forEach((value, key) => {
-      formDataObj[key] = value;
-    });
-    const res = await fetch('/sites/e4d4/api/user/modify/education/get', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formDataObj)
-    })
-    const resJson = await res.json()
-    if (resJson.success) {
-      const education = resJson.education
-      $("#edit-education [name='eduId']").val(education._id)
-      $("#edit-education [name]").each((ind,item)=>{
-        
-        const fieldName = $(item).attr('name')
-        if(education[fieldName]){
-          $(item).val(education[fieldName])
-        }
-        if(fieldName == 'startingDate_month'){
-          const startingDate = new Date(education['startingDate'])
-          $("#edit-education [name='startingDate_month']").val(startingDate.getMonth())
-          $("#edit-education [name='startingDate_year']").val(startingDate.getFullYear())
-        }
-        if(fieldName == 'endingDate_month'){
-          const endingDate = new Date(education['endingDate'])
-          $("#edit-education [name='endingDate_month']").val(endingDate.getMonth())
-          $("#edit-education [name='endingDate_year']").val(endingDate.getFullYear())
-        }          
+  <script>
+    $(".edit-volunteer-exp").submit(async (e) => {
+      e.preventDefault()
+      const curForm = e.target
+      const formData = new FormData(curForm);
+      const formDataObj = {};
+      formData.forEach((value, key) => {
+        formDataObj[key] = value;
+      });
+      const res = await fetch('/sites/e4d4/api/user/modify/volunteer-experience/get', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formDataObj)
       })
-      $("#edit-education").modal('show')
-    } else {
-      createToast(resJson.error, 'error')
-    }
-  })
-</script>
+      const resJson = await res.json()
+      console.log('resJson', resJson)
+      if (resJson.success) {
+        const experience = resJson.experience
+        $("#edit-volunteer-exp [name='expId']").val(experience._id)
+        $("#edit-volunteer-exp [name]").each((ind, item) => {
+
+          const fieldName = $(item).attr('name')
+          if (experience[fieldName]) {
+            $(item).val(experience[fieldName])
+          }
+          if (fieldName == 'startingDate_month') {
+            const startingDate = new Date(experience['startingDate'])
+            $("#edit-volunteer-exp [name='startingDate_month']").val(startingDate.getMonth())
+            $("#edit-volunteer-exp [name='startingDate_year']").val(startingDate.getFullYear())
+          }
+          if (fieldName == 'endingDate_month') {
+            const endingDate = new Date(experience['endingDate'])
+            $("#edit-volunteer-exp [name='endingDate_month']").val(endingDate.getMonth())
+            $("#edit-volunteer-exp [name='endingDate_year']").val(endingDate.getFullYear())
+          }
+        })
+        $("#edit-volunteer-exp").modal('show')
+      } else {
+        createToast(resJson.error, 'error')
+      }
+    })
+  </script>
+  <script>
+    $(".edit-edu").submit(async (e) => {
+      e.preventDefault()
+      const curForm = e.target
+      const formData = new FormData(curForm);
+      const formDataObj = {};
+      formData.forEach((value, key) => {
+        formDataObj[key] = value;
+      });
+      const res = await fetch('/sites/e4d4/api/user/modify/education/get', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formDataObj)
+      })
+      const resJson = await res.json()
+      if (resJson.success) {
+        const education = resJson.education
+        $("#edit-education [name='eduId']").val(education._id)
+        $("#edit-education [name]").each((ind, item) => {
+
+          const fieldName = $(item).attr('name')
+          if (education[fieldName]) {
+            $(item).val(education[fieldName])
+          }
+          if (fieldName == 'startingDate_month') {
+            const startingDate = new Date(education['startingDate'])
+            $("#edit-education [name='startingDate_month']").val(startingDate.getMonth())
+            $("#edit-education [name='startingDate_year']").val(startingDate.getFullYear())
+          }
+          if (fieldName == 'endingDate_month') {
+            const endingDate = new Date(education['endingDate'])
+            $("#edit-education [name='endingDate_month']").val(endingDate.getMonth())
+            $("#edit-education [name='endingDate_year']").val(endingDate.getFullYear())
+          }
+        })
+        $("#edit-education").modal('show')
+      } else {
+        createToast(resJson.error, 'error')
+      }
+    })
+  </script>
 
 </body>
 

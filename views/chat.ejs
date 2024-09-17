@@ -39,6 +39,7 @@
                 </div>
                 <!-- <%- JSON.stringify(availableList) %> -->
                 <ul class="chat-list">
+                  <!-- <%- JSON.stringify(availableList) %> -->
                   <% availableList.forEach(( item) => { %>
                   <li>
                     <a class="profile-person-history" href="/sites/e4d4/chat?<%= business ? 'user': 'business' %>=<%= item._id %>">
@@ -56,6 +57,7 @@
 
             <div class="col-lg-8 col-12 panel">
               <div class="info-item-r h-100">
+                <% if(recipent) { %>
                 <div class="chat-head">
                   <a class="profile-person-history" href="javascript:;">
                     <img src="/sites/e4d4<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
@@ -92,12 +94,18 @@
                     <button type="submit"><i class="bi bi-send-fill"></i></button>
                   </div>
                 </form>
-
+                <% } else { %>
+                <div class="empty-chat">
+                  <img class="mb-3" src="/sites/e4d4/assets/img/chat-icon.png" alt="Chat Icon">
+                  <h6 class="text-center">Looking forward to chatting? <br/> Start a Conversation!</h6>
+                </div>
+                <% } %>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
   </section>
 
@@ -110,9 +118,9 @@
       console.log('New msg received:', msg);
       $(".chat-box .conversation").append(`
       <li class="recipent">
-        <img src="/sites/e4d4<%= recipent?.profilePic ? recipent.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+        <img src="/sites/e4d4<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
         <div class="message">
-          <div class="info"><%= recipent.fullName %> <small>11:12 pm</small></div>
+          <div class="info"><%= recipent?.fullName %> <small>11:12 pm</small></div>
           <p>${msg.message}</p>
         </div>
       </li>

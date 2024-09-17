@@ -2552,6 +2552,10 @@ ul#myTab li {
     display: flex;
     align-items: flex-start;
 }
+.profile-info .portfolio-showcase>ul>li .listing>li .file-icon img{
+    width: 40px;
+    margin-right: 8px;
+}
 
 .profile-info .portfolio-showcase>ul>li .listing>li:not(:nth-last-child(1)) {
     margin-bottom: 15px;
@@ -2595,6 +2599,14 @@ ul#myTab li {
     margin-bottom: 6px;
     font-weight: 600;
     line-height: 20px;
+}
+.profile-info .portfolio-showcase>ul>li .listing>li .title a{
+    text-decoration: none;
+    color: #fa5f02;
+    font-size: 14px;
+}
+.profile-info .portfolio-showcase>ul>li .listing>li .title a:hover{
+    text-decoration: underline;
 }
 
 .profile-info .portfolio-showcase>ul>li .listing>li .title ul {
@@ -3682,13 +3694,23 @@ input:checked+label .select-documents .fa-file {
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
-    max-height: 70vh;
+    height: 70vh;
     overflow: auto;
     padding-right: 5px;
 }
+.empty-chat,
 .conversation{
-    max-height: 70vh;
+    height: 70vh;
     overflow: auto;
+}
+.empty-chat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.empty-chat img{
+    width: 50%;
 }
 .chat-list li {
     width: 100%;
@@ -3855,7 +3877,9 @@ input:checked+label .select-documents .fa-file {
 }
 
 @media (max-width: 787px) {
-
+    .dashboard-main-setting{
+        width: 100%;
+    }
     .own-navbar-nav2 li {
         margin-top: 12px;
 

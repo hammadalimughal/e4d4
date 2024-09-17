@@ -143,11 +143,11 @@
         </div>
         <div class="portfolio-showcase">
           <ul class="user-academic">
+            <% if(user.experiences?.length > 0) { %>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Experience</h6>
               </div>
-              <% if(user.experiences?.length > 0) { %>
               <ul class="listing">
                 <% user.experiences.forEach((experience,ind) => { %>
                 <li class="<%= ind > 2 ? 'hidden' : '' %>">
@@ -171,13 +171,13 @@
                 <% }) %>
               </ul>
               <%- user.experiences?.length > 3 ? `<button class="show-all-btn">Show all ${user.experiences?.length} Experiences</button>` : '' %>
-              <% } %>
             </li>
+            <% } %>
+            <% if(user.educations?.length > 0) { %>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Education</h6>
               </div>
-              <% if(user.educations?.length > 0) { %>
               <ul class="listing">
                 <% user.educations.forEach((education,ind) => { %>
                 <% 
@@ -208,18 +208,40 @@
                 <% }) %>
               </ul>
               <%- user.educations?.length > 3 ? `<button class="show-all-btn">Show all ${user.educations?.length} Experiences</button>` : '' %>
-              <% } %>
             </li>
+            <% } %>
+            <% if(user.volunteerExperiences?.length > 0) { %>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Volunteer Experience</h6>
               </div>
+              <ul class="listing">
+                <% user.volunteerExperiences.forEach((experience,ind) => { %>
+                <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                  <div class="thumb">
+                    <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
+                    <span class="txt">Years</span>
+                  </div>
+                  <div class="data">
+                    <% 
+                    const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    %>
+                    <h5 class="title"><%= experience.title %></h5>
+                    <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
+                    <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
+                    <h6 class="info"><%= experience.location %></h6>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+              <%- user.volunteerExperiences?.length > 3 ? `<button class="show-all-btn">Show all ${user.volunteerExperiences?.length} Experiences</button>` : '' %>
             </li>
+            <% } %>
+            <% if(user.projects?.length > 0) { %>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Projects Showcase</h6>
               </div>
-              <% if(user.projects?.length > 0) { %>
               <div class="row g-4 project-listing">
                 <% user.projects.forEach((item) => { %>
                 <div class="col-lg-4 col-12">
@@ -232,15 +254,33 @@
                 </div>
                 <% }) %>
               </div>
-              <% } %>
             </li>
+            <% } %>
+            <% if(user.licenseCertification?.length > 0) { %>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Licenses & Certifications</h6>
               </div>
-            </li>
+                <ul class="listing">
+                  <% user.licenseCertification.forEach((cert) => { %>
+                  <li>
+                    <div class="file-icon">
+                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                    </div>
+                    <div class="data">
+                      <% 
+                      const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                      %>
+                      <h5 class="title"><%= cert?.title %> - <% if(cert.fileUrl){ %> <a href="/sites/e4d4<%= cert.fileUrl %>">View</a> <% } %></h5>
+                      <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
+                    </div>
+                  </li>
+                  <% }) %>
+                </ul>
+              </li>
+              <% } %>
           </ul>
-          <% if (user.resume || user.coverLetter) { %>
+          <!-- <% if (user.resume || user.coverLetter) { %>
           <h6 class="fw-bold">Personal Documents</h6>
           <div class="row g-4 project-listing">
             <% if(user.resume) { %>
@@ -263,7 +303,7 @@
               </div>
             </div>
             <% } %>
-            <% } %>
+            <% } %> -->
             <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
           </div>
         </div>

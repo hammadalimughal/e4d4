@@ -106,10 +106,10 @@ const licenseCertificationsSchema = new Schema({
         type: Date,
         required: true
     },
-    credentialId: {
+    credentialUrl: {
         type: String
     },
-    credentialUrl: {
+    fileUrl: {
         type: String
     }
 })

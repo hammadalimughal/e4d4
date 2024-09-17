@@ -39,6 +39,19 @@ const storageResume = multer.diskStorage({
         cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
     }
 });
+const storageDocument = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const dir = './views/assets/uploads/document';
+        const fullPath = path.resolve(dir);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        cb(null, fullPath);
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname));
+    }
+});
 // Configure storage for video uploads
 const storageCoverLetter = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -141,6 +154,7 @@ const uploadImage = multer({ storage: storageImage, fileFilter: imageFilter });
 const uploadProfileImage = multer({ storage: storageProfilePic, fileFilter: imageFilter });
 const uploadCoverPhoto = multer({ storage: storageCoverPhoto, fileFilter: imageFilter });
 const uploadResume = multer({ storage: storageResume, fileFilter: docFilter });
+const uploadDocument = multer({ storage: storageDocument, fileFilter: docFilter });
 const uploadCoverLetter = multer({ storage: storageCoverLetter, fileFilter: docFilter });
 
 // Video upload route
@@ -583,6 +597,271 @@ router.post('/experience/get', async (req, res) => {
         });
     }
 });
+router.post('/volunteer-experience/add', async (req, res) => {
+    try {
+        const { id, title, companyName, cause, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year } = req.body
+
+        let startingDate = new Date()
+        startingDate.setMonth(startingDate_month)
+        startingDate.setYear(startingDate_year)
+
+        let endingDate = new Date()
+        endingDate.setMonth(endingDate_month)
+        endingDate.setYear(endingDate_year)
+        if (endingDate < startingDate) {
+            return res.redirect('/sites/e4d4/edit/profile?error=Starting Date should be before Ending Date')
+        }
+        const user = await User.findById(id)
+        if (!user) {
+            // return res.json({ error: 'User Not Found' });
+            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+        let volunteerExperience = {
+            title, companyName, cause, currentlyWorking, startingDate, endingDate
+        }
+        let volunteerExperiences = user.volunteerExperiences ? user.volunteerExperiences : []
+        volunteerExperiences.push(volunteerExperience)
+        user.volunteerExperiences = volunteerExperiences
+        await user.save()
+        return res.redirect('/sites/e4d4/edit/profile?message=New Volunteer Experience Added Successfully')
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
+    }
+});
+router.post('/volunteer-experience/edit', async (req, res) => {
+    try {
+        const { userId, expId, title, companyName, cause, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year } = req.body
+
+        let startingDate = new Date()
+        startingDate.setMonth(startingDate_month)
+        startingDate.setYear(startingDate_year)
+
+        let endingDate = new Date()
+        endingDate.setMonth(endingDate_month)
+        endingDate.setYear(endingDate_year)
+        if (endingDate < startingDate) {
+            return res.redirect('/sites/e4d4/edit/profile?error=Starting Date should be before Ending Date')
+        }
+        const updatedExperienceData = {
+            title, companyName, cause, currentlyWorking, startingDate, endingDate
+        }
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId, "volunteerExperiences._id": expId }, // Find the user with the specific experience
+            {
+                $set: {
+                    "volunteerExperiences.$": updatedExperienceData // Update the specific experience in the array
+                }
+            },
+            { new: true } // Return the updated document
+        );
+        // const user = await User.findById(id)
+        if (!updatedUser) {
+            // return res.json({ error: 'User Not Found' });
+            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+        // let experience = {
+        //     title, employementType, companyName, location, locationType, currentlyWorking, startingDate, endingDate, description
+        // }
+        // let experiences = user.experiences ? user.experiences : []
+        // experiences.push(experience)
+        // user.experiences = experiences
+        // await user.save()
+        return res.redirect('/sites/e4d4/edit/profile?message=Volunteer Experience Updated Successfully')
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
+    }
+});
+router.post('/volunteer-experience/delete', async (req, res) => {
+    try {
+        const { userId, experienceId } = req.body
+
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId },
+            { $pull: { volunteerExperiences: { _id: experienceId } } },
+            { new: true } // Return the updated document
+        );
+        if (!updatedUser) {
+            return res.json({
+                success: false,
+                error: 'Something Went Wrong'
+            })
+        }
+        return res.json({
+            success: true,
+            message: 'Volunteer Experience Deleted!'
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+router.post('/volunteer-experience/get', async (req, res) => {
+    try {
+        const { userId, experienceId } = req.body
+
+        const updatedUser = await User.findById(userId);
+        let experience;
+        updatedUser?.volunteerExperiences.forEach((item) => {
+            if (item._id == experienceId) {
+                experience = item
+            }
+        })
+        if (!experience) {
+            return res.json({
+                success: false,
+                error: 'Something Went Wrong'
+            })
+        }
+        return res.json({
+            success: true,
+            experience
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+router.post('/license-certificate/add', uploadDocument.single("file"), async (req, res, next) => {
+    try {
+        const file = req.file;
+        const { id, title, organization, startingDate_month, startingDate_year } = req.body
+        const user = await User.findById(id)
+
+        if (!user) {
+            // return res.json({ error: 'User Not Found' });
+            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+        console.log('file',file)
+        let issueDate = new Date()
+        issueDate.setMonth(startingDate_month)
+        issueDate.setYear(startingDate_year)
+        let newProject = {
+            user: id,
+            title,
+            organization,
+            issueDate,
+            fileUrl: `/assets/uploads/document/` + file.filename
+        }
+        let licenseCertification = user.licenseCertification ? user.licenseCertification : []
+        licenseCertification.push(newProject)
+        user.licenseCertification = licenseCertification
+        await user.save()
+        return res.redirect('/sites/e4d4/edit/profile?message=License or Certificate Added Successfully')
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.post('/license-certificate/edit', uploadDocument.single("file"), async (req, res) => {
+    try {
+        const { userId, certId, title, organization, startingDate_month, startingDate_year } = req.body
+        
+        const file = req.file
+
+        let issueDate = new Date()
+        issueDate.setMonth(startingDate_month)
+        issueDate.setYear(startingDate_year)
+
+        
+        let newProject = {
+            user: userId,
+            title,
+            organization,
+            issueDate
+        }
+        if(file?.filename){
+            newProject.fileUrl = `/assets/uploads/document/` + file.filename
+        }
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId, "licenseCertification._id": certId },
+            {
+                $set: {
+                    "licenseCertification.$": newProject
+                }
+            },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+
+        return res.redirect('/sites/e4d4/edit/profile?message=License or Certificate Updated Successfully')
+
+    } catch (error) {
+        console.log(error.message);
+        return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
+    }
+});
+
+router.post('/license-certificate/delete', async (req, res) => {
+    try {
+        const { userId, certId } = req.body
+
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: userId },
+            { $pull: { licenseCertification: { _id: certId } } },
+            { new: true } // Return the updated document
+        );
+        if (!updatedUser) {
+            return res.json({
+                success: false,
+                error: 'Something Went Wrong'
+            })
+        }
+        return res.json({
+            success: true,
+            message: 'License or Certificate Deleted!'
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+router.post('/license-certificate/get', async (req, res) => {
+    try {
+        const { userId, certId } = req.body
+
+        const updatedUser = await User.findById(userId);
+        let cert;
+        updatedUser?.licenseCertification.forEach((item) => {
+            if (item._id == certId) {
+                cert = item
+            }
+        })
+        if (!cert) {
+            return res.json({
+                success: false,
+                error: 'Something Went Wrong'
+            })
+        }
+        return res.json({
+            success: true,
+            cert
+        })
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
 router.post('/remove-project-item', async (req, res) => {
     try {
         const { user, project } = req.body
@@ -602,6 +881,7 @@ router.post('/remove-project-item', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 router.post('/remove-resume-item', async (req, res) => {
     try {
         const { user } = req.body
@@ -619,6 +899,7 @@ router.post('/remove-resume-item', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 router.post('/remove-cover-letter-item', async (req, res) => {
     try {
         const { user } = req.body
@@ -705,6 +986,7 @@ router.post('/upload/resume', uploadResume.single("resume"), async (req, res, ne
         res.status(500).json({ message: error.message });
     }
 });
+
 router.post('/upload/cover-letter', uploadCoverLetter.single("coverLetter"), async (req, res, next) => {
     try {
         const coverLetter = req.file;

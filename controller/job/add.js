@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
             return res.status(422).redirect('/sites/e4d4/jobposting?error=You Should LoggedIn as a Company to post A Job Application')
         }
         if (errors.length == 0) {
-            const job = await Job.create({ company, title, summary, responsiblities: responsiblities.split('\n'), education, skills: skills.split('\n'), experience, certification, position, industry, location, jobType, benefits: benefits.split('\n'), salary, workScheduled, applicationPosted, applicationDeadline, applicationInstruction, requiredDocuments: requiredDocuments.split('\n'), contactPerson, contactNumber, additionalInfo, agreeTerms })
+            const job = await Job.create({ company, title, summary, responsiblities: responsiblities.split('\n'), education, skills: skills.split('\n'), experience, certification, position, industry, location, jobType, benefits: benefits.split('\n'), salary, workScheduled, applicationPosted, applicationDeadline, applicationInstruction, requiredDocuments: requiredDocuments.split('\n'), contactPerson, contactNumber, additionalInfo })
             if (job) {
                 const bJobs = business.jobs ? business.jobs : []
                 bJobs.push(job._id)

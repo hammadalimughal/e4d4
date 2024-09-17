@@ -577,39 +577,58 @@ app.get('/sites/e4d4/chat', async (req, res) => {
         const recipentUser = req.query.user
         const recipentBusiness = req.query.business
 
-        let availableList
+        let availableList = []
         let recipent
         if (!user && !business) {
             return res.redirect(`/sites/e4d4/join?error=Login to Chat`)
         }
         if (user) {
             const connections = await Connection.find({ user: user._id }).populate('business')
-            availableList = connections.map((item) => item.business)
+            for (let item of connections) {
+                const unreadMessages = await Chat.find({ recipent: item._id, isRead: false })
+                const lastMessage = await Chat.findOne({
+                    $or: [
+                        { sender: user._id, recipient: item.business._id },
+                        { sender: item.business._id, recipient: user._id }
+                    ]
+                }).sort({ createdAt: -1 });
+                availableList.push({ ...item.business.toObject(), unreadMessages, lastMessage })
+            }
             recipent = await Business.findById(recipentBusiness)
         } else if (business) {
             const connections = await Connection.find({ business: business._id }).populate('user')
-            availableList = connections.map((item) => item.user)
+            for (let item of connections) {
+                const unreadMessages = await Chat.find({ recipent: item._id, isRead: false })
+                const lastMessage = await Chat.findOne({
+                    $or: [
+                        { sender: business._id, recipient: item.user._id },
+                        { sender: item.user._id, recipient: business._id }
+                    ]
+                }).sort({ createdAt: -1 });
+                availableList.push({ ...item.user.toObject(), unreadMessages, lastMessage })
+            }
             recipent = await User.findById(recipentUser)
         }
-        // console.log('availableList', availableList)
-        // console.log('recipent', recipent)
         const conversation = await Chat.find({
             $or: [
                 {
-                    sender: recipentUser ? recipentUser : user._id,
+                    sender: recipentUser ? recipentUser : user?._id,
                     senderModel: 'user',
                     recipient: business?._id ? business?._id : recipentBusiness,
                     recipientModel: 'business'
                 },
                 {
-                    sender: recipentBusiness ? recipentBusiness : business._id,
+                    sender: recipentBusiness ? recipentBusiness : business?._id,
                     senderModel: 'business',
                     recipient: user?._id ? user?._id : recipentUser,
                     recipientModel: 'user'
                 }
             ]
         }).populate('recipient').populate('sender').sort('timestamp'); // Sort by timestamp to get the conversation in order
-
+        for (let message of conversation) {
+            message.isRead = true;
+            await message.save();
+        }
         res.render(`chat`, { message, error, user, business, conversation, recipent, availableList })
 
     } catch (error) {
