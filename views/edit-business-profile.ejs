@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= business.fullName %></title>
+  <%- include('./partials/csslinks') %>
+</head>
+
+<body>
+  <%- include('./partials/header') %>
+
+  <section class="dashboard-main-section">
+    <div class="container">
+      <div class="dashboard-main-setting profile-info mx-auto">
+        <div class="profile-history">
+          <div class="profile-person-history">
+            <img src="/sites/e4d4<%= business.profilePic ? business.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
+            <div class="px-3">
+              <h6><%= business.fullName ? business.fullName : 'Company Name Here' %></h6>
+              <span><%= business.subHeading ? business.subHeading : 'Enter Sub Heading' %></span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center flex-wrap justify-content-center">
+            <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
+            <div class="dropdown-wrapper">
+              <% const unreadNotificationCount = business.notifications.filter(notification => !notification.isRead).length; %>
+              <button type="button" class="dropdown-toggler logout-btn ms-2">
+                <i class="bi bi-bell"></i>
+                <% if(unreadNotificationCount > 0) { %>
+                <span class="count"><%= unreadNotificationCount %></span>
+                <% } %>
+              </button>
+              <div class="dropdown">
+                <% if(business.notifications?.length > 0) { %>
+                <ul>
+                  <% business.notifications.forEach((notification)=>{ %>
+                  <li>
+                    <a href="<%= notification.url %>">
+                      <span class="icon"><i class="bi bi-check-circle"></i></span>
+                      <span class="text"><%= notification.message %></span>
+                    </a>
+                  </li>
+                  <% }) %>
+                </ul>
+                <% } else { %>
+                <p>No Notifications Found!</p>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-between my-4">
+          <div class="col-lg-4 col-12">
+            <div class="history-btn-design">
+              <a href="/sites/e4d4/business-dashboard" class="dash-btn">
+                Dashboard</a>
+              <!-- <button type="button" class="dash-btn">
+                Show History</button> -->
+            </div>
+          </div>
+        </div>
+        <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
+        <div class="profile-banner">
+          <div class="banner-cover">
+            <label for="cover-photo-input" class="edit-btn">
+              <input class="d-none" type="file" id="cover-photo-input" accept="image/*">
+              <i class="bi bi-pencil-square"></i> Edit Cover Photo
+            </label>
+            <img class="img-fluid" src="/sites/e4d4<%= business.coverPhoto ? business.coverPhoto : '/assets/img/cover.png' %>" alt="">
+          </div>
+          <div class="banner-info">
+            <div class="profile-person-history large-img">
+              <form id="profile-pic-form" action="/sites/e4d4/api/business/modify/profile-pic" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<%= business._id %>">
+                <div class="img-wrap">
+                  <input name="profilePic" type="file" id="profile-pic-input" accept="image/*">
+                  <label class="edit-btn" for="profile-pic-input">
+                    <i class="bi bi-pencil-square"></i> Edit Profile Photo
+                  </label>
+                  <img src="/sites/e4d4<%= business.profilePic ? business.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
+                </div>
+              </form>
+              <div class="px-3 pb-2">
+                <h5><%= business.fullName ? business.fullName : 'Company Name Here' %><span> (<%= business.industry ? business.industry : 'Industry Here' %>)</span></h5>
+                <span><%= business['subHeading'] ? business['subHeading'] : 'Enter Sub Heading' %></span>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#edit-name-headling" class="edit-btn">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+              </div>
+            </div>
+            <span class="profile-badge">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#edit-experience" class="edit-btn">
+                <i class="bi bi-pencil-square"></i> Edit
+              </button>
+              <%= business.businessYears ? business.businessYears : '0'  %>+ Years in Business
+            </span>
+          </div>
+        </div>
+        <ul class="other-info">
+          <!-- <li>@edwardjj53</li> -->
+          <li>Industry</li>
+          <li>Company size</li>
+          <li>Founded</li>
+        </ul>
+        <div class="additional-info">
+          <div class="row g-0">
+            <div class="col-lg-8 col-12 panel">
+              <div class="info-item-l h-100">
+                <h6 class="fw-bold">About
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#edit-profile-about" class="edit-btn">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                </h6>
+                <% if(business.about){ %>
+                <p><%= business.about %></p>
+                <% } else { %>
+                <p class="text-muted">No About...</p>
+                <% } %>
+                <% if(business.profileVideo){ %>
+                <div class="profile-video">
+                  <!-- <a href="">
+                                  <i class="bi bi-play-fill"></i>
+                                </a> -->
+                  <ul>
+                    <li>
+                      <form action="/sites/e4d4/api/business/modify/profile-video" method="post" enctype="multipart/form-data">
+                        <label for="profileVideo" class="edit-btn">
+                          <input type="hidden" name="id" value="<%= business._id %>">
+                          <input style="display: none;" type="file" id="profileVideo" accept="video/*">
+                          <i class="bi bi-pencil-square"></i> Edit Profile Video
+                        </label>
+                      </form>
+                    </li>
+                    <li>
+                      <form class="dangerous-form" data-warning="Your Profile Video will be deleted permanently! Do you want to proceed?" action="/sites/e4d4/api/business/modify/remove-profile-video" method="post">
+                        <input type="hidden" name="id" value="<%= business._id %>">
+                        <button class="remove-btn remove-profile-video">
+                          <i class="bi bi-trash"></i> Remove
+                        </button>
+                      </form>
+                    </li>
+                  </ul>
+                  <video controls>
+                    <source src="/sites/e4d4<%= business.profileVideo %>">
+                  </video>
+                </div>
+                <% } else { %>
+                <form action="/sites/e4d4/api/business/modify/profile-video" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="id" value="<%= business._id %>">
+                  <label class="empty-box" for="profileVideo">
+                    <input type="file" name="profileVideo" id="profileVideo" accept="video/*">
+                    <img src="/sites/e4d4/assets/img/video-upload.png" alt="">
+                    <h5>Upload Video to show Here</h5>
+                  </label>
+                </form>
+
+                <% } %>
+              </div>
+            </div>
+            <div class="col-lg-4 col-12 panel">
+              <div class="info-item-r h-100">
+                <h6 class="fw-bold">Contact Info
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#edit-contact-info" class="edit-btn">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                </h6>
+                <ul class="contact-links">
+                  <% if(business.primaryEmail?.email){ %>
+                  <li>
+                    <span>Email Address</span>
+                    <a href="mailto:<%= business.primaryEmail?.email %>"><%= business.primaryEmail?.email %></a>
+                  </li>
+                  <% } %>
+                  <% if(business.phone){ %>
+                  <li>
+                    <span>Phone #</span>
+                    <a href="tel:<%= business.phone %>"><%= business.phone %></a>
+                  </li>
+                  <% } %>
+                  <% if(business.portfolio){ %>
+                  <li>
+                    <span>Portfolio</span>
+                    <a href="<%= business.portfolio %>" target="_blank"><%= business.portfolio %></a>
+                  </li>
+                  <% } %>
+                </ul>
+                <div class="position-details">
+                  <!-- <span>UI/UX</span>
+                  <span>Branding</span>
+                  <span>Logo</span> -->
+                  <!-- <span>skills</span> -->
+                </div>
+                <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
+                <div class="follow-more">
+                  <% if(business.socialLinks?.length > 0) { %>
+                  <h6>Follow To Know More About Me! <button type="button" data-bs-toggle="modal" data-bs-target="#edit-social-info" class="edit-btn">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </h6>
+                  <ul>
+                    <% business.socialLinks?.forEach((item) => { %>
+                    <li>
+                      <form class="social-form">
+                        <input type="hidden" name="<%= item.platform %>" value="">
+                        <button title="delete <%= item.platform %>"><i class="bi bi-x"></i></button>
+                      </form>
+
+                      <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
+                        <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
+                      </a>
+                    </li>
+                    <% }) %>
+                  </ul>
+                  <% } else { %>
+                  <h6>Add Social Media Links!
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#edit-social-info" class="edit-btn">
+                      <i class="bi bi-plus-lg"></i>
+                    </button>
+                  </h6>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="portfolio-showcase">
+          <ul class="user-academic">
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold<%= business.workWithUs ? ' mb-2' : '' %>">Why work with us?
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#edit-work-with-us" class="edit-btn">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                </h6>
+              </div>
+              <p><%= business.workWithUs %></p>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Photos</h6>
+              </div>
+              <label class="photos-upload-container" for="upload-photos">
+                <input type="file" id="upload-photos">
+                <i class="bi bi-upload"></i>
+              </label>
+            </li>
+          </ul>
+          <% if(business.projects?.length > 0) { %>
+          <h6 class="fw-bold">Projects Showcase</h6>
+          <div class="row g-4 project-listing">
+            <% business.projects.forEach((item) => { %>
+            <div class="col-lg-4 col-12">
+              <div class="project-item">
+                <h6><%= item.title %></h6>
+                <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
+                  <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
+                </a>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+          <% } %>
+          <% if (business.resume || business.coverLetter) { %>
+          <h6 class="fw-bold">Personal Documents</h6>
+          <div class="row g-4 project-listing">
+            <% if(business.resume) { %>
+            <div class="col-lg-4 col-12">
+              <div class="doc-wrapper">
+                <a class="empty-box filled" href="/sites/e4d4<%= business.resume %>">
+                  <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
+                  <h5>Click to View Resume</h5>
+                </a>
+              </div>
+            </div>
+            <% } %>
+            <% if(business.coverLetter) { %>
+            <div class="col-lg-4 col-12">
+              <div class="doc-wrapper">
+                <a class="empty-box filled" href="/sites/e4d4<%= business.coverLetter %>">
+                  <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
+                  <h5>Click to View Cover Letter</h5>
+                </a>
+              </div>
+            </div>
+            <% } %>
+            <% } %>
+            <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="modal fade edit-popup" id="edit-experience" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-experienceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-experienceLabel">Edit Business Years</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/business/modify/info" method="POST">
+          <input type="hidden" name="id" value="<%= business.id %>">
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Enter Business Years*</label>
+                  <input type="number" name="businessYears" class="form-control" min="0" max="30" placeholder="Enter Your Years in Business..." value="<%= business.businessYears %>" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="dash-btn">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade edit-popup" id="edit-name-headling" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-name-headlingLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-name-headlingLabel">Edit Business Info</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/business/modify/info" method="POST">
+          <input type="hidden" name="id" value="<%= business.id %>">
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Enter Full Business Name*</label>
+                  <input type="text" name="fullName" class="form-control" placeholder="Your Full Business Name..." value="<%= business.fullName %>" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Enter Sub Heading*</label>
+                  <input type="text" name="subHeading" class="form-control" placeholder="Business Sub Heading..." value="<%= business.subHeading %>" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Enter Industry*</label>
+                  <input type="text" name="industry" class="form-control" placeholder="Enter Business Industry..." value="<%= business.industry %>" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="dash-btn">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade edit-popup" id="edit-profile-about" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-profile-aboutLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-profile-aboutLabel">Edit Business About</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/business/modify/info" method="post">
+          <input type="hidden" name="id" value="<%= business.id %>">
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label for="full-name-edit" class="form-label">About*</label>
+                  <textarea class="form-control" name="about" required minlength="30"><%= business.about %></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="dash-btn">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade edit-popup" id="edit-work-with-us" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-work-with-usLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-work-with-usLabel">Edit Business Info</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/business/modify/info" method="post">
+          <input type="hidden" name="id" value="<%= business.id %>">
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label for="full-name-edit" class="form-label">Why work with us*</label>
+                  <textarea class="form-control" name="workWithUs" required minlength="30"><%= business.workWithUs %></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="dash-btn">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <%- include('./partials/query') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scriptlinks') %>
+  <script>
+    $("#profile-pic-form [type='file'],#profileVideo").change(async function() {
+      if ($(this)[0].files[0]) {
+        $(this).parents('form').submit()
+      }
+    })
+  </script>
+  <script>
+    $(".show-all-btn").click(function() {
+      $(this).parent().find('.listing .hidden').removeClass('hidden')
+      $(this).remove()
+    })
+    $(".dangerous-form").submit(function(e) {
+      const warning = $(this).data('warning')
+      if (!confirm(warning)) {
+        e.preventDefault()
+      }
+    })
+  </script>
+
+</body>
+
+</html>

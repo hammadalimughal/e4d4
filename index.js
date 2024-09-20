@@ -29,8 +29,9 @@ const PORT = process.env.PORT || 8080;
 
 connectionWithDb()
 app.use(cookieParser())
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ limit: '100mb', extended: true })); // for form data
 app.use(session({
     secret: 'E4D4-Secret',
     resave: false,
@@ -333,10 +334,13 @@ app.get('/sites/e4d4/edit/profile', async (req, res) => {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
-        if (!user) {
-            return res.redirect(`/sites/e4d4/join`)
+        if (user) {
+            return res.render(`edit-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
         }
-        res.render(`edit-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
+        if (business) {
+            return res.render(`edit-business-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
+        }
+        return res.redirect(`/sites/e4d4/join`)
     } catch (error) {
         console.log(error)
         return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)

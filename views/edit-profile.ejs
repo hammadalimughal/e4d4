@@ -27,14 +27,15 @@
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
             <a href="/sites/e4d4/profile" class="dash-btn"> <i class="bi bi-check2-all text-white px-1"></i> Done</a>
+            <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
             <button type="button" class="logout-btn ms-2"><i class="bi bi-bell"></i></button>
           </div>
         </div>
         <div class="row justify-content-between my-4">
           <div class="col-lg-4 col-12">
             <div class="history-btn-design">
-              <button type="button" class="dash-btn">
-                Home</button>
+            <a href="/sites/e4d4/edit/profile">  <button type="button" class="dash-btn">
+                Home</button></a>
               <!-- <button type="button" class="dash-btn">
                 Show History</button> -->
             </div>
@@ -260,7 +261,7 @@
                     </h5>
                     <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
                     <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
-                    <h6 class="info"><%= experience.location %></h6>
+                    <h6 class="info"><%= experience.location %> - <%= experience.employementType %></h6>
                     <div class="desc">
                       <%- experience.description.replaceAll('&nbsp;','') %>
                     </div>
@@ -855,7 +856,13 @@
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Employment type*</label>
-                  <input type="text" name="employementType" class="form-control" value="" required>
+                  <!-- <input type="text" name="employementType" class="form-control" value="" required> -->
+                  <select id="cars" type="text" name="employementType"  required>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Contract" >Contract</option>
+                  </select>
                 </div>
               </div>
               <div class="col-12">
@@ -953,17 +960,17 @@
                 </div>
               </div>
               <div class="col-12">
-                <div class="checkbox-field">
+                <!-- <div class="checkbox-field">
                   <input type="checkbox" name="endCurrentPosition" id="end-position-exp">
                   <label for="end-position-exp">End current position as of now - Manager at ba</label>
-                </div>
+                </div> -->
               </div>
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Description</label>
-                  <!-- <textarea name="description" class="form-control"></textarea> -->
-                  <textarea class="d-none" name="description" id="experience-desc"></textarea>
-                  <textarea class="text-editor"></textarea>
+                  <textarea name="description" class="form-control"></textarea>
+                  <!-- <textarea class="d-none" name="description" id="experience-desc"></textarea>
+                  <textarea class="text-editor"></textarea> -->
                 </div>
               </div>
               <div class="col-12">
@@ -988,7 +995,7 @@
             <div class="row g-3">
               <div class="col-12">
                 <div class="portfolio-form-design">
-                  <label class="form-label">Institue / School *</label>
+                  <label class="form-label">Institue*</label>
                   <input type="text" name="institute" class="form-control" value="" required>
                 </div>
               </div>
@@ -1189,7 +1196,12 @@
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Employment type*</label>
-                  <input type="text" name="employementType" class="form-control" value="" required>
+                  <select id="cars" type="text" name="employementType"  required>
+                    <option value="Full Time">Full Time</option>
+                    <option value="Part Time">Part Time</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Contract" >Contract</option>
+                  </select>
                 </div>
               </div>
               <div class="col-12">
@@ -1289,9 +1301,9 @@
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Description</label>
-                  <!-- <textarea name="description" class="form-control"></textarea> -->
-                  <textarea class="d-none" name="description" id="experience-desc"></textarea>
-                  <textarea class="text-editor"></textarea>
+                  <textarea name="description" class="form-control"></textarea>
+                  <!-- <textarea class="d-none" name="description" id="experience-desc"></textarea>
+                  <textarea class="text-editor"></textarea> -->
                 </div>
               </div>
               <div class="col-12">
@@ -1465,7 +1477,7 @@
               </div>
               <div class="col-12">
                 <div class="portfolio-form-design">
-                  <label class="form-label">Company Name*</label>
+                  <label class="form-label">Organisation*</label>
                   <input type="text" name="companyName" class="form-control" value="" required>
                 </div>
               </div>
@@ -1770,8 +1782,8 @@
     $("#profileVideo").change(async function(e) {
       const videoFormData = new FormData();
       const videoFile = e.target.files[0];
-      if (videoFile.size > (10 * 1024 * 1024)) {
-        createToast(`File Size should not Exceed 10mb.`, 'error')
+      if (videoFile.size > (100 * 1024 * 1024)) {
+        createToast(`File Size should not Exceed 100mb.`, 'error')
         return
       }
       videoFormData.append('profileVideo', videoFile);

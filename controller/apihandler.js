@@ -8,6 +8,7 @@ router.use('/location',require('./location/places'))
 router.use('/user/modify',require('./user/modify'))
 
 router.use('/business/job/add',require('./job/add'))
+router.use('/business/modify',require('./business/modify'))
 
 router.use('/auth/business/register',require('./business-auth/register'))
 router.use('/auth/business/login',require('./business-auth/login'))

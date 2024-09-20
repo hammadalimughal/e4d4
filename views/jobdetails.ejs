@@ -9,6 +9,136 @@
 </head>
 
 <body>
+  <STYle>
+    /* Overall styling for the section */
+.portfolio-section {
+    background-color: #f9f9f9;
+    padding: 40px 0;
+}
+
+.job-details-setting {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 100px;
+    width: 100%;
+}
+
+/* Job Banner Styling */
+.job-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.job-details {
+    display: flex;
+    align-items: center;
+}
+
+.job-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.job-banner h4,
+.job-banner h6 {
+    margin: 0;
+}
+
+.job-banner-icon {
+    display: flex;
+    align-items: center;
+}
+
+.job-banner-icon div {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.job-banner-icon i {
+    margin-right: 5px;
+}
+
+/* Job Description Styling */
+.jobs-description h6 {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.jobs-description ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.jobs-description ul li {
+    margin-bottom: 10px;
+}
+
+/* Job Overview - Table Styling */
+.job-overview {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.job-overview h6 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.job-overview-icon {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.icons-overview {
+    flex-grow: 1;
+}
+
+.icons-overview i {
+    margin-right: 10px;
+    color: #f76103;
+}
+
+/* Button Styling */
+.submit-btn-portfolio {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .job-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .job-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .job-overview {
+        margin-top: 10px;
+    }
+}
+
+  </STYle>
   <%- include('./partials/header') %>
   
     <!-- JOB POSTING WORKS STARTS HERE -->

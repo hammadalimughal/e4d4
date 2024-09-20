@@ -2552,7 +2552,8 @@ ul#myTab li {
     display: flex;
     align-items: flex-start;
 }
-.profile-info .portfolio-showcase>ul>li .listing>li .file-icon img{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .file-icon img {
     width: 40px;
     margin-right: 8px;
 }
@@ -2600,12 +2601,14 @@ ul#myTab li {
     font-weight: 600;
     line-height: 20px;
 }
-.profile-info .portfolio-showcase>ul>li .listing>li .title a{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .title a {
     text-decoration: none;
     color: #fa5f02;
     font-size: 14px;
 }
-.profile-info .portfolio-showcase>ul>li .listing>li .title a:hover{
+
+.profile-info .portfolio-showcase>ul>li .listing>li .title a:hover {
     text-decoration: underline;
 }
 
@@ -2765,6 +2768,42 @@ input:checked+label .select-documents .fa-file {
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;
+}
+.chat-head {
+    position: relative;
+}
+.mian-calling{
+    position: absolute;
+    right: 0;
+}
+.mian-calling svg{
+    margin: 0 0 0 15px;
+    border: 1px solid #000;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 25px;
+}
+.dashboard-business-tabs ul li {
+    margin: 0 15px 0 0;
+}
+.dashboard-business-tabs .nav .nav-item .active.nav-link{
+    background-color: #f85d0f!important;
+    color: #fff;
+}
+#cars{
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    font-family: "Gilroy-Semi-Bold";
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .otp-input input {
@@ -3698,20 +3737,24 @@ input:checked+label .select-documents .fa-file {
     overflow: auto;
     padding-right: 5px;
 }
+
 .empty-chat,
-.conversation{
+.conversation {
     height: 70vh;
     overflow: auto;
 }
+
 .empty-chat {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.empty-chat img{
+
+.empty-chat img {
     width: 50%;
 }
+
 .chat-list li {
     width: 100%;
 }
@@ -3852,6 +3895,17 @@ input:checked+label .select-documents .fa-file {
     border-radius: 10px;
 }
 
+.chat-btn {
+    color: #000;
+    background-color: #f0f0f0;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 6px;
+    display: block;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
 @media (max-width: 1024px) {
 
     .own-navbar-nav2 {
@@ -3877,9 +3931,10 @@ input:checked+label .select-documents .fa-file {
 }
 
 @media (max-width: 787px) {
-    .dashboard-main-setting{
+    .dashboard-main-setting {
         width: 100%;
     }
+
     .own-navbar-nav2 li {
         margin-top: 12px;
 

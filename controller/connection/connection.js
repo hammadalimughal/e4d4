@@ -40,7 +40,11 @@ router.post('/request/business', async (req, res) => {
         if (checkConnection) {
             return res.redirect('/sites/e4d4/dashboard?error=Connection Already Exists');
         }
-
+        const connectionCount = await Connection.countDocuments({user})
+        console.log('connectionCount',connectionCount)
+        if(connectionCount > 10){
+            return res.redirect('/sites/e4d4/dashboard?error=You can Connect with 10 Businesses Only!');
+        }
         const connection = await Connection.create({ business: company, user, coverPhoto, profile, fullName, jobTitle, subHeading, experience, location, memberSince, about, profileVideo, primaryEmail, phone, portfolio, experiences, educations, volunteerExperiences, licenseCertification, projects })
         let connectionArray = userObj.connection ? userObj.connection : []
         connectionArray.push(connection._id)

@@ -44,6 +44,9 @@ const business = new Schema({
     profilePic: {
         type: String,
     },
+    profileVideo: {
+        type: String,
+    },
     address: {
         type: String,
         required: true
@@ -70,32 +73,36 @@ const business = new Schema({
         type: String,
         required: true,
     },
+    businessYears: {
+        type: Number
+    },
     industry: {
         type: String,
         required: true,
     },
     operatingIndustry: {
-        type: String,
-        // required: true,
+        type: String
     },
     sizeOfCompany: {
-        type: sizeOfCompany,
-        // required: true,
+        type: sizeOfCompany
     },
     foundedDate: {
-        type: Date,
-        // required: true,
+        type: Date
+    },
+    about: {
+        type: String
+    },
+    workWithUs: {
+        type: String
     },
     headQuarterLocation: {
-        type: String,
-        // required: true,
+        type: String
     },
     website: {
         type: String
     },
     companyEmail: {
-        type: emailSchema,
-        // required: true,
+        type: emailSchema
     },
     connection: [{
         type: mongoose.Schema.Types.ObjectId,

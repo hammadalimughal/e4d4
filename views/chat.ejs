@@ -58,16 +58,26 @@
             <div class="col-lg-8 col-12 panel">
               <div class="info-item-r h-100">
                 <% if(recipent) { %>
-                <div class="chat-head">
-                  <a class="profile-person-history" href="javascript:;">
-                    <img src="/sites/e4d4<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
-                    <div class="px-3">
-                      <h6><%= recipent ? recipent?.fullName : '' %></h6>
-                      <span><%= recipent?.industry %></span>
-                    </div>
-                  </a>
-                  <hr>
-                </div>
+             <div class="main-profile">
+              <div class="chat-head">
+               
+                <a class="profile-person-history" href="javascript:;">
+                  <img src="/sites/e4d4<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+                  <div class="px-3">
+                    <h6><%= recipent ? recipent?.fullName : '' %></h6>
+                    <span><%= recipent?.industry %></span>
+                  </div>
+                  <div class="mian-calling">
+                    <i class="fa-solid fa-phone"></i>
+                    <i class="fa-solid fa-video"></i>
+                   </div>
+                </a>
+         
+                <hr>
+
+              </div>
+         
+             </div>
                 <div class="chat-box">
                   <!-- Conversation: <%- JSON.stringify(conversation) %> -->
                   <% if(conversation.length>0) { %>
@@ -125,6 +135,7 @@
         </div>
       </li>
       `)
+      $('.chat-box .conversation').scrollTop($('.chat-box .conversation')[0].scrollHeight)
     });
 
     // Send a message
@@ -148,6 +159,7 @@
         </div>
       </li>
       `)
+      $('.chat-box .conversation').scrollTop($('.chat-box .conversation')[0].scrollHeight)
     };
     $("#chat-form").submit(sendMessage)
   </script>
