@@ -1886,7 +1886,24 @@ ul#myTab li {
     border: 1px solid black;
     box-shadow: none;
 }
-
+.portfolio-form-design .api-locations{
+    position: absolute;
+    left: 0;
+    right: 0;
+    /* top: 100%; */
+    z-index: 99;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    list-style: none;
+    padding: 0 15px;
+}
+.portfolio-form-design .api-locations button{
+border:none;
+    outline: none;
+    background-color: transparent;
+    padding: 5px 15px
+    }
 
 
 .portfolio-form-design .form-control:focus,
@@ -3904,6 +3921,15 @@ input:checked+label .select-documents .fa-file {
     display: block;
     margin-right: 10px;
     margin-left: 10px;
+}
+.business-image{
+    padding: 10px;
+}
+.business-image img{
+    height: 250px;
+    object-fit: contain;
+    background-color: #f0f0f0;
+    border-radius: 10px;
 }
 
 @media (max-width: 1024px) {

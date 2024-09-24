@@ -33,6 +33,7 @@
                 <span class="count"><%= unreadNotificationCount %></span>
                 <% } %>
               </button>
+        
               <div class="dropdown">
                 <% if(business.notifications?.length > 0) { %>
                 <ul>
@@ -48,6 +49,7 @@
                 <% } else { %>
                 <p>No Notifications Found!</p>
                 <% } %>
+             
               </div>
             </div>
           </div>
@@ -62,7 +64,7 @@
             </div>
           </div>
         </div>
-        <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
+        <h5 class="fw-bold text-center fw-head">Business / Portfolio</h5>
         <div class="profile-banner">
           <div class="banner-cover">
             <img class="img-fluid" src="/sites/e4d4<%= business.coverPhoto ? business.coverPhoto : '/assets/img/cover.png' %>" alt="">
@@ -75,14 +77,28 @@
                 <span><%= business['subHeading'] ? business['subHeading'] : 'Enter Sub Heading' %></span>
               </div>
             </div>
-            <span class="profile-badge"><%= business.experience ? business.experience : '0'  %>+ Years in Business</span>
+            <span class="profile-badge"><%= business.businessYears ? business.businessYears : '0'  %>+ Years in Business</span>
           </div>
         </div>
         <ul class="other-info">
           <!-- <li>@edwardjj53</li> -->
-          <li>Industry</li>
-          <li>Company size</li>
-          <li>Founded</li>
+          <% if (business.industry) { %>
+            <li>Industry: <%= business.industry %></li>
+          <% } %>
+          
+          <% if (business.companySize) { %>
+            <li>Company Size: <%= business.companySize %></li>
+          <% } %>
+          
+          <% if (business.foundedDate) { %>
+            <li>Founded on: <%= new Date(business.foundedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></li>
+          <% } %>
+          
+          <!-- If no information is provided, show a default message -->
+          <% if (!business.industry && !business.companySize && !business.foundedDate) { %>
+            <li>No company information provided</li>
+          <% } %>
+          
         </ul>
         <div class="additional-info">
           <div class="row g-0">
@@ -94,14 +110,14 @@
                 <% } else { %>
                 <p class="text-muted">No About...</p>
                 <% } %>
-                <% if(business.profileVideo?.url){ %>
+                <% if(business.profileVideo){ %>
                 <div class="profile-video">
                   <!-- <a href="javascript:;">
                     <i class="bi bi-play-fill"></i>
                   </a> -->
                   <!-- <img src="/sites/e4d4/assets/img/video-poster.png"> -->
                   <video controls>
-                    <source src="/sites/e4d4<%= business.profileVideo?.url %>">
+                    <source src="/sites/e4d4<%= business.profileVideo %>">
                   </video>
                 </div>
                 <% } %>
@@ -161,17 +177,34 @@
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Why work with us?</h6>
+                
               </div>
+              <P ><%= business.workWithUs %></P>
             </li>
-            <li>
-              <div class="item-head">
-                <h6 class="fw-bold">Photos</h6>
-              </div>
-              <label class="photos-upload-container" for="upload-photos">
-                <input type="file" id="upload-photos">
-                <i class="bi bi-upload"></i>
-              </label>
-            </li>
+          
+
+<li class="photos-wrap">
+  <div class="item-head">
+    <h6 class="fw-bold">Photos</h6>
+  </div>
+  
+  <!-- Check if there are any images in the businessImages array -->
+  <% if(business.businessImages?.length > 0) { %>
+    <div class="row g-4">
+      <% business.businessImages.forEach((item) => { %>
+      <div class="col-lg-4 col-12">
+        <!-- Display each uploaded image -->
+        <a href="/sites/e4d4<%= item %>" class="business-image d-block">
+          <img class="w-100" src="/sites/e4d4<%= item %>" alt="Business Image">
+        </a>
+      </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <!-- If no images are uploaded, show a message or an empty state -->
+    <p>No photos uploaded yet.</p>
+  <% } %>
+</li>
           </ul>
           <% if(business.projects?.length > 0) { %>
           <h6 class="fw-bold">Projects Showcase</h6>

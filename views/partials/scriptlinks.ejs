@@ -168,3 +168,42 @@
         }, 30000);
     }, 30000);
 </script> -->
+
+<script>
+  const checkbox = document.getElementById('working-now-exp');
+  const endDateMonth = document.getElementById('endingDate_month');
+  const endDateYear = document.getElementById('endingDate_year');
+
+  checkbox.addEventListener('change', function () {
+    if (this.checked) {
+      // Disable end date fields
+      endDateMonth.disabled = true;
+      endDateYear.disabled = true;
+    } else {
+      // Enable end date fields
+      endDateMonth.disabled = false;
+      endDateYear.disabled = false;
+    }
+  });
+</script>
+
+
+<script>
+
+
+const volunteerCheckbox = document.getElementById('working-now-volunteer-exp');
+  const volunteerEndDateMonth = document.getElementById('endingDate_month_volunteer');
+  const volunteerEndDateYear = document.getElementById('endingDate_year_volunteer');
+
+  volunteerCheckbox.addEventListener('change', function () {
+    if (this.checked) {
+      // Disable end date fields
+      volunteerEndDateMonth.disabled = true;
+      volunteerEndDateYear.disabled = true;
+    } else {
+      // Enable end date fields
+      volunteerEndDateMonth.disabled = false;
+      volunteerEndDateYear.disabled = false;
+    }
+  });
+</script>

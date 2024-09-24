@@ -338,7 +338,8 @@ app.get('/sites/e4d4/edit/profile', async (req, res) => {
             return res.render(`edit-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
         }
         if (business) {
-            return res.render(`edit-business-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
+            const jobs = await Job.find({ company: business._id })
+            return res.render(`edit-business-profile`, { message, error, user, business, jobs, extractDomain, calculateYearsDifference, formatDate })
         }
         return res.redirect(`/sites/e4d4/join`)
     } catch (error) {

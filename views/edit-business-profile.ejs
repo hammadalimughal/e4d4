@@ -15,6 +15,7 @@
     <div class="container">
       <div class="dashboard-main-setting profile-info mx-auto">
         <div class="profile-history">
+          
           <div class="profile-person-history">
             <img src="/sites/e4d4<%= business.profilePic ? business.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
             <div class="px-3">
@@ -23,6 +24,7 @@
             </div>
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
+            <a href="/sites/e4d4/profile" class="dash-btn"> <i class="bi bi-check2-all text-white px-1"></i> Done</a>
             <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
             <div class="dropdown-wrapper">
               <% const unreadNotificationCount = business.notifications.filter(notification => !notification.isRead).length; %>
@@ -61,15 +63,18 @@
             </div>
           </div>
         </div>
-        <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
+        <h5 class="fw-bold text-center fw-head">Portfolio</h5>
         <div class="profile-banner">
-          <div class="banner-cover">
-            <label for="cover-photo-input" class="edit-btn">
-              <input class="d-none" type="file" id="cover-photo-input" accept="image/*">
-              <i class="bi bi-pencil-square"></i> Edit Cover Photo
-            </label>
-            <img class="img-fluid" src="/sites/e4d4<%= business.coverPhoto ? business.coverPhoto : '/assets/img/cover.png' %>" alt="">
-          </div>
+          <form action="/sites/e4d4/api/business/modify/cover-photo" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<%= business._id %>">
+            <div class="banner-cover">
+              <label for="cover-photo-input" class="edit-btn">
+                <input class="d-none upload-input" name="coverPhoto" type="file" id="cover-photo-input" accept="image/*">
+                <i class="bi bi-pencil-square"></i> Edit Cover Photo
+              </label>
+              <img class="img-fluid" src="/sites/e4d4<%= business.coverPhoto ? business.coverPhoto : '/assets/img/cover.png' %>" alt="">
+            </div>
+          </form>
           <div class="banner-info">
             <div class="profile-person-history large-img">
               <form id="profile-pic-form" action="/sites/e4d4/api/business/modify/profile-pic" method="POST" enctype="multipart/form-data">
@@ -83,7 +88,7 @@
                 </div>
               </form>
               <div class="px-3 pb-2">
-                <h5><%= business.fullName ? business.fullName : 'Company Name Here' %><span> (<%= business.industry ? business.industry : 'Industry Here' %>)</span></h5>
+                <h5><%= business.fullName ? business.fullName : 'Company Name Here' %></h5>
                 <span><%= business['subHeading'] ? business['subHeading'] : 'Enter Sub Heading' %></span>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#edit-name-headling" class="edit-btn">
                   <i class="bi bi-pencil-square"></i>
@@ -99,10 +104,15 @@
           </div>
         </div>
         <ul class="other-info">
-          <!-- <li>@edwardjj53</li> -->
-          <li>Industry</li>
-          <li>Company size</li>
-          <li>Founded</li>
+          <% if(business.industry) { %><li><%= business.industry %></li> <% } %>
+          <% if(business.companySize) { %><li>Company Size: <%= business.companySize %></li> <% } %>
+          <% if(business.foundedDate) { %><li>Founded on: <%= formatDate(business.foundedDate) %></li> <% } %>
+          <% if(!business.industry || !business.companySize || !business.foundedDate) { %><li>Add Company information</li> <% } %>
+          <li>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#edit-name-headling" class="edit-btn">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+          </li>
         </ul>
         <div class="additional-info">
           <div class="row g-0">
@@ -229,65 +239,50 @@
           <ul class="user-academic">
             <li>
               <div class="item-head">
-                <h6 class="fw-bold<%= business.workWithUs ? ' mb-2' : '' %>">Why work with us?
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#edit-work-with-us" class="edit-btn">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                </h6>
+                <h6 class="fw-bold<%= business.workWithUs ? ' mb-2' : '' %>">Why work with us?</h6>
+                <button data-bs-toggle="modal" data-bs-target="#edit-work-with-us" title="Add License & Certification">
+                  <%- business.workWithUs ? '<i class="bi bi-pencil-square"></i>' : `<i class="bi bi-plus-circle-fill"></i>` %>
+                </button>
               </div>
               <p><%= business.workWithUs %></p>
             </li>
-            <li>
+            <li class="photos-wrap">
               <div class="item-head">
                 <h6 class="fw-bold">Photos</h6>
+                
+                <% if(business.businessImages?.length > 0) { %>
+                <label class="add-btn">
+                  <input class="d-none" type="file" id="upload-photos" multiple>
+                  <i class="bi bi-plus-circle-fill"></i>
+                </label>
+                <% } %>
               </div>
+              <% if(business.businessImages?.length > 0) { %>
+                <div class="row g-4">
+                  <% business.businessImages.forEach((item) => { %>
+                  <div class="col-lg-4 col-12">
+                    <a href="/sites/e4d4<%= item %>" class="business-image d-block">
+                      <img class="w-100" src="/sites/e4d4<%= item %>" alt="">
+                    </a>
+                  </div>
+                  <% }) %>
+                </div>
+              <% } else { %>
               <label class="photos-upload-container" for="upload-photos">
-                <input type="file" id="upload-photos">
+                <input type="file" id="upload-photos" multiple>
                 <i class="bi bi-upload"></i>
               </label>
+              <% } %>
+              <div class="progress" style="display: none;" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 0%">0%</div>
+              </div>
+            </li>
+            <li>
+              <div class="item-head">
+                <h6 class="fw-bold">Positions</h6>
+              </div>
             </li>
           </ul>
-          <% if(business.projects?.length > 0) { %>
-          <h6 class="fw-bold">Projects Showcase</h6>
-          <div class="row g-4 project-listing">
-            <% business.projects.forEach((item) => { %>
-            <div class="col-lg-4 col-12">
-              <div class="project-item">
-                <h6><%= item.title %></h6>
-                <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
-                  <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
-                </a>
-              </div>
-            </div>
-            <% }) %>
-          </div>
-          <% } %>
-          <% if (business.resume || business.coverLetter) { %>
-          <h6 class="fw-bold">Personal Documents</h6>
-          <div class="row g-4 project-listing">
-            <% if(business.resume) { %>
-            <div class="col-lg-4 col-12">
-              <div class="doc-wrapper">
-                <a class="empty-box filled" href="/sites/e4d4<%= business.resume %>">
-                  <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
-                  <h5>Click to View Resume</h5>
-                </a>
-              </div>
-            </div>
-            <% } %>
-            <% if(business.coverLetter) { %>
-            <div class="col-lg-4 col-12">
-              <div class="doc-wrapper">
-                <a class="empty-box filled" href="/sites/e4d4<%= business.coverLetter %>">
-                  <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
-                  <h5>Click to View Cover Letter</h5>
-                </a>
-              </div>
-            </div>
-            <% } %>
-            <% } %>
-            <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
-          </div>
         </div>
       </div>
     </div>
@@ -345,6 +340,23 @@
                 <div class="portfolio-form-design">
                   <label class="form-label">Enter Industry*</label>
                   <input type="text" name="industry" class="form-control" placeholder="Enter Business Industry..." value="<%= business.industry %>" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Enter Company Size*</label>
+                  <select class="form-control" name="companySize">
+                    <option value="1-10">1-10</option>
+                    <option value="11-30">11-30</option>
+                    <option value="31-50">31-50</option>
+                    <option value="61-100">61-100</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label class="form-label">Enter Founded Date*</label>
+                  <input type="date" name="foundedDate" value="<%= business.foundedDate?.toISOString()?.split('T')[0] %>" class="form-control" placeholder="Enter Business Founded Date..." required>
                 </div>
               </div>
             </div>
@@ -408,11 +420,157 @@
       </div>
     </div>
   </div>
+  <div class="modal fade edit-popup social-edit-popup" id="edit-social-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-social-infoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-social-infoLabel">Edit Social Info</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <input type="hidden" name="id" value="<%= business.id %>">
+        <div class="modal-body">
+          <%
+          const socialLinks = business.socialLinks || [];
+
+          // Initialize variables
+          let facebook, instagram, twitter, linkedin, behance, pinterest, dribbble, linktree;
+          socialLinks.forEach(link => {
+            switch (link.platform.toLowerCase()) {
+                case 'facebook':
+                    facebook = link.username;
+                    break;
+                case 'instagram':
+                    instagram = link.username;
+                    break;
+                case 'twitter':
+                    twitter = link.username;
+                    break;
+                case 'linkedin':
+                    linkedin = link.username;
+                    break;
+                case 'behance':
+                    behance = link.username;
+                    break;
+                case 'pinterest':
+                    pinterest = link.username;
+                    break;
+                case 'dribbble':
+                    dribbble = link.username;
+                    break;
+                case 'linktree':
+                    linktree = link.username;
+                    break;
+            }
+        });
+    
+          %>
+          <form action="/sites/e4d4/api/business/modify/social-info" method="POST">
+            <input type="hidden" name="id" value="<%= business._id %>" />
+            <div class="row g-4">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Facebook Username</label>
+                  <div class="wrap-all">
+                    <input type="text" name="facebook" class="form-control skill-input" placeholder="Enter Facebook Username..." value="<%= facebook %>">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Instagram Username</label>
+                  <div class="wrap-all">
+                    <input type="text" name="instagram" class="form-control skill-input" placeholder="Enter Instagram Username..." value="<%= instagram %>">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Twitter Username</label>
+                  <div class="wrap-all">
+                    <input type="text" name="twitter" class="form-control skill-input" placeholder="Enter Twitter Username..." value="<%= twitter %>">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">LinkedIn Username</label>
+                  <div class="wrap-all">
+                    <input type="text" name="linkedin" class="form-control skill-input" placeholder="Enter LinkedIn Username..." value="<%= linkedin %>">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Behance Username</label>
+                  <div class="wrap-all">
+                    <input type="text" name="behance" class="form-control skill-input" placeholder="Enter Behance Username..." value="<%= behance %>">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Pinterest Username</label>
+                  <div class="wrap-all">
+                    <input type="text" name="pinterest" class="form-control skill-input" placeholder="Enter Pinterest Username..." value="<%= pinterest %>">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Dribbble Username</label>
+                  <div class="wrap-all">
+                    <input type="text" name="dribbble" class="form-control skill-input" placeholder="Enter Dribbble Username..." value="<%= dribbble %>">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Linktree Username</label>
+                  <div class="wrap-all">
+                    <input type="text" name="linktree" class="form-control skill-input" placeholder="Enter Linktree Username..." value="<%= linktree %>">
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="dash-btn">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade edit-popup" id="edit-contact-info" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edit-contact-infoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="edit-contact-infoLabel">Edit Contact Info</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="/sites/e4d4/api/business/modify/info" method="post">
+          <input type="hidden" name="id" value="<%= business.id %>">
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label for="user-phone" class="form-label">Phone*</label>
+                  <input type="text" name="phone" id="user-phone" class="form-control" placeholder="Enter Phone Number..." value="<%= business.phone %>" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="dash-btn">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <%- include('./partials/query') %>
   <%- include('./partials/footer') %>
   <%- include('./partials/scriptlinks') %>
   <script>
-    $("#profile-pic-form [type='file'],#profileVideo").change(async function() {
+    $("#profile-pic-form [type='file'],#profileVideo, .upload-input").change(async function() {
       if ($(this)[0].files[0]) {
         $(this).parents('form').submit()
       }
@@ -428,6 +586,65 @@
       if (!confirm(warning)) {
         e.preventDefault()
       }
+    })
+  </script>
+  <script>
+    $("#upload-photos").change(function(e) {
+      const fileInput = e.target
+      const files = fileInput.files;
+      const formData = new FormData();
+      formData.append('id', '<%= business._id %>');
+      for (let i = 0; i < files.length; i++) {
+        formData.append('image', files[i]);
+      }
+      const xhr = new XMLHttpRequest();
+
+      xhr.open('POST', '/sites/e4d4/api/business/modify/business-images', true);
+      $(".photos-wrap .progress").show()
+      $(".photos-wrap .progress .progress-bar").removeClass('bg-success bg-danger')
+      xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+          const percentComplete = (e.loaded / e.total) * 100;
+          $(".photos-wrap .progress .progress-bar").css({width: `${percentComplete}%`})
+          $(".photos-wrap .progress .progress-bar").html(`${percentComplete}%`)
+          console.log('percentComplete', percentComplete)
+        }
+      };
+
+      xhr.onload = function() {
+        const images = JSON.parse(xhr.response).images
+        console.log('xhr.response',xhr.response)
+        if (xhr.status === 200) {
+          let wrapper;
+          if($('.photos-wrap .row').length == 0){
+            wrapper = document.createElement('div')
+            $(wrapper).addClass('row g-4')
+          }else{
+            wrapper = $('.photos-wrap .row')
+          }
+          images.map((item)=>{
+            $(wrapper).append(`<div class="col-lg-4 col-12">
+                  <a href="/sites/e4d4${item}" class="business-image d-block">
+                    <img class="w-100" src="/sites/e4d4${item}" alt="">
+                  </a>
+                </div>`)
+          })
+          $(".photos-wrap .progress .progress-bar").addClass('bg-success')
+          $(".photos-wrap .progress .progress-bar").html('Success')
+          console.log('uploaded')
+        } else {
+          console.log('upload Failed')
+          $(".photos-wrap .progress .progress-bar").addClass('bg-danger')
+          $(".photos-wrap .progress .progress-bar").html('Upload Failed!')
+        }
+        setTimeout(() => {
+          $(".photos-wrap .progress").fadeOut()
+          $(".photos-wrap .progress .progress-bar").css({width: 0})
+        }, 3000);
+      };
+
+      xhr.send(formData);
+
     })
   </script>
 

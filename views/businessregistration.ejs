@@ -47,47 +47,7 @@
           </div>
           <div class="col-md-6 portfolio-form-design">
             <label for="Location" class="form-label">Location*</label>
-            <select name="location" id="Location" class="form-select" required>
-              <option selected>Select Location</option>
-              <option value="Sydney, New South Wales">Sydney, New South Wales</option>
-              <option value="Melbourne, Victoria">Melbourne, Victoria</option>
-              <option value="Brisbane, Queensland">Brisbane, Queensland</option>
-              <option value="Perth, Western Australia">Perth, Western Australia</option>
-              <option value="Adelaide, South Australia">Adelaide, South Australia</option>
-              <option value="Canberra, Australian Capital Territory">Canberra, Australian Capital Territory</option>
-              <option value="Hobart, Tasmania">Hobart, Tasmania</option>
-              <option value="Darwin, Northern Territory">Darwin, Northern Territory</option>
-              <option value="Gold Coast, Queensland">Gold Coast, Queensland</option>
-              <option value="Newcastle, New South Wales">Newcastle, New South Wales</option>
-              <option value="Wollongong, New South Wales">Wollongong, New South Wales</option>
-              <option value="Geelong, Victoria">Geelong, Victoria</option>
-              <option value="Sunshine Coast, Queensland">Sunshine Coast, Queensland</option>
-              <option value="Cairns, Queensland">Cairns, Queensland</option>
-              <option value="Toowoomba, Queensland">Toowoomba, Queensland</option>
-              <option value="Ballarat, Victoria">Ballarat, Victoria</option>
-              <option value="Bendigo, Victoria">Bendigo, Victoria</option>
-              <option value="Mackay, Queensland">Mackay, Queensland</option>
-              <option value="Launceston, Tasmania">Launceston, Tasmania</option>
-              <option value="Townsville, Queensland">Townsville, Queensland</option>
-              <option value="Rockhampton, Queensland">Rockhampton, Queensland</option>
-              <option value="Albury-Wodonga, New South Wales/Victoria">Albury-Wodonga, New South Wales/Victoria</option>
-              <option value="Bundaberg, Queensland">Bundaberg, Queensland</option>
-              <option value="Burnie, Tasmania">Burnie, Tasmania</option>
-              <option value="Alice Springs, Northern Territory">Alice Springs, Northern Territory</option>
-              <option value="Armidale, New South Wales">Armidale, New South Wales</option>
-              <option value="Tamworth, New South Wales">Tamworth, New South Wales</option>
-              <option value="Port Macquarie, New South Wales">Port Macquarie, New South Wales</option>
-              <option value="Coffs Harbour, New South Wales">Coffs Harbour, New South Wales</option>
-              <option value="Orange, New South Wales">Orange, New South Wales</option>
-              <option value="Dubbo, New South Wales">Dubbo, New South Wales</option>
-              <option value="Shepparton, Victoria">Shepparton, Victoria</option>
-              <option value="Mildura, Victoria">Mildura, Victoria</option>
-              <option value="Wagga Wagga, New South Wales">Wagga Wagga, New South Wales</option>
-              <option value="Bathurst, New South Wales">Bathurst, New South Wales</option>
-              <option value="Broken Hill, New South Wales">Broken Hill, New South Wales</option>
-              <option value="Kalgoorlie, Western Australia">Kalgoorlie, Western Australia</option>
-              <option value="Broome, Western Australia">Broome, Western Australia</option>
-            </select>
+            <input type="text" name="address" class="form-control api-field" id="address" placeholder="Enter Location..." required>            
           </div>
           <div class="col-md-6 portfolio-form-design mb-5">
             <label for="Industry" class="form-label">Industry*</label>
@@ -771,6 +731,33 @@
     //     event.returnValue = '';
     //   }
     // });
+  </script>
+  <script>
+    $(".api-field").keyup(async function(){
+      $(this).siblings('.api-locations').remove()
+      const value = $(this).val()
+      if(value.length >= 2){
+        const res = await fetch('/sites/e4d4/api/location/fetch', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({place: value})
+        })
+        const resJson = await res.json()
+        const elem = document.createElement('ul')
+        $(elem).addClass('api-locations')
+        resJson.map((item)=>{
+          $(elem).append(`<li><button type="button" onClick="selectValue(this,'${item.city}, ${item.admin_name}')">${item.city}, ${item.admin_name}</li></button>`)
+        })
+        $(this).parent().append(elem)
+        console.log('resJson',resJson)
+      }
+    })
+    const selectValue = (elem,value) => {
+      $(elem).parents('ul').siblings('input').val(value)
+      $(elem).parents('ul').remove()
+    }
   </script>
 </body>
 

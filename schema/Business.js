@@ -16,6 +16,18 @@ const sizeOfCompany = new Schema({
     }
 })
 
+const SocialSchema = new Schema({
+    platform: {
+        type: String,
+    },
+    username: {
+        type: String
+    },
+    baseUrl: {
+        type: String
+    }
+});
+
 const emailSchema = new Schema({
     email: {
         type: String,
@@ -33,12 +45,15 @@ const emailSchema = new Schema({
     }
 })
 
-const business = new Schema({
+const businessSchema = new Schema({
     fullName: {
         type: String,
         required: true
     },
     subHeading: {
+        type: String,
+    },
+    coverPhoto: {
         type: String,
     },
     profilePic: {
@@ -47,6 +62,9 @@ const business = new Schema({
     profileVideo: {
         type: String,
     },
+    businessImages: [{
+        type: String,
+    }],
     address: {
         type: String,
         required: true
@@ -89,6 +107,9 @@ const business = new Schema({
     foundedDate: {
         type: Date
     },
+    companySize: {
+        type: String
+    },
     about: {
         type: String
     },
@@ -120,8 +141,33 @@ const business = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'job'
     }],
+    socialLinks: [{
+        type: SocialSchema
+    }],
     notifications: [notificationSchema]
 }, { timestamps: true });
 
-const Business = mongoose.model('business', business)
+businessSchema.pre('save', function (next) {
+    const platformBaseUrls = {
+        facebook: 'https://www.facebook.com/',
+        instagram: 'https://www.instagram.com/',
+        twitter: 'https://www.twitter.com/',
+        linkedin: 'https://www.linkedin.com/in/',
+        behance: 'https://www.behance.net/',
+        pinterest: 'https://www.pinterest.com/',
+        dribbble: 'https://dribbble.com/',
+        linktree: 'https://linktr.ee/',
+    };
+
+    // Iterate over socialLinks and set the baseUrl
+    if (this.socialLinks && this.socialLinks.length > 0) {
+        this.socialLinks.forEach(link => {
+            link.baseUrl = platformBaseUrls[link.platform.toLowerCase()] || null;
+        });
+    }
+
+    next();
+});
+
+const Business = mongoose.model('business', businessSchema)
 module.exports = Business;

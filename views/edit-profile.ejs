@@ -894,9 +894,10 @@
                   <label for="working-now-exp">I am currently working in this role</label>
                 </div>
               </div>
+              
               <div class="col-12">
                 <div class="portfolio-form-design">
-                  <label class="form-label">start date*</label>
+                  <label class="form-label">Start Date*</label>
                   <div class="row g-3">
                     <div class="col-md-6 col-12">
                       <select class="form-control" name="startingDate_month">
@@ -920,19 +921,20 @@
                           const currentYear = new Date().getFullYear();
                           for (let year = 1970; year <= currentYear; year++) { 
                         %>
-                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : '' %>><%= year %></option>
                         <% } %>
                       </select>
                     </div>
                   </div>
                 </div>
               </div>
+              
               <div class="col-12">
                 <div class="portfolio-form-design">
-                  <label class="form-label">end date*</label>
+                  <label class="form-label">End Date*</label>
                   <div class="row g-3">
                     <div class="col-md-6 col-12">
-                      <select class="form-control" name="endingDate_month">
+                      <select class="form-control" name="endingDate_month" id="endingDate_month">
                         <option value="0">January</option>
                         <option value="1">February</option>
                         <option value="2">March</option>
@@ -948,11 +950,11 @@
                       </select>
                     </div>
                     <div class="col-md-6 col-12">
-                      <select class="form-control" name="endingDate_year">
+                      <select class="form-control" name="endingDate_year" id="endingDate_year">
                         <%
                           for (let year = 1970; year <= currentYear; year++) { 
                         %>
-                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : ''%>><%= year %></option>
+                        <option value="<%= year %>" <%= currentYear == year ? 'selected' : '' %>><%= year %></option>
                         <% } %>
                       </select>
                     </div>
@@ -1493,6 +1495,7 @@
                   <label for="working-now-volunteer-exp">I am currently working in this role</label>
                 </div>
               </div>
+              
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Starting Date*</label>
@@ -1525,12 +1528,13 @@
                   </div>
                 </div>
               </div>
+              
               <div class="col-12">
                 <div class="portfolio-form-design">
-                  <label class="form-label">end date*</label>
+                  <label class="form-label">End Date*</label>
                   <div class="row g-3">
                     <div class="col-md-6 col-12">
-                      <select class="form-control" name="endingDate_month">
+                      <select class="form-control" name="endingDate_month" id="endingDate_month_volunteer">
                         <option value="0">January</option>
                         <option value="1">February</option>
                         <option value="2">March</option>
@@ -1546,7 +1550,7 @@
                       </select>
                     </div>
                     <div class="col-md-6 col-12">
-                      <select class="form-control" name="endingDate_year">
+                      <select class="form-control" name="endingDate_year" id="endingDate_year_volunteer">
                         <%
                           for (let year = 1970; year <= currentYear; year++) { 
                         %>
