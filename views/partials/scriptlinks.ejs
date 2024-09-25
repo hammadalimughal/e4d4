@@ -17,6 +17,14 @@
 <script>
   const socket = io();
 </script>
+<script>
+  $(".dangerous-form").submit(function(e) {
+      const warning = $(this).data('warning')
+      if (!confirm(warning)) {
+        e.preventDefault()
+      }
+    })
+</script>
 <% if(user) { %>
 <script>
   socket.on('connect', () => {
@@ -207,3 +215,4 @@ const volunteerCheckbox = document.getElementById('working-now-volunteer-exp');
     }
   });
 </script>
+

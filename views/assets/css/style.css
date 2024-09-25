@@ -32,6 +32,9 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 select {
@@ -1886,24 +1889,26 @@ ul#myTab li {
     border: 1px solid black;
     box-shadow: none;
 }
-.portfolio-form-design .api-locations{
+
+.portfolio-form-design .api-locations {
     position: absolute;
     left: 0;
     right: 0;
     /* top: 100%; */
     z-index: 99;
     background-color: #fff;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     list-style: none;
     padding: 0 15px;
 }
-.portfolio-form-design .api-locations button{
-border:none;
+
+.portfolio-form-design .api-locations button {
+    border: none;
     outline: none;
     background-color: transparent;
     padding: 5px 15px
-    }
+}
 
 
 .portfolio-form-design .form-control:focus,
@@ -2131,10 +2136,13 @@ border:none;
 }
 
 .logout-btn {
+    display: inline-block;
     padding: 15px 25px;
     border: none;
     border-radius: 6px;
     font-family: "Gilroy-Medium";
+    background-color: #f1f1f1;
+    color: #000;
 }
 
 
@@ -2549,6 +2557,8 @@ border:none;
     font-size: 20px;
 }
 
+.profile-info .portfolio-showcase>ul>li .item-head label,
+.profile-info .portfolio-showcase>ul>li .item-head a,
 .profile-info .portfolio-showcase>ul>li .item-head button {
     border: none;
     outline: none;
@@ -2587,6 +2597,19 @@ border:none;
 
 .profile-info .portfolio-showcase>ul>li .listing>li .data {
     flex: 1;
+}
+
+.job-card a{
+    color: #000;
+}
+.job-card h5{
+    font-family: "Gilroy-Semi-Bold";
+    font-size: 20px;
+}
+.job-detail-admin-actions{
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .profile-info .show-all-btn {
@@ -2786,28 +2809,34 @@ input:checked+label .select-documents .fa-file {
     justify-content: center;
     margin-bottom: 1rem;
 }
+
 .chat-head {
     position: relative;
 }
-.mian-calling{
+
+.mian-calling {
     position: absolute;
     right: 0;
 }
-.mian-calling svg{
+
+.mian-calling svg {
     margin: 0 0 0 15px;
     border: 1px solid #000;
     padding: 10px;
     font-size: 15px;
     border-radius: 25px;
 }
+
 .dashboard-business-tabs ul li {
     margin: 0 15px 0 0;
 }
-.dashboard-business-tabs .nav .nav-item .active.nav-link{
-    background-color: #f85d0f!important;
+
+.dashboard-business-tabs .nav .nav-item .active.nav-link {
+    background-color: #f85d0f !important;
     color: #fff;
 }
-#cars{
+
+#cars {
     display: block;
     width: 100%;
     padding: .375rem .75rem;
@@ -3922,16 +3951,52 @@ input:checked+label .select-documents .fa-file {
     margin-right: 10px;
     margin-left: 10px;
 }
-.business-image{
+
+.business-image {
     padding: 10px;
 }
-.business-image img{
+
+.business-image img {
     height: 250px;
     object-fit: contain;
     background-color: #f0f0f0;
     border-radius: 10px;
 }
 
+.photos-wrap .img-item .remove-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.profile-card {
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    color: #000;
+}
+.profile-card .lock-img,
+.profile-card img{
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    margin-bottom: 15px;
+    font-size: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-card h4{
+    font-size: 20px;
+    text-transform: capitalize;
+}
 @media (max-width: 1024px) {
 
     .own-navbar-nav2 {

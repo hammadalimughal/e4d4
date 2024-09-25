@@ -113,9 +113,7 @@ app.get('/sites/e4d4/dashboard', async (req, res) => {
             return res.render(`dashboard`, { message, error, user, business, companies })
         }
         if (business) {
-            // const jobs = await Job.find()
-            const companies = await Business.find().populate('jobs').exec()
-            return res.render(`dashboard`, { message, error, user, business, companies })
+            return res.redirect(`/sites/e4d4/business-dashboard`)
         }
         return res.redirect(`/sites/e4d4/join`)
     } catch (error) {
@@ -321,7 +319,8 @@ app.get('/sites/e4d4/profile', async (req, res) => {
         }
         if (business) {
             // console.log('business', business.notifications)
-            return res.render(`business-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
+            const jobs = await Job.find({ company: business._id })
+            return res.render(`business-profile`, { message, error, user, business, extractDomain, calculateYearsDifference, jobs })
         }
         res.redirect('/sites/e4d4/join')
     } catch (error) {
@@ -512,7 +511,9 @@ app.get('/sites/e4d4/business-dashboard', async (req, res) => {
         const totalUsers = await User.countDocuments();
         const totalPages = Math.ceil(totalUsers / itemsPerPage);
         // console.log('totalPages', totalPages)
-        res.render(`business-dashboard`, { message, error, user, business, allUsers, currentPage, totalPages, totalUsers })
+        const jobs = await Job.find({ company: business._id }).populate('company')
+        const connections = await Connection.find({ business: business._id, approved: true }).populate('user')
+        res.render(`business-dashboard`, { message, error, user, business, allUsers, currentPage, totalPages, totalUsers, jobs, connections })
     } catch (error) {
         console.log(error)
         return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
@@ -569,6 +570,22 @@ app.get('/sites/e4d4/jobdetails/:id', async (req, res) => {
         const business = req.business
         const job = await Job.findById(id).populate('company')
         res.render(`jobdetails`, { message, error, user, business, job, formatDate })
+    } catch (error) {
+        console.log(error)
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+    }
+})
+app.get('/sites/e4d4/editjob/:id', async (req, res) => {
+    try {
+        const { error, message } = req.query
+        const id = req.params.id
+        const user = req.user
+        const business = req.business
+        const job = await Job.findById(id).populate('company')
+        if (job?.company?._id.toString() == business?._id.toString()) {
+            return res.render(`jobedit`, { message, error, user, business, job, formatDate })
+        }
+        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
     } catch (error) {
         console.log(error)
         return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)

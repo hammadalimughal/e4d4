@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest Project</title>
+  <%- include('./partials/csslinks') %>
+</head>
+
+<body>
+  <%- include('./partials/header') %>
+
+  <!-- JOB POSTING WORKS STARTS HERE -->
+  <section class="portfolio-section">
+    <div class="container d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+      <!-- NO 1 portfolio WORKS STARTS HERE -->
+      <div class="portfolio_width_setting">
+        <div class="text-center d-flex align-items-center flex-column">
+          <h1 class="fw-bold">UPDATE JOB</h1>
+        </div>
+        <form method="POST" action="/sites/e4d4/api/business/job/update" class="row pt-0">
+          <input type="hidden" name="company" value="<%= business.id %>">
+          <input type="hidden" name="id" value="<%= job.id %>">
+          <div class="col-md-12 portfolio-form-design">
+            <label for="fname" class="form-label">Job Title*</label>
+            <input type="name" name="title" class="form-control" id="jname" placeholder="Enter Job Title...." value="<%= job.title %>" required />
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">Job Summary*</label>
+            <textarea class="form-control" name="summary" placeholder=" Job Summary" id="floatingTextarea2" style="height: 100px" required><%= job.summary %></textarea>
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">Responsibilities*</label>
+            <textarea class="form-control" placeholder="Responsibilities ........" id="floatingTextarea2" style="height: 100px" name="responsiblities"><%= job.responsiblities %></textarea>
+          </div>
+
+          <h4 class="mt-5">Qualification</h4>
+          <div class="col-md-12 portfolio-form-design mt-2">
+            <label for="Skills" class="form-label">Education*</label>
+            <select id="Skills" class="form-select" name="education" value="<%= job.education %>" required>
+              <option selected>Education Level...</option>
+              <option <%= job.education == 'certificate-I' ? 'selected' : '' %> value="certificate-I">Certificate I</option>
+              <option <%= job.education == 'certificate-II' ? 'selected' : '' %> value="certificate-II">Certificate II</option>
+              <option <%= job.education == 'certificate-III' ? 'selected' : '' %> value="certificate-III">Certificate III</option>
+              <option <%= job.education == 'certificate-IV' ? 'selected' : '' %> value="certificate-IV">Certificate IV</option>
+              <option <%= job.education == 'diploma' ? 'selected' : '' %> value="diploma">Diploma</option>
+              <option <%= job.education == 'advanced-diploma' ? 'selected' : '' %> value="advanced-diploma">Advanced Diploma</option>
+              <option <%= job.education == 'associate-degree' ? 'selected' : '' %> value="associate-degree">Associate Degree</option>
+              <option <%= job.education == 'bachelor-degree' ? 'selected' : '' %> value="bachelor-degree">Bachelor’s Degree</option>
+              <option <%= job.education == 'graduate-certificate' ? 'selected' : '' %> value="graduate-certificate">Graduate Certificate</option>
+              <option <%= job.education == 'graduate-diploma' ? 'selected' : '' %> value="graduate-diploma">Graduate Diploma</option>
+              <option <%= job.education == 'masters-degree' ? 'selected' : '' %> value="masters-degree">Master’s Degree</option>
+              <option <%= job.education == 'doctoral-degree' ? 'selected' : '' %> value="doctoral-degree">Doctoral Degree (PhD)</option>
+            </select>
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="Skills" class="form-label">Skills*</label>
+            <textarea class="form-control" placeholder="Skills...." id="floatingTextarea2" name="skills" style="height: 100px" required><%= job.skills %></textarea>
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="Skills" class="form-label">Experience*</label>
+            <select id="Skills" class="form-select" name="experience" value="<%= job.experience %>" required>
+              <option selected disabled>Select Years...</option>
+              <option <%= job.experience == '1' ? 'selected' : '' %> value="1">1 Year</option>
+              <option <%= job.experience == '2' ? 'selected' : '' %> value="2">2 Year</option>
+              <option <%= job.experience == '3' ? 'selected' : '' %> value="3">3 Year</option>
+              <option <%= job.experience == '4' ? 'selected' : '' %> value="4">4 Year</option>
+              <option <%= job.experience == '5' ? 'selected' : '' %> value="5">5 Year</option>
+              <option <%= job.experience == '6' ? 'selected' : '' %> value="6">6 Year</option>
+              <option <%= job.experience == '7' ? 'selected' : '' %> value="7">7 Year</option>
+              <option <%= job.experience == '8' ? 'selected' : '' %> value="8">8 Year</option>
+              <option <%= job.experience == '9' ? 'selected' : '' %> value="9">9 Year</option>
+              <option <%= job.experience == '10' ? 'selected' : '' %> value="10">10 Year</option>
+            </select>
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="inputPassword4" class="form-label">Certification</label>
+            <input type="text" name="certification" value="<%= job.certification %>" class="form-control" placeholder="Enter Certification(if any)..." />
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="EducationLevel" class="form-label">Poistion Type*</label>
+            <select name="position" value="<%= job.position %>" id="EducationLevel" class="form-select" required>
+              <option selected disabled>Select Poistion</option>
+              <option <%= job.position == 'manager' ? 'selected' : '' %> value="manager">Manager</option>
+              <option <%= job.position == 'administrator' ? 'selected' : '' %> value="administrator">Administrator</option>
+              <option <%= job.position == 'supervisor' ? 'selected' : '' %> value="supervisor">Supervisor</option>
+              <option <%= job.position == 'director' ? 'selected' : '' %> value="director">Director</option>
+              <option <%= job.position == 'executive' ? 'selected' : '' %> value="executive">Executive</option>
+              <option <%= job.position == 'coordinator' ? 'selected' : '' %> value="coordinator">Coordinator</option>
+              <option <%= job.position == 'consultant' ? 'selected' : '' %> value="consultant">Consultant</option>
+              <option <%= job.position == 'officer' ? 'selected' : '' %> value="officer">Officer</option>
+              <option <%= job.position == 'specialist' ? 'selected' : '' %> value="specialist">Specialist</option>
+              <option <%= job.position == 'assistant' ? 'selected' : '' %> value="assistant">Assistant</option>
+              <option <%= job.position == 'analyst' ? 'selected' : '' %> value="analyst">Analyst</option>
+              <option <%= job.position == 'engineer' ? 'selected' : '' %> value="engineer">Engineer</option>
+              <option <%= job.position == 'technician' ? 'selected' : '' %> value="technician">Technician</option>
+              <option <%= job.position == 'clerk' ? 'selected' : '' %> value="clerk">Clerk</option>
+              <option <%= job.position == 'worker' ? 'selected' : '' %> value="worker">Worker</option>
+              <option <%= job.position == 'intern' ? 'selected' : '' %> value="intern">Intern</option>
+              <option <%= job.position == 'trainee' ? 'selected' : '' %> value="trainee">Trainee</option>
+              <option <%= job.position == 'team-leader' ? 'selected' : '' %> value="team-leader">Team Leader</option>
+              <option <%= job.position == 'project-manager' ? 'selected' : '' %> value="project-manager">Project Manager</option>
+              <option <%= job.position == 'sales-representative' ? 'selected' : '' %> value="sales-representative">Sales Representative</option>
+              <option <%= job.position == 'customer-service-rep' ? 'selected' : '' %> value="customer-service-rep">Customer Service Representative</option>
+              <option <%= job.position == 'human-resources' ? 'selected' : '' %> value="human-resources">Human Resources</option>
+              <option <%= job.position == 'marketing' ? 'selected' : '' %> value="marketing">Marketing</option>
+              <option <%= job.position == 'accountant' ? 'selected' : '' %> value="accountant">Accountant</option>
+              <option <%= job.position == 'financial-advisor' ? 'selected' : '' %> value="financial-advisor">Financial Advisor</option>
+              <option <%= job.position == 'lawyer' ? 'selected' : '' %> value="lawyer">Lawyer</option>
+              <option <%= job.position == 'researcher' ? 'selected' : '' %> value="researcher">Researcher</option>
+              <option <%= job.position == 'teacher' ? 'selected' : '' %> value="teacher">Teacher</option>
+              <option <%= job.position == 'medical-professional' ? 'selected' : '' %> value="medical-professional">Medical Professional</option>
+            </select>
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="EducationLevel" class="form-label">Industry*</label>
+            <select name="industry" value="<%= job.industry %>" id="EducationLevel" class="form-select" required>
+              <option selected disabled>Select Industry</option>
+              <option <%= job.industry == 'agriculture-forestry-fishing' ? 'selected' : '' %> value="agriculture-forestry-fishing">Agriculture, Forestry and Fishing</option>
+              <option <%= job.industry == 'mining' ? 'selected' : '' %> value="mining">Mining</option>
+              <option <%= job.industry == 'manufacturing' ? 'selected' : '' %> value="manufacturing">Manufacturing</option>
+              <option <%= job.industry == 'utilities' ? 'selected' : '' %> value="utilities">Electricity, Gas, Water, and Waste Services</option>
+              <option <%= job.industry == 'construction' ? 'selected' : '' %> value="construction">Construction</option>
+              <option <%= job.industry == 'wholesale-trade' ? 'selected' : '' %> value="wholesale-trade">Wholesale Trade</option>
+              <option <%= job.industry == 'retail-trade' ? 'selected' : '' %> value="retail-trade">Retail Trade</option>
+              <option <%= job.industry == 'accommodation-food' ? 'selected' : '' %> value="accommodation-food">Accommodation and Food Services</option>
+              <option <%= job.industry == 'transport-warehousing' ? 'selected' : '' %> value="transport-warehousing">Transport, Postal, and Warehousing</option>
+              <option <%= job.industry == 'media-telecommunications' ? 'selected' : '' %> value="media-telecommunications">Information Media and Telecommunications</option>
+              <option <%= job.industry == 'finance-insurance' ? 'selected' : '' %> value="finance-insurance">Financial and Insurance Services</option>
+              <option <%= job.industry == 'real-estate' ? 'selected' : '' %> value="real-estate">Rental, Hiring, and Real Estate Services</option>
+              <option <%= job.industry == 'professional-services' ? 'selected' : '' %> value="professional-services">Professional, Scientific, and Technical Services</option>
+              <option <%= job.industry == 'administrative-support' ? 'selected' : '' %> value="administrative-support">Administrative and Support Services</option>
+              <option <%= job.industry == 'public-administration' ? 'selected' : '' %> value="public-administration">Public Administration and Safety</option>
+              <option <%= job.industry == 'education-training' ? 'selected' : '' %> value="education-training">Education and Training</option>
+              <option <%= job.industry == 'health-care-social-assistance' ? 'selected' : '' %> value="health-care-social-assistance">Health Care and Social Assistance</option>
+              <option <%= job.industry == 'arts-recreation' ? 'selected' : '' %> value="arts-recreation">Arts and Recreation Services</option>
+              <option <%= job.industry == 'other-services' ? 'selected' : '' %> value="other-services">Other Services</option>
+            </select>
+          </div>
+          <div class="col-12 portfolio-form-design">
+            <label for="EducationLevel" class="form-label">Location*</label>
+            <select name="location" value="<%= job.location %>" id="EducationLevel" class="form-select" required>
+              <option selected disabled>Select Location</option>
+              <option <%= job.location == 'Sydney, New South Wales' ? 'selected' : '' %> value="Sydney, New South Wales">Sydney, New South Wales</option>
+              <option <%= job.location == 'Melbourne, Victoria' ? 'selected' : '' %> value="Melbourne, Victoria">Melbourne, Victoria</option>
+              <option <%= job.location == 'Brisbane, Queensland' ? 'selected' : '' %> value="Brisbane, Queensland">Brisbane, Queensland</option>
+              <option <%= job.location == 'Perth, Western Australia' ? 'selected' : '' %> value="Perth, Western Australia">Perth, Western Australia</option>
+              <option <%= job.location == 'Adelaide, South Australia' ? 'selected' : '' %> value="Adelaide, South Australia">Adelaide, South Australia</option>
+              <option <%= job.location == 'Canberra, Australian Capital Territory' ? 'selected' : '' %> value="Canberra, Australian Capital Territory">Canberra, Australian Capital Territory</option>
+              <option <%= job.location == 'Hobart, Tasmania' ? 'selected' : '' %> value="Hobart, Tasmania">Hobart, Tasmania</option>
+              <option <%= job.location == 'Darwin, Northern Territory' ? 'selected' : '' %> value="Darwin, Northern Territory">Darwin, Northern Territory</option>
+              <option <%= job.location == 'Gold Coast, Queensland' ? 'selected' : '' %> value="Gold Coast, Queensland">Gold Coast, Queensland</option>
+              <option <%= job.location == 'Newcastle, New South Wales' ? 'selected' : '' %> value="Newcastle, New South Wales">Newcastle, New South Wales</option>
+              <option <%= job.location == 'Wollongong, New South Wales' ? 'selected' : '' %> value="Wollongong, New South Wales">Wollongong, New South Wales</option>
+              <option <%= job.location == 'Geelong, Victoria' ? 'selected' : '' %> value="Geelong, Victoria">Geelong, Victoria</option>
+              <option <%= job.location == 'Sunshine Coast, Queensland' ? 'selected' : '' %> value="Sunshine Coast, Queensland">Sunshine Coast, Queensland</option>
+              <option <%= job.location == 'Cairns, Queensland' ? 'selected' : '' %> value="Cairns, Queensland">Cairns, Queensland</option>
+              <option <%= job.location == 'Toowoomba, Queensland' ? 'selected' : '' %> value="Toowoomba, Queensland">Toowoomba, Queensland</option>
+              <option <%= job.location == 'Ballarat, Victoria' ? 'selected' : '' %> value="Ballarat, Victoria">Ballarat, Victoria</option>
+              <option <%= job.location == 'Bendigo, Victoria' ? 'selected' : '' %> value="Bendigo, Victoria">Bendigo, Victoria</option>
+              <option <%= job.location == 'Mackay, Queensland' ? 'selected' : '' %> value="Mackay, Queensland">Mackay, Queensland</option>
+              <option <%= job.location == 'Launceston, Tasmania' ? 'selected' : '' %> value="Launceston, Tasmania">Launceston, Tasmania</option>
+              <option <%= job.location == 'Townsville, Queensland' ? 'selected' : '' %> value="Townsville, Queensland">Townsville, Queensland</option>
+              <option <%= job.location == 'Rockhampton, Queensland' ? 'selected' : '' %> value="Rockhampton, Queensland">Rockhampton, Queensland</option>
+              <option <%= job.location == 'Albury-Wodonga, New South Wales/Victoria' ? 'selected' : '' %> value="Albury-Wodonga, New South Wales/Victoria">Albury-Wodonga, New South Wales/Victoria</option>
+              <option <%= job.location == 'Bundaberg, Queensland' ? 'selected' : '' %> value="Bundaberg, Queensland">Bundaberg, Queensland</option>
+              <option <%= job.location == 'Burnie, Tasmania' ? 'selected' : '' %> value="Burnie, Tasmania">Burnie, Tasmania</option>
+              <option <%= job.location == 'Alice Springs, Northern Territory' ? 'selected' : '' %> value="Alice Springs, Northern Territory">Alice Springs, Northern Territory</option>
+              <option <%= job.location == 'Armidale, New South Wales' ? 'selected' : '' %> value="Armidale, New South Wales">Armidale, New South Wales</option>
+              <option <%= job.location == 'Tamworth, New South Wales' ? 'selected' : '' %> value="Tamworth, New South Wales">Tamworth, New South Wales</option>
+              <option <%= job.location == 'Port Macquarie, New South Wales' ? 'selected' : '' %> value="Port Macquarie, New South Wales">Port Macquarie, New South Wales</option>
+              <option <%= job.location == 'Coffs Harbour, New South Wales' ? 'selected' : '' %> value="Coffs Harbour, New South Wales">Coffs Harbour, New South Wales</option>
+              <option <%= job.location == 'Orange, New South Wales' ? 'selected' : '' %> value="Orange, New South Wales">Orange, New South Wales</option>
+              <option <%= job.location == 'Dubbo, New South Wales' ? 'selected' : '' %> value="Dubbo, New South Wales">Dubbo, New South Wales</option>
+              <option <%= job.location == 'Shepparton, Victoria' ? 'selected' : '' %> value="Shepparton, Victoria">Shepparton, Victoria</option>
+              <option <%= job.location == 'Mildura, Victoria' ? 'selected' : '' %> value="Mildura, Victoria">Mildura, Victoria</option>
+              <option <%= job.location == 'Wagga Wagga, New South Wales' ? 'selected' : '' %> value="Wagga Wagga, New South Wales">Wagga Wagga, New South Wales</option>
+              <option <%= job.location == 'Bathurst, New South Wales' ? 'selected' : '' %> value="Bathurst, New South Wales">Bathurst, New South Wales</option>
+              <option <%= job.location == 'Broken Hill, New South Wales' ? 'selected' : '' %> value="Broken Hill, New South Wales">Broken Hill, New South Wales</option>
+              <option <%= job.location == 'Kalgoorlie, Western Australia' ? 'selected' : '' %> value="Kalgoorlie, Western Australia">Kalgoorlie, Western Australia</option>
+              <option <%= job.location == 'Broome, Western Australia' ? 'selected' : '' %> value="Broome, Western Australia">Broome, Western Australia</option>
+            </select>
+          </div>
+
+          <h4 class="mt-5">Employment Details</h4>
+
+          <div class="col-12 portfolio-form-design mt-2">
+            <label for="Interests" class="form-label">Employment Type*</label>
+            <select name="jobType" value="<%= job.jobType %>" id="Interests" class="form-select" required>
+              <option selected>Select</option>
+              <option <%= job.jobType == 'Full Time' ? 'selected' : '' %> value="Full Time">Full Time</option>
+              <option <%= job.jobType == 'Part Time' ? 'selected' : '' %> value="Part Time">Part Time</option>
+              <option <%= job.jobType == 'contract' ? 'selected' : '' %> value="contract">contract</option>
+              <option <%= job.jobType == 'temporary' ? 'selected' : '' %> value="temporary">temporary</option>
+              <option <%= job.jobType == 'internship' ? 'selected' : '' %> value="internship">internship</option>
+            </select>
+          </div>
+
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">Benefits*</label>
+            <textarea name="benefits" class="form-control" placeholder="Benefits...." id="floatingTextarea2" style="height: 100px" required><%= job.benefits %></textarea>
+          </div>
+
+          <div class="col-md-6 portfolio-form-design">
+            <label for="fname" class="form-label">Salary*</label>
+            <input type="number" name="salary" value="<%= job.salary %>" class="form-control" id="jname" placeholder="Salary in $dollar" required />
+          </div>
+
+          <div class="col-md-6 portfolio-form-design">
+            <label for="fname" class="form-label">Work Schedule*</label>
+            <input name="workScheduled" value="<%= job.workScheduled %>" type="number" class="form-control" id="jname" placeholder="Working Hours..." required />
+          </div>
+
+          <h4 class="mt-5">Application Process</h4>
+
+          <div class="col-md-6 portfolio-form-design mt-2">
+            <label for="fname" class="form-label"> Application Posted*</label>
+            <input name="applicationPosted" value="<%= job.applicationPosted?.toISOString().split('T')[0] %>" type="date" class="form-control" id="jname" placeholder="Working Hours..." required />
+          </div>
+          <div class="col-md-6 portfolio-form-design mt-2">
+            <label for="fname" class="form-label">
+              Application Deadline*</label>
+            <input name="applicationDeadline" value="<%= job.applicationDeadline?.toISOString().split('T')[0] %>" type="date" class="form-control" id="jname" placeholder="Working Hours..." required />
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">
+              Application Instructions</label>
+            <textarea name="applicationInstruction" class="form-control" placeholder=" Application Instructions...." id="floatingTextarea2" style="height: 100px"><%= job.applicationInstruction %></textarea>
+          </div>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">
+              Required Documents*</label>
+            <textarea name="requiredDocuments" class="form-control" placeholder="Documents List...." id="floatingTextarea2" style="height: 100px" required><%= job.requiredDocuments %></textarea>
+          </div>
+
+          <h4 class="mt-5">Whom To Contact</h4>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="fname" class="form-label">Contact Person*</label>
+            <input name="contactPerson" value="<%= job.contactPerson %>" type="name" class="form-control" id="jname" placeholder="Enter Job Title...." />
+          </div>
+          <div class="col-md-6 portfolio-form-design">
+            <label for="fname" class="form-label">Contact Number</label>
+            <input name="contactNumber" value="<%= job.contactNumber %>" type="number" class="form-control" id="jname" placeholder="Enter Job Title...." />
+          </div>
+
+          <h4 class="mt-5">Additional Information</h4>
+          <div class="col-md-12 portfolio-form-design">
+            <label for="summary" class="form-label">
+              Additional Information
+            </label>
+            <textarea name="additionalInfo" class="form-control" placeholder="Documents List...." id="floatingTextarea2" style="height: 100px"><%= job.additionalInfo %></textarea>
+          </div>
+          <div class="d-flex justify-content-center mt-5">
+            <button type="submit" class="submit-btn-portfolio btn-portfolio">
+              CLICK HERE TO UPDATE
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- portfolio WORKS ENDS HERE -->
+    </div>
+  </section>
+  <!-- JOB POSTING WORKS ENDS HERE -->
+
+  <%- include('./partials/query') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scriptlinks') %>
+  <script>
+    const nextBtn = document.querySelectorAll(".btn-portfolio");
+    const forms = document.querySelectorAll(".portfolio-form");
+    nextBtn.forEach((btn) => {
+      btn.addEventListener("click", function(e) {
+        forms.forEach((form) => {
+          form.classList.add("display-none");
+        });
+        document
+          .querySelector(`.${e.target.getAttribute("data-next-class")}`)
+          .classList.remove("display-none");
+      });
+    });
+  </script>
+  <script>
+    $(".add-responsiblity").click(function() {
+      $(this).prev().append(`<div class="item"><input type="name" name="responsiblities[]" class="form-control mt-3" placeholder="Responsibilities ........" required /><button onclick="removeItem(this)"><i class="fa-solid fa-trash"></i></button></div>`)
+      debugger
+    })
+    const removeItem = (btn) => {
+      $(btn).parent().remove()
+    }
+  </script>
+</body>
+
+</html>

@@ -148,14 +148,36 @@ router.post('/business-images', uploadbusinessImages.array('image'), async (req,
         }
         let images = business.businessImages ? business.businessImages : []
         let tempImages = []
-        businessImages.forEach((item)=>{
+        businessImages.forEach((item) => {
             tempImages.push(`/assets/uploads/businessImages/${item.filename}`)
             images.push(`/assets/uploads/businessImages/${item.filename}`)
         })
         business.businessImages = images
         await business.save()
-        console.log('business',business)
-        return res.json({images: tempImages})
+        console.log('business', business)
+        return res.json({ images: tempImages })
+    } catch (error) {
+        console.log('error updating Business Profile Picture: ', error.message)
+        return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+    }
+})
+
+router.post('/remove-business-image', async (req, res) => {
+    try {
+        const { id, item } = req.body
+        const business = await Business.findByIdAndUpdate(
+            id,
+            {
+                $pull: { businessImages: item }
+            },
+            { new: true }        );
+        if (!business) {
+            console.log('business',business)
+            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        }
+        await business.save()
+        console.log('business', business)
+        return res.status(409).redirect('/sites/e4d4/edit/profile?message=Business Image Deleted!')
     } catch (error) {
         console.log('error updating Business Profile Picture: ', error.message)
         return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
@@ -202,7 +224,7 @@ router.post('/info', async (req, res) => {
     try {
         const { id, businessYears, fullName, subHeading, industry, about, workWithUs, phone, companySize, foundedDate } = req.body
         const business = await Business.findById(id)
-        console.log('business',business)
+        console.log('business', business)
         if (!business) {
             return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }

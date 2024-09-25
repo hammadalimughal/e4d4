@@ -15,7 +15,7 @@
     <div class="container">
       <div class="dashboard-main-setting profile-info mx-auto">
         <div class="profile-history">
-          
+
           <div class="profile-person-history">
             <img src="/sites/e4d4<%= business.profilePic ? business.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
             <div class="px-3">
@@ -249,7 +249,7 @@
             <li class="photos-wrap">
               <div class="item-head">
                 <h6 class="fw-bold">Photos</h6>
-                
+
                 <% if(business.businessImages?.length > 0) { %>
                 <label class="add-btn">
                   <input class="d-none" type="file" id="upload-photos" multiple>
@@ -258,15 +258,20 @@
                 <% } %>
               </div>
               <% if(business.businessImages?.length > 0) { %>
-                <div class="row g-4">
-                  <% business.businessImages.forEach((item) => { %>
-                  <div class="col-lg-4 col-12">
-                    <a href="/sites/e4d4<%= item %>" class="business-image d-block">
-                      <img class="w-100" src="/sites/e4d4<%= item %>" alt="">
-                    </a>
-                  </div>
-                  <% }) %>
+              <div class="row g-4">
+                <% business.businessImages.forEach((item) => { %>
+                <div class="col-lg-4 col-12 img-item position-relative">
+                  <form class="dangerous-form" data-warning="Your Image Will be Deleted! Do you Want to Proceed?" action="/sites/e4d4/api/business/modify/remove-business-image" method="post">
+                    <input type="hidden" name="id" value="<%= business._id %>">
+                    <input type="hidden" name="item" value="<%= item %>">
+                    <button class="remove-btn" type="submit" title="delete <%= item.platform %>"><i class="bi bi-trash"></i></button>
+                  </form>
+                  <a href="/sites/e4d4<%= item %>" class="business-image d-block">
+                    <img class="w-100" src="/sites/e4d4<%= item %>" alt="">
+                  </a>
                 </div>
+                <% }) %>
+              </div>
               <% } else { %>
               <label class="photos-upload-container" for="upload-photos">
                 <input type="file" id="upload-photos" multiple>
@@ -279,8 +284,28 @@
             </li>
             <li>
               <div class="item-head">
-                <h6 class="fw-bold">Positions</h6>
+                <h6 class="fw-bold mb-3">Positions</h6>
+                <a href="/sites/e4d4/jobposting"><i class="bi bi-plus-circle-fill"></i></a>
               </div>
+              <% if(jobs.length > 0) { %>
+              <div class="row">
+                <% jobs.forEach((item) => { %>
+                <div class="col-lg-4 col-md-6 col-12">
+                  <div class="job-card">
+                    <h5><a href="/sites/e4d4/jobdetails/<%= item._id %>"><%= item.title %></a></h5>
+                    <ul>
+                      <li><%= item.jobType %></li>
+                      <li><%= item.position %></li>
+                      <li><%= item.industry %></li>
+                    </ul>
+                    <p><%= item.summary %></p>
+                    <p><%= item.additionalInfo %></p>
+                    <a href="/sites/e4d4/jobdetails/<%= item._id %>">View More</a>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+              <% } %>
             </li>
           </ul>
         </div>
@@ -581,12 +606,6 @@
       $(this).parent().find('.listing .hidden').removeClass('hidden')
       $(this).remove()
     })
-    $(".dangerous-form").submit(function(e) {
-      const warning = $(this).data('warning')
-      if (!confirm(warning)) {
-        e.preventDefault()
-      }
-    })
   </script>
   <script>
     $("#upload-photos").change(function(e) {
@@ -605,7 +624,9 @@
       xhr.upload.onprogress = function(e) {
         if (e.lengthComputable) {
           const percentComplete = (e.loaded / e.total) * 100;
-          $(".photos-wrap .progress .progress-bar").css({width: `${percentComplete}%`})
+          $(".photos-wrap .progress .progress-bar").css({
+            width: `${percentComplete}%`
+          })
           $(".photos-wrap .progress .progress-bar").html(`${percentComplete}%`)
           console.log('percentComplete', percentComplete)
         }
@@ -613,16 +634,16 @@
 
       xhr.onload = function() {
         const images = JSON.parse(xhr.response).images
-        console.log('xhr.response',xhr.response)
+        console.log('xhr.response', xhr.response)
         if (xhr.status === 200) {
           let wrapper;
-          if($('.photos-wrap .row').length == 0){
+          if ($('.photos-wrap .row').length == 0) {
             wrapper = document.createElement('div')
             $(wrapper).addClass('row g-4')
-          }else{
+          } else {
             wrapper = $('.photos-wrap .row')
           }
-          images.map((item)=>{
+          images.map((item) => {
             $(wrapper).append(`<div class="col-lg-4 col-12">
                   <a href="/sites/e4d4${item}" class="business-image d-block">
                     <img class="w-100" src="/sites/e4d4${item}" alt="">
@@ -639,7 +660,9 @@
         }
         setTimeout(() => {
           $(".photos-wrap .progress").fadeOut()
-          $(".photos-wrap .progress .progress-bar").css({width: 0})
+          $(".photos-wrap .progress .progress-bar").css({
+            width: 0
+          })
         }, 3000);
       };
 

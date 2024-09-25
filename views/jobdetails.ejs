@@ -11,153 +11,151 @@
 <body>
   <STYle>
     /* Overall styling for the section */
-.portfolio-section {
-    background-color: #f9f9f9;
-    padding: 40px 0;
-}
+    .portfolio-section {
+      background-color: #f9f9f9;
+      padding: 40px 0;
+    }
 
-.job-details-setting {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 100px;
-    width: 100%;
-}
+    .job-details-setting {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      margin-bottom: 100px;
+      width: 100%;
+    }
 
-/* Job Banner Styling */
-.job-banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
-}
-
-.job-details {
-    display: flex;
-    align-items: center;
-}
-
-.job-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-}
-
-.job-banner h4,
-.job-banner h6 {
-    margin: 0;
-}
-
-.job-banner-icon {
-    display: flex;
-    align-items: center;
-}
-
-.job-banner-icon div {
-    display: flex;
-    align-items: center;
-    margin-right: 15px;
-}
-
-.job-banner-icon i {
-    margin-right: 5px;
-}
-
-/* Job Description Styling */
-.jobs-description h6 {
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.jobs-description ul {
-    list-style-type: disc;
-    margin-left: 20px;
-}
-
-.jobs-description ul li {
-    margin-bottom: 10px;
-}
-
-/* Job Overview - Table Styling */
-.job-overview {
-    background-color: #f1f1f1;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    font-size: 0.9em;
-}
-
-.job-overview h6 {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.job-overview-icon {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.icons-overview {
-    flex-grow: 1;
-}
-
-.icons-overview i {
-    margin-right: 10px;
-    color: #f76103;
-}
-
-/* Button Styling */
-.submit-btn-portfolio {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
+    /* Job Banner Styling */
     .job-banner {
-        flex-direction: column;
-        align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 20px;
     }
 
     .job-details {
+      display: flex;
+      align-items: center;
+    }
+
+    .job-details .profile-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .job-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    .job-banner h4,
+    .job-banner h6 {
+      margin: 0;
+    }
+
+    .job-banner-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .job-banner-icon div {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+
+    .job-banner-icon i {
+      margin-right: 5px;
+    }
+
+    /* Job Description Styling */
+    .jobs-description h6 {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .jobs-description ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+
+    .jobs-description ul li {
+      margin-bottom: 10px;
+    }
+
+    /* Job Overview - Table Styling */
+    .job-overview {
+      background-color: #f1f1f1;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+
+    .job-overview h6 {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .job-overview-icon {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .icons-overview {
+      flex-grow: 1;
+    }
+
+    .icons-overview i {
+      margin-right: 10px;
+      color: #f76103;
+    }
+
+    /* Button Styling */
+    .submit-btn-portfolio {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .job-banner {
         flex-direction: column;
         align-items: flex-start;
-    }
+      }
 
-    .job-overview {
+      .job-details {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .job-overview {
         margin-top: 10px;
+      }
     }
-}
-
   </STYle>
   <%- include('./partials/header') %>
-  
-    <!-- JOB POSTING WORKS STARTS HERE -->
-    <section class="portfolio-section">
-      <div
-        class="container d-flex flex-column justify-content-center align-items-center"
-        data-aos="fade-up"
-        data-aos-duration="3200"
-        data-aos-easing="ease-in-sine"
-      >
-        <!-- NO 1 portfolio WORKS STARTS HERE -->
-        <div class="job-details-setting">
-          <div class="job-banner">
+
+  <!-- JOB POSTING WORKS STARTS HERE -->
+  <section class="portfolio-section">
+    <div class="container d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+      <!-- NO 1 portfolio WORKS STARTS HERE -->
+      <div class="job-details-setting">
+        <div class="job-banner">
+          <div class="job-detail-header">
             <div class="job-details">
-              <img
-                href="/sites/e4d4/assets/img/business-profile.png"
-                alt=""
-                class="job-img"
-              />
+              <img class="profile-img" src="/sites/e4d4<%= job.company?.profilePic ? job.company?.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
               <div class="d-flex flex-column justify-content-center mx-3">
                 <h4 class="fw-bold"><%= job.title %></h4>
                 <h6 class="fw-bold">Company: (<%= job.company?.fullName %>)</h6>
@@ -168,138 +166,148 @@
                   </div>
                   <div class="px-2">
                     <i class="bi bi-cash-coin"></i>
-                    <span>$<%= job.salary %></span>
+                    <span>$<%= job.salary.toFixed(2) %></span>
                   </div>
                 </div>
               </div>
             </div>
-
-            <% if(!business){ %>
-            <div>
-              <button
-                type="button"
-                class="submit-btn-portfolio btn-portfolio mx-2"
-              >
-                Apply for this Job
-              </button>
-              <button type="button" class="logout-btn">
-                <i class="fa-regular fa-bookmark"></i>
-              </button>
-            </div>
-            <% } %>
           </div>
-          <div class="row w-90">
-            <div class="col-lg-8">
-              <div class="jobs-description">
-                <h6 class="fw-bold">Job Description</h6>
-                <p><%= job.summary %></p>
+          <% if (business?._id.toString() == job.company?._id.toString()) { %>
+          <div class="job-detail-admin-actions">
+              <a href="/sites/e4d4/editjob/<%= job._id %>" class="logout-btn">
+                <i class="bi bi-pencil-square"></i>
+              </a>
+            <form class="dangerous-form" data-warning="Job Will be deleted! Do you want to proceed?" action="/sites/e4d4/api/business/job/delete" method="POST">
+              <input type="hidden" name="id" value="<%= business._id %>">
+              <input type="hidden" name="jobId" value="<%= job._id %>">
+              <button type="submit" class="submit-btn-portfolio btn-portfolio bg-danger">Delete</button>
+            </form>
+          </div>
+          <% } %>
+          <% if(!business){ %>
+          <div>
+            <button type="button" class="submit-btn-portfolio btn-portfolio mx-2">
+              Apply for this Job
+            </button>
+            <button type="button" class="logout-btn">
+              <i class="fa-regular fa-bookmark"></i>
+            </button>
+          </div>
+          <% } %>
+        </div>
+        <div class="row w-90">
+          <div class="col-lg-8">
+            <div class="jobs-description">
+              <h6 class="fw-bold">Job Description</h6>
+              <p><%= job.summary %></p>
 
-                <h6 class="fw-bold">Key Responsibilities</h6>
-                <ul>
-                 <% job.responsiblities.forEach((resp)=>{ %>
-                  <li><%= resp %></li>
-                  <% }) %>
-                </ul>
+              <h6 class="fw-bold">Key Responsibilities</h6>
+              <ul>
+                <% job.responsiblities.forEach((resp)=>{ %>
+                <li><%= resp %></li>
+                <% }) %>
+              </ul>
 
-                <h6 class="fw-bold mb-3">Jobs Skills</h6>
-                <ul>
-                  <% job.skills.forEach((skill)=>{ %>
-                    <li><%= skill %></li>
-                    <% }) %>
-                </ul>
-                <h6 class="fw-bold mb-3">Benefits</h6>
-                <ul>
-                  <% job.benefits.forEach((ben)=>{ %>
-                    <li><%= ben %></li>
-                    <% }) %>
-                </ul>
-                <% if(job.certification){ %>
-                  <h6 class="fw-bold mb-3">Certification</h6>
-                  <p><%= job.certification %></p>
-                  <% } %>
-                  <h6 class="fw-bold mb-3">Application Instruction</h6>
-                  <p><%= job.applicationInstruction %></p>
-                  <h6 class="fw-bold mb-3">Required Documents</h6>
-                  <ul>
-                    <% job.requiredDocuments.forEach((doc)=>{ %>
-                      <li><%= doc %></li>
-                      <% }) %>
-                  </ul>
-                  <h6 class="fw-bold mb-3">Additional Info</h6>
-                  <p><%= job.additionalInfo %></p>
-                </div>
+              <h6 class="fw-bold mb-3">Jobs Skills</h6>
+              <ul>
+                <% job.skills.forEach((skill)=>{ %>
+                <li><%= skill %></li>
+                <% }) %>
+              </ul>
+              <h6 class="fw-bold mb-3">Benefits</h6>
+              <ul>
+                <% job.benefits.forEach((ben)=>{ %>
+                <li><%= ben %></li>
+                <% }) %>
+              </ul>
+              <% if(job.certification){ %>
+              <h6 class="fw-bold mb-3">Certification</h6>
+              <p><%= job.certification %></p>
+              <% } %>
+              <h6 class="fw-bold mb-3">Application Instruction</h6>
+              <p><%= job.applicationInstruction %></p>
+              <h6 class="fw-bold mb-3">Required Documents</h6>
+              <ul>
+                <% job.requiredDocuments.forEach((doc)=>{ %>
+                <li><%= doc %></li>
+                <% }) %>
+              </ul>
+              <h6 class="fw-bold mb-3">Additional Info</h6>
+              <p><%= job.additionalInfo %></p>
             </div>
+          </div>
 
-            <div class="col-lg-4">
-              <div class="job-overview">
-                <h6 class="fw-bold">Job Overview</h6>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-calendar"></i><strong> Date Posted: </strong><%= formatDate(job.applicationPosted) %></p>
-                  </div>
+          <div class="col-lg-4">
+            <div class="job-overview">
+              <h6 class="fw-bold">Job Overview</h6>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-calendar"></i><strong> Date Posted: </strong><%= formatDate(job.applicationPosted) %></p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-hourglass-split"></i><strong> Expiration date: </strong><%= formatDate(job.applicationDeadline) %></p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-hourglass-split"></i><strong> Expiration date: </strong><%= formatDate(job.applicationDeadline) %></p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-geo-alt"></i><strong> Location: </strong><%= job.location %></p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-geo-alt"></i><strong> Location: </strong><%= job.location %></p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-backpack"></i><strong> Education: </strong><%= job.education %></p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-backpack"></i><strong> Education: </strong><%= job.education %></p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-briefcase"></i><strong> Experience: </strong><%= job.experience %> Years</p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-briefcase"></i><strong> Experience: </strong><%= job.experience %> Years</p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-briefcase-fill"></i><strong> Position: </strong><%= job.position %></p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-briefcase-fill"></i><strong> Position: </strong><%= job.position %></p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-person"></i><strong> Job Title: </strong><%= job.title %></p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-person"></i><strong> Job Title: </strong><%= job.title %></p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-stopwatch"></i><strong> Hours: </strong><%= job.workScheduled %></p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-stopwatch"></i><strong> Hours: </strong><%= job.workScheduled %></p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-cash-coin"></i><strong> Salary: </strong>$<%= job.salary %></p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-cash-coin"></i><strong> Salary: </strong>$<%= job.salary.toFixed(2) %></p>
                 </div>
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-bank"></i><strong> Industry: </strong><%= job.industry %></p>
-                  </div>
+              </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-bank"></i><strong> Industry: </strong><%= job.industry %></p>
                 </div>
+              </div>
 
-                <div class="job-overview-icon">                  
-                  <div class="icons-overview">
-                    <p class="m-0"><i class="bi bi-person-lines-fill"></i><strong> Employment Type: </strong><%= job.jobType %></p>
-                  </div>
+              <div class="job-overview-icon">
+                <div class="icons-overview">
+                  <p class="m-0"><i class="bi bi-person-lines-fill"></i><strong> Employment Type: </strong><%= job.jobType %></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- portfolio WORKS ENDS HERE -->
       </div>
-    </section>
-    <!-- JOB POSTING WORKS ENDS HERE -->
+      <!-- portfolio WORKS ENDS HERE -->
+    </div>
+  </section>
+  <!-- JOB POSTING WORKS ENDS HERE -->
 
-    <%- include('./partials/query') %>
-    <%- include('./partials/footer') %>
-    <%- include('./partials/scriptlinks') %>
-  </body>
+  <%- include('./partials/query') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scriptlinks') %>
+</body>
+
 </html>

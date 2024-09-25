@@ -5,9 +5,9 @@ const Business = require("../schema/Business");
 
 const cookieAuth = (cookieName) => {
     return async (req, res, next) => {
-        if (req.method !== 'GET') {
-            return next();
-        }
+        // if (req.method !== 'GET') {
+        //     return next();
+        // }
 
         try {
             const cookieAuthtoken = req.cookies[cookieName];

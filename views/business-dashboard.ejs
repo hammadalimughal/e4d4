@@ -39,52 +39,33 @@
         <div class="dashboard-business-tabs">
           <div class="d-flex justify-content-between flex-wrap">
             <ul class="nav nav-pills" id="pills-tab" role="tablist">
-              <li class="nav-item" role="presentation">
+              <!-- <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
-              </li>
+              </li> -->
               <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-advertise-tab" data-bs-toggle="pill" data-bs-target="#pills-advertise" type="button" role="tab" aria-controls="pills-advertise" aria-selected="false">Job Listing</button>
+                <button class="nav-link active" id="pills-advertise-tab" data-bs-toggle="pill" data-bs-target="#pills-advertise" type="button" role="tab" aria-controls="pills-advertise" aria-selected="true">Job Listing</button>
               </li>
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="pills-subscription-tab" data-bs-toggle="pill" data-bs-target="#pills-subscription" type="button" role="tab" aria-controls="pills-subscription" aria-selected="false">connected</button>
               </li>
             </ul>
             <form action="" method="get">
-            <!-- <div class="history-input-design d-flex justify-content-end align-items-end">
+              <!-- <div class="history-input-design d-flex justify-content-end align-items-end">
               <input type="text" class="" placeholder="Location history" required>
               <button><i class="bi bi-search"></i></button>
             </div> -->
-          </form>
+            </form>
           </div>
 
 
           <!-- DASHBOARD TABS WORKS STARTS HERE -->
           <div class="">
             <!-- DASHBOARD HOME WORKS STARTS HERE -->
-            <div class="tab-content mt-lg-5 mt-4" id="pills-tabContent">
-              <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="tab-content mt-lg-5 mt-4" id="dashboard-tabs">
+              <div class="tab-pane" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
                 <div class="dashboard-home-properties ">
                   <div class="row just">
-                    <!-- <div class="col-lg-4">
-                      <div class="manage-ads">
-                        <h5 class="fw-bold">MANAGE ADs</h5>
-                        <div class="d-flex justify-content-around flex-wrap my-3">
-                          <div>
-                            <span class="company-loc text-dark">Total Ads</span>
-                            <p class="fw-bold"><%= totalUsers %></p>
-                          </div>
-                          <div>
-                            <span class="company-loc text-dark">Active Adds</span>
-                            <p class="fw-bold">20</p>
-                          </div>
-                          <div>
-                            <span class="company-loc text-dark">Draft</span>
-                            <p class="fw-bold">05</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
 
                     <div class="col-lg-4 ">
                       <div class="manage-ads">
@@ -183,49 +164,49 @@
                       <ul class="pagination custom-pagination">
                         <% maxVisiblePages = 9 %>
                         <% if (totalPages <= maxVisiblePages) { %>
-                            <!-- Show all pages if total pages are less than or equal to maxVisiblePages -->
-                            <% for (let i = 1; i <= totalPages; i++) { %>
-                                <% if (i === currentPage) { %>
-                                    <li><span class="active"><%= i %></span></li>
-                                <% } else { %>
-                                    <li><a href="?page=<%= i %>"><%= i %></a></li>
-                                <% } %>
-                            <% } %>
+                        <!-- Show all pages if total pages are less than or equal to maxVisiblePages -->
+                        <% for (let i = 1; i <= totalPages; i++) { %>
+                        <% if (i === currentPage) { %>
+                        <li><span class="active"><%= i %></span></li>
                         <% } else { %>
-                            <!-- Show pagination with ellipses if total pages are more than maxVisiblePages -->
-                            <% if (currentPage > 1) { %>
-                                <li><a href="?page=<%= currentPage - 1 %>">&laquo;</a></li>
-                            <% } %>
-                    
-                            <% if (currentPage > 3) { %>
-                                <li><a href="?page=1">1</a></li>
-                                <% if (currentPage > 4) { %>
-                                    <li><span>...</span></li>
-                                <% } %>
-                            <% } %>
-                    
-                            <!-- Display current page and nearby pages -->
-                            <% for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) { %>
-                                <% if (i === currentPage) { %>
-                                    <li><span class="active"><%= i %></span></li>
-                                <% } else { %>
-                                    <li><a href="?page=<%= i %>"><%= i %></a></li>
-                                <% } %>
-                            <% } %>
-                    
-                            <% if (currentPage < totalPages - 2) { %>
-                                <% if (currentPage < totalPages - 3) { %>
-                                    <li><span>...</span></li>
-                                <% } %>
-                                <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
-                            <% } %>
-                    
-                            <% if (currentPage < totalPages) { %>
-                                <li><a href="?page=<%= currentPage + 1 %>">&raquo;</a></li>
-                            <% } %>
+                        <li><a href="?page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% } %>
+                        <% } else { %>
+                        <!-- Show pagination with ellipses if total pages are more than maxVisiblePages -->
+                        <% if (currentPage > 1) { %>
+                        <li><a href="?page=<%= currentPage - 1 %>">&laquo;</a></li>
+                        <% } %>
+
+                        <% if (currentPage > 3) { %>
+                        <li><a href="?page=1">1</a></li>
+                        <% if (currentPage > 4) { %>
+                        <li><span>...</span></li>
+                        <% } %>
+                        <% } %>
+
+                        <!-- Display current page and nearby pages -->
+                        <% for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) { %>
+                        <% if (i === currentPage) { %>
+                        <li><span class="active"><%= i %></span></li>
+                        <% } else { %>
+                        <li><a href="?page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% } %>
+
+                        <% if (currentPage < totalPages - 2) { %>
+                        <% if (currentPage < totalPages - 3) { %>
+                        <li><span>...</span></li>
+                        <% } %>
+                        <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
+                        <% } %>
+
+                        <% if (currentPage < totalPages) { %>
+                        <li><a href="?page=<%= currentPage + 1 %>">&raquo;</a></li>
+                        <% } %>
                         <% } %>
                     </div>
-                      <!-- <div class="col-lg-4">
+                    <!-- <div class="col-lg-4">
                         <div class="talent-home">
                           <div class="d-flex justify-content-between flex-wrap  text-modifier">
                             <div class="">
@@ -465,182 +446,225 @@
                         </div>
                       </div> -->
 
-                    </div>
                   </div>
-
-                </div>
-
-                <div class="dashboard-home-portfolio dashboard-home-ads">
-                  <div class="d-flex justify-content-center">
-                    <span class="home-border">Profile / Portfolio</span>
-                  </div>
-                  <img src="/sites/e4d4/assets/img/bg-porfolio.png" alt="" class="bus-port-img">
-
-                  <div class="row">
-                    <div class="col-lg-2 position-relative">
-                      <img src="/sites/e4d4/assets/img/dashboard-img.png" alt="" class="bus-per-img">
-                    </div>
-                    <div class="col-lg-8 mt-4 px-4">
-                      <h4><strong>Edward James</strong>
-                        ( UI/UX Designer )</h4>
-                      <p class="fs-15">Lorem Ipsum is simply dummy text of the printing and
-                        typesetting
-                        industry.</p>
-                    </div>
-
-                    <div class="col-lg-2 mt-4">
-                      <div>
-                        <h5 class="border-design-exp">6+ years Of Experience</h5>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-wrap bor-bottom">
-                    <div class="pad-rig">
-                      <i class="bi bi-at"></i>
-                      <span class="fw-bold">edwardjj53</span>
-                    </div>
-                    <div class="pad-rig">
-                      <i class="bi bi-geo-alt"></i>
-                      <span class="fw-bold">Sydney, Australia</span>
-                    </div>
-                    <div class="pad-rig">
-                      <i class="bi bi-check2-square"></i>
-                      <span class="fw-bold">Member Since Jan 2024</span>
-                    </div>
-                    <div class="pad-rig">
-                      <span class="fw-bold">( 15 ) Recommendations</span>
-                    </div>
-                  </div>
-
-
-                  <div class="row bor-bottom">
-                    <div class="col-lg-7 ">
-                      <div class="about-business">
-                        <h5>About</h5>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                          industry.
-                          Lorem Ipsum is simply dummy text of the printing and typesetting
-                          industry.
-                          Lorem Ipsum is simply dummy text of the printing and typesetting
-                          industry.
-                          Lorem Ipsum is simply dummy text of the printing and typesetting
-                          industry
-                        </p>
-                        <img src="/sites/e4d4/assets/img/about-img.png" alt="" class="img-fluid border-10">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-5">
-                      <div class="connect-business">
-                        <h5 class="mb-5 fw-bold">Connect With Me</h5>
-
-                        <span class="company-loc">Email Address</span>
-                        <p class="fw-bold mb-4 fs-15">edwardjames569@gmail.com</p>
-
-                        <span class="company-loc">Phone #</span>
-                        <p class="fw-bold mb-4 fs-15">+69 8569 235 32</p>
-
-
-                        <span class="company-loc">LinkedIn</span>
-                        <p class="fw-bold mb-4 fs-15">LinkedIn.com/edwardjjUI.UX</p>
-
-                        <div class="d-flex">
-                          <p class="bg-modifier fs-12">UI/UX</p>
-                          <p class="bg-modifier fs-12">Branding</p>
-                          <p class="bg-modifier fs-12">Logo</p>
-                        </div>
-
-                        <img src="/sites/e4d4/assets/img/connect.PNG" alt="" class="img-fluid border-10">
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="project-business">
-                    <div class="row">
-                      <div class="d-flex justify-content-between flex-wrap">
-                        <h5 class="fw-bold">Projects Showcase</h5>
-                        <div>
-                          <span class="fs-15">View All</span>
-                          <i class="bi bi-arrow-up-right fs-15"></i>
-                        </div>
-                      </div>
-
-                      <div class="col-lg-4 col-md-6">
-                        <div class="project-images">
-                          <h6 class="fw-bold">UI/UX Design</h6>
-                          <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="project-images">
-                          <h6 class="fw-bold">UI/UX Design</h6>
-                          <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="project-images">
-                          <h6 class="fw-bold">UI/UX Design</h6>
-                          <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="project-images">
-                          <h6 class="fw-bold">UI/UX Design</h6>
-                          <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
-                        </div>
-                      </div>
-
-                      <div class="col-lg-4 col-md-6 ">
-                        <div class="project-images">
-                          <h6 class="fw-bold">UI/UX Design</h6>
-                          <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="project-images">
-                          <h6 class="fw-bold">UI/UX Design</h6>
-                          <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
-                        </div>
-                      </div>
-
-                      <div class="d-flex justify-content-center my-5">
-                        <h2 class="fw-bold position-relative crafting">Crafting Excellence in
-                          Every Task
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="d-flex flex-column align-items-center my-5">
-                    <h5 class="fw-bold">Follow To Know More About Me!</h5>
-                    <div>
-                      <img src="./assets/img/facebook.png" alt="">
-                      <img src="./assets/img/instagram.png" alt="">
-                      <img src="./assets/img/twitterx.png" alt="">
-                      <img src="./assets/img/tiktok.png" alt="">
-                      <img src="./assets/img/linkedin.png" alt="">
-                    </div>
-                  </div>
-
-
                 </div>
 
               </div>
+
+              <div class="dashboard-home-portfolio dashboard-home-ads">
+                <div class="d-flex justify-content-center">
+                  <span class="home-border">Profile / Portfolio</span>
+                </div>
+                <img src="/sites/e4d4/assets/img/bg-porfolio.png" alt="" class="bus-port-img">
+
+                <div class="row">
+                  <div class="col-lg-2 position-relative">
+                    <img src="/sites/e4d4/assets/img/dashboard-img.png" alt="" class="bus-per-img">
+                  </div>
+                  <div class="col-lg-8 mt-4 px-4">
+                    <h4><strong>Edward James</strong>
+                      ( UI/UX Designer )</h4>
+                    <p class="fs-15">Lorem Ipsum is simply dummy text of the printing and
+                      typesetting
+                      industry.</p>
+                  </div>
+
+                  <div class="col-lg-2 mt-4">
+                    <div>
+                      <h5 class="border-design-exp">6+ years Of Experience</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-wrap bor-bottom">
+                  <div class="pad-rig">
+                    <i class="bi bi-at"></i>
+                    <span class="fw-bold">edwardjj53</span>
+                  </div>
+                  <div class="pad-rig">
+                    <i class="bi bi-geo-alt"></i>
+                    <span class="fw-bold">Sydney, Australia</span>
+                  </div>
+                  <div class="pad-rig">
+                    <i class="bi bi-check2-square"></i>
+                    <span class="fw-bold">Member Since Jan 2024</span>
+                  </div>
+                  <div class="pad-rig">
+                    <span class="fw-bold">( 15 ) Recommendations</span>
+                  </div>
+                </div>
+
+
+                <div class="row bor-bottom">
+                  <div class="col-lg-7 ">
+                    <div class="about-business">
+                      <h5>About</h5>
+                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting
+                        industry
+                      </p>
+                      <img src="/sites/e4d4/assets/img/about-img.png" alt="" class="img-fluid border-10">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-5">
+                    <div class="connect-business">
+                      <h5 class="mb-5 fw-bold">Connect With Me</h5>
+
+                      <span class="company-loc">Email Address</span>
+                      <p class="fw-bold mb-4 fs-15">edwardjames569@gmail.com</p>
+
+                      <span class="company-loc">Phone #</span>
+                      <p class="fw-bold mb-4 fs-15">+69 8569 235 32</p>
+
+
+                      <span class="company-loc">LinkedIn</span>
+                      <p class="fw-bold mb-4 fs-15">LinkedIn.com/edwardjjUI.UX</p>
+
+                      <div class="d-flex">
+                        <p class="bg-modifier fs-12">UI/UX</p>
+                        <p class="bg-modifier fs-12">Branding</p>
+                        <p class="bg-modifier fs-12">Logo</p>
+                      </div>
+
+                      <img src="/sites/e4d4/assets/img/connect.PNG" alt="" class="img-fluid border-10">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="project-business">
+                  <div class="row">
+                    <div class="d-flex justify-content-between flex-wrap">
+                      <h5 class="fw-bold">Projects Showcase</h5>
+                      <div>
+                        <span class="fs-15">View All</span>
+                        <i class="bi bi-arrow-up-right fs-15"></i>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                      <div class="project-images">
+                        <h6 class="fw-bold">UI/UX Design</h6>
+                        <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <div class="project-images">
+                        <h6 class="fw-bold">UI/UX Design</h6>
+                        <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <div class="project-images">
+                        <h6 class="fw-bold">UI/UX Design</h6>
+                        <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <div class="project-images">
+                        <h6 class="fw-bold">UI/UX Design</h6>
+                        <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 ">
+                      <div class="project-images">
+                        <h6 class="fw-bold">UI/UX Design</h6>
+                        <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                      <div class="project-images">
+                        <h6 class="fw-bold">UI/UX Design</h6>
+                        <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
+                      </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center my-5">
+                      <h2 class="fw-bold position-relative crafting">Crafting Excellence in
+                        Every Task
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-column align-items-center my-5">
+                  <h5 class="fw-bold">Follow To Know More About Me!</h5>
+                  <div>
+                    <img src="./assets/img/facebook.png" alt="">
+                    <img src="./assets/img/instagram.png" alt="">
+                    <img src="./assets/img/twitterx.png" alt="">
+                    <img src="./assets/img/tiktok.png" alt="">
+                    <img src="./assets/img/linkedin.png" alt="">
+                  </div>
+                </div>
+
+
+              </div>
+
+
               <!-- DASHBOARD HOME WORKS EMDS HERE -->
 
-              <div class="tab-pane fade" id="pills-advertise" role="tabpanel" aria-labelledby="pills-advertise-tab">NONE</div>
-              <div class="tab-pane fade" id="pills-subscription" role="tabpanel" aria-labelledby="pills-subscription-tab">NONE</div>
+              <div class="tab-pane fade fade show active" id="pills-advertise" role="tabpanel" aria-labelledby="pills-advertise-tab">
+                <% if(jobs.length > 0) { %>
+                <div class="row">
+                  <% jobs.forEach((item) => { %>
+                  <div class="col-lg-4 col-md-6 col-12">
+                    <div class="job-card">
+                      <h5><a href="/sites/e4d4/jobdetails/<%= item._id %>"><%= item.title %></a></h5>
+                      <ul>
+                        <li><%= item.jobType %></li>
+                        <li><%= item.position %></li>
+                        <li><%= item.industry %></li>
+                      </ul>
+                      <p><%= item.summary %></p>
+                      <p><%= item.additionalInfo %></p>
+                      <a href="/sites/e4d4/jobdetails/<%= item._id %>">View More</a>
+                    </div>
+                  </div>
+                  <% }) %>
+                </div>
+                <% } %>
+              </div>
+              <div class="tab-pane fade" id="pills-subscription" role="tabpanel" aria-labelledby="pills-subscription-tab">
+                <% if(connections.length > 0){ %>
+                <div class="row g-4">
+                  <% 
+                  connections.forEach((item) => {
+                    const connectionUser = item.user
+                     %>
+                  <div class="col-lg-4 col-12 panel">
+                    <a href="/sites/e4d4/connected-profile/<%= item._id %>" class="profile-card">
+                      <% if (item.profile) { %>
+                      <img class="img-fluid" src="/sites/e4d4<%= connectionUser.profilePic ? connectionUser.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+                      <% } else { %>
+                        <div class="lock-img">
+                          <i class="bi bi-lock"></i>
+                        </div>
+                      <% } %>
+                      <h4><%= item.fullName ? connectionUser.fullName : 'Hidden' %></h4>
+                      </a>
+                  </div>
+                  <% }) %>
+                </div>
+                <% } %>
+              </div>
             </div>
           </div>
-          <!-- DASHBOARD TABS WORKS EMDS HERE -->
-
-
         </div>
+        <!-- DASHBOARD TABS WORKS EMDS HERE -->
 
 
       </div>
-      <!--BUSINESS dashboard  WORKS ENDS HERE -->
+
+
+    </div>
+    <!--BUSINESS dashboard  WORKS ENDS HERE -->
     </div>
   </section>
   <!-- BUSINESS DETAILS SECTION ENDS HERE -->
