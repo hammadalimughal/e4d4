@@ -160,7 +160,11 @@
                     <% 
                   const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                   %>
-                    <h5 class="title"><%= experience.title %></h5>
+                    <h5 class="title"><%= experience.title %> 
+                      <% if(experience.fileUrl) { %>
+                        <a class="file-link" href="/sites/e4d4/<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
+                      <% } %>
+                    </h5>
                     <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
                     <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
                     <h6 class="info"><%= experience.location %></h6>
@@ -200,7 +204,11 @@
 
                   </div>
                   <div class="data">
-                    <h5 class="title"><%= education.institute %></h5>
+                    <h5 class="title"><%= education.institute %>
+                      <% if(education.fileUrl) { %>
+                        <a class="file-link" href="/sites/e4d4/<%= education.fileUrl %>"><i class="bi bi-filetype-<%= education.fileUrl.split('.')[education.fileUrl.split('.').length - 1] %>"></i></a>
+                      <% } %>
+                    </h5>
                     <h6 class="info"><%= education.degree %></h6>
                     <h6 class="info"><%= education.startingDate ? monthsShort[education.startingDate?.getMonth()] : '' %> <%= education.startingDate ? education.startingDate?.getFullYear() : '' %> - <%= education.endingDate ? monthsShort[education.endingDate?.getMonth()] : '' %> <%= education.endingDate ? education.endingDate?.getFullYear() : '' %></h6>
                     <h6 class="info"><%= education.location %></h6>
@@ -227,7 +235,11 @@
                     <% 
                     const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     %>
-                    <h5 class="title"><%= experience.title %></h5>
+                    <h5 class="title"><%= experience.title %>
+                      <% if(experience.fileUrl) { %>
+                        <a class="file-link" href="/sites/e4d4/<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
+                      <% } %>
+                    </h5>
                     <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
                     <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
                     <h6 class="info"><%= experience.location %></h6>
@@ -272,12 +284,38 @@
                       <% 
                       const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                       %>
-                      <h5 class="title"><%= cert?.title %> - <% if(cert.fileUrl){ %> <a href="/sites/e4d4<%= cert.fileUrl %>">View</a> <% } %></h5>
+                      <h5 class="title"><%= cert?.title %> <% if(cert.fileUrl) { %>
+                        <a class="file-link" href="/sites/e4d4/<%= cert.fileUrl %>"><i class="bi bi-filetype-<%= cert.fileUrl.split('.')[cert.fileUrl.split('.').length - 1] %>"></i></a>
+                      <% } %></h5>
                       <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
                     </div>
                   </li>
                   <% }) %>
                 </ul>
+              </li>
+              <li>
+                <div class="item-head">
+                  <h6 class="fw-bold">Personal Documents</h6>
+                </div>
+                <% if(user.personalDocuments?.length > 0) { %>
+                  <ul class="listing">
+                    <% user.personalDocuments.forEach((perDoc) => { %>
+                    <li class="align-items-center">
+                      <div class="file-icon">
+                        <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                      </div>
+                      <div class="data">
+                        <% 
+                        const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        %>
+                        <h5 class="title"><%= perDoc?.title %>
+                          <a class="file-link" href="/sites/e4d4/<%= perDoc.fileUrl %>"><i class="bi bi-filetype-<%= perDoc.fileUrl.split('.')[perDoc.fileUrl.split('.').length - 1] %>"></i></a>
+                        </h5>
+                      </div>
+                    </li>
+                    <% }) %>
+                  </ul>
+                  <% } %>
               </li>
               <% } %>
           </ul>

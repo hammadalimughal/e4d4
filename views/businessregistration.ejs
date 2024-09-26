@@ -732,33 +732,7 @@
     //   }
     // });
   </script>
-  <script>
-    $(".api-field").keyup(async function(){
-      $(this).siblings('.api-locations').remove()
-      const value = $(this).val()
-      if(value.length >= 2){
-        const res = await fetch('/sites/e4d4/api/location/fetch', {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({place: value})
-        })
-        const resJson = await res.json()
-        const elem = document.createElement('ul')
-        $(elem).addClass('api-locations')
-        resJson.map((item)=>{
-          $(elem).append(`<li><button type="button" onClick="selectValue(this,'${item.city}, ${item.admin_name}')">${item.city}, ${item.admin_name}</li></button>`)
-        })
-        $(this).parent().append(elem)
-        console.log('resJson',resJson)
-      }
-    })
-    const selectValue = (elem,value) => {
-      $(elem).parents('ul').siblings('input').val(value)
-      $(elem).parents('ul').remove()
-    }
-  </script>
+
 </body>
 
 </html>

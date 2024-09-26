@@ -14,6 +14,15 @@ const providerSchema = new Schema({
     }
 });
 
+const personalDocumentsSchema = new Schema({
+    title: {
+        type: String,
+    },
+    fileUrl: {
+        type: String
+    }
+});
+
 const experienceSchema = new Schema({
     title: {
         type: String,
@@ -48,6 +57,9 @@ const experienceSchema = new Schema({
     },
     description: {
         type: String
+    },
+    fileUrl: {
+        type: String
     }
 });
 const volunteerExperiencesSchema = new Schema({
@@ -73,6 +85,9 @@ const volunteerExperiencesSchema = new Schema({
     },
     endingDate: {
         type: Date
+    },
+    fileUrl: {
+        type: String
     }
 });
 
@@ -91,6 +106,9 @@ const educationSchema = new Schema({
     },
     endingDate: {
         type: Date
+    },
+    fileUrl: {
+        type: String
     }
 })
 const licenseCertificationsSchema = new Schema({
@@ -188,12 +206,15 @@ const userSchema = new Schema({
     profilePic: {
         type: String,
     },
-    resume: {
-        type: String,
-    },
-    coverLetter: {
-        type: String,
-    },
+    // resume: {
+    //     type: String,
+    // },
+    // coverLetter: {
+    //     type: String,
+    // },
+    personalDocuments: [{
+        type: personalDocumentsSchema
+}],
     coverPhoto: {
         type: String,
     },

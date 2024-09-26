@@ -82,7 +82,7 @@
     toastContainer.appendChild(toast);
 
     // Add event listener to remove toast on close button click
-    toast.querySelector(".btn-close").addEventListener("click", function() {
+    toast.querySelector(".btn-close")?.addEventListener("click", function() {
       toast.remove();
     });
     // Remove the toast after 5 seconds
@@ -182,7 +182,7 @@
   const endDateMonth = document.getElementById('endingDate_month');
   const endDateYear = document.getElementById('endingDate_year');
 
-  checkbox.addEventListener('change', function () {
+  checkbox?.addEventListener('change', function () {
     if (this.checked) {
       // Disable end date fields
       endDateMonth.disabled = true;
@@ -203,7 +203,7 @@ const volunteerCheckbox = document.getElementById('working-now-volunteer-exp');
   const volunteerEndDateMonth = document.getElementById('endingDate_month_volunteer');
   const volunteerEndDateYear = document.getElementById('endingDate_year_volunteer');
 
-  volunteerCheckbox.addEventListener('change', function () {
+  volunteerCheckbox?.addEventListener('change', function () {
     if (this.checked) {
       // Disable end date fields
       volunteerEndDateMonth.disabled = true;
@@ -216,3 +216,36 @@ const volunteerCheckbox = document.getElementById('working-now-volunteer-exp');
   });
 </script>
 
+<script>
+      $(".api-field").keyup(async function(){
+      $(this).siblings('.api-locations').remove()
+      const value = $(this).val()
+      if(value.length >= 1){
+        const res = await fetch('/sites/e4d4/api/location/fetch', {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({place: value})
+        })
+        const resJson = await res.json()
+        const elem = document.createElement('ul')
+        $(elem).addClass('api-locations')
+        resJson.map((item)=>{
+          $(elem).append(`<li><button type="button" onClick="selectValue(this,'${item.city}, ${item.admin_name}')">${item.city}, ${item.admin_name}</li></button>`)
+        })
+        $(this).parent().append(elem)
+        console.log('resJson',resJson)
+      }
+    })
+    const selectValue = (elem,value) => {
+      $(elem).parents('ul').siblings('input').val(value)
+      $(elem).parents('ul').remove()
+    }
+    $('body').click(function(e){
+      const elem = $(e.target)
+      if(!$(elem).parents('.api-locations').length){
+        $('.api-locations').remove()
+      }
+    })
+</script>

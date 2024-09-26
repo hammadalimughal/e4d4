@@ -22,115 +22,254 @@
             <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
             <div class="px-3">
               <h6><%= user?.fullName %><span> ( Edit Portfolio )</span></h6>
-              <span>Enter Subheading</span>
+              <span><%= user['subHeading'] ? user['subHeading'] : '' %></span>
             </div>
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
             <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
             <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
-            <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
-              + Make New Search</button>
           </div>
         </div>
-
-        <div class="my-4 history-btn-design">
-          <button type="button" class="dash-btn">
-            Home</button>
-          <button type="button" class="dash-btn">
-            Show History</button>
-        </div>
-
-        <form class="row">
-          <div class="col-lg-3 col-md-6 ">
-            <div class="history-input-design">
-              <input type="text" class="" placeholder="Location history">
-              <i class="bi bi-search"></i>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 ">
-            <div class="history-input-design">
-              <input type="text" class="" placeholder="Industry Search">
-              <i class="bi bi-search"></i>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="history-input-design">
-              <input type="text" class="" placeholder="Position Search">
-              <i class="bi bi-search"></i>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 ">
-            <div class="history-input-design">
-              <input type="text" class="" placeholder="Business Search (Option)">
-              <i class="bi bi-search"></i>
-            </div>
-          </div>
-        </form>
-
-        <h5 class="fw-bold mt-5 mb-4">Shortlisted Companies / Businesses</h5>
-
-        <div class="row">
-          <% companies.forEach((item) => { %>
-          <div class="col-lg-6">
-            <div class="shortlisted-companies">
-              <div class="row">
-                <div class="col-lg-6">
-                  <h6 class="company-name"><%= item.fullName %></h6>
-                  <div class="company-loc">Location: <%= item.location %></div>
-                  <div class="company-loc">Business Operate: <%= item.headQuarterLocation %></div>
+        <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="dash-btn active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="dash-btn" id="pills-requested-tab" data-bs-toggle="pill" data-bs-target="#pills-requested" type="button" role="tab" aria-controls="pills-requested" aria-selected="false">Requested</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="dash-btn" id="pills-connected-tab" data-bs-toggle="pill" data-bs-target="#pills-connected" type="button" role="tab" aria-controls="pills-connected" aria-selected="false">Connected</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+            <form class="row filter-form" method="GET">
+              <% const { title, location, industry, position } = filter %>
+              <div class="col-lg-10 col-12 panel">
+                <div class="row">
+                  <div class="col-lg-3 col-md-6">
+                    <div class="history-input-design">
+                      <input name="title" type="search" value="<%= title?.$regex %>" placeholder="Business Name">
+                      <i class="bi bi-search"></i>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                    <div class="history-input-design">
+                      <input name="location" type="search" value="<%= location?.$regex %>" class="api-field" placeholder="Location history" autocomplete="off">
+                      <i class="bi bi-search"></i>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                    <div class="history-input-design">
+                      <input name="industry" type="search" value="<%= industry?.$regex %>" class="" placeholder="Industry Search">
+                      <i class="bi bi-search"></i>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                    <div class="history-input-design">
+                      <input name="position" type="search" value="<%= position?.$regex %>" class="" placeholder="Position Search">
+                      <i class="bi bi-search"></i>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-lg-6">
-                  <% 
-                  let connectionSent = false
-                  let connectionId;
-                  let connectionApproved;
-                  user.connection?.forEach((connection)=>{
-                    if(connection.business.toString() == item._id.toString()){
-                      connectionSent = true
-                      connectionId = connection._id
-                      connectionApproved = connection.approved
-                    }
-                  })
-                  if(connectionSent){ %>
-                    <form action="/sites/e4d4/api/connection/delete" method="POST">
-                      <input type="hidden" name="id" value="<%= connectionId._id %>">
-                      <input type="hidden" name="business" value="<%= item._id %>">
-                      <input type="hidden" name="user" value="<%= user.id %>">
-                      <button class="company_request_btn delete-connection" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
-                    </form>
-                  <% } else { %>
-                  <a class="company_request_btn" href="connection-request?company=<%= item._id %>" data-company="<%= item._id %>"> + Send Connection Request</a>
+              </div>
+    
+              <div class="col-lg-2 col-md-6 panel">
+                <button class="dash-btn" type="submit">Search</button>
+              </div>
+            </form>
+            
+            <h5 class="fw-bold mt-5 mb-4">Shortlisted Companies / Businesses</h5>        
+            <div class="row">
+              <% companies.forEach((item) => { %>
+              <div class="col-lg-6">
+                <div class="shortlisted-companies">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h6 class="company-name"><a href='/sites/e4d4/business/<%= item._id %>'><%= item.fullName %></a></h6>
+                      <div class="company-loc">Location: <%= item.location %></div>
+                      <div class="company-loc">Business Operate: <%= item.headQuarterLocation %></div>
+                    </div>
+                    <div class="col-lg-6">
+                      <% 
+                      let connectionSent = false
+                      let connectionId;
+                      let connectionApproved;
+                      user.connection?.forEach((connection)=>{
+                        if(connection.business.toString() == item._id.toString()){
+                          connectionSent = true
+                          connectionId = connection._id
+                          connectionApproved = connection.approved
+                        }
+                      })
+                      if(connectionSent){ %>
+                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/sites/e4d4/api/connection/delete" method="POST">
+                        <input type="hidden" name="id" value="<%= connectionId._id %>">
+                        <input type="hidden" name="business" value="<%= item._id %>">
+                        <input type="hidden" name="user" value="<%= user.id %>">
+                        <button class="company_request_btn delete-connection" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
+                      </form>
+                      <% } else { %>
+                      <a class="company_request_btn" href="/sites/e4d4/connection-request?company=<%= item._id %>" data-company="<%= item._id %>"> + Send Connection Request</a>
+                      <% } %>
+    
+                    </div>
+                  </div>
+                  <div class="company-position">
+                    <% if(item.jobs.length > 0) { %>
+                    <span class="company-position-offer">Offered Positions:</span>
+                    <div class="position-details">
+                      <% item.jobs?.forEach((job)=>{ %>
+                      <span><%= job.title %></span>
+                      <% }) %>
+                    </div>
+                    <% } %>
+    
+                  </div>
+                  <% if(item.website) { %>
+                  <div class="company-link">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>Website: <a href="<%= item.website %>"><%= item.website %></a></span>
+                  </div>
                   <% } %>
-
+                  <!-- <button type="button" class="dash-btn my-3"> Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button> -->
                 </div>
               </div>
-              <div class="company-position">
-                <% if(item.jobs.length > 0) { %>
-                <span class="company-position-offer">Offered Positions:</span>
-                <div class="position-details">
-                  <% item.jobs?.forEach((job)=>{ %>
-                  <span><%= job.title %></span>
-                  <% }) %>
-                </div>
-                <% } %>
-
-              </div>
-              <% if(item.website) { %>
-              <div class="company-link">
-                <i class="fa-solid fa-globe"></i>
-                <span>Website: <a href="<%= item.website %>"><%= item.website %></a></span>
-              </div>
-              <% } %>
-              <!-- <button type="button" class="dash-btn my-3"> Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button> -->
+              <% }) %>
             </div>
           </div>
-          <% }) %>
+          <div class="tab-pane fade" id="pills-requested" role="tabpanel" aria-labelledby="pills-requested-tab" tabindex="0">
+            <h5 class="fw-bold mt-5 mb-4">Requested Companies / Business</h5>        
+            <div class="row">
+              <% requested.forEach((item) => { const company = item.business %>
+              <div class="col-lg-6">
+                <div class="shortlisted-companies">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h6 class="company-name"><a href='/sites/e4d4/business/<%= company._id %>'><%= company.fullName %></a></h6>
+                      <div class="company-loc">Location: <%= company.location %></div>
+                      <div class="company-loc">Business Operate: <%= company.headQuarterLocation %></div>
+                    </div>
+                    <div class="col-lg-6">
+                      <% 
+                      let connectionSent = false
+                      let connectionId;
+                      let connectionApproved;
+                      user.connection?.forEach((connection)=>{
+                        if(connection.business.toString() == company._id.toString()){
+                          connectionSent = true
+                          connectionId = connection._id
+                          connectionApproved = connection.approved
+                        }
+                      })
+                      if(connectionSent){ %>
+                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/sites/e4d4/api/connection/delete" method="POST">
+                        <input type="hidden" name="id" value="<%= connectionId._id %>">
+                        <input type="hidden" name="business" value="<%= company._id %>">
+                        <input type="hidden" name="user" value="<%= user.id %>">
+                        <button class="company_request_btn delete-connection" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
+                      </form>
+                      <% } else { %>
+                      <a class="company_request_btn" href="/sites/e4d4/connection-request?company=<%= company._id %>" data-company="<%= company._id %>"> + Send Connection Request</a>
+                      <% } %>
+    
+                    </div>
+                  </div>
+                  <div class="company-position">
+                    <% if(company.jobs?.length > 0) { %>
+                    <span class="company-position-offer">Offered Positions:</span>
+                    <div class="position-details">
+                      <% company.jobs?.forEach((job)=>{ %>
+                      <span><%= job.title %></span>
+                      <% }) %>
+                    </div>
+                    <% } %>
+    
+                  </div>
+                  <% if(company.website) { %>
+                  <div class="company-link">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>Website: <a href="<%= company.website %>"><%= company.website %></a></span>
+                  </div>
+                  <% } %>
+                  <!-- <button type="button" class="dash-btn my-3"> Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button> -->
+                </div>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="pills-connected" role="tabpanel" aria-labelledby="pills-connected-tab" tabindex="0">
+            <h5 class="fw-bold mt-5 mb-4">Connected Companies / Business</h5>        
+            <div class="row">
+              <% connected.forEach((item) => { const company = item.business %>
+              <div class="col-lg-6">
+                <div class="shortlisted-companies">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h6 class="company-name"><a href='/sites/e4d4/business/<%= company._id %>'><%= company.fullName %></a></h6>
+                      <div class="company-loc">Location: <%= company.location %></div>
+                      <div class="company-loc">Business Operate: <%= company.headQuarterLocation %></div>
+                    </div>
+                    <div class="col-lg-6">
+                      <% 
+                      let connectionSent = false
+                      let connectionId;
+                      let connectionApproved;
+                      user.connection?.forEach((connection)=>{
+                        if(connection.business.toString() == company._id.toString()){
+                          connectionSent = true
+                          connectionId = connection._id
+                          connectionApproved = connection.approved
+                        }
+                      })
+                      if(connectionSent){ %>
+                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/sites/e4d4/api/connection/delete" method="POST">
+                        <input type="hidden" name="id" value="<%= connectionId._id %>">
+                        <input type="hidden" name="business" value="<%= company._id %>">
+                        <input type="hidden" name="user" value="<%= user.id %>">
+                        <button class="company_request_btn delete-connection" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
+                      </form>
+                      <% } else { %>
+                      <a class="company_request_btn" href="/sites/e4d4/connection-request?company=<%= company._id %>" data-company="<%= company._id %>"> + Send Connection Request</a>
+                      <% } %>
+    
+                    </div>
+                  </div>
+                  <div class="company-position">
+                    <% if(company.jobs?.length > 0) { %>
+                    <span class="company-position-offer">Offered Positions:</span>
+                    <div class="position-details">
+                      <% company.jobs?.forEach((job)=>{ %>
+                      <span><%= job.title %></span>
+                      <% }) %>
+                    </div>
+                    <% } %>
+    
+                  </div>
+                  <% if(company.website) { %>
+                  <div class="company-link">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>Website: <a href="<%= company.website %>"><%= company.website %></a></span>
+                  </div>
+                  <% } %>
+                  <!-- <button type="button" class="dash-btn my-3"> Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button> -->
+                </div>
+              </div>
+              <% }) %>
+            </div>
+          </div>
         </div>
+        <!-- <div class="my-4 history-btn-design">
+          <button type="button" class="dash-btn">Home</button>
+          <button type="button" class="dash-btn">Requested</button>
+          <button type="button" class="dash-btn">Connected</button>
+        </div> -->
+        
       </div>
     </div>
 
     <!-- SEND DETAILS SECTION STARTS HERE -->
-    <div class="container flex-column justify-content-center align-items-center select-info display-none" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+    <!-- <div class="container flex-column justify-content-center align-items-center select-info display-none" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
       <div class="dashboard-main-setting">
         <div class="profile-history">
           <div class="profile-person-history">
@@ -150,13 +289,13 @@
 
         <div class="my-4 history-btn-design">
           <button type="button" class="dash-btn">Home</button>
-          <!-- <button type="button" class="dash-btn">Show History</button> -->
+          <button type="button" class="dash-btn">Show History</button>
         </div>
 
         <form class="row">
           <div class="col-lg-3 col-md-6 ">
             <div class="history-input-design">
-              <input type="text" class="" placeholder="Location history">
+              <input type="text" class="api-field" placeholder="Location history">
               <i class="bi bi-search"></i>
             </div>
           </div>
@@ -223,7 +362,7 @@
 
 
 
-          <!-- <h5 class="fw-bold mt-5 mb-4">Previous Company History <span class="text-grey">( Customized Selection
+          <h5 class="fw-bold mt-5 mb-4">Previous Company History <span class="text-grey">( Customized Selection
             )</span></h5>
         <div class="data-choices-dm d-flex justify-content-between flex-wrap  w-80">
           <div class="form-check">
@@ -253,7 +392,7 @@
               Company D Details
             </label>
           </div>
-        </div> -->
+        </div>
 
 
 
@@ -339,13 +478,13 @@
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
     <!-- SEND DETAILS SECTION ENDS HERE -->
 
 
 
     <!-- CONGRATS SECTION STARTS HERE -->
-    <div class="container flex-column justify-content-center align-items-center display-none my-5" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
+    <!-- <div class="container flex-column justify-content-center align-items-center display-none my-5" data-aos="fade-up" data-aos-duration="3200" data-aos-easing="ease-in-sine">
       <div class="dashboard-main-setting">
         <div class="profile-history">
           <div class="profile-person-history">
@@ -405,7 +544,7 @@
 
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- CONGRATS SECTION ENDS HERE -->
 
 

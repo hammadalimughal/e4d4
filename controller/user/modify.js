@@ -332,8 +332,9 @@ router.post('/project', uploadImage.single("image"), async (req, res, next) => {
     }
 });
 
-router.post('/education/add', async (req, res) => {
+router.post('/education/add', uploadDocument.single("file"), async (req, res) => {
     try {
+        const file = req.file;
         const { userId, institute, degree, startingDate_month, startingDate_year, endingDate_month, endingDate_year } = req.body
         const user = await User.findById(userId)
         if (!user) {
@@ -347,13 +348,13 @@ router.post('/education/add', async (req, res) => {
         endingDate.setMonth(endingDate_month)
         endingDate.setYear(endingDate_year)
 
-        console.log('startingDate',startingDate)
-        console.log('endingDate',endingDate)
+        console.log('startingDate', startingDate)
+        console.log('endingDate', endingDate)
 
         if (endingDate < startingDate) {
             return res.redirect('/sites/e4d4/edit/profile?error=Starting Date should be before Ending Date')
         }
-        const education = { institute, degree, startingDate, endingDate }
+        const education = { institute, degree, startingDate, endingDate, fileUrl: file ? `/assets/uploads/document/` + file.filename : '' }
         let educations = user.educations ? user.educations : []
         educations.push(education)
         user.educations = educations
@@ -364,8 +365,9 @@ router.post('/education/add', async (req, res) => {
         return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
     }
 })
-router.post('/education/edit', async (req, res) => {
+router.post('/education/edit', uploadDocument.single("file"), async (req, res) => {
     try {
+        const file = req.file;
         const { userId, eduId, institute, degree, startingDate_month, startingDate_year, endingDate_month, endingDate_year } = req.body
 
         let startingDate = new Date()
@@ -376,13 +378,13 @@ router.post('/education/edit', async (req, res) => {
         endingDate.setMonth(endingDate_month)
         endingDate.setYear(endingDate_year)
         const updatedEducationData = {
-            institute, degree, startingDate, endingDate
+            institute, degree, startingDate, endingDate, fileUrl: file ? `/assets/uploads/document/` + file.filename : ''
         }
         const updatedUser = await User.findOneAndUpdate(
             { _id: userId, "educations._id": eduId },
             {
                 $set: {
-                    "educations.$": updatedEducationData 
+                    "educations.$": updatedEducationData
                 }
             },
             { new: true }
@@ -452,8 +454,9 @@ router.post('/education/get', async (req, res) => {
         });
     }
 });
-router.post('/experience/add', async (req, res) => {
+router.post('/experience/add', uploadDocument.single("file"), async (req, res) => {
     try {
+        const file = req.file;
         const { id, title, employementType, companyName, location, locationType, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year, description } = req.body
 
         let startingDate = new Date()
@@ -478,7 +481,7 @@ router.post('/experience/add', async (req, res) => {
             return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
         let experience = {
-            title, employementType, companyName, location, locationType, currentlyWorking, startingDate, endingDate, description
+            title, employementType, companyName, location, locationType, currentlyWorking, startingDate, endingDate, description, fileUrl: file ? `/assets/uploads/document/` + file.filename : ''
         }
         let experiences = user.experiences ? user.experiences : []
         experiences.push(experience)
@@ -490,8 +493,9 @@ router.post('/experience/add', async (req, res) => {
         return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
     }
 });
-router.post('/experience/edit', async (req, res) => {
+router.post('/experience/edit', uploadDocument.single("file"), async (req, res) => {
     try {
+        const file = req.file;
         const { userId, expId, title, employementType, companyName, location, locationType, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year, description } = req.body
 
         let startingDate = new Date()
@@ -512,7 +516,7 @@ router.post('/experience/edit', async (req, res) => {
         //     { $pull: { experiences: { _id: expId } } }
         // );
         const updatedExperienceData = {
-            title, employementType, companyName, location, locationType, currentlyWorking, startingDate, endingDate, description
+            title, employementType, companyName, location, locationType, currentlyWorking, startingDate, endingDate, description, fileUrl: file ? `/assets/uploads/document/` + file.filename : ''
         }
         const updatedUser = await User.findOneAndUpdate(
             { _id: userId, "experiences._id": expId }, // Find the user with the specific experience
@@ -597,8 +601,9 @@ router.post('/experience/get', async (req, res) => {
         });
     }
 });
-router.post('/volunteer-experience/add', async (req, res) => {
+router.post('/volunteer-experience/add', uploadDocument.single("file"), async (req, res) => {
     try {
+        const file = req.file;
         const { id, title, companyName, cause, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year } = req.body
 
         let startingDate = new Date()
@@ -617,7 +622,7 @@ router.post('/volunteer-experience/add', async (req, res) => {
             return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
         let volunteerExperience = {
-            title, companyName, cause, currentlyWorking, startingDate, endingDate
+            title, companyName, cause, currentlyWorking, startingDate, endingDate, fileUrl: file ? `/assets/uploads/document/` + file.filename : ''
         }
         let volunteerExperiences = user.volunteerExperiences ? user.volunteerExperiences : []
         volunteerExperiences.push(volunteerExperience)
@@ -629,8 +634,10 @@ router.post('/volunteer-experience/add', async (req, res) => {
         return res.redirect(`/sites/e4d4/edit/profile?error=${error.message}`)
     }
 });
-router.post('/volunteer-experience/edit', async (req, res) => {
+router.post('/volunteer-experience/edit', uploadDocument.single("file"), async (req, res) => {
     try {
+        const file = req.file;
+        console.log('file',file)
         const { userId, expId, title, companyName, cause, currentlyWorking, startingDate_month, startingDate_year, endingDate_month, endingDate_year } = req.body
 
         let startingDate = new Date()
@@ -644,7 +651,7 @@ router.post('/volunteer-experience/edit', async (req, res) => {
             return res.redirect('/sites/e4d4/edit/profile?error=Starting Date should be before Ending Date')
         }
         const updatedExperienceData = {
-            title, companyName, cause, currentlyWorking, startingDate, endingDate
+            title, companyName, cause, currentlyWorking, startingDate, endingDate, fileUrl: file ? `/assets/uploads/document/` + file.filename : ''
         }
         const updatedUser = await User.findOneAndUpdate(
             { _id: userId, "volunteerExperiences._id": expId }, // Find the user with the specific experience
@@ -740,7 +747,7 @@ router.post('/license-certificate/add', uploadDocument.single("file"), async (re
             // return res.json({ error: 'User Not Found' });
             return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
         }
-        console.log('file',file)
+        console.log('file', file)
         let issueDate = new Date()
         issueDate.setMonth(startingDate_month)
         issueDate.setYear(startingDate_year)
@@ -749,7 +756,7 @@ router.post('/license-certificate/add', uploadDocument.single("file"), async (re
             title,
             organization,
             issueDate,
-            fileUrl: `/assets/uploads/document/` + file.filename
+            fileUrl: file ? `/assets/uploads/document/` + file.filename : ''
         }
         let licenseCertification = user.licenseCertification ? user.licenseCertification : []
         licenseCertification.push(newProject)
@@ -765,21 +772,21 @@ router.post('/license-certificate/add', uploadDocument.single("file"), async (re
 router.post('/license-certificate/edit', uploadDocument.single("file"), async (req, res) => {
     try {
         const { userId, certId, title, organization, startingDate_month, startingDate_year } = req.body
-        
+
         const file = req.file
 
         let issueDate = new Date()
         issueDate.setMonth(startingDate_month)
         issueDate.setYear(startingDate_year)
 
-        
+
         let newProject = {
             user: userId,
             title,
             organization,
             issueDate
         }
-        if(file?.filename){
+        if (file?.filename) {
             newProject.fileUrl = `/assets/uploads/document/` + file.filename
         }
         const updatedUser = await User.findOneAndUpdate(
@@ -882,42 +889,6 @@ router.post('/remove-project-item', async (req, res) => {
     }
 });
 
-router.post('/remove-resume-item', async (req, res) => {
-    try {
-        const { user } = req.body
-        const userObj = await User.findById(user)
-
-        if (!userObj) {
-            // return res.json({ error: 'User Not Found' });
-            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
-        }
-        userObj.resume = null
-        await userObj.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Resume Removed Successfully')
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ message: error.message });
-    }
-});
-
-router.post('/remove-cover-letter-item', async (req, res) => {
-    try {
-        const { user } = req.body
-        const userObj = await User.findById(user)
-
-        if (!userObj) {
-            // return res.json({ error: 'User Not Found' });
-            return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
-        }
-        userObj.coverLetter = null
-        await userObj.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Cover Letter Removed Successfully')
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ message: error.message });
-    }
-});
-
 router.post('/profile-pic', uploadProfileImage.single("profilePic"), async (req, res, next) => {
     try {
         const image = req.file;
@@ -964,51 +935,53 @@ router.post('/cover-photo', uploadCoverPhoto.single("coverPhoto"), async (req, r
     }
 });
 
-router.post('/upload/resume', uploadResume.single("resume"), async (req, res, next) => {
+router.post('/personal-document/add', uploadDocument.single("file"), async (req, res, next) => {
     try {
-        const resume = req.file;
-        const { id } = req.body
+        const file = req.file;
+        const { id, title } = req.body
         const user = await User.findById(id)
-        if (!resume) {
-            // return res.json({ error: 'Project Image Not Found' });
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Cover Photo')
+        if(!file){
+            return res.redirect('/sites/e4d4/edit/profile?error=File Required in Personal Document')    
         }
-        if (!user) {
-            // return res.json({ error: 'User Not Found' });
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
-        }
-        console.log('resume', resume)
-        user.resume = `/assets/uploads/resume/` + resume.filename
+        user.personalDocuments = user.personalDocuments ? user.personalDocuments : []
+        user.personalDocuments.push({
+            title, fileUrl: `/assets/uploads/document/` + file.filename
+        })
         await user.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Resume Updated Successfully')
+        return res.redirect('/sites/e4d4/edit/profile?message=Personal Document Uploaded Successfully')
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: error.message });
     }
 });
 
-router.post('/upload/cover-letter', uploadCoverLetter.single("coverLetter"), async (req, res, next) => {
-    try {
-        const coverLetter = req.file;
-        const { id } = req.body
-        const user = await User.findById(id)
-        if (!coverLetter) {
-            // return res.json({ error: 'Project Image Not Found' });
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Cover Photo')
+router.post('/personal-document/remove', async (req, res, next) => {
+        try {
+            const { userId, perDocId } = req.body
+    
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: userId },
+                { $pull: { personalDocuments: { _id: perDocId } } },
+                { new: true } // Return the updated document
+            );
+            if (!updatedUser) {
+                return res.json({
+                    success: false,
+                    error: 'Something Went Wrong'
+                })
+            }
+            return res.json({
+                success: true,
+                message: 'Personal Document Deleted!'
+            })
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({
+                success: false,
+                error: error.message
+            });
         }
-        if (!user) {
-            // return res.json({ error: 'User Not Found' });
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
-        }
-        console.log('coverLetter', coverLetter)
-        user.coverLetter = `/assets/uploads/cover-letter/` + coverLetter.filename
-        await user.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Resume Updated Successfully')
-    } catch (error) {
-        console.log(error.message);
-        res.status(500).json({ message: error.message });
-    }
-});
+    });
 
 
 module.exports = router;

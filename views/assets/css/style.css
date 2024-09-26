@@ -1890,10 +1890,11 @@ ul#myTab li {
     box-shadow: none;
 }
 
-.portfolio-form-design .api-locations {
+.api-locations {
     position: absolute;
     left: 0;
     right: 0;
+    top: 100%;
     /* top: 100%; */
     z-index: 99;
     background-color: #fff;
@@ -1901,16 +1902,25 @@ ul#myTab li {
     border-radius: 5px;
     list-style: none;
     padding: 0 15px;
+    text-align: left;
+    max-height: 50vh;
+    overflow-y: auto;
 }
 
-.portfolio-form-design .api-locations button {
+.api-locations button {
     border: none;
     outline: none;
     background-color: transparent;
-    padding: 5px 15px
+    padding: 5px 15px;
+    text-align: left;
 }
-
-
+.filter-form button{
+    height: 100%;
+    width: 100%;
+}
+.nav-pills{
+    gap: 10px;
+}
 .portfolio-form-design .form-control:focus,
 .portfolio-form-design .form-select:focus {
 
@@ -2123,6 +2133,7 @@ ul#myTab li {
     font-size: 16px;
 }
 
+.dash-btn.active,
 .dash-btn:hover {
     background: var(--primary-gradient);
     border: none;
@@ -2599,14 +2610,16 @@ ul#myTab li {
     flex: 1;
 }
 
-.job-card a{
+.job-card a {
     color: #000;
 }
-.job-card h5{
+
+.job-card h5 {
     font-family: "Gilroy-Semi-Bold";
     font-size: 20px;
 }
-.job-detail-admin-actions{
+
+.job-detail-admin-actions {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -2633,6 +2646,7 @@ ul#myTab li {
 }
 
 .profile-info .portfolio-showcase>ul>li .listing>li .title {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -2645,9 +2659,18 @@ ul#myTab li {
 .profile-info .portfolio-showcase>ul>li .listing>li .title a {
     text-decoration: none;
     color: #fa5f02;
-    font-size: 14px;
+    font-size: 18px;
 }
-
+.profile-info .portfolio-showcase>ul>li .listing>li .title .file-link{
+    
+position: absolute;
+    
+right: 0;
+    
+top: 0;
+    
+font-size: 30px;
+}
 .profile-info .portfolio-showcase>ul>li .listing>li .title a:hover {
     text-decoration: underline;
 }
@@ -2971,6 +2994,7 @@ input:checked+label .select-documents .fa-file {
     display: flex;
     border-radius: 6px;
     justify-content: space-between;
+    position: relative;
 }
 
 .shortlisted-companies {
@@ -2983,6 +3007,10 @@ input:checked+label .select-documents .fa-file {
 .company-name {
     font-family: "Gilroy-Semi-Bold";
     font-size: 18px;
+}
+
+.company-name a {
+    color: #000;
 }
 
 .company-loc {
@@ -3980,8 +4008,9 @@ input:checked+label .select-documents .fa-file {
     display: block;
     color: #000;
 }
+
 .profile-card .lock-img,
-.profile-card img{
+.profile-card img {
     height: 250px;
     width: 100%;
     object-fit: cover;
@@ -3993,10 +4022,12 @@ input:checked+label .select-documents .fa-file {
     align-items: center;
     justify-content: center;
 }
-.profile-card h4{
+
+.profile-card h4 {
     font-size: 20px;
     text-transform: capitalize;
 }
+
 @media (max-width: 1024px) {
 
     .own-navbar-nav2 {
