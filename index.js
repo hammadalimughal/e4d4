@@ -137,12 +137,12 @@ app.get('/sites/e4d4/dashboard', async (req, res) => {
                 path: 'business',
                 populate: { path: 'jobs' }
             })
-            .select('business');
+                .select('business');
             const connected = await Connection.find({ user: user._id, approved: true }).populate('business').populate({
                 path: 'business',
                 populate: { path: 'jobs' }
             })
-            .select('business');
+                .select('business');
             return res.render(`dashboard`, { message, error, user, business, companies, filter, requested, connected })
         }
         if (business) {
@@ -381,7 +381,7 @@ app.get('/sites/e4d4/edit/profile', async (req, res) => {
         const user = req.user
         const business = req.business
         if (user) {
-            return res.render(`edit-profile`, { message, error, user, business, extractDomain, calculateYearsDifference })
+            return res.render(`edit-profile`, { message, error, user, business, extractDomain, calculateYearsDifference, formatDate })
         }
         if (business) {
             const jobs = await Job.find({ company: business._id })
@@ -480,7 +480,12 @@ app.get('/sites/e4d4/connection/request/:id', async (req, res) => {
 
         await businessObj.save()
 
-        const connection = await Connection.findById(id).populate('user').populate('business')
+        const connection = await Connection.findById(id).populate('user').populate('business').populate({
+            path: 'user',
+            populate: {
+                path: 'projects' // Populates the 'projects' field inside 'user'
+            }
+        });
         if (connection) {
             // console.log('connection', connection)
             // console.log('business._id', business._id)
@@ -518,7 +523,12 @@ app.get('/sites/e4d4/connected-profile/:id', async (req, res) => {
 
         await businessObj.save()
 
-        const connection = await Connection.findById(id).populate('user').populate('business')
+        const connection = await Connection.findById(id).populate('user').populate('business').populate({
+            path: 'user',
+            populate: {
+                path: 'projects' // Populates the 'projects' field inside 'user'
+            }
+        });
         if (connection) {
             // console.log('connection', connection)
             // console.log('business._id', business._id)
@@ -549,13 +559,23 @@ app.get('/sites/e4d4/business-dashboard', async (req, res) => {
         if (!business) {
             return res.redirect(`/sites/e4d4/business-login`)
         }
+
+        const requestedConnections = await Connection.find({ business: business._id, approved: false }).populate('user')
+        const requestedUsersId = requestedConnections.map(item => item.user._id)
+        console.log('requestedUsersId', requestedUsersId)
         const currentPage = req.query.page ? parseInt(req.query.page) : 1;
         const itemsPerPage = 9;
         const skipItems = (currentPage - 1) * itemsPerPage;
-        // console.log('currentPage', currentPage)
-        // console.log('skipItems', skipItems)
-        const allUsers = await User.find().skip(skipItems).limit(itemsPerPage);
-        const totalUsers = await User.countDocuments();
+        const usersWithConnectionIds = await User.find({ _id: requestedUsersId }).skip(skipItems).limit(itemsPerPage);
+        const allUsers = usersWithConnectionIds.map(user => {
+            const connection = requestedConnections.find(item => item.user._id.toString() === user._id.toString());
+            return {
+                ...user.toObject(), // Spread user properties
+                connectionId: connection ? connection._id : null,
+                businessId: connection ? connection.business : null
+            };
+        });
+        const totalUsers = await User.countDocuments({ _id: requestedUsersId });
         const totalPages = Math.ceil(totalUsers / itemsPerPage);
         // console.log('totalPages', totalPages)
         const jobs = await Job.find({ company: business._id }).populate('company')

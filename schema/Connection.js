@@ -67,22 +67,21 @@ const connection = new Schema({
     projects: [{
         type: String
     }],
-    experiences: {
-        type: Boolean,
-        default: false
-    },
-    educations: {
-        type: Boolean,
-        default: false
-    },
-    volunteerExperiences: {
-        type: Boolean,
-        default: false
-    },
-    licenseCertification: {
-        type: Boolean,
-        default: false
-    },
+    experiences: [{
+        type: String
+    }],
+    educations: [{
+        type: String
+    }],
+    volunteerExperiences: [{
+        type: String
+    }],
+    licenseCertification: [{
+        type: String
+    }],
+    personalDocuments: [{
+        type: String
+    }],
     approved: {
         type: Boolean,
         default: false

@@ -17,7 +17,7 @@
       <div class="dashboard-main-setting profile-info mx-auto">
         <div class="profile-history">
           <div class="profile-person-history">
-            <% if(connection.profilePic) { %>
+            <% if(connection.profile) { %>              
             <img src="/sites/e4d4<%= connectionUser.profilePic ? connectionUser.profilePic : '/assets/img/user-icon.webp' %>" alt="">
             <% } else { %>
             <span class="lock-img">
@@ -91,7 +91,7 @@
           </div>
           <div class="banner-info">
             <div class="profile-person-history large-img">
-              <% if(connection.profilePic) { %>
+              <% if(connection.profile) { %>
               <img src="/sites/e4d4<%= connectionUser.profilePic ? connectionUser.profilePic : '/assets/img/user-icon.webp' %>" alt="">
               <% } else { %>
               <span class="lock-img">
@@ -225,9 +225,10 @@
               <div class="item-head">
                 <h6 class="fw-bold">Experience</h6>
               </div>
-              <% if(connection.experiences) { %>
+              <% if(connection.experiences?.length > 0) { %>
               <ul class="listing">
                 <% connectionUser.experiences.forEach((experience,ind) => { %>
+                  <% if(connection.experiences.includes(experience._id.toString())) { %>
                 <li class="<%= ind > 2 ? 'hidden' : '' %>">
                   <div class="thumb">
                     <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
@@ -246,9 +247,10 @@
                     </div>
                   </div>
                 </li>
+                <% } %>
                 <% }) %>
               </ul>
-              <%- connectionUser.experiences?.length > 3 ? `<button class="show-all-btn">Show all ${connectionUser.experiences?.length} Experiences</button>` : '' %>
+              <%- (connection.experiences?.length > 3 && connectionUser.experiences?.length > 3) ? `<button class="show-all-btn">Show all ${connectionUser.experiences?.length} Experiences</button>` : '' %>
               <% } else { %>
               <p class="mb-0 mt-3 text-muted"><i class="bi bi-lock"></i> Hidden</p>
               <% } %>
@@ -259,9 +261,10 @@
               <div class="item-head">
                 <h6 class="fw-bold">Education</h6>
               </div>
-              <% if (connection.educations) { %>
+              <% if (connection.educations.length > 0) { %>
               <ul class="listing">
                 <% connectionUser.educations.forEach((education,ind) => { %>
+                  <% if (connection.educations.includes(education._id.toString())) { %>
                 <% 
                     function getFirstLetters(input) {
                       // Split the input string by spaces to get the words
@@ -287,6 +290,7 @@
                     <h6 class="info"><%= education.location %></h6>
                   </div>
                 </li>
+                <% } %>
                 <% }) %>
               </ul>
               <%- connectionUser.educations?.length > 3 ? `<button class="show-all-btn">Show all ${connectionUser.educations?.length} Experiences</button>` : '' %>
@@ -295,11 +299,39 @@
               <% } %>
             </li>
             <% } %>
+            <% if(connectionUser.volunteerExperiences.length > 0) { %>
             <li>
               <div class="item-head">
                 <h6 class="fw-bold">Volunteer Experience</h6>
               </div>
+              <ul class="listing">
+                <% connectionUser.volunteerExperiences.forEach((experience,ind) => { %>
+                  <% if(connection.volunteerExperiences.includes(experience._id)) { %>
+                <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                  <div class="thumb">
+                    <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
+                    <span class="txt">Years</span>
+                  </div>
+                  <div class="data">
+                    <% 
+                    const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    %>
+                    <h5 class="title"><%= experience.title %>
+                      <% if(experience.fileUrl) { %>
+                      <a class="file-link" href="/sites/e4d4<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
+                      <% } %>
+                    </h5>
+                    <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
+                    <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
+                    <h6 class="info"><%= experience.location %></h6>
+                  </div>
+                </li>
+                <% } %>
+                <% }) %>
+              </ul>
+              <%- connectionUser.volunteerExperiences?.length > 3 ? `<button class="show-all-btn">Show all ${connectionUser.volunteerExperiences?.length} Experiences</button>` : '' %>
             </li>
+            <% } %>
             <% if(connectionUser.projects?.length > 0) { %>
             <li>
               <div class="item-head">
@@ -307,7 +339,7 @@
               </div>
               <% if (connection.projects?.length > 0) { %>
               <div class="row g-4 project-listing">
-                <% connectionUser.projects.forEach((item) => { %>
+              <% connectionUser.projects.forEach((item) => { %>
                 <% if (connection.projects?.includes(item._id.toString())) { %>
                 <div class="col-lg-4 col-12">
                   <div class="project-item">
@@ -324,39 +356,62 @@
               <p class="mb-0 mt-3 text-muted"><i class="bi bi-lock"></i> Hidden</p>
               <% } %>
             </li>
-            <% } %>
-            <li>
-              <div class="item-head">
-                <h6 class="fw-bold">Licenses & Certifications</h6>
-              </div>
-            </li>
+            <% } %>   
+            <% if(connection.licenseCertification?.length > 0) { %>
+              <li>
+                <div class="item-head">
+                  <h6 class="fw-bold">Licenses & Certifications</h6>
+                </div>
+                <ul class="listing">
+                  <% connectionUser.licenseCertification.forEach((cert) => { %>
+                    <% if(connection.licenseCertification.includes(cert._id.toString())) { %>
+                  <li>
+                    <div class="file-icon">
+                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                    </div>
+                    <div class="data">
+                      <% 
+                        const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        %>
+                      <h5 class="title"><%= cert?.title %> <% if(cert.fileUrl) { %>
+                        <a class="file-link" href="/sites/e4d4<%= cert.fileUrl %>"><i class="bi bi-filetype-<%= cert.fileUrl.split('.')[cert.fileUrl.split('.').length - 1] %>"></i></a>
+                        <% } %>
+                      </h5>
+                      <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
+                    </div>
+                  </li>
+                  <% } %>
+                  <% }) %>
+                </ul>
+              </li>
+              <% } %>
+              <% if(connection.personalDocuments?.length > 0) { %>
+              <li>
+                <div class="item-head">
+                  <h6 class="fw-bold">Personal Documents</h6>
+                </div>
+                <ul class="listing">
+                  <% connectionUser.personalDocuments.forEach((perDoc) => { %>
+                    <% if(connection.personalDocuments.includes(perDoc._id.toString())) { %>
+                  <li class="align-items-center">
+                    <div class="file-icon">
+                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                    </div>
+                    <div class="data">
+                      <% 
+                          const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                          %>
+                      <h5 class="title"><%= perDoc?.title %>
+                        <a class="file-link" href="/sites/e4d4<%= perDoc.fileUrl %>"><i class="bi bi-filetype-<%= perDoc.fileUrl.split('.')[perDoc.fileUrl.split('.').length - 1] %>"></i></a>
+                      </h5>
+                    </div>
+                  </li>
+                  <% } %>
+                  <% }) %>
+                </ul>
+              </li>
+              <% } %>
           </ul>
-          <% if (connectionUser.resume || connectionUser.coverLetter) { %>
-          <h6 class="fw-bold">Personal Documents</h6>
-          <div class="row g-4 project-listing">
-            <% if(connectionUser.resume) { %>
-            <div class="col-lg-4 col-12">
-              <div class="doc-wrapper">
-                <a class="empty-box filled" href="/sites/e4d4<%= connectionUser.resume %>">
-                  <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
-                  <h5>Click to View Resume</h5>
-                </a>
-              </div>
-            </div>
-            <% } %>
-            <% if(connectionUser.coverLetter) { %>
-            <div class="col-lg-4 col-12">
-              <div class="doc-wrapper">
-                <a class="empty-box filled" href="/sites/e4d4<%= connectionUser.coverLetter %>">
-                  <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
-                  <h5>Click to View Cover Letter</h5>
-                </a>
-              </div>
-            </div>
-            <% } %>
-            <% } %>
-            <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
-          </div>
         </div>
       </div>
     </div>

@@ -205,9 +205,10 @@ router.post('/remove-profile-video', async (req, res) => {
 // Edit User Data
 router.post('/user-info', async (req, res) => {
     try {
-        const { id, fullName, subHeading, jobTitle, about, phone, portfolio, experience, skills } = req.body
+        const { id, fullName, subHeading, jobTitle, about, phone, portfolio, experience, skills, location    } = req.body
         console.log('body', req.body)
         const user = await User.findById(id)
+        console.log('user',user)
         // const formData = {}
         if (!user) {
             return res.redirect('/sites/e4d4/edit/profile?error=User Not Found')
@@ -235,6 +236,9 @@ router.post('/user-info', async (req, res) => {
         }
         if (skills) {
             user.skills = JSON.parse(skills)
+        }
+        if (location) {
+            user.location = location
         }
         console.log('user', user)
         await user.save()
@@ -287,17 +291,11 @@ router.post('/social-info', async (req, res) => {
         console.log('user', user)
         await user.save()
         // return res.redirect('/sites/e4d4/edit/profile?message=User Info Updated')
-        return res.json({
-            success: true,
-            message: `Contact Info Updated`
-        })
+        return res.redirect('/sites/e4d4/edit/profile?message=Social Links Updated')
     } catch (error) {
         console.log(error.message);
         // return res.status(500).json({ message: error.message });
-        return res.json({
-            success: false,
-            error: error.message
-        })
+        return res.redirect('/sites/e4d4/edit/profile?message=Something Went Wrong')
     }
 });
 

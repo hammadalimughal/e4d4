@@ -34,8 +34,8 @@
         <div class="row justify-content-between my-4">
           <div class="col-lg-4 col-12">
             <div class="history-btn-design">
-            <a href="/sites/e4d4/edit/profile">  <button type="button" class="dash-btn">
-                Home</button></a>
+              <a href="/sites/e4d4/edit/profile"> <button type="button" class="dash-btn">
+                  Home</button></a>
               <!-- <button type="button" class="dash-btn">
                 Show History</button> -->
             </div>
@@ -82,7 +82,7 @@
         </div>
         <ul class="other-info">
           <!-- <li>@edwardjj53</li> -->
-          <li>Sydney, Australia</li>
+          <% if(user.location) { %><li><%= user.location %></li> <% } %>
           <% 
             const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   
@@ -91,7 +91,11 @@
             const joiningYear = joiningDate.getFullYear()
              %>
           <li>Member Since, <%= joiningMonth %> <%= joiningYear %></li>
-          <!-- <li>(15) Recommendations</li> -->
+          <li>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#edit-name-headling" class="edit-btn">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+          </li>
         </ul>
         <div class="additional-info">
           <div class="row g-0">
@@ -293,7 +297,7 @@
                     }
                     const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     %>
-                <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                <li>
                   <div class="thumb">
                     <span class="year"><%= getFirstLetters(education.institute)  %></span>
 
@@ -408,44 +412,44 @@
                 <button data-bs-toggle="modal" data-bs-target="#add-license-certificate" title="Add License & Certification"><i class="bi bi-plus-circle-fill"></i></button>
               </div>
               <% if(user.licenseCertification?.length > 0) { %>
-                <ul class="listing">
-                  <% user.licenseCertification.forEach((cert) => { %>
-                  <li>
-                    <div class="file-icon">
-                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
-                    </div>
-                    <div class="data">
-                      <% 
+              <ul class="listing">
+                <% user.licenseCertification.forEach((cert) => { %>
+                <li>
+                  <div class="file-icon">
+                    <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                  </div>
+                  <div class="data">
+                    <% 
                       const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                       %>
-                      <h5 class="title"><%= cert?.title %>
-                        <ul>
-                          <li>
-                            <form class="edit-cert">
-                              <input type="hidden" name="userId" value="<%= user._id %>">
-                              <input type="hidden" name="certId" value="<%= cert?._id %>">
-                              <button type="submit" class="edit-btn">
-                                <i class="bi bi-pencil-square"></i>
-                              </button>
-                            </form>
-                          </li>
-                          <li>
-                            <form class="delete-cert">
-                              <input type="hidden" name="userId" value="<%= user._id %>">
-                              <input type="hidden" name="certId" value="<%= cert?._id %>">
-                              <button type="submit" class="remove-btn">
-                                <i class="bi bi-trash"></i>
-                              </button>
-                            </form>
-                          </li>
-                        </ul>
-                      </h5>
-                      <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
-                    </div>
-                  </li>
-                  <% }) %>
-                </ul>
-                <% } %>
+                    <h5 class="title"><%= cert?.title %>
+                      <ul>
+                        <li>
+                          <form class="edit-cert">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="certId" value="<%= cert?._id %>">
+                            <button type="submit" class="edit-btn">
+                              <i class="bi bi-pencil-square"></i>
+                            </button>
+                          </form>
+                        </li>
+                        <li>
+                          <form class="delete-cert">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="certId" value="<%= cert?._id %>">
+                            <button type="submit" class="remove-btn">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
+                    </h5>
+                    <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+              <% } %>
             </li>
             <li>
               <div class="item-head">
@@ -453,19 +457,19 @@
                 <button data-bs-toggle="modal" data-bs-target="#add-personal-document" title="Add License & Certification"><i class="bi bi-plus-circle-fill"></i></button>
               </div>
               <% if(user.personalDocuments?.length > 0) { %>
-                <ul class="listing">
-                  <% user.personalDocuments.forEach((perDoc) => { %>
-                  <li>
-                    <div class="file-icon">
-                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
-                    </div>
-                    <div class="data">
-                      <% 
+              <ul class="listing">
+                <% user.personalDocuments.forEach((perDoc) => { %>
+                <li>
+                  <div class="file-icon">
+                    <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                  </div>
+                  <div class="data">
+                    <% 
                       const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                       %>
-                      <h5 class="title"><%= perDoc?.title %>
-                        <ul>
-                          <!-- <li>
+                    <h5 class="title"><%= perDoc?.title %>
+                      <ul>
+                        <!-- <li>
                             <form class="edit-perDoc">
                               <input type="hidden" name="userId" value="<%= user._id %>">
                               <input type="hidden" name="perDocId" value="<%= perDoc?._id %>">
@@ -474,22 +478,22 @@
                               </button>
                             </form>
                           </li> -->
-                          <li>
-                            <form class="dangerous-form" data-warning="Do you want to delete Document?" action="/sites/e4d4/api/user/modify/personal-document/remove" method="POST">
-                              <input type="hidden" name="userId" value="<%= user._id %>">
-                              <input type="hidden" name="perDocId" value="<%= perDoc?._id %>">
-                              <button type="submit" class="remove-btn">
-                                <i class="bi bi-trash"></i>
-                              </button>
-                            </form>
-                          </li>
-                        </ul>
-                      </h5>
-                    </div>
-                  </li>
-                  <% }) %>
-                </ul>
-                <% } %>
+                        <li>
+                          <form class="dangerous-form" data-warning="Do you want to delete Document?" action="/sites/e4d4/api/user/modify/personal-document/remove" method="POST">
+                            <input type="hidden" name="userId" value="<%= user._id %>">
+                            <input type="hidden" name="perDocId" value="<%= perDoc?._id %>">
+                            <button type="submit" class="remove-btn">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                          </form>
+                        </li>
+                      </ul>
+                    </h5>
+                  </div>
+                </li>
+                <% }) %>
+              </ul>
+              <% } %>
             </li>
           </ul>
         </div>
@@ -561,6 +565,12 @@
                 <div class="portfolio-form-design">
                   <label for="subHeading-edit" class="form-label">Sub Heading*</label>
                   <input type="text" name="subHeading" id="subHeading-edit" class="form-control" placeholder="Enter SubHeading..." value="<%= user.subHeading %>" required>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="portfolio-form-design">
+                  <label for="user-location" class="form-label">Location*</label>
+                  <input type="text" name="location" id="user-location" class="form-control" placeholder="Enter SubHeading..." value="<%= user.location %>" required>
                 </div>
               </div>
             </div>
@@ -644,9 +654,10 @@
           <h1 class="modal-title fs-5" id="edit-social-infoLabel">Edit Social Info</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <input type="hidden" name="id" value="<%= user.id %>">
-        <div class="modal-body">
-          <%
+        <form class="inp-wrap" action="/sites/e4d4/api/user/modify/social-info" method="POST">
+          <input type="hidden" name="id" value="<%= user.id %>">
+          <div class="modal-body">
+            <%
           const socialLinks = user.socialLinks || [];
 
           // Initialize variables
@@ -681,97 +692,77 @@
         });
     
           %>
-          <div class="row g-4">
-            <div class="col-lg-6 col-12">
-              <div class="portfolio-form-design skill-fields">
-                <label for="skill-input" class="form-label">Facebook Username</label>
-                <div class="wrap-all">
-                  <form class="inp-wrap social-form">
+            <div class="row g-4">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Facebook Username</label>
+                  <div class="wrap-all">
                     <input type="text" name="facebook" class="form-control skill-input" placeholder="Enter Facebook Username..." value="<%= facebook %>">
-                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
-                  </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-12">
-              <div class="portfolio-form-design skill-fields">
-                <label for="skill-input" class="form-label">Instagram Username</label>
-                <div class="wrap-all">
-                  <form class="inp-wrap social-form">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Instagram Username</label>
+                  <div class="wrap-all">
                     <input type="text" name="instagram" class="form-control skill-input" placeholder="Enter Instagram Username..." value="<%= instagram %>">
-                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
-                  </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-12">
-              <div class="portfolio-form-design skill-fields">
-                <label for="skill-input" class="form-label">Twitter Username</label>
-                <div class="wrap-all">
-                  <form class="inp-wrap social-form">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Twitter Username</label>
+                  <div class="wrap-all">
                     <input type="text" name="twitter" class="form-control skill-input" placeholder="Enter Twitter Username..." value="<%= twitter %>">
-                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
-                  </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-12">
-              <div class="portfolio-form-design skill-fields">
-                <label for="skill-input" class="form-label">LinkedIn Username</label>
-                <div class="wrap-all">
-                  <form class="inp-wrap social-form">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">LinkedIn Username</label>
+                  <div class="wrap-all">
                     <input type="text" name="linkedin" class="form-control skill-input" placeholder="Enter LinkedIn Username..." value="<%= linkedin %>">
-                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
-                  </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-12">
-              <div class="portfolio-form-design skill-fields">
-                <label for="skill-input" class="form-label">Behance Username</label>
-                <div class="wrap-all">
-                  <form class="inp-wrap social-form">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Behance Username</label>
+                  <div class="wrap-all">
                     <input type="text" name="behance" class="form-control skill-input" placeholder="Enter Behance Username..." value="<%= behance %>">
-                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
-                  </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-12">
-              <div class="portfolio-form-design skill-fields">
-                <label for="skill-input" class="form-label">Pinterest Username</label>
-                <div class="wrap-all">
-                  <form class="inp-wrap social-form">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Pinterest Username</label>
+                  <div class="wrap-all">
                     <input type="text" name="pinterest" class="form-control skill-input" placeholder="Enter Pinterest Username..." value="<%= pinterest %>">
-                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
-                  </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-12">
-              <div class="portfolio-form-design skill-fields">
-                <label for="skill-input" class="form-label">Dribbble Username</label>
-                <div class="wrap-all">
-                  <form class="inp-wrap social-form">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Dribbble Username</label>
+                  <div class="wrap-all">
                     <input type="text" name="dribbble" class="form-control skill-input" placeholder="Enter Dribbble Username..." value="<%= dribbble %>">
-                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
-                  </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-12">
-              <div class="portfolio-form-design skill-fields">
-                <label for="skill-input" class="form-label">Linktree Username</label>
-                <div class="wrap-all">
-                  <form class="inp-wrap social-form">
+              <div class="col-lg-6 col-12">
+                <div class="portfolio-form-design skill-fields">
+                  <label for="skill-input" class="form-label">Linktree Username</label>
+                  <div class="wrap-all">
                     <input type="text" name="linktree" class="form-control skill-input" placeholder="Enter Linktree Username..." value="<%= linktree %>">
-                    <button class="save-btn" title="save" type="submit"><i class="bi bi-floppy"></i></button>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <div class="modal-footer">
+            <button type="submit" class="dash-btn">Update</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -795,7 +786,7 @@
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label for="project-image" class="form-label">Image*</label>
-                  <input type="file" name="image" id="project-image" class="form-control" placeholder="Enter Title..." value="" required>
+                  <input type="file" name="image" id="project-image" class="form-control" placeholder="Enter Title..." value="" accept=".png, .jpg, .jpeg" required>
                 </div>
               </div>
             </div>
@@ -814,7 +805,7 @@
           <h1 class="modal-title fs-5" id="edit-profile-aboutLabel">Edit Profile About</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="/sites/e4d4/api/user/modify/user-info" method="post" enctype="multipart/form-data">
+        <form action="/sites/e4d4/api/user/modify/user-info" method="post">
           <input type="hidden" name="id" value="<%= user.id %>">
           <div class="modal-body">
             <div class="row g-4">
@@ -854,11 +845,11 @@
                 <div class="portfolio-form-design">
                   <label class="form-label">Employment type*</label>
                   <!-- <input type="text" name="employementType" class="form-control" value="" required> -->
-                  <select id="cars" type="text" name="employementType"  required>
+                  <select id="cars" type="text" name="employementType" required>
                     <option value="Full Time">Full Time</option>
                     <option value="Part Time">Part Time</option>
                     <option value="Casual">Casual</option>
-                    <option value="Contract" >Contract</option>
+                    <option value="Contract">Contract</option>
                   </select>
                 </div>
               </div>
@@ -891,7 +882,7 @@
                   <label for="working-now-exp">I am currently working in this role</label>
                 </div>
               </div>
-              
+
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Start Date*</label>
@@ -925,7 +916,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">End Date*</label>
@@ -1213,11 +1204,11 @@
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Employment type*</label>
-                  <select id="cars" type="text" name="employementType"  required>
+                  <select id="cars" type="text" name="employementType" required>
                     <option value="Full Time">Full Time</option>
                     <option value="Part Time">Part Time</option>
                     <option value="Casual">Casual</option>
-                    <option value="Contract" >Contract</option>
+                    <option value="Contract">Contract</option>
                   </select>
                 </div>
               </div>
@@ -1549,7 +1540,7 @@
                   <label for="working-now-volunteer-exp">I am currently working in this role</label>
                 </div>
               </div>
-              
+
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">Starting Date*</label>
@@ -1582,7 +1573,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="col-12">
                 <div class="portfolio-form-design">
                   <label class="form-label">End Date*</label>
@@ -2116,6 +2107,7 @@
         },
         body: JSON.stringify(formDataObj)
       })
+      location.href=`?message=Social Links Updated`
       const resJson = await res.json()
       console.log(resJson)
       $(curForm).find('.save-btn').removeAttr('disabled')
@@ -2201,7 +2193,7 @@
           createToast(resJson.error, 'error')
         }
       }
-    })    
+    })
   </script>
   <script>
     $(".delete-cert").submit(async (e) => {

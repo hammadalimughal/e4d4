@@ -185,6 +185,9 @@ const userSchema = new Schema({
     jobTitle: {
         type: String,
     },
+    location: {
+        type: String,
+    },
     primaryEmail: {
         type: emailSchema,
         required: true,

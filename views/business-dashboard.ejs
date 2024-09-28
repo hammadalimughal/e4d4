@@ -69,127 +69,131 @@
 
                     <div class="col-12">
                       <div class="manage-ads">
-                        <h5 class="fw-bold">New Registered Users </h5>
+                        <h5 class="fw-bold">Reguested Talents </h5>
                         <!-- <button type="button" class="review-btn mt-2">
                           Review</button> -->
-                          
+                        <div class="talent-home-properties">
 
-                  <div class="talent-home-properties">
+                          <div class="row">
+                            <% allUsers?.forEach((user)=>{ %>
+                            <div class="col-lg-4">
+                              <div class="talent-home">
+                                <div class="d-flex justify-content-between flex-wrap  text-modifier">
+                                  <% if(user.preferredJobLocation[0]) { %>
+                                  <div class="">
+                                    <span class="company-loc">Location</span>
+                                    <p class="fw-bold"><%= user.preferredJobLocation[0] %></p>
+                                  </div>
+                                  <% } %>
+                                  <% if(user.experience) { %>
+                                  <div>
+                                    <span class="company-loc">Experience</span>
+                                    <p class="fw-bold"><%= user.experience %> Years</p>
+                                  </div>
+                                  <% } %>
+                                  <div>
+                                    <form action="/sites/e4d4/api/connection/approval" method="post">
+                                      <input type="hidden" name="id" value="<%= user.connectionId %>">
+                                      <input type="hidden" name="user" value="<%= user._id %>">
+                                      <input type="hidden" name="business" value="<%= user.businessId %>">
+                                      <button type="submit" class="review-btn mt-2">Connect</button>
+                                    </form>
+                                  </div>
+                                </div>
 
-                    <div class="row">
-                      <% allUsers?.forEach((user)=>{ %>
-                      <div class="col-lg-4">
-                        <div class="talent-home">
-                          <div class="d-flex justify-content-between flex-wrap  text-modifier">
-                            <% if(user.preferredJobLocation[0]) { %>
-                            <div class="">
-                              <span class="company-loc">Location</span>
-                              <p class="fw-bold"><%= user.preferredJobLocation[0] %></p>
+                                <div class="d-flex justify-content-between flex-wrap  text-modifier">
+                                  <% if (user.workType) { %>
+                                  <div>
+                                    <span class="company-loc ">Work Status</span>
+                                    <p class="fw-bold"><%= user.workType %>></p>
+                                  </div>
+                                  <% } %>
+                                  <div>
+                                    <span class="company-loc ">Notice Period</span>
+                                    <p class="fw-bold">3 Months</p>
+                                  </div>
+                                  <div>
+                                    <span class="company-loc ">Preferred Work</span>
+                                    <p class="fw-bold">On-Site</p>
+                                  </div>
+                                </div>
+
+                                <div class="text-modifier">
+                                  <div>
+                                    <span class="company-loc text-dark">Total Ads</span>
+                                  </div>
+                                  <div class="d-flex flex-wrap">
+                                    <% user.skills.slice(0, 4).forEach((skill)=>{ %>
+                                    <p class="bg-modifier"><%= skill %></p>
+                                    <% }) %>
+                                    <%if(user.skills.length > 4) { %> <p class="bg-modifier">and More...</p> <% } %>
+                                  </div>
+
+                                </div>
+
+                                <div>
+                                  <div>
+                                    <span class="company-loc "><i class="bi bi-lock-fill"></i>
+                                      Name, Phone, Email
+                                      Address</span>
+                                  </div>
+                                  <a class="review-btn mt-2" href="/sites/e4d4/connection/request/<%= user.connectionId %>">Review Profile</a>
+
+                                </div>
+
+
+                              </div>
                             </div>
-                            <% } %>
-                            <% if(user.experience) { %>
-                            <div>
-                              <span class="company-loc">Experience</span>
-                              <p class="fw-bold"><%= user.experience %> Years</p>
-                            </div>
-                            <% } %>
-                            <div>
-                              <button type="button" class="review-btn mt-2">
-                                Connect</button>
-                            </div>
+                            <% })  %>
+                            <% if(totalPages > 1) { %>
+                            <ul class="pagination custom-pagination">
+                              <% maxVisiblePages = 9 %>
+                              <% if (totalPages <= maxVisiblePages) { %>
+                              <!-- Show all pages if total pages are less than or equal to maxVisiblePages -->
+                              <% for (let i = 1; i <= totalPages; i++) { %>
+                              <% if (i === currentPage) { %>
+                              <li><span class="active"><%= i %></span></li>
+                              <% } else { %>
+                              <li><a href="?page=<%= i %>"><%= i %></a></li>
+                              <% } %>
+                              <% } %>
+                              <% } else { %>
+                              <!-- Show pagination with ellipses if total pages are more than maxVisiblePages -->
+                              <% if (currentPage > 1) { %>
+                              <li><a href="?page=<%= currentPage - 1 %>">&laquo;</a></li>
+                              <% } %>
+
+                              <% if (currentPage > 3) { %>
+                              <li><a href="?page=1">1</a></li>
+                              <% if (currentPage > 4) { %>
+                              <li><span>...</span></li>
+                              <% } %>
+                              <% } %>
+
+                              <!-- Display current page and nearby pages -->
+                              <% for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) { %>
+                              <% if (i === currentPage) { %>
+                              <li><span class="active"><%= i %></span></li>
+                              <% } else { %>
+                              <li><a href="?page=<%= i %>"><%= i %></a></li>
+                              <% } %>
+                              <% } %>
+
+                              <% if (currentPage < totalPages - 2) { %>
+                              <% if (currentPage < totalPages - 3) { %>
+                              <li><span>...</span></li>
+                              <% } %>
+                              <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
+                              <% } %>
+
+                              <% if (currentPage < totalPages) { %>
+                              <li><a href="?page=<%= currentPage + 1 %>">&raquo;</a></li>
+                              <% } %>
+                              <% } %>
+                              </ul>
+                              <% } %>
                           </div>
-
-                          <div class="d-flex justify-content-between flex-wrap  text-modifier">
-                            <% if (user.workType) { %>
-                            <div>
-                              <span class="company-loc ">Work Status</span>
-                              <p class="fw-bold"><%= user.workType %>></p>
-                            </div>
-                            <% } %>
-                            <div>
-                              <span class="company-loc ">Notice Period</span>
-                              <p class="fw-bold">3 Months</p>
-                            </div>
-                            <div>
-                              <span class="company-loc ">Preferred Work</span>
-                              <p class="fw-bold">On-Site</p>
-                            </div>
-                          </div>
-
-                          <div class="text-modifier">
-                            <div>
-                              <span class="company-loc text-dark">Total Ads</span>
-                            </div>
-                            <div class="d-flex flex-wrap">
-                              <% user.skills.slice(0, 4).forEach((skill)=>{ %>
-                              <p class="bg-modifier"><%= skill %></p>
-                              <% }) %>
-                              <%if(user.skills.length > 4) { %> <p class="bg-modifier">and More...</p> <% } %>
-                            </div>
-
-                          </div>
-
-                          <div>
-                            <div>
-                              <span class="company-loc "><i class="bi bi-lock-fill"></i>
-                                Name, Phone, Email
-                                Address</span>
-                            </div>
-                            <button type="button" class="review-btn  mt-2">
-                              Review CV / Cover Letter</button>
-
-                          </div>
-
-
-                        </div>
-                      </div>
-                      <% })  %>
-                      <ul class="pagination custom-pagination">
-                        <% maxVisiblePages = 9 %>
-                        <% if (totalPages <= maxVisiblePages) { %>
-                        <!-- Show all pages if total pages are less than or equal to maxVisiblePages -->
-                        <% for (let i = 1; i <= totalPages; i++) { %>
-                        <% if (i === currentPage) { %>
-                        <li><span class="active"><%= i %></span></li>
-                        <% } else { %>
-                        <li><a href="?page=<%= i %>"><%= i %></a></li>
-                        <% } %>
-                        <% } %>
-                        <% } else { %>
-                        <!-- Show pagination with ellipses if total pages are more than maxVisiblePages -->
-                        <% if (currentPage > 1) { %>
-                        <li><a href="?page=<%= currentPage - 1 %>">&laquo;</a></li>
-                        <% } %>
-
-                        <% if (currentPage > 3) { %>
-                        <li><a href="?page=1">1</a></li>
-                        <% if (currentPage > 4) { %>
-                        <li><span>...</span></li>
-                        <% } %>
-                        <% } %>
-
-                        <!-- Display current page and nearby pages -->
-                        <% for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) { %>
-                        <% if (i === currentPage) { %>
-                        <li><span class="active"><%= i %></span></li>
-                        <% } else { %>
-                        <li><a href="?page=<%= i %>"><%= i %></a></li>
-                        <% } %>
-                        <% } %>
-
-                        <% if (currentPage < totalPages - 2) { %>
-                        <% if (currentPage < totalPages - 3) { %>
-                        <li><span>...</span></li>
-                        <% } %>
-                        <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
-                        <% } %>
-
-                        <% if (currentPage < totalPages) { %>
-                        <li><a href="?page=<%= currentPage + 1 %>">&raquo;</a></li>
-                        <% } %>
-                        <% } %>
-                    </div>
-                    <!-- <div class="col-lg-4">
+                          <!-- <div class="col-lg-4">
                         <div class="talent-home">
                           <div class="d-flex justify-content-between flex-wrap  text-modifier">
                             <div class="">
@@ -429,7 +433,7 @@
                         </div>
                       </div> -->
 
-                  </div>
+                        </div>
                       </div>
                     </div>
 
@@ -642,12 +646,12 @@
                       <% if (item.profile) { %>
                       <img class="img-fluid" src="/sites/e4d4<%= connectionUser.profilePic ? connectionUser.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                       <% } else { %>
-                        <div class="lock-img">
-                          <i class="bi bi-lock"></i>
-                        </div>
+                      <div class="lock-img">
+                        <i class="bi bi-lock"></i>
+                      </div>
                       <% } %>
                       <h4><%= item.fullName ? connectionUser.fullName : 'Hidden' %></h4>
-                      </a>
+                    </a>
                   </div>
                   <% }) %>
                 </div>

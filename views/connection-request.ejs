@@ -45,7 +45,7 @@
               <div class="profile-person-history large-img">
                 <label class="position-relative" for="profile-checkbox">
                   <span class="custom-checkbox">
-                    <input type="checkbox" name="profile" value="true" id="profile-checkbox">
+                    <input type="checkbox" value="true" name="profile" id="profile-checkbox">
                     <label for="profile-checkbox"><i class="bi bi-check2-circle"></i></label>
                   </span>
 
@@ -55,14 +55,14 @@
                   <h5>
                     <label for="fullName">
                       <span class="custom-checkbox">
-                        <input type="checkbox" name="fullName" value="true" id="fullName">
+                        <input type="checkbox" value="true" name="fullName" id="fullName">
                         <label for="fullName"><i class="bi bi-check2-circle"></i>
                         </label>
                       </span><%= user.fullName %></label>
                     <span>
                       <label for="jobTitle-checkbox">
                         <span class="custom-checkbox">
-                          <input type="checkbox" name="jobTitle" value="true" id="jobTitle-checkbox">
+                          <input type="checkbox" value="true" name="jobTitle" id="jobTitle-checkbox">
                           <label for="jobTitle-checkbox"><i class="bi bi-check2-circle"></i></label>
                         </span> (<%= user.jobTitle ? user.jobTitle : 'Job Title Here' %>)
                       </label>
@@ -71,7 +71,7 @@
                   <span>
                     <label for="subHeading-checkbox">
                       <span class="custom-checkbox">
-                        <input type="checkbox" name="subHeading" value="true" id="subHeading-checkbox">
+                        <input type="checkbox" value="true" name="subHeading" id="subHeading-checkbox">
                         <label for="subHeading-checkbox"><i class="bi bi-check2-circle"></i></label>
                       </span>
                       <%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %>
@@ -81,7 +81,7 @@
               </div>
               <label for="experience-checkbox" class="profile-badge">
                 <span class="custom-checkbox">
-                  <input type="checkbox" name="experience" value="true" id="experience-checkbox">
+                  <input type="checkbox" value="true" name="experience" id="experience-checkbox">
                   <label for="experience-checkbox"><i class="bi bi-check2-circle"></i></label>
                 </span>
                 <%= user.experience ? user.experience : '0'  %>+ Years Of Experience
@@ -93,9 +93,9 @@
             <li>
               <label for="location-checkbox">
                 <span class="custom-checkbox">
-                  <input type="checkbox" name="location" value="true" id="location-checkbox">
+                  <input type="checkbox" value="true" name="location" id="location-checkbox">
                   <label for="location-checkbox"><i class="bi bi-check2-circle"></i></label>
-                </span> Sydney, Australia </label>
+                </span> <%= user.location %> </label>
             </li>
             <% 
           const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -106,7 +106,7 @@
            %>
             <li><label for="memberSince-checkbox">
                 <span class="custom-checkbox">
-                  <input type="checkbox" name="memberSince" value="true" id="memberSince-checkbox">
+                  <input type="checkbox" value="true" name="memberSince" id="memberSince-checkbox">
                   <label for="memberSince-checkbox"><i class="bi bi-check2-circle"></i></label>
                 </span> Member Since, <%= joiningMonth %> <%= joiningYear %></label></li>
           </ul>
@@ -116,7 +116,7 @@
                 <div class="info-item-l h-100">
                   <h6 class="fw-bold">
                     <label for="about-checkbox" class="custom-checkbox">
-                      <input type="checkbox" name="about" value="true" id="about-checkbox">
+                      <input type="checkbox" value="true" name="about" id="about-checkbox">
                       <label for="about-checkbox"><i class="bi bi-check2-circle"></i></label>
                       About
                     </label>
@@ -128,7 +128,7 @@
                   <% } %>
                   <% if(user.profileVideo?.url){ %>
                   <label class="profile-video custom-checkbox d-block w-100" for="checkbox-profileVideo">
-                    <input type="checkbox" name="profileVideo" value="true" id="checkbox-profileVideo">
+                    <input type="checkbox" value="true" name="profileVideo" id="checkbox-profileVideo">
                     <label for="checkbox-profileVideo"><i class="bi bi-check2-circle"></i></label>
                     <video>
                       <source src="/sites/e4d4<%= user.profileVideo?.url %>">
@@ -145,7 +145,7 @@
                     <li>
                       <label for="primaryEmail-checkbox">
                         <span class="custom-checkbox">
-                          <input type="checkbox" name="primaryEmail" value="true" id="primaryEmail-checkbox">
+                          <input type="checkbox" value="true" name="primaryEmail" id="primaryEmail-checkbox">
                           <label for="primaryEmail-checkbox">
                             <i class="bi bi-check2-circle"></i>
                           </label>
@@ -159,7 +159,7 @@
                     <li>
                       <label for="phone-checkbox">
                         <span class="custom-checkbox">
-                          <input type="checkbox" name="phone" value="true" id="phone-checkbox">
+                          <input type="checkbox" value="true" name="phone" id="phone-checkbox">
                           <label for="phone-checkbox">
                             <i class="bi bi-check2-circle"></i>
                           </label>
@@ -173,7 +173,7 @@
                     <li>
                       <label for="portfolio-checkbox">
                         <span class="custom-checkbox">
-                          <input type="checkbox" name="portfolio" value="true" id="portfolio-checkbox">
+                          <input type="checkbox" value="true" name="portfolio" id="portfolio-checkbox">
                           <label for="portfolio-checkbox">
                             <i class="bi bi-check2-circle"></i>
                           </label>
@@ -214,17 +214,14 @@
           </div>
           <div class="portfolio-showcase">
             <ul class="user-academic">
-              <li>
+              <li class="user-field">
                 <div class="item-head">
                   <h6 class="fw-bold">
-                    <label for="experiences-checkbox" class="custom-checkbox">
-                      <input type="checkbox" name="experiences" value="true" id="experiences-checkbox">
-                      <label for="experiences-checkbox"><i class="bi bi-check2-circle"></i></label>
-                      Experience
-                    </label>
+                    Experience
                   </h6>
                 </div>
                 <% if(user.experiences?.length > 0) { %>
+                <input class="array-val" type="hidden" name="experiences" value="[]">
                 <ul class="listing">
                   <% user.experiences.forEach((experience,ind) => { %>
                   <li class="<%= ind > 2 ? 'hidden' : '' %>">
@@ -236,7 +233,13 @@
                       <% 
                   const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                   %>
-                      <h5 class="title"><%= experience.title %></h5>
+                      <h5 class="title">
+                        <label for="exp-item-<%= experience._id %>" class="custom-checkbox">
+                          <input type="checkbox" class="input-multiple" value="<%= experience._id %>" id="exp-item-<%= experience._id %>">
+                          <label for="exp-item-<%= experience._id %>"><i class="bi bi-check2-circle"></i></label>
+                          <%= experience.title %>
+                        </label>
+                      </h5>
                       <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
                       <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
                       <h6 class="info"><%= experience.location %></h6>
@@ -250,17 +253,14 @@
                 <%- user.experiences?.length > 3 ? `<button class="show-all-btn">Show all ${user.experiences?.length} Experiences</button>` : '' %>
                 <% } %>
               </li>
-              <li>
+              <li class="user-field">
                 <div class="item-head">
                   <h6 class="fw-bold">
-                    <label for="educations-checkbox" class="custom-checkbox">
-                      <input type="checkbox" name="educations" value="true" id="educations-checkbox">
-                      <label for="educations-checkbox"><i class="bi bi-check2-circle"></i></label>
-                      Education
-                    </label>
+                    Education
                   </h6>
                 </div>
                 <% if(user.educations?.length > 0) { %>
+                <input class="array-val" type="hidden" name="educations" value="[]">
                 <ul class="listing">
                   <% user.educations.forEach((education,ind) => { %>
                   <% 
@@ -282,7 +282,13 @@
 
                     </div>
                     <div class="data">
-                      <h5 class="title"><%= education.institute %></h5>
+                      <h5 class="title">
+                        <label for="edu-item-<%= education._id %>" class="custom-checkbox">
+                          <input type="checkbox" class="input-multiple" value="<%= education._id %>" id="edu-item-<%= education._id %>">
+                          <label for="edu-item-<%= education._id %>"><i class="bi bi-check2-circle"></i></label>
+                          <%= education.institute %>
+                        </label>
+                      </h5>
                       <h6 class="info"><%= education.degree %></h6>
                       <h6 class="info"><%= education.startingDate ? monthsShort[education.startingDate?.getMonth()] : '' %> <%= education.startingDate ? education.startingDate?.getFullYear() : '' %> - <%= education.endingDate ? monthsShort[education.endingDate?.getMonth()] : '' %> <%= education.endingDate ? education.endingDate?.getFullYear() : '' %></h6>
                       <h6 class="info"><%= education.location %></h6>
@@ -293,24 +299,50 @@
                 <%- user.educations?.length > 3 ? `<button class="show-all-btn">Show all ${user.educations?.length} Experiences</button>` : '' %>
                 <% } %>
               </li>
-              <li>
+              <% if(user.volunteerExperiences?.length > 0) { %>
+              <li class="user-field">
                 <div class="item-head">
-                  <!-- <h6 class="fw-bold">Volunteer Experience</h6> -->
-                  <h6 class="fw-bold">
-                    <label for="volunteerExperiences-checkbox" class="custom-checkbox">
-                      <input type="checkbox" name="volunteerExperiences" value="true" id="volunteerExperiences-checkbox">
-                      <label for="volunteerExperiences-checkbox"><i class="bi bi-check2-circle"></i></label>
-                      Volunteer Experience
-                    </label>
-                  </h6>
+                  <h6 class="fw-bold">Volunteer Experience</h6>
                 </div>
+                <input class="array-val" type="hidden" name="volunteerExperiences" value="[]">
+                <ul class="listing">
+                  <% user.volunteerExperiences.forEach((experience,ind) => { %>
+                  <li class="<%= ind > 2 ? 'hidden' : '' %>">
+                    <div class="thumb">
+                      <span class="year"><%= calculateYearsDifference(experience.startingDate,experience.endingDate).split(' ')[0]  %></span>
+                      <span class="txt">Years</span>
+                    </div>
+                    <div class="data">
+                      <% 
+                        const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        %>
+                      <h5 class="title">
+                        <label for="vol-exp-item-<%= experience._id %>" class="custom-checkbox">
+                          <input type="checkbox" class="input-multiple" value="<%= experience._id %>" id="vol-exp-item-<%= experience._id %>">
+                          <label for="vol-exp-item-<%= experience._id %>"><i class="bi bi-check2-circle"></i></label>
+                          <%= experience.title %>
+                        </label>
+                        <% if(experience.fileUrl) { %>
+                        <a class="file-link" href="/sites/e4d4<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
+                        <% } %>
+                      </h5>
+                      <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
+                      <h6 class="info"><%= experience.startingDate ? monthsShort[experience.startingDate?.getMonth()] : '' %> <%= experience.startingDate ? experience.startingDate?.getFullYear() : '' %> - <%= experience.endingDate ? monthsShort[experience.endingDate?.getMonth()] : '' %> <%= experience.endingDate ? experience.endingDate?.getFullYear() : '' %> · <%= calculateYearsDifference(experience.startingDate,experience.endingDate)  %></h6>
+                      <h6 class="info"><%= experience.location %></h6>
+                    </div>
+                  </li>
+                  <% }) %>
+                </ul>
+                <%- user.volunteerExperiences?.length > 3 ? `<button class="show-all-btn">Show all ${user.volunteerExperiences?.length} Experiences</button>` : '' %>
               </li>
-              <li>
+              <% } %>
+              <li class="user-field">
                 <div class="item-head">
                   <h6 class="fw-bold">Projects Showcase</h6>
                 </div>
-                <input type="hidden" name="projects" value="[]">
+                <!-- <input type="hidden" name="projects" value="[]"> -->
                 <% if(user.projects?.length > 0) { %>
+                <input class="array-val" type="hidden" name="projects" value="[]">
                 <div class="row g-4 project-listing">
                   <% user.projects.forEach((item) => { %>
                   <div class="col-lg-4 col-12">
@@ -319,7 +351,7 @@
                       <h6 class="fw-bold">
                         <label for="projects-checkbox-<%= item._id %>" class="custom-checkbox">
                           <!-- <input type="checkbox" name="projects" value="<%= item._id %>" id="projects-checkbox-<%= item._id %>"> -->
-                          <input class="project-checkbox" type="checkbox" value="<%= item._id %>" id="projects-checkbox-<%= item._id %>">
+                          <input class="input-multiple" type="checkbox" value="<%= item._id %>" id="projects-checkbox-<%= item._id %>">
                           <label for="projects-checkbox-<%= item._id %>"><i class="bi bi-check2-circle"></i></label>
                           <%= item.title %>
                         </label>
@@ -333,45 +365,70 @@
                 </div>
                 <% } %>
               </li>
-              <li>
+              <% if(user.licenseCertification?.length > 0) { %>
+              <li class="user-field">
                 <div class="item-head">
-                  <!-- <h6 class="fw-bold">Licenses & Certifications</h6> -->
-                  <h6 class="fw-bold">
-                    <label for="licenseCertification-checkbox" class="custom-checkbox">
-                      <input type="checkbox" name="licenseCertification" value="true" id="licenseCertification-checkbox">
-                      <label for="licenseCertification-checkbox"><i class="bi bi-check2-circle"></i></label>
-                      Licenses & Certifications
-                    </label>
-                  </h6>
+                  <h6 class="fw-bold">Licenses & Certifications</h6>
                 </div>
+                <input class="array-val" type="hidden" name="licenseCertification" value="[]">
+                <ul class="listing">
+                  <% user.licenseCertification.forEach((cert) => { %>
+                  <li>
+                    <div class="file-icon">
+                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                    </div>
+                    <div class="data">
+                      <% 
+                          const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                          %>
+                      <h5 class="title">
+                        <label for="cert-item-<%= cert._id %>" class="custom-checkbox">
+                          <input type="checkbox" class="input-multiple" value="<%= cert._id %>" id="cert-item-<%= cert._id %>">
+                          <label for="cert-item-<%= cert._id %>"><i class="bi bi-check2-circle"></i></label>
+                          <%= cert?.title %>
+                        </label>
+                        <% if(cert.fileUrl) { %>
+                        <a class="file-link" href="/sites/e4d4<%= cert.fileUrl %>"><i class="bi bi-filetype-<%= cert.fileUrl.split('.')[cert.fileUrl.split('.').length - 1] %>"></i></a>
+                        <% } %>
+                      </h5>
+                      <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
+                    </div>
+                  </li>
+                  <% }) %>
+                </ul>
               </li>
+              <% if(user.personalDocuments?.length > 0) { %>
+              <li class="user-field">
+                <div class="item-head">
+                  <h6 class="fw-bold">Personal Documents</h6>
+                </div>
+                <input class="array-val" type="hidden" name="personalDocuments" value="[]">
+                <ul class="listing">
+                  <% user.personalDocuments.forEach((perDoc) => { %>
+                  <li class="align-items-center">
+                    <div class="file-icon">
+                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                    </div>
+                    <div class="data">
+                      <% 
+                            const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                            %>
+                      <h5 class="title">
+                        <label for="exp-item-<%= perDoc._id %>" class="custom-checkbox">
+                          <input type="checkbox" class="input-multiple" value="<%= perDoc._id %>" id="exp-item-<%= perDoc._id %>">
+                          <label for="exp-item-<%= perDoc._id %>"><i class="bi bi-check2-circle"></i></label>
+                          <%= perDoc?.title %>
+                        </label>
+                        <a class="file-link" href="/sites/e4d4<%= perDoc.fileUrl %>"><i class="bi bi-filetype-<%= perDoc.fileUrl.split('.')[perDoc.fileUrl.split('.').length - 1] %>"></i></a>
+                      </h5>
+                    </div>
+                  </li>
+                  <% }) %>
+                </ul>
+              </li>
+              <% } %>
+              <% } %>
             </ul>
-            <% if (user.resume || user.coverLetter) { %>
-            <h6 class="fw-bold">Personal Documents</h6>
-            <div class="row g-4 project-listing">
-              <% if(user.resume) { %>
-              <div class="col-lg-4 col-12">
-                <div class="doc-wrapper">
-                  <a class="empty-box filled" href="/sites/e4d4<%= user.resume %>">
-                    <img src="/sites/e4d4/assets/img/resume-icon.png" alt="">
-                    <h5>Click to View Resume</h5>
-                  </a>
-                </div>
-              </div>
-              <% } %>
-              <% if(user.coverLetter) { %>
-              <div class="col-lg-4 col-12">
-                <div class="doc-wrapper">
-                  <a class="empty-box filled" href="/sites/e4d4<%= user.coverLetter %>">
-                    <img src="/sites/e4d4/assets/img/cover-letter.png" alt="">
-                    <h5>Click to View Cover Letter</h5>
-                  </a>
-                </div>
-              </div>
-              <% } %>
-              <% } %>
-              <h6 class="craft-experience">Crafting Excellence in Every Task</h6>
-            </div>
           </div>
         </div>
       </form>
@@ -389,14 +446,27 @@
     })
   </script>
   <script>
-    const projectsValueUpdate = () => {
-      let projects = []
-      $(".project-checkbox").each(function(ind, elem) {
-        if ($(elem).prop('checked')) {
-          projects.push($(elem).val())
-        }
+    // const projectsValueUpdate = () => {
+    //   let projects = []
+    //   $(".project-checkbox").each(function(ind, elem) {
+    //     if ($(elem).prop('checked')) {
+    //       projects.push($(elem).val())
+    //     }
+    //   })
+    //   $('[name="projects"]').val(JSON.stringify(projects))
+    // }
+  </script>
+  <script>
+    const convertValuesInArray = () => {
+      $(".user-field").each(function(ind, elem) {
+        let array = []
+        $(elem).find(".input-multiple").each(function(ind, elem) {
+          if ($(elem).prop('checked')) {
+            array.push($(elem).val())
+          }
+        })
+        $(elem).find('.array-val').val(JSON.stringify(array))
       })
-      $('[name="projects"]').val(JSON.stringify(projects))
     }
   </script>
   <script>
@@ -410,7 +480,7 @@
         $(this).addClass('selected')
         $(this).html('Deselect All')
       }
-      projectsValueUpdate()
+      convertValuesInArray()
     })
     $('input[type="checkbox"]').change(function() {
       $(".select-all-checkbox").removeClass('selected')
@@ -418,7 +488,8 @@
     })
   </script>
   <script>
-    $(".project-checkbox").change(projectsValueUpdate)
+    // $(".project-checkbox").change(projectsValueUpdate)
+    $(".input-multiple").change(convertValuesInArray)
   </script>
 </body>
 

@@ -20,13 +20,16 @@ router.post('/request/business', async (req, res) => {
             profileVideo = false,
             primaryEmail = false,
             phone = false,
-            portfolio,
-            experiences = false,
-            educations = false,
-            volunteerExperiences = false,
-            licenseCertification = false
+            portfolio = false
         } = req.body;
+
+        const experiences = JSON.parse(req.body.experiences)
+        const educations = JSON.parse(req.body.educations)
+        const volunteerExperiences = JSON.parse(req.body.volunteerExperiences)
         const projects = JSON.parse(req.body.projects)
+        // return
+        const licenseCertification = JSON.parse(req.body.licenseCertification)
+        const personalDocuments = JSON.parse(req.body.personalDocuments)
 
         const userObj = await User.findById(user)
 
@@ -40,12 +43,12 @@ router.post('/request/business', async (req, res) => {
         if (checkConnection) {
             return res.redirect('/sites/e4d4/dashboard?error=Connection Already Exists');
         }
-        const connectionCount = await Connection.countDocuments({user})
-        console.log('connectionCount',connectionCount)
-        if(connectionCount > 10){
+        const connectionCount = await Connection.countDocuments({ user })
+        console.log('connectionCount', connectionCount)
+        if (connectionCount > 10) {
             return res.redirect('/sites/e4d4/dashboard?error=You can Connect with 10 Businesses Only!');
         }
-        const connection = await Connection.create({ business: company, user, coverPhoto, profile, fullName, jobTitle, subHeading, experience, location, memberSince, about, profileVideo, primaryEmail, phone, portfolio, experiences, educations, volunteerExperiences, licenseCertification, projects })
+        const connection = await Connection.create({ business: company, user, coverPhoto, profile, fullName, jobTitle, subHeading, experience, location, memberSince, about, profileVideo, primaryEmail, phone, portfolio, experiences, educations, volunteerExperiences, licenseCertification, projects, personalDocuments })
         let connectionArray = userObj.connection ? userObj.connection : []
         connectionArray.push(connection._id)
         userObj.connection = connectionArray

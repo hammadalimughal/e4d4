@@ -3565,6 +3565,7 @@ input:checked+label .select-documents .fa-file {
     padding: 8px 18px;
     font-size: 12px;
     border-radius: 6px;
+    text-decoration: none;
 }
 
 .review-btn:hover {
