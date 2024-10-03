@@ -15,7 +15,7 @@
       <div class="dashboard-main-setting profile-info mx-auto">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4<%= 
+            <img src="<%= 
             user ? (user.profilePic ? user.profilePic : '/assets/img/user-icon.webp') : 
             (business.profilePic ? business.profilePic : '/assets/img/business-icon.jpg')
              %>" alt="">
@@ -42,8 +42,8 @@
                   <!-- <%- JSON.stringify(availableList) %> -->
                   <% availableList.forEach(( item) => { %>
                   <li>
-                    <a class="profile-person-history" href="/sites/e4d4/chat?<%= business ? 'user': 'business' %>=<%= item._id %>">
-                      <img src="/sites/e4d4<%= item.profilePic ? item.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+                    <a class="profile-person-history" href="/chat?<%= business ? 'user': 'business' %>=<%= item._id %>">
+                      <img src="<%= item.profilePic ? item.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                       <div class="px-3">
                         <h6><%= item.fullName %></h6>
                         <span>Manager</span>
@@ -62,7 +62,7 @@
               <div class="chat-head">
                
                 <a class="profile-person-history" href="javascript:;">
-                  <img src="/sites/e4d4<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+                  <img src="<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                   <div class="px-3">
                     <h6><%= recipent ? recipent?.fullName : '' %></h6>
                     <span><%= recipent?.industry %></span>
@@ -84,7 +84,7 @@
                   <ul class="conversation">
                     <% conversation.forEach((item) => { %>
                     <li class="<%= item.sender?._id.toString() == recipent._id.toString() ? 'recipent' : 'user' %>">
-                      <img src="/sites/e4d4<%= item.sender?.profilePic ? item.sender?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+                      <img src="<%= item.sender?.profilePic ? item.sender?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                       <div class="message">
                         <div class="info"><%= item.sender?.fullName %> <small>11:12 pm</small></div>
                         <p><%= item.message %></p>
@@ -106,7 +106,7 @@
                 </form>
                 <% } else { %>
                 <div class="empty-chat">
-                  <img class="mb-3" src="/sites/e4d4/assets/img/chat-icon.png" alt="Chat Icon">
+                  <img class="mb-3" src="/assets/img/chat-icon.png" alt="Chat Icon">
                   <h6 class="text-center">Looking forward to chatting? <br/> Start a Conversation!</h6>
                 </div>
                 <% } %>
@@ -128,7 +128,7 @@
       console.log('New msg received:', msg);
       $(".chat-box .conversation").append(`
       <li class="recipent">
-        <img src="/sites/e4d4<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+        <img src="<%= recipent?.profilePic ? recipent?.profilePic : '/assets/img/user-icon.webp' %>" alt="">
         <div class="message">
           <div class="info"><%= recipent?.fullName %> <small>11:12 pm</small></div>
           <p>${msg.message}</p>
@@ -152,7 +152,7 @@
       $(curForm).find('textarea').val('')
       $(".chat-box .conversation").append(`
       <li class="user">
-        <img src="/sites/e4d4<%= user ? (user.profilePic ? user.profilePic : '/assets/img/user-icon.webp') : (business.profilePic ? business.profilePic : '/assets/img/user-icon.webp') %>" alt="">
+        <img src="<%= user ? (user.profilePic ? user.profilePic : '/assets/img/user-icon.webp') : (business.profilePic ? business.profilePic : '/assets/img/user-icon.webp') %>" alt="">
         <div class="message">
           <div class="info"><%= user ? user.fullName : business.fullName %> <small>11:12 pm</small></div>
           <p>${message}</p>

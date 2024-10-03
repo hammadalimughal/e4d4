@@ -16,7 +16,7 @@
       <div class="dashboard-main-setting profile-info mx-auto">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+            <img src="<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
             <div class="px-3">
               <h6><%= user.fullName %></h6>
               <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
@@ -24,16 +24,16 @@
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
             <% if(JSON.stringify(user._id) == JSON.stringify(user.id)){ %>
-            <a href="/sites/e4d4/edit/profile" class="dash-btn"> <i class="bi bi-pencil-square text-white px-1"></i> Edit</a>
+            <a href="/edit/profile" class="dash-btn"> <i class="bi bi-pencil-square text-white px-1"></i> Edit</a>
             <% } %>
-            <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
+            <a class="chat-btn" href="/chat"><i class="bi bi-chat"></i></a>
             <button type="button" class="logout-btn ms-2"><i class="bi bi-bell"></i></button>
           </div>
         </div>
         <div class="row justify-content-between my-4">
           <div class="col-lg-4 col-12">
             <div class="history-btn-design">
-              <a href="/sites/e4d4/dashboard" class="dash-btn">
+              <a href="/dashboard" class="dash-btn">
                 Dashboard</a>
               <!-- <button type="button" class="dash-btn">
                 Show History</button> -->
@@ -43,11 +43,11 @@
         <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
         <div class="profile-banner">
           <div class="banner-cover">
-            <img class="img-fluid" src="/sites/e4d4<%= user.coverPhoto ? user.coverPhoto : '/assets/img/cover.png' %>" alt="">
+            <img class="img-fluid" src="<%= user.coverPhoto ? user.coverPhoto : '/assets/img/cover.png' %>" alt="">
           </div>
           <div class="banner-info">
             <div class="profile-person-history large-img">
-              <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+              <img src="<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
               <div class="px-3 pb-2">
                 <h5><%= user.fullName %><span> (<%= user.jobTitle ? user.jobTitle : 'Job Title Here' %>)</span></h5>
                 <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
@@ -58,7 +58,7 @@
         </div>
         <ul class="other-info">
           <!-- <li>@edwardjj53</li> -->
-          <li>Sydney, Australia</li>
+          <li><%- user.location %></li>
           <% 
           const monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -83,9 +83,9 @@
                   <!-- <a href="javascript:;">
                     <i class="bi bi-play-fill"></i>
                   </a> -->
-                  <!-- <img src="/sites/e4d4/assets/img/video-poster.png"> -->
+                  <!-- <img src="/assets/img/video-poster.png"> -->
                   <video controls>
-                    <source src="/sites/e4d4<%= user.profileVideo?.url %>">
+                    <source src="<%= user.profileVideo?.url %>">
                   </video>
                 </div>
                 <% } %>
@@ -122,7 +122,7 @@
                   <span><%= item %></span>
                   <% }) %>
                 </div>
-                <!-- <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt=""> -->
+                <!-- <img class="img-fluid mt-3" src="/assets/img/social.png" alt=""> -->
                 <% if(user.socialLinks.length > 0) { %>
                 <!-- <hr> -->
                 <div class="follow-more">
@@ -131,7 +131,7 @@
                     <% user.socialLinks.forEach((item) => { %>
                     <li>
                       <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
-                        <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
+                        <img src="/assets/img/social-icons/<%= item.platform %>.png" alt="">
                       </a>
                     </li>
                     <% }) %>
@@ -162,7 +162,7 @@
                   %>
                     <h5 class="title"><%= experience.title %>
                       <% if(experience.fileUrl) { %>
-                      <a class="file-link" href="/sites/e4d4<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
+                      <a class="file-link" href="<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
                       <% } %>
                     </h5>
                     <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
@@ -206,7 +206,7 @@
                   <div class="data">
                     <h5 class="title"><%= education.institute %>
                       <% if(education.fileUrl) { %>
-                      <a class="file-link" href="/sites/e4d4<%= education.fileUrl %>"><i class="bi bi-filetype-<%= education.fileUrl.split('.')[education.fileUrl.split('.').length - 1] %>"></i></a>
+                      <a class="file-link" href="<%= education.fileUrl %>"><i class="bi bi-filetype-<%= education.fileUrl.split('.')[education.fileUrl.split('.').length - 1] %>"></i></a>
                       <% } %>
                     </h5>
                     <h6 class="info"><%= education.degree %></h6>
@@ -237,7 +237,7 @@
                     %>
                     <h5 class="title"><%= experience.title %>
                       <% if(experience.fileUrl) { %>
-                      <a class="file-link" href="/sites/e4d4<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
+                      <a class="file-link" href="<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
                       <% } %>
                     </h5>
                     <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
@@ -260,8 +260,8 @@
                 <div class="col-lg-4 col-12">
                   <div class="project-item">
                     <h6><%= item.title %></h6>
-                    <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
-                      <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
+                    <a href="<%= item.image %>" data-fancybox="Projects">
+                      <img class="img-fluid" src="<%= item.image %>" alt="<%= item.title %>">
                     </a>
                   </div>
                 </div>
@@ -278,14 +278,14 @@
                 <% user.licenseCertification.forEach((cert) => { %>
                 <li>
                   <div class="file-icon">
-                    <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                    <img src="/assets/img/file-icon.png" alt="">
                   </div>
                   <div class="data">
                     <% 
                       const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                       %>
                     <h5 class="title"><%= cert?.title %> <% if(cert.fileUrl) { %>
-                      <a class="file-link" href="/sites/e4d4<%= cert.fileUrl %>"><i class="bi bi-filetype-<%= cert.fileUrl.split('.')[cert.fileUrl.split('.').length - 1] %>"></i></a>
+                      <a class="file-link" href="<%= cert.fileUrl %>"><i class="bi bi-filetype-<%= cert.fileUrl.split('.')[cert.fileUrl.split('.').length - 1] %>"></i></a>
                       <% } %>
                     </h5>
                     <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
@@ -303,14 +303,14 @@
                 <% user.personalDocuments.forEach((perDoc) => { %>
                 <li class="align-items-center">
                   <div class="file-icon">
-                    <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                    <img src="/assets/img/file-icon.png" alt="">
                   </div>
                   <div class="data">
                     <% 
                         const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                         %>
                     <h5 class="title"><%= perDoc?.title %>
-                      <a class="file-link" href="/sites/e4d4<%= perDoc.fileUrl %>"><i class="bi bi-filetype-<%= perDoc.fileUrl.split('.')[perDoc.fileUrl.split('.').length - 1] %>"></i></a>
+                      <a class="file-link" href="<%= perDoc.fileUrl %>"><i class="bi bi-filetype-<%= perDoc.fileUrl.split('.')[perDoc.fileUrl.split('.').length - 1] %>"></i></a>
                     </h5>
                   </div>
                 </li>

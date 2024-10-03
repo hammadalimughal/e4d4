@@ -9,7 +9,7 @@ const GOOGLE_CLIENT_SECRET = `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`
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: "https://webversesolution.com/sites/e4d4/api/auth/google/callback"
+  callbackURL: "https://webversesolution.com/api/auth/google/callback"
 },
   async (accessToken, refreshToken, profile, cb) => {
     // console.log('accessToken',accessToken)

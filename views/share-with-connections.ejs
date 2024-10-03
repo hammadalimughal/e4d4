@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= user.fullName %></title>
+  <%- include('./partials/csslinks') %>
+</head>
+
+<body>
+  <%- include('./partials/header') %>
+
+  <section class="dashboard-main-section">
+    <div class="container">
+      <div class="dashboard-main-setting profile-info mx-auto">
+        <div class="profile-history">
+          <div class="profile-person-history">
+            <img src="<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+            <div class="px-3">
+              <h6><%= user.fullName %></h6>
+              <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center flex-wrap justify-content-center">
+            <a class="chat-btn" href="/chat"><i class="bi bi-chat"></i></a>
+            <button type="button" class="logout-btn ms-2"><i class="bi bi-bell"></i></button>
+          </div>
+        </div>
+        <div class="row justify-content-between my-4">
+          <div class="col-lg-4 col-12">
+            <div class="history-btn-design">
+              <a href="/dashboard" class="dash-btn">
+                Dashboard</a>
+              <!-- <button type="button" class="dash-btn">
+                Show History</button> -->
+            </div>
+          </div>
+        </div>
+        <h5 class="fw-bold text-center fw-head">Share With Connections</h5>
+        <p class="text-center">Tick the checkbox of Connections to share <strong><%= data.title %></strong> </p>
+        <form action="/api/connection/update-connection" method="post">
+          <input type="hidden" name="user" value="<%= user._id %>">
+          <input type="hidden" name="companies" id="share-companies" value="[]">
+          <input type="hidden" name="data" value='<%- JSON.stringify(data) %>'>
+          <div class="row g-4">
+            <% connected.forEach((item) => { const company = item.business %>
+            <div class="col-lg-6">
+              <div class="shortlisted-companies">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h6 class="company-name"><a href='/business/<%= company._id %>'><%= company.fullName %></a></h6>
+                    <div class="company-loc">Location: <%= company.location %></div>
+                    <div class="company-loc">Business Operate: <%= company.headQuarterLocation %></div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="<%= company._id %>" id="company-<%= company._id %>">
+                      <label class="form-check-label" for="company-<%= company._id %>">
+                        Share
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="company-position">
+                  <% if(company.jobs?.length > 0) { %>
+                  <span class="company-position-offer">Offered Positions:</span>
+                  <div class="position-details">
+                    <% company.jobs?.forEach((job)=>{ %>
+                    <span><%= job.title %></span>
+                    <% }) %>
+                  </div>
+                  <% } %>
+
+                </div>
+                <% if(company.website) { %>
+                <div class="company-link">
+                  <i class="fa-solid fa-globe"></i>
+                  <span>Website: <a href="<%= company.website %>"><%= company.website %></a></span>
+                </div>
+                <% } %>
+                <!-- <button type="button" class="dash-btn my-3"> Send Details <i class="fa-solid fa-arrow-up-right-from-square mx-2"></i></button> -->
+              </div>
+            </div>
+            <% }) %>
+          </div>
+          <button class="dash-btn">Update</button>
+        </form>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <%- include('./partials/query') %>
+  <%- include('./partials/footer') %>
+  <%- include('./partials/scriptlinks') %>
+  <script>
+    $(".form-check-input").change(function() {
+      let companies = []
+      $(".form-check-input").each((ind, item) => {
+        if ($(item).prop('checked')) {
+          companies.push($(item).val())
+        }
+      })
+      $("#share-companies").val(JSON.stringify(companies))
+    })
+  </script>
+</body>
+
+</html>

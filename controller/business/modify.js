@@ -98,19 +98,19 @@ router.post('/cover-photo', uploadCoverPhoto.single("coverPhoto"), async (req, r
         const business = await Business.findById(id)
         if (!image) {
             // return res.json({ error: 'Project Image Not Found' });
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Cover Photo')
+            return res.status(409).redirect('/edit/profile?error=Error Updating Cover Photo')
         }
         if (!business) {
             // return res.json({ error: 'User Not Found' });
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+            return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
         }
         console.log('image', image)
         business.coverPhoto = `/assets/uploads/CoverPhoto/` + image.filename
         await business.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Cover Photo Updated Successfully')
+        return res.redirect('/edit/profile?message=Cover Photo Updated Successfully')
     } catch (error) {
         console.log(error.message);
-        return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
     }
 });
 
@@ -120,17 +120,17 @@ router.post('/profile-pic', uploadProfileImage.single('profilePic'), async (req,
         const { id } = req.body
         const business = await Business.findById(id)
         if (!profilePic) {
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Profile Picture')
+            return res.status(409).redirect('/edit/profile?error=Error Updating Profile Picture')
         }
         if (!business) {
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+            return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
         }
         business.profilePic = `/assets/uploads/profilePic/` + profilePic.filename
         await business.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Profile Picture Updated Successfully')
+        return res.redirect('/edit/profile?message=Profile Picture Updated Successfully')
     } catch (error) {
         console.log('error updating Business Profile Picture: ', error.message)
-        return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
     }
 })
 
@@ -141,10 +141,10 @@ router.post('/business-images', uploadbusinessImages.array('image'), async (req,
         const { id } = req.body
         const business = await Business.findById(id)
         if (!businessImages || businessImages?.length == 0) {
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Uploading Business Photos')
+            return res.status(409).redirect('/edit/profile?error=Error Uploading Business Photos')
         }
         if (!business) {
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+            return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
         }
         let images = business.businessImages ? business.businessImages : []
         let tempImages = []
@@ -158,7 +158,7 @@ router.post('/business-images', uploadbusinessImages.array('image'), async (req,
         return res.json({ images: tempImages })
     } catch (error) {
         console.log('error updating Business Profile Picture: ', error.message)
-        return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
     }
 })
 
@@ -173,14 +173,14 @@ router.post('/remove-business-image', async (req, res) => {
             { new: true }        );
         if (!business) {
             console.log('business',business)
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+            return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
         }
         await business.save()
         console.log('business', business)
-        return res.status(409).redirect('/sites/e4d4/edit/profile?message=Business Image Deleted!')
+        return res.status(409).redirect('/edit/profile?message=Business Image Deleted!')
     } catch (error) {
         console.log('error updating Business Profile Picture: ', error.message)
-        return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
     }
 })
 
@@ -190,17 +190,17 @@ router.post('/profile-video', uploadProfileVideo.single('profileVideo'), async (
         const { id } = req.body
         const business = await Business.findById(id)
         if (!profileVideo) {
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Error Updating Profile Video')
+            return res.status(409).redirect('/edit/profile?error=Error Updating Profile Video')
         }
         if (!business) {
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+            return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
         }
         business.profileVideo = `/assets/uploads/video/` + profileVideo.filename
         await business.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Profile Video Updated Successfully')
+        return res.redirect('/edit/profile?message=Profile Video Updated Successfully')
     } catch (error) {
         console.log('error updating Business Profile Video: ', error.message)
-        return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
     }
 })
 
@@ -209,14 +209,14 @@ router.post('/remove-profile-video', uploadProfileVideo.single('profileVideo'), 
         const { id } = req.body
         const business = await Business.findById(id)
         if (!business) {
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+            return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
         }
         business.profileVideo = undefined
         await business.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Profile Video Deleted Successfully')
+        return res.redirect('/edit/profile?message=Profile Video Deleted Successfully')
     } catch (error) {
         console.log('error updating Business Profile Video: ', error.message)
-        return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
     }
 })
 
@@ -226,7 +226,7 @@ router.post('/info', async (req, res) => {
         const business = await Business.findById(id)
         console.log('business', business)
         if (!business) {
-            return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+            return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
         }
         if (businessYears) {
             business.businessYears = businessYears
@@ -256,10 +256,10 @@ router.post('/info', async (req, res) => {
             business.foundedDate = new Date(foundedDate)
         }
         await business.save()
-        return res.redirect('/sites/e4d4/edit/profile?message=Business Info Updated Successfully')
+        return res.redirect('/edit/profile?message=Business Info Updated Successfully')
     } catch (error) {
         console.log('error updating Business Profile Video: ', error.message)
-        return res.status(409).redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        return res.status(409).redirect('/edit/profile?error=Something Went Wrong')
     }
 })
 
@@ -305,12 +305,12 @@ router.post('/social-info', async (req, res) => {
         business.socialLinks = socialLinks;
         console.log('business', business)
         await business.save()
-        // return res.redirect('/sites/e4d4/edit/profile?message=User Info Updated')
-        return res.redirect('/sites/e4d4/edit/profile?message=Social Links Updated Successfully')
+        // return res.redirect('/edit/profile?message=User Info Updated')
+        return res.redirect('/edit/profile?message=Social Links Updated Successfully')
     } catch (error) {
         console.log(error.message);
         // return res.status(500).json({ message: error.message });
-        return res.redirect('/sites/e4d4/edit/profile?error=Something Went Wrong')
+        return res.redirect('/edit/profile?error=Something Went Wrong')
     }
 });
 

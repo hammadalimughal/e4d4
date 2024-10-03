@@ -10,7 +10,7 @@ router.post('/add', async (req, res) => {
         let errors = []
         const business = await Business.findById(company)
         if (!business) {
-            return res.status(422).redirect('/sites/e4d4/jobposting?error=You Should LoggedIn as a Company to post A Job Application')
+            return res.status(422).redirect('/jobposting?error=You Should LoggedIn as a Company to post A Job Application')
         }
         if (errors.length == 0) {
             const job = await Job.create({ company, title, summary, responsiblities: responsiblities.split('\n'), education, skills: skills.split('\n'), experience, certification, position, industry, location, jobType, benefits: benefits.split('\n'), salary, workScheduled, applicationPosted, applicationDeadline, applicationInstruction, requiredDocuments: requiredDocuments.split('\n'), contactPerson, contactNumber, additionalInfo })
@@ -19,19 +19,19 @@ router.post('/add', async (req, res) => {
                 bJobs.push(job._id)
                 business.jobs = bJobs
                 await business.save()
-                return res.status(200).redirect(`/sites/e4d4/jobdetails/${job._id}?message=Job Posted Successfully`)
+                return res.status(200).redirect(`/jobdetails/${job._id}?message=Job Posted Successfully`)
             } else {
-                return res.status(409).redirect('/sites/e4d4?error=Something Went Wrong')
+                return res.status(409).redirect('/?error=Something Went Wrong')
             }
         }
         else {
             console.log(req.body)
-            return res.status(422).redirect('/sites/e4d4/jobposting?error=' + JSON.stringify(errors))
+            return res.status(422).redirect('/jobposting?error=' + JSON.stringify(errors))
         }
     }
     catch (err) {
         console.log(err.message);
-        return res.status(422).redirect('/sites/e4d4/jobposting?error=' + err.message)
+        return res.status(422).redirect('/jobposting?error=' + err.message)
     }
 })
 router.post('/update', async (req, res) => {
@@ -41,7 +41,7 @@ router.post('/update', async (req, res) => {
         let errors = []
         const business = await Business.findById(company)
         if (!business) {
-            return res.status(422).redirect('/sites/e4d4/jobposting?error=You Should LoggedIn as a Company to post A Job Application')
+            return res.status(422).redirect('/jobposting?error=You Should LoggedIn as a Company to post A Job Application')
         }
         if (errors.length == 0) {
             const job = await Job.findByIdAndUpdate(id, { company, title, summary, responsiblities: responsiblities.split('\n'), education, skills: skills.split('\n'), experience, certification, position, industry, location, jobType, benefits: benefits.split('\n'), salary, workScheduled, applicationPosted, applicationDeadline, applicationInstruction, requiredDocuments: requiredDocuments.split('\n'), contactPerson, contactNumber, additionalInfo }, {
@@ -53,19 +53,19 @@ router.post('/update', async (req, res) => {
                 bJobs.push(job._id)
                 business.jobs = bJobs
                 await business.save()
-                return res.status(200).redirect(`/sites/e4d4/jobdetails/${job._id}?message=Job Updated Successfully`)
+                return res.status(200).redirect(`/jobdetails/${job._id}?message=Job Updated Successfully`)
             } else {
-                return res.status(409).redirect('/sites/e4d4?error=Something Went Wrong')
+                return res.status(409).redirect('/?error=Something Went Wrong')
             }
         }
         else {
             console.log(req.body)
-            return res.status(422).redirect('/sites/e4d4/jobposting?error=' + JSON.stringify(errors))
+            return res.status(422).redirect('/jobposting?error=' + JSON.stringify(errors))
         }
     }
     catch (err) {
         console.log(err.message);
-        return res.status(422).redirect('/sites/e4d4/jobposting?error=' + err.message)
+        return res.status(422).redirect('/jobposting?error=' + err.message)
     }
 })
 
@@ -76,13 +76,13 @@ router.post('/delete', async (req, res) => {
         console.log(business?._id)
         if (business?._id.toString() == id) {
             await Job.findByIdAndDelete(jobId)
-            return res.status(422).redirect(`/sites/e4d4/profile?message=Job Deleted`)
+            return res.status(422).redirect(`/profile?message=Job Deleted`)
         }
-        return res.status(422).redirect(`/sites/e4d4/jobdetails/${jobId}?error=Something Went Wrong`)
+        return res.status(422).redirect(`/jobdetails/${jobId}?error=Something Went Wrong`)
     }
     catch (err) {
         console.log(err.message);
-        return res.status(422).redirect(`/sites/e4d4/profile?error=` + err.message)
+        return res.status(422).redirect(`/profile?error=` + err.message)
     }
 })
 

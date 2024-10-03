@@ -13,13 +13,13 @@
 
   <section class="dashboard-main-section">
     <div class="container">
-      <form method="POST" action="/sites/e4d4/api/connection/request/business">
+      <form method="POST" action="/api/connection/request/business">
         <input type="hidden" name="company" value="<%= companyObj._id %>">
         <input type="hidden" name="user" value="<%= user._id %>">
         <div class="dashboard-main-setting profile-info mx-auto">
           <div class="profile-history">
             <div class="profile-person-history">
-              <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+              <img src="<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
               <div class="px-3">
                 <h6><%= user.fullName %></h6>
                 <span><%= user['subHeading'] ? user['subHeading'] : 'Enter Sub Heading' %></span>
@@ -38,7 +38,7 @@
               <label for="coverPhoto" class="custom-checkbox w-block w-100">
                 <input type="checkbox" name="coverPhoto" value="true" id="coverPhoto">
                 <label for="coverPhoto"><i class="bi bi-check2-circle"></i></label>
-                <img class="img-fluid" src="/sites/e4d4<%= user.coverPhoto ? user.coverPhoto : '/assets/img/cover.png' %>" alt="">
+                <img class="img-fluid" src="<%= user.coverPhoto ? user.coverPhoto : '/assets/img/cover.png' %>" alt="">
               </label>
             </div>
             <div class="banner-info">
@@ -49,7 +49,7 @@
                     <label for="profile-checkbox"><i class="bi bi-check2-circle"></i></label>
                   </span>
 
-                  <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+                  <img src="<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                 </label>
                 <div class="px-3 pb-2">
                   <h5>
@@ -131,7 +131,7 @@
                     <input type="checkbox" value="true" name="profileVideo" id="checkbox-profileVideo">
                     <label for="checkbox-profileVideo"><i class="bi bi-check2-circle"></i></label>
                     <video>
-                      <source src="/sites/e4d4<%= user.profileVideo?.url %>">
+                      <source src="<%= user.profileVideo?.url %>">
                     </video>
                   </label>
                   <% } %>
@@ -192,7 +192,7 @@
                     <span><%= item %></span>
                     <% }) %>
                   </div>
-                  <!-- <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt=""> -->
+                  <!-- <img class="img-fluid mt-3" src="/assets/img/social.png" alt=""> -->
                   <% if(user.socialLinks.length > 0) { %>
                   <!-- <hr> -->
                   <div class="follow-more">
@@ -201,7 +201,7 @@
                       <% user.socialLinks.forEach((item) => { %>
                       <li>
                         <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
-                          <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
+                          <img src="/assets/img/social-icons/<%= item.platform %>.png" alt="">
                         </a>
                       </li>
                       <% }) %>
@@ -323,7 +323,7 @@
                           <%= experience.title %>
                         </label>
                         <% if(experience.fileUrl) { %>
-                        <a class="file-link" href="/sites/e4d4<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
+                        <a class="file-link" href="<%= experience.fileUrl %>"><i class="bi bi-filetype-<%= experience.fileUrl.split('.')[experience.fileUrl.split('.').length - 1] %>"></i></a>
                         <% } %>
                       </h5>
                       <h6 class="info"><%= experience.companyName %> · <%= experience.locationType %></h6>
@@ -356,8 +356,8 @@
                           <%= item.title %>
                         </label>
                       </h6>
-                      <a href="/sites/e4d4<%= item.image %>" data-fancybox="Projects">
-                        <img class="img-fluid" src="/sites/e4d4<%= item.image %>" alt="<%= item.title %>">
+                      <a href="<%= item.image %>" data-fancybox="Projects">
+                        <img class="img-fluid" src="<%= item.image %>" alt="<%= item.title %>">
                       </a>
                     </div>
                   </div>
@@ -375,7 +375,7 @@
                   <% user.licenseCertification.forEach((cert) => { %>
                   <li>
                     <div class="file-icon">
-                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                      <img src="/assets/img/file-icon.png" alt="">
                     </div>
                     <div class="data">
                       <% 
@@ -388,7 +388,7 @@
                           <%= cert?.title %>
                         </label>
                         <% if(cert.fileUrl) { %>
-                        <a class="file-link" href="/sites/e4d4<%= cert.fileUrl %>"><i class="bi bi-filetype-<%= cert.fileUrl.split('.')[cert.fileUrl.split('.').length - 1] %>"></i></a>
+                        <a class="file-link" href="<%= cert.fileUrl %>"><i class="bi bi-filetype-<%= cert.fileUrl.split('.')[cert.fileUrl.split('.').length - 1] %>"></i></a>
                         <% } %>
                       </h5>
                       <h6 class="info"><%= cert?.organization %> - <%= cert?.issueDate ? monthsShort[cert?.issueDate?.getMonth()] : '' %> <%= cert?.issueDate ? cert?.issueDate?.getFullYear() : '' %></h6>
@@ -407,7 +407,7 @@
                   <% user.personalDocuments.forEach((perDoc) => { %>
                   <li class="align-items-center">
                     <div class="file-icon">
-                      <img src="/sites/e4d4/assets/img/file-icon.png" alt="">
+                      <img src="/assets/img/file-icon.png" alt="">
                     </div>
                     <div class="data">
                       <% 
@@ -419,7 +419,7 @@
                           <label for="exp-item-<%= perDoc._id %>"><i class="bi bi-check2-circle"></i></label>
                           <%= perDoc?.title %>
                         </label>
-                        <a class="file-link" href="/sites/e4d4<%= perDoc.fileUrl %>"><i class="bi bi-filetype-<%= perDoc.fileUrl.split('.')[perDoc.fileUrl.split('.').length - 1] %>"></i></a>
+                        <a class="file-link" href="<%= perDoc.fileUrl %>"><i class="bi bi-filetype-<%= perDoc.fileUrl.split('.')[perDoc.fileUrl.split('.').length - 1] %>"></i></a>
                       </h5>
                     </div>
                   </li>

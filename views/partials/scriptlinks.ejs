@@ -1,4 +1,4 @@
-<!-- <script href="/sites/e4d4/assets/js/jquery-3.6.0.min.js"></script> -->
+<!-- <script href="/assets/js/jquery-3.6.0.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
 
@@ -52,10 +52,10 @@
 </script>
 <% } %>
 <!-- OWN JS LINED HERE -->
-<!-- <script href="/sites/e4d4/assets/js/select.js"></script> -->
-<script href="/sites/e4d4/assets/js/suggestTags.js"></script>
-<script href="/sites/e4d4/assets/js/fancybox.min.js"></script>
-<!-- <script href="/sites/e4d4/assets/js/script.js"></script> -->
+<!-- <script href="/assets/js/select.js"></script> -->
+<script href="/assets/js/suggestTags.js"></script>
+<script href="/assets/js/fancybox.min.js"></script>
+<!-- <script href="/assets/js/script.js"></script> -->
 <script>
   function createToast(message, type = 'success') {
     // Create the toast container if it doesn't exist
@@ -221,7 +221,7 @@ const volunteerCheckbox = document.getElementById('working-now-volunteer-exp');
       $(this).siblings('.api-locations').remove()
       const value = $(this).val()
       if(value.length >= 1){
-        const res = await fetch('/sites/e4d4/api/location/fetch', {
+        const res = await fetch('/api/location/fetch', {
           method: 'POST',
           headers: {
             "Content-Type": "application/json"

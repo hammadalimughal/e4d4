@@ -30,13 +30,13 @@ router.post('/get-otp', async (req, res) => {
                 business: businessId,
                 otp: otpObj._id
             }, JWT_SECRET);
-            return res.cookie('businesscodepass', token, { maxAge: 5 * 60 * 1000 }).redirect('/sites/e4d4/business-otp-verification')
+            return res.cookie('businesscodepass', token, { maxAge: 5 * 60 * 1000 }).redirect('/business-otp-verification')
         } else {
             // return res.status(200).json({
             //     success: false,
             //     error: `Email Address Not Registered!`
             // })
-            return res.redirect('/sites/e4d4/business-reset-password?error=Email Address Not Registered!')
+            return res.redirect('/business-reset-password?error=Email Address Not Registered!')
         }
 
     } catch (error) {
@@ -46,7 +46,7 @@ router.post('/get-otp', async (req, res) => {
         //     success: false,
         //     message: error.message
         // })
-        return res.redirect('/sites/e4d4/reset-password?error=Something Went Wrong')
+        return res.redirect('/reset-password?error=Something Went Wrong')
     }
 })
 
@@ -65,20 +65,20 @@ router.post('/verify-otp', async (req, res) => {
             console.log('otpDocument', otpDocument)
             if (!otpDocument) {
                 // return res.status(200).json({ success: false, error: 'OTP Verification Failed' });
-                return res.redirect('/sites/e4d4/business-otp-verification?error=OTP Verification Failed')
+                return res.redirect('/business-otp-verification?error=OTP Verification Failed')
             } else {
                 if (otpDocument.code == code) {
-                    return res.redirect('/sites/e4d4/business-update-password')
+                    return res.redirect('/business-update-password')
                 }
-                return res.redirect('/sites/e4d4/business-otp-verification?error=Invalid or Expired OTP')
+                return res.redirect('/business-otp-verification?error=Invalid or Expired OTP')
             }
         } else {
             // res.status(200).json({ success: false, error: 'User Not Found' });
-            return res.redirect('/sites/e4d4/business-otp-verification?error=OTP Verification Failed')
+            return res.redirect('/business-otp-verification?error=OTP Verification Failed')
         }
     } catch (error) {
         console.error('otp verification failed: ', error);
-        return res.redirect('/sites/e4d4/business-otp-verification?error=OTP Verification Failed')
+        return res.redirect('/business-otp-verification?error=OTP Verification Failed')
         // return res.status(200).json({ success: false, error: 'OTP Verification Failed' });
     }
 })
@@ -110,20 +110,20 @@ router.post('/update-password', async (req, res) => {
                         id: _id, primaryEmail
                     }
                     const authtoken = jwt.sign(user, JWT_SECRET);
-                    return res.cookie('authtoken', authtoken).redirect(`/sites/e4d4/business-dashboard?message=Password Updated Successfully...`)
+                    return res.cookie('authtoken', authtoken).redirect(`/business-dashboard?message=Password Updated Successfully...`)
                 } else {
-                    return res.redirect(`/sites/e4d4/business-update-password/?error=Something Went Wrong...`)
+                    return res.redirect(`/business-update-password/?error=Something Went Wrong...`)
                 }
 
             } else {
-                return res.redirect(`/sites/e4d4/business-update-password/?error=Password not matched with Confirm Password...`)
+                return res.redirect(`/business-update-password/?error=Password not matched with Confirm Password...`)
             }
         } else {
-            return res.redirect(`/sites/e4d4/business-update-password/?error=Session Expired`)
+            return res.redirect(`/business-update-password/?error=Session Expired`)
         }
     } catch (error) {
         console.error(error);
-        return res.redirect(`/sites/e4d4/business-update-password/?error=Something Went Wrong`)
+        return res.redirect(`/business-update-password/?error=Something Went Wrong`)
     }
 })
 module.exports = router

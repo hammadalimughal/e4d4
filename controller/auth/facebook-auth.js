@@ -9,7 +9,7 @@ router.get('/callback',
     function (req, res) {
         // Successful authentication, redirect home.
         console.log('google auth req',req.session)
-        res.redirect('/sites/e4d4/portfolioreg?Facebook Authenticated Successfully');
+        res.redirect('/portfolioreg?Facebook Authenticated Successfully');
     }
 );
 

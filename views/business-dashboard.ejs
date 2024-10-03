@@ -23,7 +23,7 @@
       <div class="businessdashboard-section my-5">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4/assets/img/business-profile.png" alt="">
+            <img src="/assets/img/business-profile.png" alt="">
             <div class="px-3">
               <h6><%= business.fullName %></h6>
               <span><%= business.industry %></span>
@@ -31,7 +31,7 @@
           </div>
 
           <div class="d-flex align-items-center">
-            <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
+            <a class="chat-btn" href="/chat"><i class="bi bi-chat"></i></a>
             <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
           </div>
         </div>
@@ -92,7 +92,7 @@
                                   </div>
                                   <% } %>
                                   <div>
-                                    <form action="/sites/e4d4/api/connection/approval" method="post">
+                                    <form action="/api/connection/approval" method="post">
                                       <input type="hidden" name="id" value="<%= user.connectionId %>">
                                       <input type="hidden" name="user" value="<%= user._id %>">
                                       <input type="hidden" name="business" value="<%= user.businessId %>">
@@ -137,7 +137,7 @@
                                       Name, Phone, Email
                                       Address</span>
                                   </div>
-                                  <a class="review-btn mt-2" href="/sites/e4d4/connection/request/<%= user.connectionId %>">Review Profile</a>
+                                  <a class="review-btn mt-2" href="/connection/request/<%= user.connectionId %>">Review Profile</a>
 
                                 </div>
 
@@ -458,11 +458,11 @@
                 <div class="d-flex justify-content-center">
                   <span class="home-border">Profile / Portfolio</span>
                 </div>
-                <img src="/sites/e4d4/assets/img/bg-porfolio.png" alt="" class="bus-port-img">
+                <img src="/assets/img/bg-porfolio.png" alt="" class="bus-port-img">
 
                 <div class="row">
                   <div class="col-lg-2 position-relative">
-                    <img src="/sites/e4d4/assets/img/dashboard-img.png" alt="" class="bus-per-img">
+                    <img src="/assets/img/dashboard-img.png" alt="" class="bus-per-img">
                   </div>
                   <div class="col-lg-8 mt-4 px-4">
                     <h4><strong>Edward James</strong>
@@ -511,7 +511,7 @@
                         Lorem Ipsum is simply dummy text of the printing and typesetting
                         industry
                       </p>
-                      <img src="/sites/e4d4/assets/img/about-img.png" alt="" class="img-fluid border-10">
+                      <img src="/assets/img/about-img.png" alt="" class="img-fluid border-10">
                     </div>
                   </div>
 
@@ -535,7 +535,7 @@
                         <p class="bg-modifier fs-12">Logo</p>
                       </div>
 
-                      <img src="/sites/e4d4/assets/img/connect.PNG" alt="" class="img-fluid border-10">
+                      <img src="/assets/img/connect.PNG" alt="" class="img-fluid border-10">
                     </div>
                   </div>
                 </div>
@@ -553,38 +553,38 @@
                     <div class="col-lg-4 col-md-6">
                       <div class="project-images">
                         <h6 class="fw-bold">UI/UX Design</h6>
-                        <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
+                        <img src="/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
                       </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                       <div class="project-images">
                         <h6 class="fw-bold">UI/UX Design</h6>
-                        <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
+                        <img src="/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
                       </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                       <div class="project-images">
                         <h6 class="fw-bold">UI/UX Design</h6>
-                        <img src="/sites/e4d4/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
+                        <img src="/assets/img/project-business-img.png" alt="" class="img-fluid border-10">
                       </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                       <div class="project-images">
                         <h6 class="fw-bold">UI/UX Design</h6>
-                        <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
+                        <img src="/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
                       </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 ">
                       <div class="project-images">
                         <h6 class="fw-bold">UI/UX Design</h6>
-                        <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
+                        <img src="/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
                       </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
                       <div class="project-images">
                         <h6 class="fw-bold">UI/UX Design</h6>
-                        <img src="/sites/e4d4/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
+                        <img src="/assets/img/project-business-img1.png" alt="" class="img-fluid border-10">
                       </div>
                     </div>
 
@@ -619,7 +619,7 @@
                   <% jobs.forEach((item) => { %>
                   <div class="col-lg-4 col-md-6 col-12">
                     <div class="job-card">
-                      <h5><a href="/sites/e4d4/jobdetails/<%= item._id %>"><%= item.title %></a></h5>
+                      <h5><a href="/jobdetails/<%= item._id %>"><%= item.title %></a></h5>
                       <ul>
                         <li><%= item.jobType %></li>
                         <li><%= item.position %></li>
@@ -627,7 +627,7 @@
                       </ul>
                       <p><%= item.summary %></p>
                       <p><%= item.additionalInfo %></p>
-                      <a href="/sites/e4d4/jobdetails/<%= item._id %>">View More</a>
+                      <a href="/jobdetails/<%= item._id %>">View More</a>
                     </div>
                   </div>
                   <% }) %>
@@ -642,9 +642,9 @@
                     const connectionUser = item.user
                      %>
                   <div class="col-lg-4 col-12 panel">
-                    <a href="/sites/e4d4/connected-profile/<%= item._id %>" class="profile-card">
+                    <a href="/connected-profile/<%= item._id %>" class="profile-card">
                       <% if (item.profile) { %>
-                      <img class="img-fluid" src="/sites/e4d4<%= connectionUser.profilePic ? connectionUser.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+                      <img class="img-fluid" src="<%= connectionUser.profilePic ? connectionUser.profilePic : '/assets/img/user-icon.webp' %>" alt="">
                       <% } else { %>
                       <div class="lock-img">
                         <i class="bi bi-lock"></i>

@@ -19,14 +19,14 @@
       <div class="dashboard-main-setting first-screen">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+            <img src="<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
             <div class="px-3">
               <h6><%= user?.fullName %><span> ( Edit Portfolio )</span></h6>
               <span><%= user['subHeading'] ? user['subHeading'] : '' %></span>
             </div>
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
-            <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
+            <a class="chat-btn" href="/chat"><i class="bi bi-chat"></i></a>
             <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
           </div>
         </div>
@@ -86,7 +86,7 @@
                 <div class="shortlisted-companies">
                   <div class="row">
                     <div class="col-lg-6">
-                      <h6 class="company-name"><a href='/sites/e4d4/business/<%= item._id %>'><%= item.fullName %></a></h6>
+                      <h6 class="company-name"><a href='/business/<%= item._id %>'><%= item.fullName %></a></h6>
                       <div class="company-loc">Location: <%= item.location %></div>
                       <div class="company-loc">Business Operate: <%= item.headQuarterLocation %></div>
                     </div>
@@ -103,14 +103,14 @@
                         }
                       })
                       if(connectionSent){ %>
-                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/sites/e4d4/api/connection/delete" method="POST">
+                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/api/connection/delete" method="POST">
                         <input type="hidden" name="id" value="<%= connectionId._id %>">
                         <input type="hidden" name="business" value="<%= item._id %>">
                         <input type="hidden" name="user" value="<%= user.id %>">
                         <button class="company_request_btn delete-connection" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
                       </form>
                       <% } else { %>
-                      <a class="company_request_btn" href="/sites/e4d4/connection-request?company=<%= item._id %>" data-company="<%= item._id %>"> + Send Connection Request</a>
+                      <a class="company_request_btn" href="/connection-request?company=<%= item._id %>" data-company="<%= item._id %>"> + Send Connection Request</a>
                       <% } %>
     
                     </div>
@@ -146,7 +146,7 @@
                 <div class="shortlisted-companies">
                   <div class="row">
                     <div class="col-lg-6">
-                      <h6 class="company-name"><a href='/sites/e4d4/business/<%= company._id %>'><%= company.fullName %></a></h6>
+                      <h6 class="company-name"><a href='/business/<%= company._id %>'><%= company.fullName %></a></h6>
                       <div class="company-loc">Location: <%= company.location %></div>
                       <div class="company-loc">Business Operate: <%= company.headQuarterLocation %></div>
                     </div>
@@ -163,14 +163,14 @@
                         }
                       })
                       if(connectionSent){ %>
-                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/sites/e4d4/api/connection/delete" method="POST">
+                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/api/connection/delete" method="POST">
                         <input type="hidden" name="id" value="<%= connectionId._id %>">
                         <input type="hidden" name="business" value="<%= company._id %>">
                         <input type="hidden" name="user" value="<%= user.id %>">
                         <button class="company_request_btn delete-connection" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
                       </form>
                       <% } else { %>
-                      <a class="company_request_btn" href="/sites/e4d4/connection-request?company=<%= company._id %>" data-company="<%= company._id %>"> + Send Connection Request</a>
+                      <a class="company_request_btn" href="/connection-request?company=<%= company._id %>" data-company="<%= company._id %>"> + Send Connection Request</a>
                       <% } %>
     
                     </div>
@@ -206,7 +206,7 @@
                 <div class="shortlisted-companies">
                   <div class="row">
                     <div class="col-lg-6">
-                      <h6 class="company-name"><a href='/sites/e4d4/business/<%= company._id %>'><%= company.fullName %></a></h6>
+                      <h6 class="company-name"><a href='/business/<%= company._id %>'><%= company.fullName %></a></h6>
                       <div class="company-loc">Location: <%= company.location %></div>
                       <div class="company-loc">Business Operate: <%= company.headQuarterLocation %></div>
                     </div>
@@ -223,14 +223,14 @@
                         }
                       })
                       if(connectionSent){ %>
-                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/sites/e4d4/api/connection/delete" method="POST">
+                      <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/api/connection/delete" method="POST">
                         <input type="hidden" name="id" value="<%= connectionId._id %>">
                         <input type="hidden" name="business" value="<%= company._id %>">
                         <input type="hidden" name="user" value="<%= user.id %>">
                         <button class="company_request_btn delete-connection" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
                       </form>
                       <% } else { %>
-                      <a class="company_request_btn" href="/sites/e4d4/connection-request?company=<%= company._id %>" data-company="<%= company._id %>"> + Send Connection Request</a>
+                      <a class="company_request_btn" href="/connection-request?company=<%= company._id %>" data-company="<%= company._id %>"> + Send Connection Request</a>
                       <% } %>
     
                     </div>
@@ -273,14 +273,14 @@
       <div class="dashboard-main-setting">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+            <img src="<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
             <div class="px-3">
               <h6><%= user.fullName %></h6>
               <span><%= user.subHeading %></span>
             </div>
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
-            <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
+            <a class="chat-btn" href="/chat"><i class="bi bi-chat"></i></a>
             <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
             <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
               + Make New Search</button>
@@ -488,14 +488,14 @@
       <div class="dashboard-main-setting">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
+            <img src="<%= user.profilePic ? user.profilePic : '/assets/img/user-icon.webp' %>" alt="">
             <div class="px-3">
               <h6>James Edward<span> ( Edit Portfolio )</span></h6>
               <span>Enter Subheading</span>
             </div>
           </div>
           <div class="d-flex align-items-center flex-wrap justify-content-center">
-            <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
+            <a class="chat-btn" href="/chat"><i class="bi bi-chat"></i></a>
             <button type="button" class="logout-btn"><i class="bi bi-bell"></i></button>
             <button type="button" class="dash-btn"> <i class="bi bi-house text-white px-1"></i>
               + Make New Search</button>
@@ -537,7 +537,7 @@
         </form>
 
         <div class="final-portion">
-          <img src="/sites/e4d4/assets/img/party.png" alt="">
+          <img src="/assets/img/party.png" alt="">
           <h3>Congratulations</h3>
           <h5 class="">Your information has been sent successfully to the company.</h5>
           <button type="button" class="dash-btn mt-4">Go Back To Dashboard</button>

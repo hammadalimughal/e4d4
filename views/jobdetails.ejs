@@ -155,7 +155,7 @@
         <div class="job-banner">
           <div class="job-detail-header">
             <div class="job-details">
-              <img class="profile-img" src="/sites/e4d4<%= job.company?.profilePic ? job.company?.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
+              <img class="profile-img" src="<%= job.company?.profilePic ? job.company?.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
               <div class="d-flex flex-column justify-content-center mx-3">
                 <h4 class="fw-bold"><%= job.title %></h4>
                 <h6 class="fw-bold">Company: (<%= job.company?.fullName %>)</h6>
@@ -174,10 +174,10 @@
           </div>
           <% if (business?._id.toString() == job.company?._id.toString()) { %>
           <div class="job-detail-admin-actions">
-              <a href="/sites/e4d4/editjob/<%= job._id %>" class="logout-btn">
+              <a href="/editjob/<%= job._id %>" class="logout-btn">
                 <i class="bi bi-pencil-square"></i>
               </a>
-            <form class="dangerous-form" data-warning="Job Will be deleted! Do you want to proceed?" action="/sites/e4d4/api/business/job/delete" method="POST">
+            <form class="dangerous-form" data-warning="Job Will be deleted! Do you want to proceed?" action="/api/business/job/delete" method="POST">
               <input type="hidden" name="id" value="<%= business._id %>">
               <input type="hidden" name="jobId" value="<%= job._id %>">
               <button type="submit" class="submit-btn-portfolio btn-portfolio bg-danger">Delete</button>

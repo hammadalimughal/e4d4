@@ -22,7 +22,7 @@ const Business = require('./schema/Business')
 const Connection = require("./schema/Connection")
 const Chat = require('./schema/Chat')
 app.set('view engine', 'ejs');
-app.use('/sites/e4d4/assets', express.static(__dirname + '/views/assets'));
+app.use(express.static(__dirname + '/views'));
 
 
 const PORT = process.env.PORT || 8080;
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
     next()
 })
 
-app.get('/sites/e4d4/', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -56,11 +56,11 @@ app.get('/sites/e4d4/', async (req, res) => {
         res.render(`index`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/businessdetails', async (req, res) => {
+app.get('/businessdetails', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -68,41 +68,41 @@ app.get('/sites/e4d4/businessdetails', async (req, res) => {
         res.render(`businessdetails`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/businessregistration', async (req, res) => {
+app.get('/businessregistration', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (business) {
-            return res.redirect('/sites/e4d4/edit/profile')
+            return res.redirect('/edit/profile')
         }
         res.render(`businessregistration`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/dashboard-main', async (req, res) => {
+app.get('/dashboard-main', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (!user) {
-            return res.redirect(`/sites/e4d4/join`)
+            return res.redirect(`/join`)
         }
         res.render(`dashboard-2`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/dashboard', async (req, res) => {
+app.get('/dashboard', async (req, res) => {
     try {
         const { error, message, title, location, industry, position } = req.query
         const user = req.user
@@ -146,22 +146,22 @@ app.get('/sites/e4d4/dashboard', async (req, res) => {
             return res.render(`dashboard`, { message, error, user, business, companies, filter, requested, connected })
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
-        return res.redirect(`/sites/e4d4/join`)
+        return res.redirect(`/join`)
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/connection-request', async (req, res) => {
+app.get('/connection-request', async (req, res) => {
     try {
         const { error, message, company } = req.query
         const user = req.user
         const business = req.business
         const companyObj = await Business.findById(company)
         if (!companyObj) {
-            res.redirect(`/sites/e4d4/dashboard?error=Company Not Found`)
+            res.redirect(`/dashboard?error=Company Not Found`)
         }
         if (user) {
             // const jobs = await Job.find()
@@ -169,82 +169,82 @@ app.get('/sites/e4d4/connection-request', async (req, res) => {
             const companies = await Business.find().populate('jobs').exec()
             return res.render(`connection-request`, { message, error, user, business, companies, companyObj, calculateYearsDifference })
         }
-        return res.redirect(`/sites/e4d4/join`)
+        return res.redirect(`/join`)
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/join', async (req, res) => {
+app.get('/join', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/dashboard`)
+            return res.redirect(`/dashboard`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
         return res.render(`join`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/user-loginemail', async (req, res) => {
+app.get('/user-loginemail', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/profile`)
+            return res.redirect(`/profile`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
         res.render(`user-loginemail`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/reset-password', async (req, res) => {
+app.get('/reset-password', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/profile`)
+            return res.redirect(`/profile`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
         res.render(`reset-password`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/business-reset-password', async (req, res) => {
+app.get('/business-reset-password', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/profile`)
+            return res.redirect(`/profile`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
         res.render(`business-reset-password`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/business-otp-verification', async (req, res) => {
+app.get('/business-otp-verification', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -253,22 +253,22 @@ app.get('/sites/e4d4/business-otp-verification', async (req, res) => {
         const otpBusinessId = token.business
         const otpObjId = token.otp
         if (user) {
-            return res.redirect(`/sites/e4d4/profile`)
+            return res.redirect(`/profile`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
         if (otpObjId && otpBusinessId) {
             return res.render(`business-otp-verification`, { message, error, user, business })
         }
-        return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
+        return res.redirect(`/business-reset-password?error=Session Expired`)
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
-        // return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/business-reset-password?error=Session Expired`)
+        // return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/business-update-password', async (req, res) => {
+app.get('/business-update-password', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -279,22 +279,22 @@ app.get('/sites/e4d4/business-update-password', async (req, res) => {
         // console.log('otpObjId', otpObjId)
         // console.log('otpUserId', otpBusinessId)
         if (user) {
-            return res.redirect(`/sites/e4d4/profile`)
+            return res.redirect(`/profile`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
         if (otpObjId && otpBusinessId) {
             return res.render(`business-update-password`, { message, error, user, business })
         }
-        return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
+        return res.redirect(`/business-reset-password?error=Session Expired`)
     } catch (error) {
         console.log(error)
-        // return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
-        return res.redirect(`/sites/e4d4/business-reset-password?error=Session Expired`)
+        // return res.redirect(`/profile?error=Something Went Wrong`)
+        return res.redirect(`/business-reset-password?error=Session Expired`)
     }
 })
-app.get('/sites/e4d4/otp-verification', async (req, res) => {
+app.get('/otp-verification', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -303,21 +303,21 @@ app.get('/sites/e4d4/otp-verification', async (req, res) => {
         const otpUserId = token.user
         const otpObjId = token.otp
         if (user) {
-            return res.redirect(`/sites/e4d4/profile`)
+            return res.redirect(`/profile`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
         if (otpObjId && otpUserId) {
             return res.render(`otp-verification`, { message, error, user, business })
         }
-        return res.redirect(`/sites/e4d4/reset-password?error=Session Expired`)
+        return res.redirect(`/reset-password?error=Session Expired`)
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/reset-password?error=Session Expired`)
+        return res.redirect(`/reset-password?error=Session Expired`)
     }
 })
-app.get('/sites/e4d4/update-password', async (req, res) => {
+app.get('/update-password', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -328,21 +328,21 @@ app.get('/sites/e4d4/update-password', async (req, res) => {
         // console.log('otpObjId', otpObjId)
         // console.log('otpUserId', otpUserId)
         if (user) {
-            return res.redirect(`/sites/e4d4/profile`)
+            return res.redirect(`/profile`)
         }
         if (business) {
-            return res.redirect(`/sites/e4d4/business-dashboard`)
+            return res.redirect(`/business-dashboard`)
         }
         if (otpObjId && otpUserId) {
             return res.render(`update-password`, { message, error, user, business })
         }
-        return res.redirect(`/sites/e4d4/reset-password?error=Session Expired`)
+        return res.redirect(`/reset-password?error=Session Expired`)
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/profile', async (req, res) => {
+app.get('/profile', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -355,13 +355,30 @@ app.get('/sites/e4d4/profile', async (req, res) => {
             const jobs = await Job.find({ company: business._id })
             return res.render(`business-profile`, { message, error, user, business, extractDomain, calculateYearsDifference, jobs })
         }
-        res.redirect('/sites/e4d4/join')
+        res.redirect('/join')
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/business/:id', async (req, res) => {
+app.get('/share-with-connections/:token', async (req, res) => {
+    try {
+        const { error, message } = req.query
+        const user = req.user
+        const business = req.business
+        const token = req.params.token
+        const data = jwt.verify(token, JWT_SECRET);
+        const connected = await Connection.find({ user: user._id, approved: true }).populate('business')
+        if (user) {
+            return res.render(`share-with-connections`, { message, connected, error, user, business, extractDomain, calculateYearsDifference, data })
+        }
+        res.redirect('/join')
+    } catch (error) {
+        console.log(error)
+        return res.redirect(`/profile?error=Something Went Wrong`)
+    }
+})
+app.get('/business/:id', async (req, res) => {
     try {
         const { id } = req.params
         const { error, message } = req.query
@@ -372,10 +389,10 @@ app.get('/sites/e4d4/business/:id', async (req, res) => {
         return res.render(`business-public`, { message, error, user, business, extractDomain, calculateYearsDifference, jobs, company })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/edit/profile', async (req, res) => {
+app.get('/edit/profile', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -387,42 +404,42 @@ app.get('/sites/e4d4/edit/profile', async (req, res) => {
             const jobs = await Job.find({ company: business._id })
             return res.render(`edit-business-profile`, { message, error, user, business, jobs, extractDomain, calculateYearsDifference, formatDate })
         }
-        return res.redirect(`/sites/e4d4/join`)
+        return res.redirect(`/join`)
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/user-login', async (req, res) => {
+app.get('/user-login', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (user) {
-            return res.redirect(`/sites/e4d4/profile`)
+            return res.redirect(`/profile`)
         }
         res.render(`user-login`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/business-login', async (req, res) => {
+app.get('/business-login', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (business) {
-            return res.redirect('/sites/e4d4/business-dashboard')
+            return res.redirect('/business-dashboard')
         }
         res.render(`business-login`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/portfolioreg', async (req, res) => {
+app.get('/portfolioreg', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user || req.session?.passport?.user
@@ -430,40 +447,40 @@ app.get('/sites/e4d4/portfolioreg', async (req, res) => {
         res.render(`portfolioreg`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/profilepicture', async (req, res) => {
+app.get('/profilepicture', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (!user) {
-            return res.redirect(`/sites/e4d4/join`)
+            return res.redirect(`/join`)
         }
         res.render(`profilepicture`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/business-subscription', async (req, res) => {
+app.get('/business-subscription', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (!business) {
-            return res.redirect(`/sites/e4d4/business-login`)
+            return res.redirect(`/business-login`)
         }
         res.render(`business-subscription`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/connection/request/:id', async (req, res) => {
+app.get('/connection/request/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const { error, message } = req.query
@@ -492,21 +509,21 @@ app.get('/sites/e4d4/connection/request/:id', async (req, res) => {
             // console.log('connection.business._id', connection.business._id)
             if (connection.business._id.toString() == business._id.toString()) {
                 if (connection.approved) {
-                    return res.redirect(`/sites/e4d4/connected-profile/${connection._id}`)
+                    return res.redirect(`/connected-profile/${connection._id}`)
                 }
                 return res.render(`requested-profile`, { message, error, user, business, connection, calculateYearsDifference })
             }
 
-            return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+            return res.redirect(`/profile?error=Something Went Wrong`)
 
         }
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     } catch (error) {
         console.log('error on requested profile Page', error.message)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/connected-profile/:id', async (req, res) => {
+app.get('/connected-profile/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const { error, message } = req.query
@@ -537,27 +554,27 @@ app.get('/sites/e4d4/connected-profile/:id', async (req, res) => {
                 if (connection.approved) {
                     return res.render(`requested-profile`, { message, error, user, business, connection, calculateYearsDifference })
                 }
-                return res.redirect(`/sites/e4d4/connection/request/${connection._id}`)
+                return res.redirect(`/connection/request/${connection._id}`)
             }
 
-            return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+            return res.redirect(`/profile?error=Something Went Wrong`)
 
         }
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     } catch (error) {
         console.log('error on requested profile Page', error.message)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/business-dashboard', async (req, res) => {
+app.get('/business-dashboard', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         // console.log('business', business)
         if (!business) {
-            return res.redirect(`/sites/e4d4/business-login`)
+            return res.redirect(`/business-login`)
         }
 
         const requestedConnections = await Connection.find({ business: business._id, approved: false }).populate('user')
@@ -583,26 +600,26 @@ app.get('/sites/e4d4/business-dashboard', async (req, res) => {
         res.render(`business-dashboard`, { message, error, user, business, allUsers, currentPage, totalPages, totalUsers, jobs, connections })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/searchprofilehistory', async (req, res) => {
+app.get('/searchprofilehistory', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (!user) {
-            return res.redirect(`/sites/e4d4/join`)
+            return res.redirect(`/join`)
         }
         res.render(`searchprofilehistory`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/userregistration', async (req, res) => {
+app.get('/userregistration', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -610,26 +627,26 @@ app.get('/sites/e4d4/userregistration', async (req, res) => {
         res.render(`userregistration`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.get('/sites/e4d4/jobposting', async (req, res) => {
+app.get('/jobposting', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
         const business = req.business
         if (!business) {
-            res.redirect(`/sites/e4d4/join`)
+            res.redirect(`/join`)
             return
         }
         res.render(`jobposting`, { message, error, user, business })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/jobdetails/:id', async (req, res) => {
+app.get('/jobdetails/:id', async (req, res) => {
     try {
         const { error, message } = req.query
         const id = req.params.id
@@ -639,10 +656,10 @@ app.get('/sites/e4d4/jobdetails/:id', async (req, res) => {
         res.render(`jobdetails`, { message, error, user, business, job, formatDate })
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/editjob/:id', async (req, res) => {
+app.get('/editjob/:id', async (req, res) => {
     try {
         const { error, message } = req.query
         const id = req.params.id
@@ -652,13 +669,13 @@ app.get('/sites/e4d4/editjob/:id', async (req, res) => {
         if (job?.company?._id.toString() == business?._id.toString()) {
             return res.render(`jobedit`, { message, error, user, business, job, formatDate })
         }
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
-app.get('/sites/e4d4/chat', async (req, res) => {
+app.get('/chat', async (req, res) => {
     try {
         const { error, message } = req.query
         const user = req.user
@@ -669,10 +686,10 @@ app.get('/sites/e4d4/chat', async (req, res) => {
         let availableList = []
         let recipent
         if (!user && !business) {
-            return res.redirect(`/sites/e4d4/join?error=Login to Chat`)
+            return res.redirect(`/join?error=Login to Chat`)
         }
         if (user) {
-            const connections = await Connection.find({ user: user._id }).populate('business')
+            const connections = await Connection.find({ user: user._id, approved: true }).populate('business')
             for (let item of connections) {
                 const unreadMessages = await Chat.find({ recipent: item._id, isRead: false })
                 const lastMessage = await Chat.findOne({
@@ -685,7 +702,7 @@ app.get('/sites/e4d4/chat', async (req, res) => {
             }
             recipent = await Business.findById(recipentBusiness)
         } else if (business) {
-            const connections = await Connection.find({ business: business._id }).populate('user')
+            const connections = await Connection.find({ business: business._id, approved: true }).populate('user')
             for (let item of connections) {
                 const unreadMessages = await Chat.find({ recipent: item._id, isRead: false })
                 const lastMessage = await Chat.findOne({
@@ -722,11 +739,11 @@ app.get('/sites/e4d4/chat', async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        return res.redirect(`/sites/e4d4/profile?error=Something Went Wrong`)
+        return res.redirect(`/profile?error=Something Went Wrong`)
     }
 })
 
-app.use('/sites/e4d4/api', require('./controller/apihandler'))
+app.use('/api', require('./controller/apihandler'))
 
 io.on('connection', socket => {
     try {
@@ -771,5 +788,5 @@ io.on('connection', socket => {
     }
 });
 server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}/sites/e4d4`);
+    console.log(`Server is running on http://localhost:${PORT}/`);
 });

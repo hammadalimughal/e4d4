@@ -16,7 +16,7 @@
       <div class="dashboard-main-setting profile-info mx-auto">
         <div class="profile-history">
           <div class="profile-person-history">
-            <img src="/sites/e4d4<%= company.profilePic ? company.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
+            <img src="<%= company.profilePic ? company.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
             <div class="px-3">
               <h6><%= company.fullName ? company.fullName : 'Company Name Here' %></h6>
               <span><%= company.subHeading ? company.subHeading : 'Enter Sub Heading' %></span>
@@ -35,16 +35,16 @@
                     }
                   })
                   if(connectionSent){ %>
-            <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/sites/e4d4/api/connection/delete" method="POST">
+            <form class="dangerous-form" data-warning="Do you want to Delete the Connection?" action="/api/connection/delete" method="POST">
               <input type="hidden" name="id" value="<%= connectionId._id %>">
               <input type="hidden" name="business" value="<%= company._id %>">
               <input type="hidden" name="user" value="<%= user.id %>">
               <button class="dash-btn bg-danger" type="submit"> <%= connectionApproved ? 'Remove Connection' : 'Delete Connection Request' %></button>
             </form>
             <% } else { %>
-            <a href="/sites/e4d4/connection-request?company=<%= company._id %>" class="dash-btn">Connect</a>
+            <a href="/connection-request?company=<%= company._id %>" class="dash-btn">Connect</a>
             <% } %>
-            <a class="chat-btn" href="/sites/e4d4/chat"><i class="bi bi-chat"></i></a>
+            <a class="chat-btn" href="/chat"><i class="bi bi-chat"></i></a>
             <div class="dropdown-wrapper">
               <% const unreadNotificationCount = user?.notifications.filter(notification => !notification.isRead).length; %>
               <button type="button" class="dropdown-toggler logout-btn">
@@ -77,7 +77,7 @@
         <div class="row justify-content-between my-4">
           <div class="col-lg-4 col-12">
             <div class="history-btn-design">
-              <a href="/sites/e4d4/dashboard" class="dash-btn">
+              <a href="/dashboard" class="dash-btn">
                 Dashboard</a>
               <!-- <button type="button" class="dash-btn">
                 Show History</button> -->
@@ -87,11 +87,11 @@
         <h5 class="fw-bold text-center fw-head">Business / Portfolio</h5>
         <div class="profile-banner">
           <div class="banner-cover">
-            <img class="img-fluid" src="/sites/e4d4<%= company.coverPhoto ? company.coverPhoto : '/assets/img/cover.png' %>" alt="">
+            <img class="img-fluid" src="<%= company.coverPhoto ? company.coverPhoto : '/assets/img/cover.png' %>" alt="">
           </div>
           <div class="banner-info">
             <div class="profile-person-history large-img">
-              <img src="/sites/e4d4<%= company.profilePic ? company.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
+              <img src="<%= company.profilePic ? company.profilePic : '/assets/img/business-icon.jpg' %>" alt="">
               <div class="px-3 pb-2">
                 <h5><%= company.fullName ? company.fullName : 'Company Name Here' %><span> (<%= company.industry ? company.industry : 'Industry Here' %>)</span></h5>
                 <span><%= company['subHeading'] ? company['subHeading'] : 'Enter Sub Heading' %></span>
@@ -135,9 +135,9 @@
                   <!-- <a href="javascript:;">
                     <i class="bi bi-play-fill"></i>
                   </a> -->
-                  <!-- <img src="/sites/e4d4/assets/img/video-poster.png"> -->
+                  <!-- <img src="/assets/img/video-poster.png"> -->
                   <video controls>
-                    <source src="/sites/e4d4<%= company.profileVideo %>">
+                    <source src="<%= company.profileVideo %>">
                   </video>
                 </div>
                 <% } %>
@@ -172,7 +172,7 @@
                   <span>Logo</span> -->
                   <!-- <span>skills</span> -->
                 </div>
-                <img class="img-fluid mt-3" src="/sites/e4d4/assets/img/social.png" alt="">
+                <img class="img-fluid mt-3" src="/assets/img/social.png" alt="">
                 <div class="follow-more">
                   <% if(company.socialLinks?.length > 0) { %>
                   <h6>Follow To Know More About Me!
@@ -181,7 +181,7 @@
                     <% company.socialLinks?.forEach((item) => { %>
                     <li>
                       <a href="<%= item.baseUrl %><%= item.username %>" target="_blank">
-                        <img src="/sites/e4d4/assets/img/social-icons/<%= item.platform %>.png" alt="">
+                        <img src="/assets/img/social-icons/<%= item.platform %>.png" alt="">
                       </a>
                     </li>
                     <% }) %>
@@ -214,8 +214,8 @@
                 <% company.businessImages.forEach((item) => { %>
                 <div class="col-lg-4 col-12">
                   <!-- Display each uploaded image -->
-                  <a href="/sites/e4d4<%= item %>" class="business-image d-block">
-                    <img class="w-100" src="/sites/e4d4<%= item %>" alt="Business Image">
+                  <a href="<%= item %>" class="business-image d-block">
+                    <img class="w-100" src="<%= item %>" alt="Business Image">
                   </a>
                 </div>
                 <% }) %>
@@ -234,7 +234,7 @@
                 <% jobs.forEach((item) => { %>
                 <div class="col-lg-4 col-md-6 col-12">
                   <div class="job-card">
-                    <h5><a href="/sites/e4d4/jobdetails/<%= item._id %>"><%= item.title %></a></h5>
+                    <h5><a href="/jobdetails/<%= item._id %>"><%= item.title %></a></h5>
                     <ul>
                       <li><%= item.jobType %></li>
                       <li><%= item.position %></li>
@@ -242,7 +242,7 @@
                     </ul>
                     <p><%= item.summary %></p>
                     <p><%= item.additionalInfo %></p>
-                    <a href="/sites/e4d4/jobdetails/<%= item._id %>">View More</a>
+                    <a href="/jobdetails/<%= item._id %>">View More</a>
                   </div>
                 </div>
                 <% }) %>
