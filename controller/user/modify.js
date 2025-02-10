@@ -149,10 +149,23 @@ const imageFilter = (req, file, cb) => {
         cb(null, false);
     }
 };
+const mediaFilter = (req, file, cb) => {
+    console.log("file", file);
+    if (
+        file.mimetype === "image/jpeg" || 
+        file.mimetype === "image/png" || 
+        file.mimetype === "video/mp4"
+    ) {
+        cb(null, true);
+    } else {
+        cb(new Error("Only JPEG, PNG, and MP4 files are allowed!"), false);
+    }
+};
 
 // Set up multer for video uploads
 const uploadProfileVideo = multer({ storage: storageVideo, fileFilter: fileFilter });
 const uploadImage = multer({ storage: storageImage, fileFilter: imageFilter });
+const uploadMedia = multer({ storage: storageImage, fileFilter: mediaFilter });
 const uploadProfileImage = multer({ storage: storageProfilePic, fileFilter: imageFilter });
 const uploadCoverPhoto = multer({ storage: storageCoverPhoto, fileFilter: imageFilter });
 const uploadResume = multer({ storage: storageResume, fileFilter: docFilter });
@@ -302,7 +315,7 @@ router.post('/social-info', async (req, res) => {
 });
 
 // project upload route
-router.post('/project', uploadImage.single("image"), async (req, res, next) => {
+router.post('/project', uploadMedia.single("image"), async (req, res, next) => {
     try {
         const image = req.file;
         const { title, id } = req.body
@@ -973,21 +986,24 @@ router.post('/personal-document/remove', async (req, res, next) => {
             { new: true } // Return the updated document
         );
         if (!updatedUser) {
-            return res.json({
-                success: false,
-                error: 'Something Went Wrong'
-            })
+            // return res.json({
+            //     success: false,
+            //     error: 'Something Went Wrong'
+            // })
+            return res.redirect('/edit/profile?error=Something Went Wrong')
         }
-        return res.json({
-            success: true,
-            message: 'Personal Document Deleted!'
-        })
+        // return res.json({
+        //     success: true,
+        //     message: 'Personal Document Deleted!'
+        // })
+        return res.redirect('/edit/profile?success=Personal Document Deleted!')
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({
-            success: false,
-            error: error.message
-        });
+        // res.status(500).json({
+        //     success: false,
+        //     error: error.message
+        // });
+        return res.redirect(`/edit/profile?error=${error.message}`)
     }
 });
 

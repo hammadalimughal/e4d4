@@ -410,7 +410,7 @@ label .custom-checkbox {
     font-family: "Gilroy-Medium";
     color: #6c757d;
     /* Bootstrap's .text-secondary color */
-    margin-right: 3rem;
+    margin-right: rem;
     /* Adjust the negative margin to align the circle properly */
     flex-grow: 1;
     transition: background-color 0.3s ease
@@ -2786,11 +2786,13 @@ input:checked+label .select-documents .fa-file {
     width: 100%;
 }
 
+.project-listing .project-item video,
 .project-listing .project-item img {
     width: 100%;
     height: 200px;
     object-fit: cover;
     object-position: center top;
+    border-radius: 20px;
 }
 
 .project-listing .project-item h6 {

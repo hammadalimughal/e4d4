@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <h5 class="fw-bold text-center fw-head">Profile / Portfolio</h5>
+        <h5 class="fw-bold text-center fw-head">Profile Portfolio</h5>
         <div class="profile-banner">
           <div class="banner-cover">
             <label for="cover-photo-input" class="edit-btn">
@@ -398,9 +398,15 @@
                     <h6>
                       <%= item.title %>
                     </h6>
-                    <a href="<%= item.image %>" data-fancybox="Projects">
-                      <img class="img-fluid" src="<%= item.image %>" alt="<%= item.title %>">
-                    </a>
+                    <% if(item.image.split('.')[1].includes('mp4')){ %>
+                      <video class="w-100" controls>
+                        <source src="<%= item.image %>">
+                      </video>
+                      <% } else { %>
+                        <a href="<%= item.image %>" data-fancybox="Projects">
+                          <img class="img-fluid" src="<%= item.image %>" alt="<%= item.title %>">
+                        </a>
+                    <% } %>
                   </div>
                 </div>
                 <% }) %>
@@ -785,8 +791,8 @@
               </div>
               <div class="col-12">
                 <div class="portfolio-form-design">
-                  <label for="project-image" class="form-label">Image*</label>
-                  <input type="file" name="image" id="project-image" class="form-control" placeholder="Enter Title..." value="" accept=".png, .jpg, .jpeg" required>
+                  <label for="project-image" class="form-label">Media*</label>
+                  <input type="file" name="image" id="project-image" class="form-control" placeholder="Enter Title..." value="" accept=".png, .jpg, .jpeg, .mp4" required>
                 </div>
               </div>
             </div>

@@ -16,32 +16,57 @@
             <h1 class="text-center">Unlocking Potential <br>
                 <span class="italic-words">Maximizing Talent</span>
             </h1>
-            <form>
+            <% if(user) { %>
+            <form action="/dashboard" method="GET">
                 <div class="row bg-white d-flex py-4 center-btn-row">
-                    <div class="col-5 d-flex justify-content-center hero-input">
-                        <div class=" col-1-btn d-flex align-items-center">
-                            <input type="text" class="form-control" placeholder="What are you looking for?"
-                                name="Search">
-                            <div class="circle">
-                                <i class="bi bi-search text-white"></i>
+                    <div class="col-lg-10 col-12">
+                        <div class="row g-4">
+                            <div class="col-lg-3 col-12 d-flex justify-content-center hero-input">
+                                <div class="col-1-btn d-flex align-items-center">
+                                    <input type="text" class="form-control" placeholder="Business Name"
+                                        name="title">
+                                    <div class="circle">
+                                        <i class="bi bi-search text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-12 d-flex justify-content-center hero-input">
+                                <div class="col-1-btn d-flex align-items-center">
+                                    <input type="text" class="form-control" placeholder="Location history"
+                                        name="location">
+                                    <div class="circle ">
+                                        <i class="bi bi-geo-alt-fill text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-12 d-flex justify-content-center hero-input">
+                                <div class="col-1-btn d-flex align-items-center">
+                                    <input type="text" class="form-control" placeholder="Industry Search"
+                                        name="industry">
+                                    <div class="circle ">
+                                        <i class="bi bi-geo-alt-fill text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-12 d-flex justify-content-center hero-input">
+                                <div class="col-1-btn d-flex align-items-center">
+                                    <input type="text" class="form-control" placeholder="Position Search"
+                                        name="position">
+                                    <div class="circle ">
+                                        <i class="bi bi-geo-alt-fill text-white"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-5 d-flex justify-content-center hero-input">
-                        <div class="col-1-btn d-flex align-items-center">
-                            <input type="text" class="form-control" placeholder="Location, City or Postcode?"
-                                name="Location">
-                            <div class="circle ">
-                                <i class="bi bi-geo-alt-fill text-white"></i>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="col-2 d-flex justify-content-center hero-submit-btn">
-                        <button type="button" class="submit-btn">Search</button>
+                        <button type="submit" class="submit-btn">Search</button>
 
                     </div>
                 </div>
             </form>
+            <% } %>
             <div class="row under-sentence  ">
                 <p class="text-center">Australia's largest collection of trusted local businesses reviewed by you.</p>
             </div>
